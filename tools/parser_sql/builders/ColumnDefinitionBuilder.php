@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ColumnDefinitionBuilder.php
  *
@@ -38,11 +39,11 @@
  * @version   SVN: $Id: ColumnDefinitionBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ColumnReferenceBuilder.php';
 require_once dirname(__FILE__) . '/ColumnTypeBuilder.php';
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
+
 /**
  * This class implements the builder for the columndefinition statement part 
  * of CREATE TABLE. You can overwrite all functions to achieve another handling.
@@ -63,7 +64,7 @@ class ColumnDefinitionBuilder {
         return $builder->build($parsed);
     }
 
-   public function build($parsed) {
+    public function build($parsed) {
         if ($parsed['expr_type'] !== ExpressionType::COLDEF) {
             return "";
         }
@@ -81,5 +82,7 @@ class ColumnDefinitionBuilder {
         }
         return substr($sql, 0, -1);
     }
+
 }
+
 ?>

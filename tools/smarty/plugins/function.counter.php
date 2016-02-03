@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -21,20 +22,19 @@
  *
  * @return string|null
  */
-function smarty_function_counter($params, $template)
-{
+function smarty_function_counter($params, $template) {
     static $counters = array();
 
     $name = (isset($params['name'])) ? $params['name'] : 'default';
     if (!isset($counters[$name])) {
         $counters[$name] = array(
-            'start'     => 1,
-            'skip'      => 1,
+            'start' => 1,
+            'skip' => 1,
             'direction' => 'up',
-            'count'     => 1
+            'count' => 1
         );
     }
-    $counter =& $counters[$name];
+    $counter = & $counters[$name];
 
     if (isset($params['start'])) {
         $counter['start'] = $counter['count'] = (int) $params['start'];

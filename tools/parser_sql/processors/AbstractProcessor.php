@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AbstractProcessor.php
  *
@@ -29,7 +30,6 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../lexer/PHPSQLLexer.php';
 
@@ -134,16 +134,16 @@ abstract class AbstractProcessor {
         $type = substr($expression, 2, strpos($expression, ".", 2));
 
         switch ($type) {
-        case 'GLOBAL':
-            $type = ExpressionType::GLOBAL_VARIABLE;
-            break;
-        case 'LOCAL':
-            $type = ExpressionType::LOCAL_VARIABLE;
-            break;
-        case 'SESSION':
-        default:
-            $type = ExpressionType::SESSION_VARIABLE;
-            break;
+            case 'GLOBAL':
+                $type = ExpressionType::GLOBAL_VARIABLE;
+                break;
+            case 'LOCAL':
+                $type = ExpressionType::LOCAL_VARIABLE;
+                break;
+            case 'SESSION':
+            default:
+                $type = ExpressionType::SESSION_VARIABLE;
+                break;
         }
         return $type;
     }
@@ -157,8 +157,7 @@ abstract class AbstractProcessor {
     }
 
     protected function isCommentToken($token) {
-        return isset($token[0]) && isset($token[1])
-            && (($token[0] === '-' && $token[1] === '-') || ($token[0] === '/' && $token[1] === '*'));
+        return isset($token[0]) && isset($token[1]) && (($token[0] === '-' && $token[1] === '-') || ($token[0] === '/' && $token[1] === '*'));
     }
 
     protected function isColumnReference($out) {
@@ -206,9 +205,10 @@ abstract class AbstractProcessor {
 
     protected function array_insert_after($array, $key, $entry) {
         $idx = array_search($key, array_keys($array));
-        $array = array_slice($array, 0, $idx + 1, true) + $entry
-            + array_slice($array, $idx + 1, count($array) - 1, true);
+        $array = array_slice($array, 0, $idx + 1, true) + $entry + array_slice($array, $idx + 1, count($array) - 1, true);
         return $array;
     }
+
 }
+
 ?>

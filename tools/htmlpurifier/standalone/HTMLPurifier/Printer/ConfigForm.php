@@ -3,8 +3,7 @@
 /**
  * @todo Rewrite to use Interchange objects
  */
-class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
-{
+class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer {
 
     /**
      * Printers for specific fields.
@@ -38,9 +37,7 @@ class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
      * @param bool $compress Integer max length before compressing a directive name, set to false to turn off
      */
     public function __construct(
-        $name,
-        $doc_url = null,
-        $compress = false
+    $name, $doc_url = null, $compress = false
     ) {
         parent::__construct();
         $this->docURL = $doc_url;
@@ -56,8 +53,7 @@ class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
      * @param $cols Integer columns of textarea, null to use default
      * @param $rows Integer rows of textarea, null to use default
      */
-    public function setTextareaDimensions($cols = null, $rows = null)
-    {
+    public function setTextareaDimensions($cols = null, $rows = null) {
         if ($cols) {
             $this->fields['default']->cols = $cols;
         }
@@ -69,16 +65,14 @@ class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
     /**
      * Retrieves styling, in case it is not accessible by webserver
      */
-    public static function getCSS()
-    {
+    public static function getCSS() {
         return file_get_contents(HTMLPURIFIER_PREFIX . '/HTMLPurifier/Printer/ConfigForm.css');
     }
 
     /**
      * Retrieves JavaScript, in case it is not accessible by webserver
      */
-    public static function getJavaScript()
-    {
+    public static function getJavaScript() {
         return file_get_contents(HTMLPURIFIER_PREFIX . '/HTMLPurifier/Printer/ConfigForm.js');
     }
 
@@ -90,8 +84,7 @@ class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
      * @param bool $render_controls
      * @return string
      */
-    public function render($config, $allowed = true, $render_controls = true)
-    {
+    public function render($config, $allowed = true, $render_controls = true) {
         if (is_array($config) && isset($config[0])) {
             $gen_config = $config[0];
             $config = $config[1];
@@ -141,8 +134,7 @@ class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
      * @param array $directives array of directives to values
      * @return string
      */
-    protected function renderNamespace($ns, $directives)
-    {
+    protected function renderNamespace($ns, $directives) {
         $ret = '';
         $ret .= $this->start('tbody', array('class' => 'namespace'));
         $ret .= $this->start('tr');
@@ -168,10 +160,9 @@ class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
             }
 
             $ret .= $this->element(
-                'label',
-                $directive_disp,
-                // component printers must create an element with this id
-                $attr
+                    'label', $directive_disp,
+                    // component printers must create an element with this id
+                    $attr
             );
             if ($this->docURL) {
                 $ret .= $this->end('a');
@@ -207,8 +198,8 @@ class HTMLPurifier_Printer_ConfigForm extends HTMLPurifier_Printer
 /**
  * Printer decorator for directives that accept null
  */
-class HTMLPurifier_Printer_ConfigForm_NullDecorator extends HTMLPurifier_Printer
-{
+class HTMLPurifier_Printer_ConfigForm_NullDecorator extends HTMLPurifier_Printer {
+
     /**
      * Printer being decorated
      * @type HTMLPurifier_Printer
@@ -218,8 +209,7 @@ class HTMLPurifier_Printer_ConfigForm_NullDecorator extends HTMLPurifier_Printer
     /**
      * @param HTMLPurifier_Printer $obj Printer to decorate
      */
-    public function __construct($obj)
-    {
+    public function __construct($obj) {
         parent::__construct();
         $this->obj = $obj;
     }
@@ -232,8 +222,7 @@ class HTMLPurifier_Printer_ConfigForm_NullDecorator extends HTMLPurifier_Printer
      * @param HTMLPurifier_Config|array $config
      * @return string
      */
-    public function render($ns, $directive, $value, $name, $config)
-    {
+    public function render($ns, $directive, $value, $name, $config) {
         if (is_array($config) && isset($config[0])) {
             $gen_config = $config[0];
             $config = $config[1];
@@ -257,9 +246,8 @@ class HTMLPurifier_Printer_ConfigForm_NullDecorator extends HTMLPurifier_Printer
         );
         if ($this->obj instanceof HTMLPurifier_Printer_ConfigForm_bool) {
             // modify inline javascript slightly
-            $attr['onclick'] =
-                "toggleWriteability('$name:Yes_$ns.$directive',checked);" .
-                "toggleWriteability('$name:No_$ns.$directive',checked)";
+            $attr['onclick'] = "toggleWriteability('$name:Yes_$ns.$directive',checked);" .
+                    "toggleWriteability('$name:No_$ns.$directive',checked)";
         }
         if ($value === null) {
             $attr['checked'] = 'checked';
@@ -270,13 +258,14 @@ class HTMLPurifier_Printer_ConfigForm_NullDecorator extends HTMLPurifier_Printer
         $ret .= $this->obj->render($ns, $directive, $value, $name, array($gen_config, $config));
         return $ret;
     }
+
 }
 
 /**
  * Swiss-army knife configuration form field printer
  */
-class HTMLPurifier_Printer_ConfigForm_default extends HTMLPurifier_Printer
-{
+class HTMLPurifier_Printer_ConfigForm_default extends HTMLPurifier_Printer {
+
     /**
      * @type int
      */
@@ -295,8 +284,7 @@ class HTMLPurifier_Printer_ConfigForm_default extends HTMLPurifier_Printer
      * @param HTMLPurifier_Config|array $config
      * @return string
      */
-    public function render($ns, $directive, $value, $name, $config)
-    {
+    public function render($ns, $directive, $value, $name, $config) {
         if (is_array($config) && isset($config[0])) {
             $gen_config = $config[0];
             $config = $config[1];
@@ -320,7 +308,7 @@ class HTMLPurifier_Printer_ConfigForm_default extends HTMLPurifier_Printer
                     foreach ($array as $val => $b) {
                         $value[] = $val;
                     }
-                    //TODO does this need a break?
+                //TODO does this need a break?
                 case HTMLPurifier_VarParser::ALIST:
                     $value = implode(PHP_EOL, $value);
                     break;
@@ -373,13 +361,14 @@ class HTMLPurifier_Printer_ConfigForm_default extends HTMLPurifier_Printer
         }
         return $ret;
     }
+
 }
 
 /**
  * Bool form field printer
  */
-class HTMLPurifier_Printer_ConfigForm_bool extends HTMLPurifier_Printer
-{
+class HTMLPurifier_Printer_ConfigForm_bool extends HTMLPurifier_Printer {
+
     /**
      * @param string $ns
      * @param string $directive
@@ -388,8 +377,7 @@ class HTMLPurifier_Printer_ConfigForm_bool extends HTMLPurifier_Printer
      * @param HTMLPurifier_Config|array $config
      * @return string
      */
-    public function render($ns, $directive, $value, $name, $config)
-    {
+    public function render($ns, $directive, $value, $name, $config) {
         if (is_array($config) && isset($config[0])) {
             $gen_config = $config[0];
             $config = $config[1];
@@ -442,6 +430,7 @@ class HTMLPurifier_Printer_ConfigForm_bool extends HTMLPurifier_Printer
 
         return $ret;
     }
+
 }
 
 // vim: et sw=4 sts=4

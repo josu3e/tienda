@@ -23,8 +23,8 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="panel-heading">
-	{if isset($title)}<i class="icon-sitemap"></i>&nbsp;{l s=$title}{/if}
-	<div class="pull-right">
-		{if isset($toolbar)}{$toolbar}{/if}
-	</div>
+    {if isset($title)}<i class="icon-sitemap"></i>&nbsp;{l s=$title}{/if}
+    <div class="pull-right">
+    {if isset($toolbar)}{$toolbar}{/if}
+</div>
 </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile For
  * Compiles the {for} {forelse} {/for} tags
@@ -14,8 +15,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
-{
+class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
+
     /**
      * Compiles code for the {for} tag
      * Smarty 3 does implement two different syntax's:
@@ -32,8 +33,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
-    {
+    public function compile($args, $compiler, $parameter) {
         if ($parameter == 0) {
             $this->required_attributes = array('start', 'to');
             $this->optional_attributes = array('max', 'step');
@@ -77,6 +77,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
         // return compiled code
         return $output;
     }
+
 }
 
 /**
@@ -85,8 +86,8 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
-{
+class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase {
+
     /**
      * Compiles code for the {forelse} tag
      *
@@ -96,8 +97,7 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
-    {
+    public function compile($args, $compiler, $parameter) {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -106,6 +106,7 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
 
         return "<?php }} else { ?>";
     }
+
 }
 
 /**
@@ -114,8 +115,8 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
-{
+class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase {
+
     /**
      * Compiles code for the {/for} tag
      *
@@ -125,8 +126,7 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
-    {
+    public function compile($args, $compiler, $parameter) {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         // must endblock be nocache?
@@ -142,4 +142,5 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
             return "<?php }} ?>";
         }
     }
+
 }

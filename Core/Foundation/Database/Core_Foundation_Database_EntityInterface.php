@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,9 +24,8 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+interface Core_Foundation_Database_EntityInterface {
 
-interface Core_Foundation_Database_EntityInterface
-{
     /**
      * Returns the name of the repository class for this entity.
      * If unspecified, a generic repository will be used for the entity.

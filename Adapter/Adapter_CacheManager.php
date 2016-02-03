@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,16 +24,15 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class Adapter_CacheManager {
 
-class Adapter_CacheManager
-{
     /**
      * Cleans the cache for specific cache key.
      *
      * @param $key
      */
-    public function clean($key)
-    {
+    public function clean($key) {
         Cache::clean($key);
     }
+
 }

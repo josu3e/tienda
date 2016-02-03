@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Append
  * Compiles the {append} tag
@@ -14,8 +15,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign
-{
+class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign {
+
     /**
      * Compiles code for the {append} tag
      *
@@ -25,8 +26,7 @@ class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
-    {
+    public function compile($args, $compiler, $parameter) {
         // the following must be assigned at runtime because it will be overwritten in parent class
         $this->required_attributes = array('var', 'value');
         $this->shorttag_order = array('var', 'value');
@@ -47,4 +47,5 @@ class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign
         // call compile assign
         return parent::compile($_new_attr, $compiler, $_params);
     }
+
 }

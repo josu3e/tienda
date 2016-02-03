@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,9 +24,8 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class Adapter_AddressFactory {
 
-class Adapter_AddressFactory
-{
     /**
      * Initilize an address corresponding to the specified id address or if empty to the
      * default shop configuration
@@ -33,8 +33,7 @@ class Adapter_AddressFactory
      * @param bool $with_geoloc
      * @return Address
      */
-    public function findOrCreate($id_address = null, $with_geoloc = false)
-    {
+    public function findOrCreate($id_address = null, $with_geoloc = false) {
         $func_args = func_get_args();
         return call_user_func_array(array('Address', 'initialize'), $func_args);
     }
@@ -44,8 +43,8 @@ class Adapter_AddressFactory
      * @param $id_address
      * @return bool
      */
-    public function addressExists($id_address)
-    {
+    public function addressExists($id_address) {
         return Address::addressExists($id_address);
     }
+
 }

@@ -23,9 +23,9 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="tree-actions pull-right">
-	{if isset($actions)}
-	{foreach from=$actions item=action}
-		{$action->render()}
-	{/foreach}
-	{/if}
+    {if isset($actions)}
+        {foreach from=$actions item=action}
+            {$action->render()}
+        {/foreach}
+    {/if}
 </div>

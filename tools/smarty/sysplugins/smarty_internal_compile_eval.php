@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Eval
  * Compiles the {eval} tag.
@@ -14,8 +15,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase
-{
+class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -23,6 +24,7 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('var');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -30,6 +32,7 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $optional_attributes = array('assign');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -46,8 +49,7 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler)
-    {
+    public function compile($args, $compiler) {
         $this->required_attributes = array('var');
         $this->optional_attributes = array('assign');
         // check and get attributes
@@ -68,4 +70,5 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase
 
         return "<?php $_output ?>";
     }
+
 }

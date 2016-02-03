@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ReservedBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: ReservedBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 
 /**
@@ -54,12 +54,14 @@ class ReservedBuilder {
     public function isReserved($parsed) {
         return ($parsed['expr_type'] === ExpressionType::RESERVED);
     }
-    
+
     public function build($parsed) {
         if (!$this->isReserved($parsed)) {
             return "";
         }
         return $parsed['base_expr'];
     }
+
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OperatorBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: OperatorBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 
 /**
@@ -57,5 +57,7 @@ class OperatorBuilder {
         }
         return $parsed['base_expr'];
     }
+
 }
+
 ?>

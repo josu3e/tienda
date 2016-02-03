@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -27,12 +28,11 @@
 /**
  * @property SpecificPriceRule $object
  */
-class AdminSpecificPriceRuleControllerCore extends AdminController
-{
+class AdminSpecificPriceRuleControllerCore extends AdminController {
+
     public $list_reduction_type;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->bootstrap = true;
         $this->table = 'specific_price_rule';
         $this->className = 'SpecificPriceRule';
@@ -40,7 +40,7 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
         $this->multishop_context = Shop::CONTEXT_ALL;
 
         /* if $_GET['id_shop'] is transmitted, virtual url can be loaded in config.php, so we wether transmit shop_id in herfs */
-        if ($this->id_shop = (int)Tools::getValue('shop_id')) {
+        if ($this->id_shop = (int) Tools::getValue('shop_id')) {
             $_GET['id_shop'] = $this->id_shop;
             $_POST['id_shop'] = $this->id_shop;
         }
@@ -56,10 +56,10 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
         $this->context = Context::getContext();
 
         $this->_select = 's.name shop_name, cu.name currency_name, cl.name country_name, gl.name group_name';
-        $this->_join = 'LEFT JOIN '._DB_PREFIX_.'shop s ON (s.id_shop = a.id_shop)
-		LEFT JOIN '._DB_PREFIX_.'currency cu ON (cu.id_currency = a.id_currency)
-		LEFT JOIN '._DB_PREFIX_.'country_lang cl ON (cl.id_country = a.id_country AND cl.id_lang='.(int)$this->context->language->id.')
-		LEFT JOIN '._DB_PREFIX_.'group_lang gl ON (gl.id_group = a.id_group AND gl.id_lang='.(int)$this->context->language->id.')';
+        $this->_join = 'LEFT JOIN ' . _DB_PREFIX_ . 'shop s ON (s.id_shop = a.id_shop)
+		LEFT JOIN ' . _DB_PREFIX_ . 'currency cu ON (cu.id_currency = a.id_currency)
+		LEFT JOIN ' . _DB_PREFIX_ . 'country_lang cl ON (cl.id_country = a.id_country AND cl.id_lang=' . (int) $this->context->language->id . ')
+		LEFT JOIN ' . _DB_PREFIX_ . 'group_lang gl ON (gl.id_group = a.id_group AND gl.id_lang=' . (int) $this->context->language->id . ')';
         $this->_use_found_rows = false;
 
         $this->bulk_actions = array(
@@ -133,11 +133,10 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
         parent::__construct();
     }
 
-    public function initPageHeaderToolbar()
-    {
+    public function initPageHeaderToolbar() {
         if (empty($this->display)) {
             $this->page_header_toolbar_btn['new_specific_price_rule'] = array(
-                'href' => self::$currentIndex.'&addspecific_price_rule&token='.$this->token,
+                'href' => self::$currentIndex . '&addspecific_price_rule&token=' . $this->token,
                 'desc' => $this->l('Add new catalog price rule', null, null, false),
                 'icon' => 'process-icon-new'
             );
@@ -146,8 +145,7 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
         parent::initPageHeaderToolbar();
     }
 
-    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false)
-    {
+    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false) {
         parent::getList($id_lang, $order_by, $order_way, $start, $limit, $id_lang_shop);
 
         foreach ($this->_list as $k => $list) {
@@ -159,8 +157,7 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
         }
     }
 
-    public function renderForm()
-    {
+    public function renderForm() {
         if (!$this->object->id) {
             $this->object->price = -1;
         }
@@ -177,7 +174,7 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
                     'name' => 'name',
                     'maxlength' => 32,
                     'required' => true,
-                    'hint' => $this->l('Forbidden characters').' <>;=#{}'
+                    'hint' => $this->l('Forbidden characters') . ' <>;=#{}'
                 ),
                 array(
                     'type' => 'select',
@@ -206,7 +203,7 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
                     'label' => $this->l('Country'),
                     'name' => 'id_country',
                     'options' => array(
-                        'query' => array_merge(array(0 => array('id_country' => 0, 'name' => $this->l('All countries'))), Country::getCountries((int)$this->context->language->id)),
+                        'query' => array_merge(array(0 => array('id_country' => 0, 'name' => $this->l('All countries'))), Country::getCountries((int) $this->context->language->id)),
                         'id' => 'id_country',
                         'name' => 'name'
                     ),
@@ -216,7 +213,7 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
                     'label' => $this->l('Group'),
                     'name' => 'id_group',
                     'options' => array(
-                        'query' => array_merge(array(0 => array('id_group' => 0, 'name' => $this->l('All groups'))), Group::getGroups((int)$this->context->language->id)),
+                        'query' => array_merge(array(0 => array('id_group' => 0, 'name' => $this->l('All groups'))), Group::getGroups((int) $this->context->language->id)),
                         'id' => 'id_group',
                         'name' => 'name'
                     ),
@@ -235,7 +232,6 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
                     'disabled' => ($this->object->price == -1 ? 1 : 0),
                     'maxlength' => 10,
                     'suffix' => $this->context->currency->getSign('right'),
-
                 ),
                 array(
                     'type' => 'checkbox',
@@ -280,9 +276,9 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
                     'align' => 'center',
                     'options' => array(
                         'query' => array(
-                                        array('lab' => $this->l('Tax included'), 'val' => 1),
-                                        array('lab' => $this->l('Tax excluded'), 'val' => 0),
-                                    ),
+                            array('lab' => $this->l('Tax included'), 'val' => 1),
+                            array('lab' => $this->l('Tax excluded'), 'val' => 0),
+                        ),
                         'id' => 'val',
                         'name' => 'lab',
                     )
@@ -313,10 +309,10 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
         );
 
         $attribute_groups = array();
-        $attributes = Attribute::getAttributes((int)$this->context->language->id);
+        $attributes = Attribute::getAttributes((int) $this->context->language->id);
         foreach ($attributes as $attribute) {
             if (!isset($attribute_groups[$attribute['id_attribute_group']])) {
-                $attribute_groups[$attribute['id_attribute_group']]  = array(
+                $attribute_groups[$attribute['id_attribute_group']] = array(
                     'id_attribute_group' => $attribute['id_attribute_group'],
                     'name' => $attribute['attribute_group']
                 );
@@ -326,9 +322,9 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
                 'name' => $attribute['name']
             );
         }
-        $features = Feature::getFeatures((int)$this->context->language->id);
+        $features = Feature::getFeatures((int) $this->context->language->id);
         foreach ($features as &$feature) {
-            $feature['values'] = FeatureValue::getFeatureValuesWithLang((int)$this->context->language->id, $feature['id_feature'], true);
+            $feature['values'] = FeatureValue::getFeatureValuesWithLang((int) $this->context->language->id, $feature['id_feature'], true);
         }
 
         $this->tpl_form_vars = array(
@@ -336,15 +332,14 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
             'suppliers' => Supplier::getSuppliers(),
             'attributes_group' => $attribute_groups,
             'features' => $features,
-            'categories' => Category::getSimpleCategories((int)$this->context->language->id),
+            'categories' => Category::getSimpleCategories((int) $this->context->language->id),
             'conditions' => $this->object->getConditions(),
             'is_multishop' => Shop::isFeatureActive()
-            );
+        );
         return parent::renderForm();
     }
 
-    public function processSave()
-    {
+    public function processSave() {
         $_POST['price'] = Tools::getValue('leave_bprice_on') ? '-1' : Tools::getValue('price');
         if (Validate::isLoadedObject(($object = parent::processSave()))) {
             /** @var SpecificPriceRule $object */
@@ -364,9 +359,9 @@ class AdminSpecificPriceRuleControllerCore extends AdminController
         }
     }
 
-    public function postProcess()
-    {
+    public function postProcess() {
         Tools::clearSmartyCache();
         return parent::postProcess();
     }
+
 }

@@ -61,8 +61,8 @@
                     {foreach from=$genders key=k item=gender}
                         <div class="radio-inline">
                             <label for="id_gender{$gender->id}" class="top">
-                            <input type="radio" name="id_gender" id="id_gender{$gender->id}" value="{$gender->id|intval}" {if isset($smarty.post.id_gender) && $smarty.post.id_gender == $gender->id}checked="checked"{/if} />
-                            {$gender->name}</label>
+                                <input type="radio" name="id_gender" id="id_gender{$gender->id}" value="{$gender->id|intval}" {if isset($smarty.post.id_gender) && $smarty.post.id_gender == $gender->id}checked="checked"{/if} />
+                                {$gender->name}</label>
                         </div>
                     {/foreach}
                 </div>
@@ -98,20 +98,20 @@
                             </select>
                         </div>
                         <div class="col-xs-4">
-							{*
-								{l s='January'}
-								{l s='February'}
-								{l s='March'}
-								{l s='April'}
-								{l s='May'}
-								{l s='June'}
-								{l s='July'}
-								{l s='August'}
-								{l s='September'}
-								{l s='October'}
-								{l s='November'}
-								{l s='December'}
-							*}
+                            {*
+                            {l s='January'}
+                            {l s='February'}
+                            {l s='March'}
+                            {l s='April'}
+                            {l s='May'}
+                            {l s='June'}
+                            {l s='July'}
+                            {l s='August'}
+                            {l s='September'}
+                            {l s='October'}
+                            {l s='November'}
+                            {l s='December'}
+                            *}
                             <select id="months" name="months" class="form-control">
                                 <option value="">-</option>
                                 {foreach from=$months key=k item=v}
@@ -153,7 +153,7 @@
                             <input type="checkbox" id="newsletter" name="newsletter" value="1" {if isset($smarty.post.newsletter) && $smarty.post.newsletter == 1} checked="checked"{/if}/>
                             {l s='Sign up for our newsletter!'}
                             {if isset($required_fields) && array_key_exists('newsletter', $field_required)}
-                              <sup> *</sup>
+                                <sup> *</sup>
                             {/if}
                         </label>
                     </div>
@@ -164,35 +164,35 @@
                             <input type="checkbox" name="optin" id="optin" value="1" {if isset($smarty.post.optin) && $smarty.post.optin == 1} checked="checked"{/if}/>
                             {l s='Receive special offers from our partners!'}
                             {if isset($required_fields) && array_key_exists('optin', $field_required)}
-                              <sup> *</sup>
+                                <sup> *</sup>
                             {/if}
                         </label>
                     </div>
                 {/if}
-			{if $b2b_enable}
-				<h1 class="page-subheading">
-					{l s='Your company information'}
-				</h1>
-				<div class="form-group">
-					<label for="">{l s='Company'}</label>
-					<input type="text" class="form-control" id="company" name="company" value="{if isset($smarty.post.company)}{$smarty.post.company}{/if}" />
-				</div>
-				<div class="form-group">
-					<label for="siret">{l s='SIRET'}</label>
-					<input type="text" class="form-control" id="siret" name="siret" value="{if isset($smarty.post.siret)}{$smarty.post.siret}{/if}" />
-				</div>
-				<div class="form-group">
-					<label for="ape">{l s='APE'}</label>
-					<input type="text" class="form-control" id="ape" name="ape" value="{if isset($smarty.post.ape)}{$smarty.post.ape}{/if}" />
-				</div>
-				<div class="form-group">
-					<label for="website">{l s='Website'}</label>
-					<input type="text" class="form-control" id="website" name="website" value="{if isset($smarty.post.website)}{$smarty.post.website}{/if}" />
-				</div>
-			{/if}
+                {if $b2b_enable}
+                    <h1 class="page-subheading">
+                        {l s='Your company information'}
+                    </h1>
+                    <div class="form-group">
+                        <label for="">{l s='Company'}</label>
+                        <input type="text" class="form-control" id="company" name="company" value="{if isset($smarty.post.company)}{$smarty.post.company}{/if}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="siret">{l s='SIRET'}</label>
+                        <input type="text" class="form-control" id="siret" name="siret" value="{if isset($smarty.post.siret)}{$smarty.post.siret}{/if}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ape">{l s='APE'}</label>
+                        <input type="text" class="form-control" id="ape" name="ape" value="{if isset($smarty.post.ape)}{$smarty.post.ape}{/if}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="website">{l s='Website'}</label>
+                        <input type="text" class="form-control" id="website" name="website" value="{if isset($smarty.post.website)}{$smarty.post.website}{/if}" />
+                    </div>
+                {/if}
                 {if isset($HOOK_CUSTOMER_IDENTITY_FORM)}
-			{$HOOK_CUSTOMER_IDENTITY_FORM}
-		{/if}
+                    {$HOOK_CUSTOMER_IDENTITY_FORM}
+                {/if}
                 <div class="form-group">
                     <button type="submit" name="submitIdentity" class="btn btn-default button button-medium">
                         <span>{l s='Save'}<i class="icon-chevron-right right"></i></span>
@@ -203,14 +203,14 @@
     {/if}
 </div>
 <ul class="footer_links clearfix">
-	<li>
+    <li>
         <a class="btn btn-default button button-small" href="{$link->getPageLink('my-account', true)}">
             <span>
                 <i class="icon-chevron-left"></i>{l s='Back to your account'}
             </span>
         </a>
     </li>
-	<li>
+    <li>
         <a class="btn btn-default button button-small" href="{if isset($force_ssl) && $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}">
             <span>
                 <i class="icon-chevron-left"></i>{l s='Home'}

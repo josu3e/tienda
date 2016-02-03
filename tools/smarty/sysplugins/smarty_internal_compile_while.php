@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile While
  * Compiles the {while} tag
@@ -14,8 +15,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
-{
+class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase {
+
     /**
      * Compiles code for the {while} tag
      *
@@ -25,8 +26,7 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
-    {
+    public function compile($args, $compiler, $parameter) {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         $this->openTag($compiler, 'while', $compiler->nocache);
@@ -62,6 +62,7 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
             return "<?php while ({$parameter['if condition']}) {?>";
         }
     }
+
 }
 
 /**
@@ -70,8 +71,8 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase
-{
+class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase {
+
     /**
      * Compiles code for the {/while} tag
      *
@@ -80,8 +81,7 @@ class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler)
-    {
+    public function compile($args, $compiler) {
         // must endblock be nocache?
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
@@ -90,4 +90,5 @@ class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase
 
         return "<?php }?>";
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ForeignKeyBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: ForeignKeyBuilder.php 927 2014-01-08 13:01:17Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ConstantBuilder.php';
@@ -75,7 +75,7 @@ class ForeignKeyBuilder {
         $builder = new ForeignRefBuilder();
         return $builder->build($parsed);
     }
-    
+
     public function build($parsed) {
         if ($parsed['expr_type'] !== ExpressionType::FOREIGN_KEY) {
             return "";
@@ -96,5 +96,7 @@ class ForeignKeyBuilder {
         }
         return substr($sql, 0, -1);
     }
+
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -27,8 +28,8 @@
 /**
  * @since 1.5
  */
-class PDFCore
-{
+class PDFCore {
+
     public $filename;
     public $pdf_renderer;
     public $objects;
@@ -47,9 +48,8 @@ class PDFCore
      * @param $smarty
      * @param string $orientation
      */
-    public function __construct($objects, $template, $smarty, $orientation = 'P')
-    {
-        $this->pdf_renderer = new PDFGenerator((bool)Configuration::get('PS_PDF_USE_CACHE'), $orientation);
+    public function __construct($objects, $template, $smarty, $orientation = 'P') {
+        $this->pdf_renderer = new PDFGenerator((bool) Configuration::get('PS_PDF_USE_CACHE'), $orientation);
         $this->template = $template;
         $this->smarty = $smarty;
 
@@ -57,8 +57,8 @@ class PDFCore
         if (!($objects instanceof Iterator) && !is_array($objects)) {
             $this->objects = array($objects);
         }
-        
-        if (count($this->objects)>1) { // when bulk mode only
+
+        if (count($this->objects) > 1) { // when bulk mode only
             $this->send_bulk_flag = true;
         }
     }
@@ -70,8 +70,7 @@ class PDFCore
      * @return mixed
      * @throws PrestaShopException
      */
-    public function render($display = true)
-    {
+    public function render($display = true) {
         $render = false;
         $this->pdf_renderer->setFontForLang(Context::getContext()->language->iso_code);
         foreach ($this->objects as $object) {
@@ -114,10 +113,9 @@ class PDFCore
      * @return HTMLTemplate|false
      * @throws PrestaShopException
      */
-    public function getTemplateObject($object)
-    {
+    public function getTemplateObject($object) {
         $class = false;
-        $class_name = 'HTMLTemplate'.$this->template;
+        $class_name = 'HTMLTemplate' . $this->template;
 
         if (class_exists($class_name)) {
             // Some HTMLTemplateXYZ implementations won't use the third param but this is not a problem (no warning in PHP),
@@ -131,4 +129,5 @@ class PDFCore
 
         return $class;
     }
+
 }

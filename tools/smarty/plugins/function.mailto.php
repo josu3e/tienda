@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -48,8 +49,7 @@
  *
  * @return string
  */
-function smarty_function_mailto($params)
-{
+function smarty_function_mailto($params) {
     static $_allowed_encoding = array('javascript' => true, 'javascript_charcode' => true, 'hex' => true, 'none' => true);
     $extra = '';
 
@@ -72,9 +72,9 @@ function smarty_function_mailto($params)
             case 'cc':
             case 'bcc':
             case 'followupto':
-            if (!empty($value)) {
-                $mail_parms[] = $var . '=' . str_replace($search, $replace, rawurlencode($value));
-            }
+                if (!empty($value)) {
+                    $mail_parms[] = $var . '=' . str_replace($search, $replace, rawurlencode($value));
+                }
                 break;
 
             case 'subject':
@@ -118,11 +118,11 @@ function smarty_function_mailto($params)
         }
 
         $_ret = "<script type=\"text/javascript\" language=\"javascript\">\n"
-            . "{document.write(String.fromCharCode("
-            . implode(',', $ord)
-            . "))"
-            . "}\n"
-            . "</script>\n";
+                . "{document.write(String.fromCharCode("
+                . implode(',', $ord)
+                . "))"
+                . "}\n"
+                . "</script>\n";
 
         return $_ret;
     } elseif ($encode == 'hex') {

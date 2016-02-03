@@ -1,36 +1,36 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 define('PS_UNPACK_NATIVE', 1);
 define('PS_UNPACK_MODIFIED', 2);
 
-class BlowfishCore extends Crypt_Blowfish
-{
-    public function encrypt($plaintext)
-    {
+class BlowfishCore extends Crypt_Blowfish {
+
+    public function encrypt($plaintext) {
         if (($length = strlen($plaintext)) >= 1048576) {
             return false;
         }
@@ -42,13 +42,12 @@ class BlowfishCore extends Crypt_Blowfish
             $piece = substr($paddedtext, $x, 8);
             $cipher_piece = parent::encrypt($piece);
             $encoded = base64_encode($cipher_piece);
-            $ciphertext = $ciphertext.$encoded;
+            $ciphertext = $ciphertext . $encoded;
         }
-        return $ciphertext.sprintf('%06d', $length);
+        return $ciphertext . sprintf('%06d', $length);
     }
 
-    public function decrypt($ciphertext)
-    {
+    public function decrypt($ciphertext) {
         $plainTextLength = intval(substr($ciphertext, -6));
         $ciphertext = substr($ciphertext, 0, -6);
 
@@ -56,27 +55,27 @@ class BlowfishCore extends Crypt_Blowfish
         $chunks = explode('=', $ciphertext);
         $ending_value = count($chunks);
         for ($counter = 0; $counter < ($ending_value - 1); $counter++) {
-            $chunk = $chunks[$counter].'=';
+            $chunk = $chunks[$counter] . '=';
             $decoded = base64_decode($chunk);
             $piece = parent::decrypt($decoded);
-            $plaintext = $plaintext.$piece;
+            $plaintext = $plaintext . $piece;
         }
         return substr($plaintext, 0, $plainTextLength);
     }
 
-    public function maxi_pad($plaintext)
-    {
+    public function maxi_pad($plaintext) {
         $str_len = count($plaintext);
         $pad_len = $str_len % 8;
         for ($x = 0; $x < $pad_len; $x++) {
-            $plaintext = $plaintext.' ';
+            $plaintext = $plaintext . ' ';
         }
         return $plaintext;
     }
+
 }
 
-class Crypt_Blowfish
-{
+class Crypt_Blowfish {
+
     public $_P = array(
         0x243F6A88, 0x85A308D3, 0x13198A2E, 0x03707344,
         0xA4093822, 0x299F31D0, 0x082EFA98, 0xEC4E6C89,
@@ -84,7 +83,6 @@ class Crypt_Blowfish
         0xC0AC29B7, 0xC97C50DD, 0x3F84D5B5, 0xB5470917,
         0x9216D5D9, 0x8979FB1B
     );
-
     public $_S = array(
         array(
             0xD1310BA6, 0x98DFB5AC, 0x2FFD72DB, 0xD01ADFB7,
@@ -351,13 +349,10 @@ class Crypt_Blowfish
             0xB74E6132, 0xCE77E25B, 0x578FDFE3, 0x3AC372E6
         )
     );
-
     public $_iv = null;
-
     protected $_unpackMode = PS_UNPACK_NATIVE;
 
-    public function __construct($key, $iv)
-    {
+    public function __construct($key, $iv) {
         $_iv = $iv;
 
         $len = strlen($key);
@@ -383,60 +378,57 @@ class Crypt_Blowfish
         for ($i = 0; $i <= 16; $i += 2) {
             $this->_encipher($datal, $datar);
             $this->_P[$i] = $datal;
-            $this->_P[$i+1] = $datar;
+            $this->_P[$i + 1] = $datar;
         }
         for ($i = 0; $i < 256; $i += 2) {
             $this->_encipher($datal, $datar);
             $this->_S[0][$i] = $datal;
-            $this->_S[0][$i+1] = $datar;
+            $this->_S[0][$i + 1] = $datar;
         }
         for ($i = 0; $i < 256; $i += 2) {
             $this->_encipher($datal, $datar);
             $this->_S[1][$i] = $datal;
-            $this->_S[1][$i+1] = $datar;
+            $this->_S[1][$i + 1] = $datar;
         }
         for ($i = 0; $i < 256; $i += 2) {
             $this->_encipher($datal, $datar);
             $this->_S[2][$i] = $datal;
-            $this->_S[2][$i+1] = $datar;
+            $this->_S[2][$i + 1] = $datar;
         }
         for ($i = 0; $i < 256; $i += 2) {
             $this->_encipher($datal, $datar);
             $this->_S[3][$i] = $datal;
-            $this->_S[3][$i+1] = $datar;
+            $this->_S[3][$i + 1] = $datar;
         }
     }
 
-    public function _encipher(&$Xl, &$Xr)
-    {
+    public function _encipher(&$Xl, &$Xr) {
         for ($i = 0; $i < 16; $i++) {
             $temp = $Xl ^ $this->_P[$i];
-            $Xl = ((($this->_S[0][($temp>>24) & 255] +
-                $this->_S[1][($temp>>16) & 255]) ^
-                $this->_S[2][($temp>>8) & 255]) +
-                $this->_S[3][$temp & 255]) ^ $Xr;
+            $Xl = ((($this->_S[0][($temp >> 24) & 255] +
+                    $this->_S[1][($temp >> 16) & 255]) ^
+                    $this->_S[2][($temp >> 8) & 255]) +
+                    $this->_S[3][$temp & 255]) ^ $Xr;
             $Xr = $temp;
         }
         $Xr = $Xl ^ $this->_P[16];
         $Xl = $temp ^ $this->_P[17];
     }
 
-    public function _decipher(&$Xl, &$Xr)
-    {
+    public function _decipher(&$Xl, &$Xr) {
         for ($i = 17; $i > 1; $i--) {
             $temp = $Xl ^ $this->_P[$i];
-            $Xl = ((($this->_S[0][($temp>>24) & 255] +
-                $this->_S[1][($temp>>16) & 255]) ^
-                $this->_S[2][($temp>>8) & 255]) +
-                $this->_S[3][$temp & 255]) ^ $Xr;
+            $Xl = ((($this->_S[0][($temp >> 24) & 255] +
+                    $this->_S[1][($temp >> 16) & 255]) ^
+                    $this->_S[2][($temp >> 8) & 255]) +
+                    $this->_S[3][$temp & 255]) ^ $Xr;
             $Xr = $temp;
         }
         $Xr = $Xl ^ $this->_P[1];
         $Xl = $temp ^ $this->_P[0];
     }
 
-    public function encrypt($plainText)
-    {
+    public function encrypt($plainText) {
         $cipherText = '';
         $len = strlen($plainText);
         $plainText .= str_repeat(chr(0), (8 - ($len % 8)) % 8);
@@ -448,8 +440,7 @@ class Crypt_Blowfish
         return $cipherText;
     }
 
-    public function decrypt($cipherText)
-    {
+    public function decrypt($cipherText) {
         $plainText = '';
         $len = strlen($cipherText);
         $cipherText .= str_repeat(chr(0), (8 - ($len % 8)) % 8);
@@ -461,8 +452,7 @@ class Crypt_Blowfish
         return $plainText;
     }
 
-    public function myUnpackN($str)
-    {
+    public function myUnpackN($str) {
         if (pack('L', 0x6162797A) == pack('V', 0x6162797A)) {
             return ((ord($str) << 24) | (ord(substr($str, 1)) << 16) | (ord(substr($str, 2)) << 8) | ord(substr($str, 3)));
         } else {
@@ -470,8 +460,8 @@ class Crypt_Blowfish
         }
     }
 
-    public function myUnpackN2($str)
-    {
+    public function myUnpackN2($str) {
         return array('1' => $this->myUnpackN($str), '2' => $this->myUnpackN(substr($str, 4)));
     }
+
 }

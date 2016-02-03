@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -29,8 +30,8 @@
  * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
-class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
-{
+class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2 {
+
     /**
      * This will be a reference to the parent object for when we want
      * to use a 'fallback' rule
@@ -73,8 +74,7 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      * @param   DOMElement  $element - this item as a DOM element
      * @param   XML_Feed_Parser_RSS2    $parent - the feed of which this is a member
      */
-    function __construct(DOMElement $element, $parent, $xmlBase = '')
-    {
+    function __construct(DOMElement $element, $parent, $xmlBase = '') {
         $this->model = $element;
         $this->parent = $parent;
     }
@@ -93,10 +93,9 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      * @param   array   $params - parameters required
      * @return  string  the guid or value of ispermalink
      */
-    protected function getGuid($method, $params)
-    {
-        $attribute = (isset($params[0]) and $params[0] == 'ispermalink') ? 
-            true : false;
+    protected function getGuid($method, $params) {
+        $attribute = (isset($params[0]) and $params[0] == 'ispermalink') ?
+                true : false;
         $tag = $this->model->getElementsByTagName('guid');
         if ($tag->length > 0) {
             if ($attribute) {
@@ -120,13 +119,12 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      * @param   array   $parameters - we expect the first of these to be our offset
      * @return  array|false
      */
-    protected function getEnclosure($method, $parameters)
-    {
+    protected function getEnclosure($method, $parameters) {
         $encs = $this->model->getElementsByTagName('enclosure');
         $offset = isset($parameters[0]) ? $parameters[0] : 0;
         if ($encs->length > $offset) {
             try {
-                if (! $encs->item($offset)->hasAttribute('url')) {
+                if (!$encs->item($offset)->hasAttribute('url')) {
                     return false;
                 }
                 $attrs = $encs->item($offset)->attributes;
@@ -152,8 +150,7 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
      *
      * @return array|false
      */
-    protected function getSource()
-    {
+    protected function getSource() {
         $get = $this->model->getElementsByTagName('source');
         if ($get->length) {
             $source = $get->item(0);
@@ -166,6 +163,7 @@ class XML_Feed_Parser_RSS2Element extends XML_Feed_Parser_RSS2
         }
         return false;
     }
+
 }
 
 ?>

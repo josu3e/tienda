@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LimitBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: LimitBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 
 /**
@@ -58,5 +58,7 @@ class LimitBuilder {
         }
         return "LIMIT " . $sql;
     }
+
 }
+
 ?>

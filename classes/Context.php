@@ -1,37 +1,38 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 /**
  * Class ContextCore
  *
  * @since 1.5.0.1
  */
-class ContextCore
-{
+class ContextCore {
     /* @var Context */
+
     protected static $instance;
 
     /** @var Cart */
@@ -121,10 +122,9 @@ class ContextCore
      *
      * @return Mobile_Detect
      */
-    public function getMobileDetect()
-    {
+    public function getMobileDetect() {
         if ($this->mobile_detect === null) {
-            require_once(_PS_TOOL_DIR_.'mobile_Detect/Mobile_Detect.php');
+            require_once(_PS_TOOL_DIR_ . 'mobile_Detect/Mobile_Detect.php');
             $this->mobile_detect = new Mobile_Detect();
         }
         return $this->mobile_detect;
@@ -135,8 +135,7 @@ class ContextCore
      *
      * @return bool
      */
-    public function isMobile()
-    {
+    public function isMobile() {
         if ($this->is_mobile === null) {
             $mobile_detect = $this->getMobileDetect();
             $this->is_mobile = $mobile_detect->isMobile();
@@ -149,8 +148,7 @@ class ContextCore
      *
      * @return bool
      */
-    public function isTablet()
-    {
+    public function isTablet() {
         if ($this->is_tablet === null) {
             $mobile_detect = $this->getMobileDetect();
             $this->is_tablet = $mobile_detect->isTablet();
@@ -163,15 +161,14 @@ class ContextCore
      *
      * @return bool
      */
-    public function getMobileDevice()
-    {
+    public function getMobileDevice() {
         if ($this->mobile_device === null) {
             $this->mobile_device = false;
             if ($this->checkMobileContext()) {
-                if (isset(Context::getContext()->cookie->no_mobile) && Context::getContext()->cookie->no_mobile == false && (int)Configuration::get('PS_ALLOW_MOBILE_DEVICE') != 0) {
+                if (isset(Context::getContext()->cookie->no_mobile) && Context::getContext()->cookie->no_mobile == false && (int) Configuration::get('PS_ALLOW_MOBILE_DEVICE') != 0) {
                     $this->mobile_device = true;
                 } else {
-                    switch ((int)Configuration::get('PS_ALLOW_MOBILE_DEVICE')) {
+                    switch ((int) Configuration::get('PS_ALLOW_MOBILE_DEVICE')) {
                         case 1: // Only for mobile device
                             if ($this->isMobile() && !$this->isTablet()) {
                                 $this->mobile_device = true;
@@ -199,8 +196,7 @@ class ContextCore
      *
      * @return int
      */
-    public function getDevice()
-    {
+    public function getDevice() {
         static $device = null;
 
         if ($device === null) {
@@ -222,8 +218,7 @@ class ContextCore
      * @return bool
      * @throws PrestaShopException
      */
-    protected function checkMobileContext()
-    {
+    protected function checkMobileContext() {
         // Check mobile context
         if (Tools::isSubmit('no_mobile_theme')) {
             Context::getContext()->cookie->no_mobile = true;
@@ -241,11 +236,7 @@ class ContextCore
             }
         }
 
-        return isset($_SERVER['HTTP_USER_AGENT'])
-            && isset(Context::getContext()->cookie)
-            && (bool)Configuration::get('PS_ALLOW_MOBILE_DEVICE')
-            && @filemtime(_PS_THEME_MOBILE_DIR_)
-            && !Context::getContext()->cookie->no_mobile;
+        return isset($_SERVER['HTTP_USER_AGENT']) && isset(Context::getContext()->cookie) && (bool) Configuration::get('PS_ALLOW_MOBILE_DEVICE') && @filemtime(_PS_THEME_MOBILE_DIR_) && !Context::getContext()->cookie->no_mobile;
     }
 
     /**
@@ -253,8 +244,7 @@ class ContextCore
      *
      * @return Context
      */
-    public static function getContext()
-    {
+    public static function getContext() {
         if (!isset(self::$instance)) {
             self::$instance = new Context();
         }
@@ -266,16 +256,14 @@ class ContextCore
      * @param $test_instance Context
      * Unit testing purpose only
      */
-    public static function setInstanceForTesting($test_instance)
-    {
+    public static function setInstanceForTesting($test_instance) {
         self::$instance = $test_instance;
     }
 
     /**
      * Unit testing purpose only
      */
-    public static function deleteTestingInstance()
-    {
+    public static function deleteTestingInstance() {
         self::$instance = null;
     }
 
@@ -284,8 +272,8 @@ class ContextCore
      *
      * @return Context
      */
-    public function cloneContext()
-    {
+    public function cloneContext() {
         return clone($this);
     }
+
 }

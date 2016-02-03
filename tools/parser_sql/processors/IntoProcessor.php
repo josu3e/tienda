@@ -1,4 +1,5 @@
 <?php
+
 /**
  * IntoProcessor.php
  *
@@ -29,7 +30,6 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-
 require_once(dirname(__FILE__) . '/AbstractProcessor.php');
 
 /**
@@ -55,5 +55,7 @@ class IntoProcessor extends AbstractProcessor {
         $tokenList['INTO'] = array_values($unparsed);
         return $tokenList;
     }
+
 }
+
 ?>

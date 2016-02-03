@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -38,31 +39,33 @@
  * @version   CVS: $Id$
  * @link      http://pear.php.net/package/Archive_Tar
  */
-
-require_once(_PS_TOOL_DIR_.'pear/PEAR.php');
+require_once(_PS_TOOL_DIR_ . 'pear/PEAR.php');
 
 define('ARCHIVE_TAR_ATT_SEPARATOR', 90001);
 define('ARCHIVE_TAR_END_BLOCK', pack("a512", ''));
 
 if (!function_exists('gzopen') && function_exists('gzopen64')) {
-    function gzopen($filename, $mode, $use_include_path = 0)
-    {
+
+    function gzopen($filename, $mode, $use_include_path = 0) {
         return gzopen64($filename, $mode, $use_include_path);
     }
+
 }
 
 if (!function_exists('gztell') && function_exists('gztell64')) {
-    function gztell($zp)
-    {
+
+    function gztell($zp) {
         return gztell64($zp);
     }
+
 }
 
 if (!function_exists('gzseek') && function_exists('gzseek64')) {
-    function gzseek($zp, $offset, $whence = SEEK_SET)
-    {
+
+    function gzseek($zp, $offset, $whence = SEEK_SET) {
         return gzseek64($zp, $offset, $whence);
     }
+
 }
 
 /**
@@ -73,8 +76,8 @@ if (!function_exists('gzseek') && function_exists('gzseek64')) {
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version $Revision$
  */
-class Archive_Tar extends PEAR
-{
+class Archive_Tar extends PEAR {
+
     /**
      * @var string Name of the Tar
      */
@@ -131,13 +134,11 @@ class Archive_Tar extends PEAR
      *
      * @access public
      */
-    function __construct($p_tarname, $p_compress = null) 
-    {
-          $this->Archive_Tar($p_tarname, $p_compress);
+    function __construct($p_tarname, $p_compress = null) {
+        $this->Archive_Tar($p_tarname, $p_compress);
     }
 
-    function Archive_Tar($p_tarname, $p_compress = null)
-    {
+    function Archive_Tar($p_tarname, $p_compress = null) {
         if (version_compare(PHP_VERSION, '5.0.0', '<')) {
             $this->PEAR();
         }
@@ -168,7 +169,7 @@ class Archive_Tar extends PEAR
                     $this->_compress = true;
                     $this->_compress_type = 'gz';
                 } elseif ((substr($p_tarname, -3) == 'bz2') ||
-                    (substr($p_tarname, -2) == 'bz')
+                        (substr($p_tarname, -2) == 'bz')
                 ) {
                     $this->_compress = true;
                     $this->_compress_type = 'bz2';
@@ -193,8 +194,8 @@ class Archive_Tar extends PEAR
                         $this->_compress_type = 'lzma2';
                     } else {
                         $this->_error(
-                            "Unsupported compression type '$p_compress'\n" .
-                            "Supported types are 'gz', 'bz2' and 'lzma2'.\n"
+                                "Unsupported compression type '$p_compress'\n" .
+                                "Supported types are 'gz', 'bz2' and 'lzma2'.\n"
                         );
                         return false;
                     }
@@ -220,9 +221,9 @@ class Archive_Tar extends PEAR
             }
             if (!extension_loaded($extname)) {
                 $this->_error(
-                    "The extension '$extname' couldn't be found.\n" .
-                    "Please make sure your version of PHP was built " .
-                    "with '$extname' support.\n"
+                        "The extension '$extname' couldn't be found.\n" .
+                        "Please make sure your version of PHP was built " .
+                        "with '$extname' support.\n"
                 );
                 return false;
             }
@@ -230,10 +231,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ destructor
-    function _Archive_Tar()
-    {
+    function _Archive_Tar() {
         $this->_close();
         // ----- Look for a local copy to delete
         if ($this->_temp_tarname != '') {
@@ -243,15 +242,12 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ PHP5-compatible destructor
-    function __destruct()
-    {
+    function __destruct() {
         $this->_Archive_Tar();
     }
 
     // }}}
-
     // {{{ create()
     /**
      * This method creates the archive file and add the files / directories
@@ -275,13 +271,11 @@ class Archive_Tar extends PEAR
      * @see    createModify()
      * @access public
      */
-    function create($p_filelist)
-    {
+    function create($p_filelist) {
         return $this->createModify($p_filelist, '', '');
     }
 
     // }}}
-
     // {{{ add()
     /**
      * This method add the files / directories that are listed in $p_filelist in
@@ -299,24 +293,19 @@ class Archive_Tar extends PEAR
      * @see    createModify()
      * @access public
      */
-    function add($p_filelist)
-    {
+    function add($p_filelist) {
         return $this->addModify($p_filelist, '', '');
     }
 
     // }}}
-
     // {{{ extract()
-    function extract($p_path = '', $p_preserve = false)
-    {
+    function extract($p_path = '', $p_preserve = false) {
         return $this->extractModify($p_path, '', $p_preserve);
     }
 
     // }}}
-
     // {{{ listContent()
-    function listContent()
-    {
+    function listContent() {
         $v_list_detail = array();
 
         if ($this->_openRead()) {
@@ -331,7 +320,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ createModify()
     /**
      * This method creates the archive file and add the files / directories
@@ -369,8 +357,7 @@ class Archive_Tar extends PEAR
      * @access public
      * @see addModify()
      */
-    function createModify($p_filelist, $p_add_dir, $p_remove_dir = '')
-    {
+    function createModify($p_filelist, $p_add_dir, $p_remove_dir = '') {
         $v_result = true;
 
         if (!$this->_openWrite()) {
@@ -402,7 +389,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ addModify()
     /**
      * This method add the files / directories listed in $p_filelist at the
@@ -445,15 +431,12 @@ class Archive_Tar extends PEAR
      * @return true on success, false on error.
      * @access public
      */
-    function addModify($p_filelist, $p_add_dir, $p_remove_dir = '')
-    {
+    function addModify($p_filelist, $p_add_dir, $p_remove_dir = '') {
         $v_result = true;
 
         if (!$this->_isArchive()) {
             $v_result = $this->createModify(
-                $p_filelist,
-                $p_add_dir,
-                $p_remove_dir
+                    $p_filelist, $p_add_dir, $p_remove_dir
             );
         } else {
             if (is_array($p_filelist)) {
@@ -472,7 +455,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ addString()
     /**
      * This method add a single string as a file at the
@@ -502,8 +484,7 @@ class Archive_Tar extends PEAR
      * @return true on success, false on error.
      * @access public
      */
-    function addString($p_filename, $p_string, $p_datetime = false, $p_params = array())
-    {
+    function addString($p_filename, $p_string, $p_datetime = false, $p_params = array()) {
         $p_stamp = @$p_params["stamp"] ? $p_params["stamp"] : ($p_datetime ? $p_datetime : time());
         $p_mode = @$p_params["mode"] ? $p_params["mode"] : 0600;
         $p_type = @$p_params["type"] ? $p_params["type"] : "";
@@ -533,7 +514,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ extractModify()
     /**
      * This method extract all the content of the archive in the directory
@@ -570,19 +550,13 @@ class Archive_Tar extends PEAR
      * @access public
      * @see    extractList()
      */
-    function extractModify($p_path, $p_remove_path, $p_preserve = false)
-    {
+    function extractModify($p_path, $p_remove_path, $p_preserve = false) {
         $v_result = true;
         $v_list_detail = array();
 
         if ($v_result = $this->_openRead()) {
             $v_result = $this->_extractList(
-                $p_path,
-                $v_list_detail,
-                "complete",
-                0,
-                $p_remove_path,
-                $p_preserve
+                    $p_path, $v_list_detail, "complete", 0, $p_remove_path, $p_preserve
             );
             $this->_close();
         }
@@ -591,7 +565,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ extractInString()
     /**
      * This method extract from the archive one file identified by $p_filename.
@@ -602,8 +575,7 @@ class Archive_Tar extends PEAR
      * @return a string with the file content or NULL.
      * @access public
      */
-    function extractInString($p_filename)
-    {
+    function extractInString($p_filename) {
         if ($this->_openRead()) {
             $v_result = $this->_extractInString($p_filename);
             $this->_close();
@@ -615,7 +587,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ extractList()
     /**
      * This method extract from the archive only the files indicated in the
@@ -638,8 +609,7 @@ class Archive_Tar extends PEAR
      * @access public
      * @see    extractModify()
      */
-    function extractList($p_filelist, $p_path = '', $p_remove_path = '', $p_preserve = false)
-    {
+    function extractList($p_filelist, $p_path = '', $p_remove_path = '', $p_preserve = false) {
         $v_result = true;
         $v_list_detail = array();
 
@@ -654,12 +624,7 @@ class Archive_Tar extends PEAR
 
         if ($v_result = $this->_openRead()) {
             $v_result = $this->_extractList(
-                $p_path,
-                $v_list_detail,
-                "partial",
-                $v_list,
-                $p_remove_path,
-                $p_preserve
+                    $p_path, $v_list_detail, "partial", $v_list, $p_remove_path, $p_preserve
             );
             $this->_close();
         }
@@ -668,7 +633,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ setAttribute()
     /**
      * This method set specific attributes of the archive. It uses a variable
@@ -680,8 +644,7 @@ class Archive_Tar extends PEAR
      * @return true on success, false on error.
      * @access public
      */
-    function setAttribute()
-    {
+    function setAttribute() {
         $v_result = true;
 
         // ----- Get the number of variable list of arguments
@@ -703,8 +666,8 @@ class Archive_Tar extends PEAR
                     // ----- Check the number of parameters
                     if (($i + 1) >= $v_size) {
                         $this->_error(
-                            'Invalid number of parameters for '
-                            . 'attribute ARCHIVE_TAR_ATT_SEPARATOR'
+                                'Invalid number of parameters for '
+                                . 'attribute ARCHIVE_TAR_ATT_SEPARATOR'
                         );
                         return false;
                     }
@@ -727,7 +690,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ setIgnoreRegexp()
     /**
      * This method sets the regular expression for ignoring files and directories
@@ -738,13 +700,11 @@ class Archive_Tar extends PEAR
      *
      * @access public
      */
-    function setIgnoreRegexp($regexp)
-    {
+    function setIgnoreRegexp($regexp) {
         $this->_ignore_regexp = $regexp;
     }
 
     // }}}
-
     // {{{ setIgnoreList()
     /**
      * This method sets the regular expression for ignoring all files and directories
@@ -755,34 +715,27 @@ class Archive_Tar extends PEAR
      *
      * @access public
      */
-    function setIgnoreList($list)
-    {
+    function setIgnoreList($list) {
         $regexp = str_replace(array('#', '.', '^', '$'), array('\#', '\.', '\^', '\$'), $list);
         $regexp = '#/' . join('$|/', $list) . '#';
         $this->setIgnoreRegexp($regexp);
     }
 
     // }}}
-
     // {{{ _error()
-    function _error($p_message)
-    {
+    function _error($p_message) {
         $this->error_object = & $this->raiseError($p_message);
     }
 
     // }}}
-
     // {{{ _warning()
-    function _warning($p_message)
-    {
+    function _warning($p_message) {
         $this->error_object = & $this->raiseError($p_message);
     }
 
     // }}}
-
     // {{{ _isArchive()
-    function _isArchive($p_filename = null)
-    {
+    function _isArchive($p_filename = null) {
         if ($p_filename == null) {
             $p_filename = $this->_tarname;
         }
@@ -791,10 +744,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _openWrite()
-    function _openWrite()
-    {
+    function _openWrite() {
         if ($this->_compress_type == 'gz' && function_exists('gzopen')) {
             $this->_file = @gzopen($this->_tarname, "wb9");
         } else {
@@ -808,8 +759,8 @@ class Archive_Tar extends PEAR
                         $this->_file = @fopen($this->_tarname, "wb");
                     } else {
                         $this->_error(
-                            'Unknown or missing compression type ('
-                            . $this->_compress_type . ')'
+                                'Unknown or missing compression type ('
+                                . $this->_compress_type . ')'
                         );
                         return false;
                     }
@@ -819,8 +770,8 @@ class Archive_Tar extends PEAR
 
         if ($this->_file == 0) {
             $this->_error(
-                'Unable to open in write mode \''
-                . $this->_tarname . '\''
+                    'Unable to open in write mode \''
+                    . $this->_tarname . '\''
             );
             return false;
         }
@@ -829,10 +780,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _openRead()
-    function _openRead()
-    {
+    function _openRead() {
         if (strtolower(substr($this->_tarname, 0, 7)) == 'http://') {
 
             // ----- Look if a local copy need to be done
@@ -840,16 +789,16 @@ class Archive_Tar extends PEAR
                 $this->_temp_tarname = uniqid('tar') . '.tmp';
                 if (!$v_file_from = @fopen($this->_tarname, 'rb')) {
                     $this->_error(
-                        'Unable to open in read mode \''
-                        . $this->_tarname . '\''
+                            'Unable to open in read mode \''
+                            . $this->_tarname . '\''
                     );
                     $this->_temp_tarname = '';
                     return false;
                 }
                 if (!$v_file_to = @fopen($this->_temp_tarname, 'wb')) {
                     $this->_error(
-                        'Unable to open in write mode \''
-                        . $this->_temp_tarname . '\''
+                            'Unable to open in write mode \''
+                            . $this->_temp_tarname . '\''
                     );
                     $this->_temp_tarname = '';
                     return false;
@@ -863,9 +812,7 @@ class Archive_Tar extends PEAR
 
             // ----- File to open if the local copy
             $v_filename = $this->_temp_tarname;
-
-        } else // ----- File to open if the normal Tar file
-        {
+        } else { // ----- File to open if the normal Tar file
             $v_filename = $this->_tarname;
         }
 
@@ -882,8 +829,8 @@ class Archive_Tar extends PEAR
                         $this->_file = @fopen($v_filename, "rb");
                     } else {
                         $this->_error(
-                            'Unknown or missing compression type ('
-                            . $this->_compress_type . ')'
+                                'Unknown or missing compression type ('
+                                . $this->_compress_type . ')'
                         );
                         return false;
                     }
@@ -900,24 +847,22 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _openReadWrite()
-    function _openReadWrite()
-    {
+    function _openReadWrite() {
         if ($this->_compress_type == 'gz') {
             $this->_file = @gzopen($this->_tarname, "r+b");
         } else {
             if ($this->_compress_type == 'bz2') {
                 $this->_error(
-                    'Unable to open bz2 in read/write mode \''
-                    . $this->_tarname . '\' (limitation of bz2 extension)'
+                        'Unable to open bz2 in read/write mode \''
+                        . $this->_tarname . '\' (limitation of bz2 extension)'
                 );
                 return false;
             } else {
                 if ($this->_compress_type == 'lzma2') {
                     $this->_error(
-                        'Unable to open lzma2 in read/write mode \''
-                        . $this->_tarname . '\' (limitation of lzma2 extension)'
+                            'Unable to open lzma2 in read/write mode \''
+                            . $this->_tarname . '\' (limitation of lzma2 extension)'
                     );
                     return false;
                 } else {
@@ -925,8 +870,8 @@ class Archive_Tar extends PEAR
                         $this->_file = @fopen($this->_tarname, "r+b");
                     } else {
                         $this->_error(
-                            'Unknown or missing compression type ('
-                            . $this->_compress_type . ')'
+                                'Unknown or missing compression type ('
+                                . $this->_compress_type . ')'
                         );
                         return false;
                     }
@@ -936,8 +881,8 @@ class Archive_Tar extends PEAR
 
         if ($this->_file == 0) {
             $this->_error(
-                'Unable to open in read/write mode \''
-                . $this->_tarname . '\''
+                    'Unable to open in read/write mode \''
+                    . $this->_tarname . '\''
             );
             return false;
         }
@@ -946,10 +891,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _close()
-    function _close()
-    {
+    function _close() {
         //if (isset($this->_file)) {
         if (is_resource($this->_file)) {
             if ($this->_compress_type == 'gz') {
@@ -965,8 +908,8 @@ class Archive_Tar extends PEAR
                             @fclose($this->_file);
                         } else {
                             $this->_error(
-                                'Unknown or missing compression type ('
-                                . $this->_compress_type . ')'
+                                    'Unknown or missing compression type ('
+                                    . $this->_compress_type . ')'
                             );
                         }
                     }
@@ -987,10 +930,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _cleanFile()
-    function _cleanFile()
-    {
+    function _cleanFile() {
         $this->_close();
 
         // ----- Look for a local copy
@@ -1008,10 +949,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _writeBlock()
-    function _writeBlock($p_binary_data, $p_len = null)
-    {
+    function _writeBlock($p_binary_data, $p_len = null) {
         if (is_resource($this->_file)) {
             if ($p_len === null) {
                 if ($this->_compress_type == 'gz') {
@@ -1027,8 +966,8 @@ class Archive_Tar extends PEAR
                                 @fputs($this->_file, $p_binary_data);
                             } else {
                                 $this->_error(
-                                    'Unknown or missing compression type ('
-                                    . $this->_compress_type . ')'
+                                        'Unknown or missing compression type ('
+                                        . $this->_compress_type . ')'
                                 );
                             }
                         }
@@ -1048,24 +987,21 @@ class Archive_Tar extends PEAR
                                 @fputs($this->_file, $p_binary_data, $p_len);
                             } else {
                                 $this->_error(
-                                    'Unknown or missing compression type ('
-                                    . $this->_compress_type . ')'
+                                        'Unknown or missing compression type ('
+                                        . $this->_compress_type . ')'
                                 );
                             }
                         }
                     }
                 }
-
             }
         }
         return true;
     }
 
     // }}}
-
     // {{{ _readBlock()
-    function _readBlock()
-    {
+    function _readBlock() {
         $v_block = null;
         if (is_resource($this->_file)) {
             if ($this->_compress_type == 'gz') {
@@ -1081,8 +1017,8 @@ class Archive_Tar extends PEAR
                             $v_block = @fread($this->_file, 512);
                         } else {
                             $this->_error(
-                                'Unknown or missing compression type ('
-                                . $this->_compress_type . ')'
+                                    'Unknown or missing compression type ('
+                                    . $this->_compress_type . ')'
                             );
                         }
                     }
@@ -1093,10 +1029,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _jumpBlock()
-    function _jumpBlock($p_len = null)
-    {
+    function _jumpBlock($p_len = null) {
         if (is_resource($this->_file)) {
             if ($p_len === null) {
                 $p_len = 1;
@@ -1121,23 +1055,20 @@ class Archive_Tar extends PEAR
                             @fseek($this->_file, $p_len * 512, SEEK_CUR);
                         } else {
                             $this->_error(
-                                'Unknown or missing compression type ('
-                                . $this->_compress_type . ')'
+                                    'Unknown or missing compression type ('
+                                    . $this->_compress_type . ')'
                             );
                         }
                     }
                 }
             }
-
         }
         return true;
     }
 
     // }}}
-
     // {{{ _writeFooter()
-    function _writeFooter()
-    {
+    function _writeFooter() {
         if (is_resource($this->_file)) {
             // ----- Write the last 0 filled block for end of archive
             $v_binary_data = pack('a1024', '');
@@ -1147,10 +1078,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _addList()
-    function _addList($p_list, $p_add_dir, $p_remove_dir)
-    {
+    function _addList($p_list, $p_add_dir, $p_remove_dir) {
         $v_result = true;
         $v_header = array();
 
@@ -1211,9 +1140,7 @@ class Archive_Tar extends PEAR
                         }
 
                         $v_result = $this->_addList(
-                            $p_temp_list,
-                            $p_add_dir,
-                            $p_remove_dir
+                                $p_temp_list, $p_add_dir, $p_remove_dir
                         );
                     }
                 }
@@ -1228,10 +1155,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _addFile()
-    function _addFile($p_filename, &$p_header, $p_add_dir, $p_remove_dir, $v_stored_filename = null)
-    {
+    function _addFile($p_filename, &$p_header, $p_add_dir, $p_remove_dir, $v_stored_filename = null) {
         if (!$this->_file) {
             $this->_error('Invalid file descriptor');
             return false;
@@ -1244,7 +1169,8 @@ class Archive_Tar extends PEAR
 
         if (is_null($v_stored_filename)) {
             // ----- Calculate the stored filename
-            $p_filename = $this->_translateWinPath($p_filename, false);;
+            $p_filename = $this->_translateWinPath($p_filename, false);
+            ;
             $v_stored_filename = $p_filename;
 
             if (strcmp($p_filename, $p_remove_dir) == 0) {
@@ -1276,8 +1202,8 @@ class Archive_Tar extends PEAR
         if ($this->_isArchive($p_filename)) {
             if (($v_file = @fopen($p_filename, "rb")) == 0) {
                 $this->_warning(
-                    "Unable to open file '" . $p_filename
-                    . "' in binary read mode"
+                        "Unable to open file '" . $p_filename
+                        . "' in binary read mode"
                 );
                 return true;
             }
@@ -1292,7 +1218,6 @@ class Archive_Tar extends PEAR
             }
 
             fclose($v_file);
-
         } else {
             // ----- Only header for dir
             if (!$this->_writeHeader($p_filename, $v_stored_filename)) {
@@ -1304,10 +1229,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _addString()
-    function _addString($p_filename, $p_string, $p_datetime = false, $p_params = array())
-    {
+    function _addString($p_filename, $p_string, $p_datetime = false, $p_params = array()) {
         $p_stamp = @$p_params["stamp"] ? $p_params["stamp"] : ($p_datetime ? $p_datetime : time());
         $p_mode = @$p_params["mode"] ? $p_params["mode"] : 0600;
         $p_type = @$p_params["type"] ? $p_params["type"] : "";
@@ -1324,7 +1247,8 @@ class Archive_Tar extends PEAR
         }
 
         // ----- Calculate the stored filename
-        $p_filename = $this->_translateWinPath($p_filename, false);;
+        $p_filename = $this->_translateWinPath($p_filename, false);
+        ;
 
         // ----- If datetime is not specified, set current time
         if ($p_datetime === false) {
@@ -1332,14 +1256,8 @@ class Archive_Tar extends PEAR
         }
 
         if (!$this->_writeHeaderBlock(
-            $p_filename,
-            strlen($p_string),
-            $p_stamp,
-            $p_mode,
-            $p_type,
-            $p_uid,
-            $p_gid
-        )
+                        $p_filename, strlen($p_string), $p_stamp, $p_mode, $p_type, $p_uid, $p_gid
+                )
         ) {
             return false;
         }
@@ -1354,10 +1272,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _writeHeader()
-    function _writeHeader($p_filename, $p_stored_filename)
-    {
+    function _writeHeader($p_filename, $p_stored_filename) {
         if ($p_stored_filename == '') {
             $p_stored_filename = $p_filename;
         }
@@ -1413,26 +1329,10 @@ class Archive_Tar extends PEAR
         $v_prefix = '';
 
         $v_binary_data_first = pack(
-            "a100a8a8a8a12a12",
-            $v_reduce_filename,
-            $v_perms,
-            $v_uid,
-            $v_gid,
-            $v_size,
-            $v_mtime
+                "a100a8a8a8a12a12", $v_reduce_filename, $v_perms, $v_uid, $v_gid, $v_size, $v_mtime
         );
         $v_binary_data_last = pack(
-            "a1a100a6a2a32a32a8a8a155a12",
-            $v_typeflag,
-            $v_linkname,
-            $v_magic,
-            $v_version,
-            $v_uname,
-            $v_gname,
-            $v_devmajor,
-            $v_devminor,
-            $v_prefix,
-            ''
+                "a1a100a6a2a32a32a8a8a155a12", $v_typeflag, $v_linkname, $v_magic, $v_version, $v_uname, $v_gname, $v_devmajor, $v_devminor, $v_prefix, ''
         );
 
         // ----- Calculate the checksum
@@ -1465,16 +1365,9 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _writeHeaderBlock()
     function _writeHeaderBlock(
-        $p_filename,
-        $p_size,
-        $p_mtime = 0,
-        $p_perms = 0,
-        $p_type = '',
-        $p_uid = 0,
-        $p_gid = 0
+    $p_filename, $p_size, $p_mtime = 0, $p_perms = 0, $p_type = '', $p_uid = 0, $p_gid = 0
     ) {
         $p_filename = $this->_pathReduction($p_filename);
 
@@ -1520,26 +1413,10 @@ class Archive_Tar extends PEAR
         $v_prefix = '';
 
         $v_binary_data_first = pack(
-            "a100a8a8a8a12A12",
-            $p_filename,
-            $v_perms,
-            $v_uid,
-            $v_gid,
-            $v_size,
-            $v_mtime
+                "a100a8a8a8a12A12", $p_filename, $v_perms, $v_uid, $v_gid, $v_size, $v_mtime
         );
         $v_binary_data_last = pack(
-            "a1a100a6a2a32a32a8a8a155a12",
-            $p_type,
-            $v_linkname,
-            $v_magic,
-            $v_version,
-            $v_uname,
-            $v_gname,
-            $v_devmajor,
-            $v_devminor,
-            $v_prefix,
-            ''
+                "a1a100a6a2a32a32a8a8a155a12", $p_type, $v_linkname, $v_magic, $v_version, $v_uname, $v_gname, $v_devmajor, $v_devminor, $v_prefix, ''
         );
 
         // ----- Calculate the checksum
@@ -1572,10 +1449,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _writeLongHeader()
-    function _writeLongHeader($p_filename)
-    {
+    function _writeLongHeader($p_filename) {
         $v_size = sprintf("%11s ", DecOct(strlen($p_filename)));
 
         $v_typeflag = 'L';
@@ -1597,26 +1472,10 @@ class Archive_Tar extends PEAR
         $v_prefix = '';
 
         $v_binary_data_first = pack(
-            "a100a8a8a8a12a12",
-            '././@LongLink',
-            0,
-            0,
-            0,
-            $v_size,
-            0
+                "a100a8a8a8a12a12", '././@LongLink', 0, 0, 0, $v_size, 0
         );
         $v_binary_data_last = pack(
-            "a1a100a6a2a32a32a8a8a155a12",
-            $v_typeflag,
-            $v_linkname,
-            $v_magic,
-            $v_version,
-            $v_uname,
-            $v_gname,
-            $v_devmajor,
-            $v_devminor,
-            $v_prefix,
-            ''
+                "a1a100a6a2a32a32a8a8a155a12", $v_typeflag, $v_linkname, $v_magic, $v_version, $v_uname, $v_gname, $v_devmajor, $v_devminor, $v_prefix, ''
         );
 
         // ----- Calculate the checksum
@@ -1656,10 +1515,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _readHeader()
-    function _readHeader($v_binary_data, &$v_header)
-    {
+    function _readHeader($v_binary_data, &$v_header) {
         if (strlen($v_binary_data) == 0) {
             $v_header['filename'] = '';
             return true;
@@ -1691,12 +1548,12 @@ class Archive_Tar extends PEAR
 
         if (version_compare(PHP_VERSION, "5.5.0-dev") < 0) {
             $fmt = "a100filename/a8mode/a8uid/a8gid/a12size/a12mtime/" .
-                "a8checksum/a1typeflag/a100link/a6magic/a2version/" .
-                "a32uname/a32gname/a8devmajor/a8devminor/a131prefix";
+                    "a8checksum/a1typeflag/a100link/a6magic/a2version/" .
+                    "a32uname/a32gname/a8devmajor/a8devminor/a131prefix";
         } else {
             $fmt = "Z100filename/Z8mode/Z8uid/Z8gid/Z12size/Z12mtime/" .
-                "Z8checksum/Z1typeflag/Z100link/Z6magic/Z2version/" .
-                "Z32uname/Z32gname/Z8devmajor/Z8devminor/Z131prefix";
+                    "Z8checksum/Z1typeflag/Z100link/Z6magic/Z2version/" .
+                    "Z32uname/Z32gname/Z8devmajor/Z8devminor/Z131prefix";
         }
         $v_data = unpack($fmt, $v_binary_data);
 
@@ -1715,9 +1572,9 @@ class Archive_Tar extends PEAR
             }
 
             $this->_error(
-                'Invalid checksum for file "' . $v_data['filename']
-                . '" : ' . $v_checksum . ' calculated, '
-                . $v_header['checksum'] . ' expected'
+                    'Invalid checksum for file "' . $v_data['filename']
+                    . '" : ' . $v_checksum . ' calculated, '
+                    . $v_header['checksum'] . ' expected'
             );
             return false;
         }
@@ -1726,8 +1583,8 @@ class Archive_Tar extends PEAR
         $v_header['filename'] = $v_data['filename'];
         if ($this->_maliciousFilename($v_header['filename'])) {
             $this->_error(
-                'Malicious .tar detected, file "' . $v_header['filename'] .
-                '" will not install in desired directory tree'
+                    'Malicious .tar detected, file "' . $v_header['filename'] .
+                    '" will not install in desired directory tree'
             );
             return false;
         }
@@ -1741,20 +1598,19 @@ class Archive_Tar extends PEAR
         }
         $v_header['link'] = trim($v_data['link']);
         /* ----- All these fields are removed form the header because
-		they do not carry interesting info
-        $v_header[magic] = trim($v_data[magic]);
-        $v_header[version] = trim($v_data[version]);
-        $v_header[uname] = trim($v_data[uname]);
-        $v_header[gname] = trim($v_data[gname]);
-        $v_header[devmajor] = trim($v_data[devmajor]);
-        $v_header[devminor] = trim($v_data[devminor]);
-        */
+          they do not carry interesting info
+          $v_header[magic] = trim($v_data[magic]);
+          $v_header[version] = trim($v_data[version]);
+          $v_header[uname] = trim($v_data[uname]);
+          $v_header[gname] = trim($v_data[gname]);
+          $v_header[devmajor] = trim($v_data[devmajor]);
+          $v_header[devminor] = trim($v_data[devminor]);
+         */
 
         return true;
     }
 
     // }}}
-
     // {{{ _maliciousFilename()
     /**
      * Detect and report a malicious file name
@@ -1764,8 +1620,7 @@ class Archive_Tar extends PEAR
      * @return bool
      * @access private
      */
-    function _maliciousFilename($file)
-    {
+    function _maliciousFilename($file) {
         if (strpos($file, '/../') !== false) {
             return true;
         }
@@ -1776,10 +1631,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _readLongHeader()
-    function _readLongHeader(&$v_header)
-    {
+    function _readLongHeader(&$v_header) {
         $v_filename = '';
         $n = floor($v_header['size'] / 512);
         for ($i = 0; $i < $n; $i++) {
@@ -1802,8 +1655,8 @@ class Archive_Tar extends PEAR
         $v_header['filename'] = $v_filename;
         if ($this->_maliciousFilename($v_filename)) {
             $this->_error(
-                'Malicious .tar detected, file "' . $v_filename .
-                '" will not install in desired directory tree'
+                    'Malicious .tar detected, file "' . $v_filename .
+                    '" will not install in desired directory tree'
             );
             return false;
         }
@@ -1812,7 +1665,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _extractInString()
     /**
      * This method extract from the archive one file identified by $p_filename.
@@ -1823,8 +1675,7 @@ class Archive_Tar extends PEAR
      * @return a string with the file content or null.
      * @access private
      */
-    function _extractInString($p_filename)
-    {
+    function _extractInString($p_filename) {
         $v_result_str = "";
 
         while (strlen($v_binary_data = $this->_readBlock()) != 0) {
@@ -1846,8 +1697,8 @@ class Archive_Tar extends PEAR
             if ($v_header['filename'] == $p_filename) {
                 if ($v_header['typeflag'] == "5") {
                     $this->_error(
-                        'Unable to extract in string a directory '
-                        . 'entry {' . $v_header['filename'] . '}'
+                            'Unable to extract in string a directory '
+                            . 'entry {' . $v_header['filename'] . '}'
                     );
                     return null;
                 } else {
@@ -1858,9 +1709,7 @@ class Archive_Tar extends PEAR
                     if (($v_header['size'] % 512) != 0) {
                         $v_content = $this->_readBlock();
                         $v_result_str .= substr(
-                            $v_content,
-                            0,
-                            ($v_header['size'] % 512)
+                                $v_content, 0, ($v_header['size'] % 512)
                         );
                     }
                     return $v_result_str;
@@ -1874,15 +1723,9 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _extractList()
     function _extractList(
-        $p_path,
-        &$p_list_detail,
-        $p_mode,
-        $p_file_list,
-        $p_remove_path,
-        $p_preserve = false
+    $p_path, &$p_list_detail, $p_mode, $p_file_list, $p_remove_path, $p_preserve = false
     ) {
         $v_result = true;
         $v_nb = 0;
@@ -1890,8 +1733,7 @@ class Archive_Tar extends PEAR
         $v_listing = false;
 
         $p_path = $this->_translateWinPath($p_path, false);
-        if ($p_path == '' || (substr($p_path, 0, 1) != '/'
-                && substr($p_path, 0, 3) != "../" && !strpos($p_path, ':'))
+        if ($p_path == '' || (substr($p_path, 0, 1) != '/' && substr($p_path, 0, 3) != "../" && !strpos($p_path, ':'))
         ) {
             $p_path = "./" . $p_path;
         }
@@ -1956,9 +1798,7 @@ class Archive_Tar extends PEAR
                     // ----- Look if it is a directory
                     if (substr($p_file_list[$i], -1) == '/') {
                         // ----- Look if the directory is in the filename path
-                        if ((strlen($v_header['filename']) > strlen($p_file_list[$i]))
-                            && (substr($v_header['filename'], 0, strlen($p_file_list[$i]))
-                                == $p_file_list[$i])
+                        if ((strlen($v_header['filename']) > strlen($p_file_list[$i])) && (substr($v_header['filename'], 0, strlen($p_file_list[$i])) == $p_file_list[$i])
                         ) {
                             $v_extract_file = true;
                             break;
@@ -1975,13 +1815,10 @@ class Archive_Tar extends PEAR
 
             // ----- Look if this file need to be extracted
             if (($v_extract_file) && (!$v_listing)) {
-                if (($p_remove_path != '')
-                    && (substr($v_header['filename'] . '/', 0, $p_remove_path_size)
-                        == $p_remove_path)
+                if (($p_remove_path != '') && (substr($v_header['filename'] . '/', 0, $p_remove_path_size) == $p_remove_path)
                 ) {
                     $v_header['filename'] = substr(
-                        $v_header['filename'],
-                        $p_remove_path_size
+                            $v_header['filename'], $p_remove_path_size
                     );
                     if ($v_header['filename'] == '') {
                         continue;
@@ -1999,28 +1836,26 @@ class Archive_Tar extends PEAR
                     }
                 }
                 if (file_exists($v_header['filename'])) {
-                    if ((@is_dir($v_header['filename']))
-                        && ($v_header['typeflag'] == '')
+                    if ((@is_dir($v_header['filename'])) && ($v_header['typeflag'] == '')
                     ) {
                         $this->_error(
-                            'File ' . $v_header['filename']
-                            . ' already exists as a directory'
+                                'File ' . $v_header['filename']
+                                . ' already exists as a directory'
                         );
                         return false;
                     }
-                    if (($this->_isArchive($v_header['filename']))
-                        && ($v_header['typeflag'] == "5")
+                    if (($this->_isArchive($v_header['filename'])) && ($v_header['typeflag'] == "5")
                     ) {
                         $this->_error(
-                            'Directory ' . $v_header['filename']
-                            . ' already exists as a file'
+                                'Directory ' . $v_header['filename']
+                                . ' already exists as a file'
                         );
                         return false;
                     }
                     if (!is_writeable($v_header['filename'])) {
                         $this->_error(
-                            'File ' . $v_header['filename']
-                            . ' already exists and is write protected'
+                                'File ' . $v_header['filename']
+                                . ' already exists and is write protected'
                         );
                         return false;
                     }
@@ -2028,12 +1863,9 @@ class Archive_Tar extends PEAR
                         // To be completed : An error or silent no replace ?
                     }
                 } // ----- Check the directory availability and create it if necessary
-                elseif (($v_result
-                        = $this->_dirCheck(
-                        ($v_header['typeflag'] == "5"
-                            ? $v_header['filename']
-                            : dirname($v_header['filename']))
-                    )) != 1
+                elseif (($v_result = $this->_dirCheck(
+                        ($v_header['typeflag'] == "5" ? $v_header['filename'] : dirname($v_header['filename']))
+                        )) != 1
                 ) {
                     $this->_error('Unable to create path for ' . $v_header['filename']);
                     return false;
@@ -2044,8 +1876,8 @@ class Archive_Tar extends PEAR
                         if (!@file_exists($v_header['filename'])) {
                             if (!@mkdir($v_header['filename'], 0777)) {
                                 $this->_error(
-                                    'Unable to create directory {'
-                                    . $v_header['filename'] . '}'
+                                        'Unable to create directory {'
+                                        . $v_header['filename'] . '}'
                                 );
                                 return false;
                             }
@@ -2056,16 +1888,16 @@ class Archive_Tar extends PEAR
                         }
                         if (!@symlink($v_header['link'], $v_header['filename'])) {
                             $this->_error(
-                                'Unable to extract symbolic link {'
-                                . $v_header['filename'] . '}'
+                                    'Unable to extract symbolic link {'
+                                    . $v_header['filename'] . '}'
                             );
                             return false;
                         }
                     } else {
                         if (($v_dest_file = @fopen($v_header['filename'], "wb")) == 0) {
                             $this->_error(
-                                'Error while opening {' . $v_header['filename']
-                                . '} in write binary mode'
+                                    'Error while opening {' . $v_header['filename']
+                                    . '} in write binary mode'
                             );
                             return false;
                         } else {
@@ -2099,8 +1931,8 @@ class Archive_Tar extends PEAR
                         clearstatcache();
                         if (!is_file($v_header['filename'])) {
                             $this->_error(
-                                'Extracted file ' . $v_header['filename']
-                                . 'does not exist. Archive may be corrupted.'
+                                    'Extracted file ' . $v_header['filename']
+                                    . 'does not exist. Archive may be corrupted.'
                             );
                             return false;
                         }
@@ -2108,11 +1940,11 @@ class Archive_Tar extends PEAR
                         $filesize = filesize($v_header['filename']);
                         if ($filesize != $v_header['size']) {
                             $this->_error(
-                                'Extracted file ' . $v_header['filename']
-                                . ' does not have the correct file size \''
-                                . $filesize
-                                . '\' (' . $v_header['size']
-                                . ' expected). Archive may be corrupted.'
+                                    'Extracted file ' . $v_header['filename']
+                                    . ' does not have the correct file size \''
+                                    . $filesize
+                                    . '\' (' . $v_header['size']
+                                    . ' expected). Archive may be corrupted.'
                             );
                             return false;
                         }
@@ -2125,16 +1957,15 @@ class Archive_Tar extends PEAR
             }
 
             /* TBC : Seems to be unused ...
-            if ($this->_compress)
+              if ($this->_compress)
               $v_end_of_file = @gzeof($this->_file);
-            else
+              else
               $v_end_of_file = @feof($this->_file);
-              */
+             */
 
             if ($v_listing || $v_extract_file || $v_extraction_stopped) {
                 // ----- Log extracted files
-                if (($v_file_dir = dirname($v_header['filename']))
-                    == $v_header['filename']
+                if (($v_file_dir = dirname($v_header['filename'])) == $v_header['filename']
                 ) {
                     $v_file_dir = '';
                 }
@@ -2153,10 +1984,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _openAppend()
-    function _openAppend()
-    {
+    function _openAppend() {
         if (filesize($this->_tarname) == 0) {
             return $this->_openWrite();
         }
@@ -2166,9 +1995,9 @@ class Archive_Tar extends PEAR
 
             if (!@rename($this->_tarname, $this->_tarname . ".tmp")) {
                 $this->_error(
-                    'Error while renaming \'' . $this->_tarname
-                    . '\' to temporary file \'' . $this->_tarname
-                    . '.tmp\''
+                        'Error while renaming \'' . $this->_tarname
+                        . '\' to temporary file \'' . $this->_tarname
+                        . '.tmp\''
                 );
                 return false;
             }
@@ -2184,8 +2013,8 @@ class Archive_Tar extends PEAR
 
             if ($v_temp_tar == 0) {
                 $this->_error(
-                    'Unable to open file \'' . $this->_tarname
-                    . '.tmp\' in binary read mode'
+                        'Unable to open file \'' . $this->_tarname
+                        . '.tmp\' in binary read mode'
                 );
                 @rename($this->_tarname . ".tmp", $this->_tarname);
                 return false;
@@ -2261,11 +2090,10 @@ class Archive_Tar extends PEAR
 
             if (!@unlink($this->_tarname . ".tmp")) {
                 $this->_error(
-                    'Error while deleting temporary file \''
-                    . $this->_tarname . '.tmp\''
+                        'Error while deleting temporary file \''
+                        . $this->_tarname . '.tmp\''
                 );
             }
-
         } else {
             // ----- For not compressed tar, just add files before the last
             //       one or two 512 bytes block
@@ -2291,10 +2119,8 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _append()
-    function _append($p_filelist, $p_add_dir = '', $p_remove_dir = '')
-    {
+    function _append($p_filelist, $p_add_dir = '', $p_remove_dir = '') {
         if (!$this->_openAppend()) {
             return false;
         }
@@ -2309,7 +2135,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _dirCheck()
 
     /**
@@ -2320,8 +2145,7 @@ class Archive_Tar extends PEAR
      *
      * @return bool true if the directory exists or was created
      */
-    function _dirCheck($p_dir)
-    {
+    function _dirCheck($p_dir) {
         clearstatcache();
         if ((@is_dir($p_dir)) || ($p_dir == '')) {
             return true;
@@ -2330,8 +2154,8 @@ class Archive_Tar extends PEAR
         $p_parent_dir = dirname($p_dir);
 
         if (($p_parent_dir != $p_dir) &&
-            ($p_parent_dir != '') &&
-            (!$this->_dirCheck($p_parent_dir))
+                ($p_parent_dir != '') &&
+                (!$this->_dirCheck($p_parent_dir))
         ) {
             return false;
         }
@@ -2345,7 +2169,6 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _pathReduction()
 
     /**
@@ -2359,8 +2182,7 @@ class Archive_Tar extends PEAR
      * @access private
      *
      */
-    function _pathReduction($p_dir)
-    {
+    function _pathReduction($p_dir) {
         $v_result = '';
 
         // ----- Look for not empty path
@@ -2379,15 +2201,13 @@ class Archive_Tar extends PEAR
                         // ----- Ignore it and ignore the $i-1
                         $i--;
                     } else {
-                        if (($v_list[$i] == '')
-                            && ($i != (sizeof($v_list) - 1))
-                            && ($i != 0)
+                        if (($v_list[$i] == '') && ($i != (sizeof($v_list) - 1)) && ($i != 0)
                         ) {
                             // ----- Ignore only the double '//' in path,
                             // but not the first and last /
                         } else {
                             $v_result = $v_list[$i] . ($i != (sizeof($v_list) - 1) ? '/'
-                                    . $v_result : '');
+                                            . $v_result : '');
                         }
                     }
                 }
@@ -2402,14 +2222,11 @@ class Archive_Tar extends PEAR
     }
 
     // }}}
-
     // {{{ _translateWinPath()
-    function _translateWinPath($p_path, $p_remove_disk_letter = true)
-    {
+    function _translateWinPath($p_path, $p_remove_disk_letter = true) {
         if (defined('OS_WINDOWS') && OS_WINDOWS) {
             // ----- Look for potential disk letter
-            if (($p_remove_disk_letter)
-                && (($v_position = strpos($p_path, ':')) != false)
+            if (($p_remove_disk_letter) && (($v_position = strpos($p_path, ':')) != false)
             ) {
                 $p_path = substr($p_path, $v_position + 1);
             }
@@ -2420,6 +2237,6 @@ class Archive_Tar extends PEAR
         }
         return $p_path;
     }
-    // }}}
 
+    // }}}
 }

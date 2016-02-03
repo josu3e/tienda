@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,12 +24,10 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class Adapter_StockManager {
 
-class Adapter_StockManager
-{
-    
-    public function getStockAvailableByProduct($product, $id_product_attribute = null, $id_shop = null)
-    {
+    public function getStockAvailableByProduct($product, $id_product_attribute = null, $id_shop = null) {
         return new StockAvailable(StockAvailable::getStockAvailableIdByProductId($product->id, $id_product_attribute, $id_shop));
     }
+
 }

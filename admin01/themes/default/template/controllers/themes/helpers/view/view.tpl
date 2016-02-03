@@ -32,8 +32,8 @@
 {if $doc|count > 0}
     <ul>
         {foreach $doc as $key => $item}
-        <li><i><a class="_blank" href="{$item}">{$key}</a></i>
-        {/foreach}
+            <li><i><a class="_blank" href="{$item}">{$key}</a></i>
+                    {/foreach}
     </ul>
 {/if}
 {if $modules_errors|count > 0}
@@ -43,7 +43,7 @@
         <ul>
             {foreach $modules_errors as $module_errors}
                 <li>
-                   <b>{$module_errors['module_name']}</b> : {foreach $module_errors['errors'] as $error}<br>  {$error|escape:'html':'UTF-8'}{/foreach}
+                    <b>{$module_errors['module_name']}</b> : {foreach $module_errors['errors'] as $error}<br>  {$error|escape:'html':'UTF-8'}{/foreach}
                 </li>
             {/foreach}
         </ul>

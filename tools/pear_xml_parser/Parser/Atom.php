@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -19,7 +20,7 @@
  * @license    http://www.gnu.org/copyleft/lesser.html  GNU LGPL 2.1
  * @version    CVS: $Id: Atom.php 6844 2011-06-03 14:46:51Z dMetzger $
  * @link       http://pear.php.net/package/XML_Feed_Parser/
-*/
+ */
 
 /**
  * This is the class that determines how we manage Atom 1.0 feeds
@@ -33,8 +34,8 @@
  * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
-class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
-{
+class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type {
+
     /**
      * The URI of the RelaxNG schema used to (optionally) validate the feed 
      * @var string
@@ -59,13 +60,13 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      */
     public $version = 'Atom 1.0';
 
-    /** 
+    /**
      * The class used to represent individual items 
      * @var string
      */
     protected $itemClass = 'XML_Feed_Parser_AtomElement';
-    
-    /** 
+
+    /**
      * The element containing entries 
      * @var string
      */
@@ -112,12 +113,11 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * @param    DOMDocument    $xml    A DOM object representing the feed
      * @param    bool (optional) $string    Whether or not to validate this feed
      */
-    function __construct(DOMDocument $model, $strict = false)
-    {
+    function __construct(DOMDocument $model, $strict = false) {
         $this->model = $model;
 
         if ($strict) {
-            if (! $this->relaxNGValidate()) {
+            if (!$this->relaxNGValidate()) {
                 throw new XML_Feed_Parser_Exception('Failed required validation');
             }
         }
@@ -138,8 +138,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * @param    string    $id    any valid Atom ID.
      * @return    XML_Feed_Parser_AtomElement
      */
-    function getEntryById($id)
-    {
+    function getEntryById($id) {
         if (isset($this->idMappings[$id])) {
             return $this->entries[$this->idMappings[$id]];
         }
@@ -149,7 +148,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         if ($entries->length > 0) {
             $xmlBase = $entries->item(0)->baseURI;
             $entry = new $this->itemClass($entries->item(0), $this, $xmlBase);
-            
+
             if (in_array('evaluate', get_class_methods($this->xpath))) {
                 $offset = $this->xpath->evaluate("count(preceding-sibling::atom:entry)", $entries->item(0));
                 $this->entries[$offset] = $entry;
@@ -159,7 +158,6 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 
             return $entry;
         }
-        
     }
 
     /**
@@ -172,12 +170,11 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * @param    array     $arguments    An array which we hope gives a 'param'
      * @return    string|false
      */
-    protected function getPerson($method, $arguments)
-    {
+    protected function getPerson($method, $arguments) {
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $parameter = empty($arguments[1]['param']) ? 'name' : $arguments[1]['param'];
         $section = $this->model->getElementsByTagName($method);
-        
+
         if ($parameter == 'url') {
             $parameter = 'uri';
         }
@@ -206,9 +203,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * @param    array     $arguments    An array which we hope gives a 'param'
      * @return    string
      */
-    protected function getText($method, $arguments)
-    {
-        $offset = empty($arguments[0]) ? 0: $arguments[0];
+    protected function getText($method, $arguments) {
+        $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $attribute = empty($arguments[1]) ? false : $arguments[1];
         $tags = $this->model->getElementsByTagName($method);
 
@@ -218,13 +214,12 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 
         $content = $tags->item($offset);
 
-        if (! $content->hasAttribute('type')) {
+        if (!$content->hasAttribute('type')) {
             $content->setAttribute('type', 'text');
         }
         $type = $content->getAttribute('type');
 
-        if (! empty($attribute) and 
-            ! ($method == 'generator' and $attribute == 'name')) {
+        if (!empty($attribute) and ! ($method == 'generator' and $attribute == 'name')) {
             if ($content->hasAttribute($attribute)) {
                 return $content->getAttribute($attribute);
             } elseif ($attribute == 'href' and $content->hasAttribute('uri')) {
@@ -235,7 +230,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
 
         return $this->parseTextConstruct($content);
     }
-    
+
     /**
      * Extract content appropriately from atom text constructs
      *
@@ -247,9 +242,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * @param   DOMNode $content    the text construct node to be parsed
      * @return String
      * @author James Stewart
-     **/
-    protected function parseTextConstruct(DOMNode $content)
-    {
+     * */
+    protected function parseTextConstruct(DOMNode $content) {
         if ($content->hasAttribute('type')) {
             $type = $content->getAttribute('type');
         } else {
@@ -290,6 +284,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         }
         return false;
     }
+
     /**
      * Get a category from the entry.
      *
@@ -300,9 +295,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * @param    array     $arguments    An array which we hope gives a 'param'
      * @return    string
      */
-    function getCategory($method, $arguments)
-    {
-        $offset = empty($arguments[0]) ? 0: $arguments[0];
+    function getCategory($method, $arguments) {
+        $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $attribute = empty($arguments[1]) ? 'term' : $arguments[1];
         $categories = $this->model->getElementsByTagName('category');
         if ($categories->length <= $offset) {
@@ -325,9 +319,8 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
      * @param    array     an array of attributes to search by
      * @return    string    the value of the attribute
      */
-    function getLink($offset = 0, $attribute = 'href', $params = false)
-    {
-        if (is_array($params) and !empty($params)) {
+    function getLink($offset = 0, $attribute = 'href', $params = false) {
+        if (is_array($params) and ! empty($params)) {
             $terms = array();
             $alt_predicate = '';
             $other_predicate = '';
@@ -342,7 +335,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
             if (!empty($terms)) {
                 $other_predicate = '[' . join(' and ', $terms) . ']';
             }
-            $query =  $this->xpathPrefix . 'atom:link' . $alt_predicate . $other_predicate;
+            $query = $this->xpathPrefix . 'atom:link' . $alt_predicate . $other_predicate;
             $links = $this->xpath->query($query);
         } else {
             $links = $this->model->getElementsByTagName('link');
@@ -360,6 +353,7 @@ class XML_Feed_Parser_Atom extends XML_Feed_Parser_Type
         }
         return false;
     }
+
 }
 
 ?>

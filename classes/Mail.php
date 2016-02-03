@@ -1,36 +1,37 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
-include_once(_PS_SWIFT_DIR_.'Swift.php');
-include_once(_PS_SWIFT_DIR_.'Swift/Connection/SMTP.php');
-include_once(_PS_SWIFT_DIR_.'Swift/Connection/NativeMail.php');
-include_once(_PS_SWIFT_DIR_.'Swift/Plugin/Decorator.php');
+include_once(_PS_SWIFT_DIR_ . 'Swift.php');
+include_once(_PS_SWIFT_DIR_ . 'Swift/Connection/SMTP.php');
+include_once(_PS_SWIFT_DIR_ . 'Swift/Connection/NativeMail.php');
+include_once(_PS_SWIFT_DIR_ . 'Swift/Plugin/Decorator.php');
 
-class MailCore extends ObjectModel
-{
+class MailCore extends ObjectModel {
+
     public $id;
 
     /** @var string Recipient */
@@ -84,25 +85,22 @@ class MailCore extends ObjectModel
      * @param bool $die
      * @param string $bcc Bcc recipient
      */
-    public static function Send($id_lang, $template, $subject, $template_vars, $to,
-        $to_name = null, $from = null, $from_name = null, $file_attachment = null, $mode_smtp = null,
-        $template_path = _PS_MAIL_DIR_, $die = false, $id_shop = null, $bcc = null, $reply_to = null)
-    {
+    public static function Send($id_lang, $template, $subject, $template_vars, $to, $to_name = null, $from = null, $from_name = null, $file_attachment = null, $mode_smtp = null, $template_path = _PS_MAIL_DIR_, $die = false, $id_shop = null, $bcc = null, $reply_to = null) {
         if (!$id_shop) {
             $id_shop = Context::getContext()->shop->id;
         }
 
         $configuration = Configuration::getMultiple(array(
-            'PS_SHOP_EMAIL',
-            'PS_MAIL_METHOD',
-            'PS_MAIL_SERVER',
-            'PS_MAIL_USER',
-            'PS_MAIL_PASSWD',
-            'PS_SHOP_NAME',
-            'PS_MAIL_SMTP_ENCRYPTION',
-            'PS_MAIL_SMTP_PORT',
-            'PS_MAIL_TYPE'
-        ), null, null, $id_shop);
+                    'PS_SHOP_EMAIL',
+                    'PS_MAIL_METHOD',
+                    'PS_MAIL_SERVER',
+                    'PS_MAIL_USER',
+                    'PS_MAIL_PASSWD',
+                    'PS_SHOP_NAME',
+                    'PS_MAIL_SMTP_ENCRYPTION',
+                    'PS_MAIL_SMTP_PORT',
+                    'PS_MAIL_TYPE'
+                        ), null, null, $id_shop);
 
         // Returns immediatly if emails are deactivated
         if ($configuration['PS_MAIL_METHOD'] == 3) {
@@ -113,11 +111,11 @@ class MailCore extends ObjectModel
 
         // Get the path of theme by id_shop if exist
         if (is_numeric($id_shop) && $id_shop) {
-            $shop = new Shop((int)$id_shop);
+            $shop = new Shop((int) $id_shop);
             $theme_name = $shop->getTheme();
 
             if (_THEME_NAME_ != $theme_name) {
-                $theme_path = _PS_ROOT_DIR_.'/themes/'.$theme_name.'/';
+                $theme_path = _PS_ROOT_DIR_ . '/themes/' . $theme_name . '/';
             }
         }
 
@@ -213,9 +211,7 @@ class MailCore extends ObjectModel
                     return false;
                 }
                 $connection = new Swift_Connection_SMTP(
-                    $configuration['PS_MAIL_SERVER'],
-                    $configuration['PS_MAIL_SMTP_PORT'],
-                    $configuration['PS_MAIL_SMTP_ENCRYPTION'] == 'ssl' ? Swift_Connection_SMTP::ENC_SSL : (($configuration['PS_MAIL_SMTP_ENCRYPTION'] == 'tls' ? Swift_Connection_SMTP::ENC_TLS : Swift_Connection_SMTP::ENC_OFF))
+                        $configuration['PS_MAIL_SERVER'], $configuration['PS_MAIL_SMTP_PORT'], $configuration['PS_MAIL_SMTP_ENCRYPTION'] == 'ssl' ? Swift_Connection_SMTP::ENC_SSL : (($configuration['PS_MAIL_SMTP_ENCRYPTION'] == 'tls' ? Swift_Connection_SMTP::ENC_TLS : Swift_Connection_SMTP::ENC_OFF))
                 );
                 $connection->setTimeout(4);
                 if (!$connection) {
@@ -236,33 +232,33 @@ class MailCore extends ObjectModel
             }
             $swift = new Swift($connection, Configuration::get('PS_MAIL_DOMAIN', null, null, $id_shop));
             /* Get templates content */
-            $iso = Language::getIsoById((int)$id_lang);
+            $iso = Language::getIsoById((int) $id_lang);
             if (!$iso) {
                 Tools::dieOrLog(Tools::displayError('Error - No ISO code for email'), $die);
                 return false;
             }
-            $iso_template = $iso.'/'.$template;
+            $iso_template = $iso . '/' . $template;
 
             $module_name = false;
             $override_mail = false;
 
             // get templatePath
-            if (preg_match('#'.$shop->physical_uri.'modules/#', str_replace(DIRECTORY_SEPARATOR, '/', $template_path)) && preg_match('#modules/([a-z0-9_-]+)/#ui', str_replace(DIRECTORY_SEPARATOR, '/', $template_path), $res)) {
+            if (preg_match('#' . $shop->physical_uri . 'modules/#', str_replace(DIRECTORY_SEPARATOR, '/', $template_path)) && preg_match('#modules/([a-z0-9_-]+)/#ui', str_replace(DIRECTORY_SEPARATOR, '/', $template_path), $res)) {
                 $module_name = $res[1];
             }
 
-            if ($module_name !== false && (file_exists($theme_path.'modules/'.$module_name.'/mails/'.$iso_template.'.txt') ||
-                file_exists($theme_path.'modules/'.$module_name.'/mails/'.$iso_template.'.html'))) {
-                $template_path = $theme_path.'modules/'.$module_name.'/mails/';
-            } elseif (file_exists($theme_path.'mails/'.$iso_template.'.txt') || file_exists($theme_path.'mails/'.$iso_template.'.html')) {
-                $template_path = $theme_path.'mails/';
-                $override_mail  = true;
+            if ($module_name !== false && (file_exists($theme_path . 'modules/' . $module_name . '/mails/' . $iso_template . '.txt') ||
+                    file_exists($theme_path . 'modules/' . $module_name . '/mails/' . $iso_template . '.html'))) {
+                $template_path = $theme_path . 'modules/' . $module_name . '/mails/';
+            } elseif (file_exists($theme_path . 'mails/' . $iso_template . '.txt') || file_exists($theme_path . 'mails/' . $iso_template . '.html')) {
+                $template_path = $theme_path . 'mails/';
+                $override_mail = true;
             }
-            if (!file_exists($template_path.$iso_template.'.txt') && ($configuration['PS_MAIL_TYPE'] == Mail::TYPE_BOTH || $configuration['PS_MAIL_TYPE'] == Mail::TYPE_TEXT)) {
-                Tools::dieOrLog(Tools::displayError('Error - The following e-mail template is missing:').' '.$template_path.$iso_template.'.txt', $die);
+            if (!file_exists($template_path . $iso_template . '.txt') && ($configuration['PS_MAIL_TYPE'] == Mail::TYPE_BOTH || $configuration['PS_MAIL_TYPE'] == Mail::TYPE_TEXT)) {
+                Tools::dieOrLog(Tools::displayError('Error - The following e-mail template is missing:') . ' ' . $template_path . $iso_template . '.txt', $die);
                 return false;
-            } elseif (!file_exists($template_path.$iso_template.'.html') && ($configuration['PS_MAIL_TYPE'] == Mail::TYPE_BOTH || $configuration['PS_MAIL_TYPE'] == Mail::TYPE_HTML)) {
-                Tools::dieOrLog(Tools::displayError('Error - The following e-mail template is missing:').' '.$template_path.$iso_template.'.html', $die);
+            } elseif (!file_exists($template_path . $iso_template . '.html') && ($configuration['PS_MAIL_TYPE'] == Mail::TYPE_BOTH || $configuration['PS_MAIL_TYPE'] == Mail::TYPE_HTML)) {
+                Tools::dieOrLog(Tools::displayError('Error - The following e-mail template is missing:') . ' ' . $template_path . $iso_template . '.html', $die);
                 return false;
             }
             $template_html = '';
@@ -271,29 +267,29 @@ class MailCore extends ObjectModel
                 'template' => $template,
                 'template_html' => &$template_html,
                 'template_txt' => &$template_txt,
-                'id_lang' => (int)$id_lang
-            ), null, true);
-            $template_html .= file_get_contents($template_path.$iso_template.'.html');
-            $template_txt .= strip_tags(html_entity_decode(file_get_contents($template_path.$iso_template.'.txt'), null, 'utf-8'));
+                'id_lang' => (int) $id_lang
+                    ), null, true);
+            $template_html .= file_get_contents($template_path . $iso_template . '.html');
+            $template_txt .= strip_tags(html_entity_decode(file_get_contents($template_path . $iso_template . '.txt'), null, 'utf-8'));
             Hook::exec('actionEmailAddAfterContent', array(
                 'template' => $template,
                 'template_html' => &$template_html,
                 'template_txt' => &$template_txt,
-                'id_lang' => (int)$id_lang
-            ), null, true);
-            if ($override_mail && file_exists($template_path.$iso.'/lang.php')) {
-                include_once($template_path.$iso.'/lang.php');
-            } elseif ($module_name && file_exists($theme_path.'mails/'.$iso.'/lang.php')) {
-                include_once($theme_path.'mails/'.$iso.'/lang.php');
-            } elseif (file_exists(_PS_MAIL_DIR_.$iso.'/lang.php')) {
-                include_once(_PS_MAIL_DIR_.$iso.'/lang.php');
+                'id_lang' => (int) $id_lang
+                    ), null, true);
+            if ($override_mail && file_exists($template_path . $iso . '/lang.php')) {
+                include_once($template_path . $iso . '/lang.php');
+            } elseif ($module_name && file_exists($theme_path . 'mails/' . $iso . '/lang.php')) {
+                include_once($theme_path . 'mails/' . $iso . '/lang.php');
+            } elseif (file_exists(_PS_MAIL_DIR_ . $iso . '/lang.php')) {
+                include_once(_PS_MAIL_DIR_ . $iso . '/lang.php');
             } else {
-                Tools::dieOrLog(Tools::displayError('Error - The language file is missing for:').' '.$iso, $die);
+                Tools::dieOrLog(Tools::displayError('Error - The language file is missing for:') . ' ' . $iso, $die);
                 return false;
             }
 
             /* Create mail and attach differents parts */
-            $subject = '['.Configuration::get('PS_SHOP_NAME', null, null, $id_shop).'] '.$subject;
+            $subject = '[' . Configuration::get('PS_SHOP_NAME', null, null, $id_shop) . '] ' . $subject;
             $message = new Swift_Message($subject);
 
             $message->setCharset('utf-8');
@@ -314,16 +310,16 @@ class MailCore extends ObjectModel
             $template_vars = array_map(array('Tools', 'htmlentitiesDecodeUTF8'), $template_vars);
             $template_vars = array_map(array('Tools', 'stripslashes'), $template_vars);
 
-            if (Configuration::get('PS_LOGO_MAIL') !== false && file_exists(_PS_IMG_DIR_.Configuration::get('PS_LOGO_MAIL', null, null, $id_shop))) {
-                $logo = _PS_IMG_DIR_.Configuration::get('PS_LOGO_MAIL', null, null, $id_shop);
+            if (Configuration::get('PS_LOGO_MAIL') !== false && file_exists(_PS_IMG_DIR_ . Configuration::get('PS_LOGO_MAIL', null, null, $id_shop))) {
+                $logo = _PS_IMG_DIR_ . Configuration::get('PS_LOGO_MAIL', null, null, $id_shop);
             } else {
-                if (file_exists(_PS_IMG_DIR_.Configuration::get('PS_LOGO', null, null, $id_shop))) {
-                    $logo = _PS_IMG_DIR_.Configuration::get('PS_LOGO', null, null, $id_shop);
+                if (file_exists(_PS_IMG_DIR_ . Configuration::get('PS_LOGO', null, null, $id_shop))) {
+                    $logo = _PS_IMG_DIR_ . Configuration::get('PS_LOGO', null, null, $id_shop);
                 } else {
                     $template_vars['{shop_logo}'] = '';
                 }
             }
-            ShopUrl::cacheMainDomainForShop((int)$id_shop);
+            ShopUrl::cacheMainDomainForShop((int) $id_shop);
             /* don't attach the logo as */
             if (isset($logo)) {
                 $template_vars['{shop_logo}'] = $message->attach(new Swift_Message_EmbeddedFile(new Swift_File($logo), null, ImageManager::getMimeTypeByExtension($logo)));
@@ -345,8 +341,8 @@ class MailCore extends ObjectModel
                 'template' => $template,
                 'template_vars' => $template_vars,
                 'extra_template_vars' => &$extra_template_vars,
-                'id_lang' => (int)$id_lang
-            ), null, true);
+                'id_lang' => (int) $id_lang
+                    ), null, true);
             $template_vars = array_merge($template_vars, $extra_template_vars);
             $swift->attachPlugin(new Swift_Plugin_Decorator(array($to_plugin => $template_vars)), 'decorator');
             if ($configuration['PS_MAIL_TYPE'] == Mail::TYPE_BOTH || $configuration['PS_MAIL_TYPE'] == Mail::TYPE_TEXT) {
@@ -377,7 +373,7 @@ class MailCore extends ObjectModel
                 $mail = new Mail();
                 $mail->template = substr($template, 0, 62);
                 $mail->subject = substr($subject, 0, 254);
-                $mail->id_lang = (int)$id_lang;
+                $mail->id_lang = (int) $id_lang;
                 foreach (array_merge($to_list->getTo(), $to_list->getCc(), $to_list->getBcc()) as $recipient) {
                     /** @var Swift_Address $recipient */
                     $mail->id = null;
@@ -389,33 +385,27 @@ class MailCore extends ObjectModel
             return $send;
         } catch (Swift_Exception $e) {
             PrestaShopLogger::addLog(
-                'Swift Error: '.$e->getMessage(),
-                3,
-                null,
-                'Swift_Message'
+                    'Swift Error: ' . $e->getMessage(), 3, null, 'Swift_Message'
             );
 
             return false;
         }
     }
 
-    public static function eraseLog($id_mail)
-    {
-        return Db::getInstance()->delete('mail', 'id_mail = '.(int)$id_mail);
+    public static function eraseLog($id_mail) {
+        return Db::getInstance()->delete('mail', 'id_mail = ' . (int) $id_mail);
     }
 
-    public static function eraseAllLogs()
-    {
-        return Db::getInstance()->execute('TRUNCATE TABLE '._DB_PREFIX_.'mail');
+    public static function eraseAllLogs() {
+        return Db::getInstance()->execute('TRUNCATE TABLE ' . _DB_PREFIX_ . 'mail');
     }
 
-    public static function sendMailTest($smtpChecked, $smtpServer, $content, $subject, $type, $to, $from, $smtpLogin, $smtpPassword, $smtpPort = 25, $smtpEncryption)
-    {
+    public static function sendMailTest($smtpChecked, $smtpServer, $content, $subject, $type, $to, $from, $smtpLogin, $smtpPassword, $smtpPort = 25, $smtpEncryption) {
         $result = false;
         try {
             if ($smtpChecked) {
                 $smtp = new Swift_Connection_SMTP($smtpServer, $smtpPort, ($smtpEncryption == 'off') ?
-                    Swift_Connection_SMTP::ENC_OFF : (($smtpEncryption == 'tls') ? Swift_Connection_SMTP::ENC_TLS : Swift_Connection_SMTP::ENC_SSL));
+                                Swift_Connection_SMTP::ENC_OFF : (($smtpEncryption == 'tls') ? Swift_Connection_SMTP::ENC_TLS : Swift_Connection_SMTP::ENC_SSL));
                 $smtp->setUsername($smtpLogin);
                 $smtp->setpassword($smtpPassword);
                 $smtp->setTimeout(5);
@@ -447,24 +437,23 @@ class MailCore extends ObjectModel
      *
      * @param string $string raw sentence (write directly in file)
      */
-    public static function l($string, $id_lang = null, Context $context = null)
-    {
+    public static function l($string, $id_lang = null, Context $context = null) {
         global $_LANGMAIL;
 
         if (!$context) {
             $context = Context::getContext();
         }
         if ($id_lang == null) {
-            $id_lang = (!isset($context->language) || !is_object($context->language)) ? (int)Configuration::get('PS_LANG_DEFAULT') : (int)$context->language->id;
+            $id_lang = (!isset($context->language) || !is_object($context->language)) ? (int) Configuration::get('PS_LANG_DEFAULT') : (int) $context->language->id;
         }
-        $iso_code = Language::getIsoById((int)$id_lang);
+        $iso_code = Language::getIsoById((int) $id_lang);
 
-        $file_core = _PS_ROOT_DIR_.'/mails/'.$iso_code.'/lang.php';
+        $file_core = _PS_ROOT_DIR_ . '/mails/' . $iso_code . '/lang.php';
         if (Tools::file_exists_cache($file_core) && empty($_LANGMAIL)) {
             include($file_core);
         }
 
-        $file_theme = _PS_THEME_DIR_.'mails/'.$iso_code.'/lang.php';
+        $file_theme = _PS_THEME_DIR_ . 'mails/' . $iso_code . '/lang.php';
         if (Tools::file_exists_cache($file_theme)) {
             include($file_theme);
         }
@@ -478,19 +467,18 @@ class MailCore extends ObjectModel
     }
 
     /* Rewrite of Swift_Message::generateId() without getmypid() */
-    protected static function generateId($idstring = null)
-    {
+
+    protected static function generateId($idstring = null) {
         $midparams = array(
             'utctime' => gmstrftime('%Y%m%d%H%M%S'),
             'randint' => mt_rand(),
-            'customstr' => (preg_match("/^(?<!\\.)[a-z0-9\\.]+(?!\\.)\$/iD", $idstring) ? $idstring : "swift") ,
+            'customstr' => (preg_match("/^(?<!\\.)[a-z0-9\\.]+(?!\\.)\$/iD", $idstring) ? $idstring : "swift"),
             'hostname' => (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : php_uname('n')),
         );
         return vsprintf("<%s.%d.%s@%s>", $midparams);
     }
 
-    public static function isMultibyte($data)
-    {
+    public static function isMultibyte($data) {
         $length = strlen($data);
         for ($i = 0; $i < $length; $i++) {
             if (ord(($data[$i])) > 128) {
@@ -500,16 +488,15 @@ class MailCore extends ObjectModel
         return false;
     }
 
-    public static function mimeEncode($string, $charset = 'UTF-8', $newline = "\r\n")
-    {
+    public static function mimeEncode($string, $charset = 'UTF-8', $newline = "\r\n") {
         if (!self::isMultibyte($string) && strlen($string) < 75) {
             return $string;
         }
 
         $charset = strtoupper($charset);
-        $start = '=?'.$charset.'?B?';
+        $start = '=?' . $charset . '?B?';
         $end = '?=';
-        $sep = $end.$newline.' '.$start;
+        $sep = $end . $newline . ' ' . $start;
         $length = 75 - strlen($start) - strlen($end);
         $length = $length - ($length % 4);
 
@@ -519,7 +506,7 @@ class MailCore extends ObjectModel
             $stringLength = strlen($string);
 
             while ($stringLength > $maxchars) {
-                $i = (int)$maxchars;
+                $i = (int) $maxchars;
                 $result = ord($string[$i]);
 
                 while ($result >= 128 && $result <= 191) {
@@ -535,9 +522,10 @@ class MailCore extends ObjectModel
             $string = implode($sep, $parts);
         } else {
             $string = chunk_split(base64_encode($string), $length, $sep);
-            $string = preg_replace('/'.preg_quote($sep).'$/', '', $string);
+            $string = preg_replace('/' . preg_quote($sep) . '$/', '', $string);
         }
 
-        return $start.$string.$end;
+        return $start . $string . $end;
     }
+
 }

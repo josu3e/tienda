@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Compile Print Expression
  * Compiles any tag which will output an expression or variable
@@ -14,8 +15,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_CompileBase
-{
+class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_CompileBase {
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -23,6 +24,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
      * @see Smarty_Internal_CompileBase
      */
     public $optional_attributes = array('assign');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -41,8 +43,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
      * @throws SmartyException
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
-    {
+    public function compile($args, $compiler, $parameter) {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         // nocache option
@@ -129,8 +130,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
      *
      * @return string
      */
-    private function compile_output_filter($compiler, $name, $output)
-    {
+    private function compile_output_filter($compiler, $name, $output) {
         $plugin_name = "smarty_variablefilter_{$name}";
         $path = $compiler->smarty->loadPlugin($plugin_name, false);
         if ($path) {
@@ -148,4 +148,5 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
 
         return "{$plugin_name}({$output},\$_smarty_tpl)";
     }
+
 }

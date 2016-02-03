@@ -48,59 +48,59 @@
 {capture name=path}{l s='Your shopping cart'}{/capture}
 
 {if $productNumber == 0}
-<p class="alert alert-warning">{l s='Your shopping cart is empty.'}</p>
+    <p class="alert alert-warning">{l s='Your shopping cart is empty.'}</p>
 {elseif $PS_CATALOG_MODE}
-<p class="alert alert-warning">{l s='This store has not accepted your new order.'}</p>
+    <p class="alert alert-warning">{l s='This store has not accepted your new order.'}</p>
 {else}
     <p id="emptyCartWarning" class="alert alert-warning unvisible">{l s='Your shopping cart is empty.'}</p>
     <h2>{l s='Payment Options'}</h2>
     <!-- HOOK_ADVANCED_PAYMENT -->
     <div id="HOOK_ADVANCED_PAYMENT">
         <div class="row">
-        <!-- Should get a collection of "PaymentOption" object -->
-        {assign var='adv_payment_empty' value=true}
-        {foreach from=$HOOK_ADVANCED_PAYMENT item=pay_option key=key}
-            {if $pay_option}
-                {assign var='adv_payment_empty' value=false}
-            {/if}
-        {/foreach}
-        {if $HOOK_ADVANCED_PAYMENT && !$adv_payment_empty}
-            {foreach $HOOK_ADVANCED_PAYMENT as $advanced_payment_opt_list}
-                {foreach $advanced_payment_opt_list as $paymentOption}
-                    <div class="col-xs-6 col-md-6">
-                        <p class="payment_module pointer-box">
-                            <a class="payment_module_adv">
-                                <img class="payment_option_logo" src="{$paymentOption->getLogo()}"/>
-                                <span class="payment_option_cta">
-                                    {$paymentOption->getCallToActionText()}
-                                </span>
-                                <span class="pull-right payment_option_selected">
-                                    <i class="icon-check"></i>
-                                </span>
-                            </a>
-
-                        </p>
-                        <div class="payment_option_form">
-                            {if $paymentOption->getForm()}
-                                {$paymentOption->getForm()}
-                            {else}
-                                <form method="{if $paymentOption->getMethod()}{$paymentOption->getMethod()}{else}POST{/if}" action="{$paymentOption->getAction()}">
-                                    {if $paymentOption->getInputs()}
-                                        {foreach from=$paymentOption->getInputs() item=value key=name}
-                                            <input type="hidden" name="{$name}" value="{$value}">
-                                        {/foreach}
-                                    {/if}
-                                </form>
-                            {/if}
-                        </div>
-                    </div>
-                {/foreach}
+            <!-- Should get a collection of "PaymentOption" object -->
+            {assign var='adv_payment_empty' value=true}
+            {foreach from=$HOOK_ADVANCED_PAYMENT item=pay_option key=key}
+                {if $pay_option}
+                    {assign var='adv_payment_empty' value=false}
+                {/if}
             {/foreach}
-        </div>
+            {if $HOOK_ADVANCED_PAYMENT && !$adv_payment_empty}
+                {foreach $HOOK_ADVANCED_PAYMENT as $advanced_payment_opt_list}
+                    {foreach $advanced_payment_opt_list as $paymentOption}
+                        <div class="col-xs-6 col-md-6">
+                            <p class="payment_module pointer-box">
+                                <a class="payment_module_adv">
+                                    <img class="payment_option_logo" src="{$paymentOption->getLogo()}"/>
+                                    <span class="payment_option_cta">
+                                        {$paymentOption->getCallToActionText()}
+                                    </span>
+                                    <span class="pull-right payment_option_selected">
+                                        <i class="icon-check"></i>
+                                    </span>
+                                </a>
+
+                            </p>
+                            <div class="payment_option_form">
+                                {if $paymentOption->getForm()}
+                                    {$paymentOption->getForm()}
+                                {else}
+                                    <form method="{if $paymentOption->getMethod()}{$paymentOption->getMethod()}{else}POST{/if}" action="{$paymentOption->getAction()}">
+                                        {if $paymentOption->getInputs()}
+                                            {foreach from=$paymentOption->getInputs() item=value key=name}
+                                                <input type="hidden" name="{$name}" value="{$value}">
+                                            {/foreach}
+                                        {/if}
+                                    </form>
+                                {/if}
+                            </div>
+                        </div>
+                    {/foreach}
+                {/foreach}
+            </div>
         {else}
-        <div class="col-xs-12 col-md-12">
-            <p class="alert alert-warning ">{l s='Unable to find any available payment option for your cart. Please contact us if the problem persists'}</p>
-        </div>
+            <div class="col-xs-12 col-md-12">
+                <p class="alert alert-warning ">{l s='Unable to find any available payment option for your cart. Please contact us if the problem persists'}</p>
+            </div>
         {/if}
     </div>
     <!-- end HOOK_ADVANCED_PAYMENT -->

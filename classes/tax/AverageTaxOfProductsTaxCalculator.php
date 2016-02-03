@@ -1,40 +1,35 @@
 <?php
 
-class AverageTaxOfProductsTaxCalculator
-{
+class AverageTaxOfProductsTaxCalculator {
+
     private $id_order;
     private $configuration;
     private $db;
-
     public $computation_method = 'average_tax_of_products';
 
-    public function __construct(Core_Foundation_Database_DatabaseInterface $db, Core_Business_ConfigurationInterface $configuration)
-    {
+    public function __construct(Core_Foundation_Database_DatabaseInterface $db, Core_Business_ConfigurationInterface $configuration) {
         $this->db = $db;
         $this->configuration = $configuration;
     }
 
-    private function getProductTaxes()
-    {
+    private function getProductTaxes() {
         $prefix = $this->configuration->get('_DB_PREFIX_');
 
-        $sql = 'SELECT t.id_tax, t.rate, od.total_price_tax_excl FROM '.$prefix.'orders o
-                INNER JOIN '.$prefix.'order_detail od ON od.id_order = o.id_order
-                INNER JOIN '.$prefix.'order_detail_tax odt ON odt.id_order_detail = od.id_order_detail
-                INNER JOIN '.$prefix.'tax t ON t.id_tax = odt.id_tax
-                WHERE o.id_order = '.(int)$this->id_order;
+        $sql = 'SELECT t.id_tax, t.rate, od.total_price_tax_excl FROM ' . $prefix . 'orders o
+                INNER JOIN ' . $prefix . 'order_detail od ON od.id_order = o.id_order
+                INNER JOIN ' . $prefix . 'order_detail_tax odt ON odt.id_order_detail = od.id_order_detail
+                INNER JOIN ' . $prefix . 'tax t ON t.id_tax = odt.id_tax
+                WHERE o.id_order = ' . (int) $this->id_order;
 
         return $this->db->select($sql);
     }
 
-    public function setIdOrder($id_order)
-    {
+    public function setIdOrder($id_order) {
         $this->id_order = $id_order;
         return $this;
     }
 
-    public function getTaxesAmount($price_before_tax, $price_after_tax = null, $round_precision = 2, $round_mode = null)
-    {
+    public function getTaxesAmount($price_before_tax, $price_after_tax = null, $round_precision = 2, $round_mode = null) {
         $amounts = array();
         $total_base = 0;
 
@@ -53,9 +48,7 @@ class AverageTaxOfProductsTaxCalculator
         $actual_tax = 0;
         foreach ($amounts as &$data) {
             $data = Tools::ps_round(
-                $price_before_tax * ($data['base'] / $total_base) * $data['rate'] / 100,
-                $round_precision,
-                $round_mode
+                            $price_before_tax * ($data['base'] / $total_base) * $data['rate'] / 100, $round_precision, $round_mode
             );
             $actual_tax += $data;
         }
@@ -63,13 +56,11 @@ class AverageTaxOfProductsTaxCalculator
 
         if ($price_after_tax) {
             Tools::spreadAmount(
-                $price_after_tax - $price_before_tax - $actual_tax,
-                $round_precision,
-                $amounts,
-                'id_tax'
+                    $price_after_tax - $price_before_tax - $actual_tax, $round_precision, $amounts, 'id_tax'
             );
         }
 
         return $amounts;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ConstraintBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: ConstraintBuilder.php 891 2013-12-31 00:20:19Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/ConstantBuilder.php';
 
@@ -66,4 +66,5 @@ class ConstraintBuilder {
     }
 
 }
+
 ?>

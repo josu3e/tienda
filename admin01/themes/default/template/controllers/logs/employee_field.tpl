@@ -23,6 +23,6 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <span class="employee_avatar_small">
-	<img class="imgm img-thumbnail" alt="" src="{$employee_image}" width="32" height="32" />
+    <img class="imgm img-thumbnail" alt="" src="{$employee_image}" width="32" height="32" />
 </span>
 {$employee_name}

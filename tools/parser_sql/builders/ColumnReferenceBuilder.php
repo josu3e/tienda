@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ColumnReferenceBuilder.php
  *
@@ -38,10 +39,10 @@
  * @version   SVN: $Id: ColumnReferenceBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/AliasBuilder.php';
 require_once dirname(__FILE__) . '/DirectionBuilder.php';
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
+
 /**
  * This class implements the builder for column references. 
  * You can overwrite all functions to achieve another handling.
@@ -71,5 +72,7 @@ class ColumnReferenceBuilder {
         $sql .= $this->buildDirection($parsed);
         return $sql;
     }
+
 }
+
 ?>

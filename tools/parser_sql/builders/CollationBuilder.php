@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CollationBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: CollationBuilder.php 922 2014-01-08 12:19:35Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ConstantBuilder.php';
@@ -89,5 +89,7 @@ class CollationBuilder {
         }
         return substr($sql, 0, -1);
     }
+
 }
+
 ?>

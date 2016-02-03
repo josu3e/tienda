@@ -8,7 +8,6 @@
  * @package Swift_Connection
  * @license GNU Lesser General Public License
  */
-
 require_once dirname(__FILE__) . "/ClassLoader.php";
 Swift_ClassLoader::load("Swift_ConnectionException");
 
@@ -17,6 +16,6 @@ Swift_ClassLoader::load("Swift_ConnectionException");
  * @package Swift_Connection
  * @author Chris Corbyn <chris@w3style.co.uk>
  */
-class Swift_BadResponseException extends Swift_ConnectionException
-{
+class Swift_BadResponseException extends Swift_ConnectionException {
+    
 }

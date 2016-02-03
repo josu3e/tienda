@@ -23,9 +23,9 @@
  *  International Registered Trademark & Property of PrestaShop SA
  */
 
-$(document).ready(function(){
+$(document).ready(function () {
     var handler = new PaymentOptionHandler();
-    
+
     if (!!$.prototype.fancybox)
         $("a.iframe").fancybox({
             'type': 'iframe',
@@ -33,12 +33,12 @@ $(document).ready(function(){
             'height': 600
         });
 
-    $('p.payment_module').on('click', function(event){
+    $('p.payment_module').on('click', function (event) {
         handler.selectOption($(this));
         return;
     });
 
-    $('#confirmOrder').on('click', function(event){
+    $('#confirmOrder').on('click', function (event) {
         /* Avoid any further action */
         event.preventDefault();
         event.stopPropagation();
@@ -70,11 +70,11 @@ $(document).ready(function(){
 
 });
 
-var PaymentOptionHandler = function() {
+var PaymentOptionHandler = function () {
 
     this.selected_option = null;
 
-    this.selectOption = function(elem) {
+    this.selectOption = function (elem) {
         if (typeof elem === 'undefined' || elem.hasClass('payment_selected')) {
             return;
         }
@@ -86,13 +86,13 @@ var PaymentOptionHandler = function() {
         this.selected_option.children('a:first').children('.payment_option_selected:first').fadeIn();
     };
 
-    this.unselectOption = function() {
+    this.unselectOption = function () {
         this.selected_option.children('a:first').children('.payment_option_selected:first').fadeOut();
         this.selected_option.removeClass('payment_selected');
     };
 
     /* Return array with all payment option information required */
-    this.submitForm = function()
+    this.submitForm = function ()
     {
         if (typeof this.selected_option !== 'undefined' && this.selected_option !== null && this.selected_option.hasClass('payment_selected'))
         {
@@ -105,7 +105,7 @@ var PaymentOptionHandler = function() {
         return false;
     };
 
-    this.checkTOS = function() {
+    this.checkTOS = function () {
 
         if ($('#cgv').prop('checked')) {
             return true;
@@ -114,7 +114,7 @@ var PaymentOptionHandler = function() {
         return false;
     };
 
-    this.checkVirtualProductRevocation = function() {
+    this.checkVirtualProductRevocation = function () {
         if ($('#revocation_vp_terms_agreed').prop('checked')) {
             return true;
         }

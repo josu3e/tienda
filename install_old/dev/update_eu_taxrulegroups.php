@@ -1,5 +1,6 @@
 
 <?php
+
 /**
  * This script will update the tax rule groups for virtual products from all EU localization packs.
  * All it needs is that the correct tax in each localization pack is marked with `eu-tax-group="virtual"`.
@@ -31,7 +32,6 @@
  *
  * Clean things up by removing all the previous taxes that had the attributes eu-tax-group="virtual" and auto-generated="1"
  */
-
 @ini_set('display_errors', 'on');
 
 $localizationPacksRoot = realpath(dirname(__FILE__) . '/../../localization');
@@ -58,7 +58,7 @@ foreach (scandir($localizationPacksRoot) as $entry) {
     }
 
     foreach ($localizationPack->taxes->tax as $tax) {
-        if ((string)$tax['eu-tax-group'] === 'virtual') {
+        if ((string) $tax['eu-tax-group'] === 'virtual') {
             if (!isset($euLocalizationFiles[$localizationPackFile])) {
                 $euLocalizationFiles[$localizationPackFile] = array(
                     'virtualTax' => $tax,
@@ -72,8 +72,7 @@ foreach (scandir($localizationPacksRoot) as $entry) {
     }
 }
 
-function addTax(SimpleXMLElement $taxes, SimpleXMLElement $tax, array $attributesToUpdate = array(), array $attributesToRemove = array())
-{
+function addTax(SimpleXMLElement $taxes, SimpleXMLElement $tax, array $attributesToUpdate = array(), array $attributesToRemove = array()) {
     $newTax = new SimpleXMLElement('<tax/>');
 
     $taxRulesGroups = $taxes->xpath('//taxRulesGroup[1]');
@@ -90,8 +89,7 @@ function addTax(SimpleXMLElement $taxes, SimpleXMLElement $tax, array $attribute
     $dom = dom_import_simplexml($taxes);
 
     $new = $dom->insertBefore(
-        $dom->ownerDocument->importNode(dom_import_simplexml($newTax)),
-        dom_import_simplexml($insertBefore)
+            $dom->ownerDocument->importNode(dom_import_simplexml($newTax)), dom_import_simplexml($insertBefore)
     );
 
     $newTax = simplexml_import_dom($new);
@@ -106,7 +104,7 @@ function addTax(SimpleXMLElement $taxes, SimpleXMLElement $tax, array $attribute
             continue;
         }
 
-        $value = (string)$attribute;
+        $value = (string) $attribute;
 
         $newAttributes[$name] = $value;
     }
@@ -120,12 +118,11 @@ function addTax(SimpleXMLElement $taxes, SimpleXMLElement $tax, array $attribute
     return $newTax;
 }
 
-function addTaxRule(SimpleXMLElement $taxRulesGroup, SimpleXMLElement $tax, $iso_code_country)
-{
+function addTaxRule(SimpleXMLElement $taxRulesGroup, SimpleXMLElement $tax, $iso_code_country) {
     $taxRule = $taxRulesGroup->addChild('taxRule');
 
     $taxRule->addAttribute('iso_code_country', $iso_code_country);
-    $taxRule->addAttribute('id_tax', (string)$tax['id']);
+    $taxRule->addAttribute('id_tax', (string) $tax['id']);
 
     return $taxRule;
 }
@@ -136,16 +133,16 @@ foreach ($euLocalizationFiles as $path => $file) {
     // Get max tax id, and list of nodes to kill
     $taxId = 0;
     foreach ($file['pack']->taxes->tax as $tax) {
-        if ((string)$tax['auto-generated'] === "1" && (string)$tax['from-eu-tax-group'] === 'virtual') {
+        if ((string) $tax['auto-generated'] === "1" && (string) $tax['from-eu-tax-group'] === 'virtual') {
             $nodesToKill[] = $tax;
         } else {
             // We only count the ids of the taxes we're not going to remove!
-            $taxId = max($taxId, (int)$tax['id']);
+            $taxId = max($taxId, (int) $tax['id']);
         }
     }
 
     foreach ($file['pack']->taxes->taxRulesGroup as $trg) {
-        if ((string)$trg['auto-generated'] === "1" && (string)$trg['eu-tax-group'] === 'virtual') {
+        if ((string) $trg['auto-generated'] === "1" && (string) $trg['eu-tax-group'] === 'virtual') {
             $nodesToKill[] = $trg;
         }
     }
@@ -169,10 +166,10 @@ foreach ($euLocalizationFiles as $path => $file) {
         }
 
         $tax = addTax($file['pack']->taxes, $foreignFile['virtualTax'], array(
-            'id' => (string)$taxId,
+            'id' => (string) $taxId,
             'auto-generated' => '1',
             'from-eu-tax-group' => 'virtual'
-        ), array('eu-tax-group'));
+                ), array('eu-tax-group'));
 
         addTaxRule($taxRulesGroup, $tax, $foreignFile['iso_code_country']);
 

@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'informations' => array(
         'documentation' => 'http://doc.prestashop.com/display/PS16/Installing+PrestaShop',

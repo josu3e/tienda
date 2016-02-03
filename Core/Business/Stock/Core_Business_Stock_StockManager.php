@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,9 +24,8 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class Core_Business_Stock_StockManager {
 
-class Core_Business_Stock_StockManager
-{
     /**
      * This will update a Pack quantity and will decrease the quantity of containing Products if needed.
      *
@@ -34,8 +34,7 @@ class Core_Business_Stock_StockManager
      * @param integer $delta_quantity The movement of the stock (negative for a decrease)
      * @param integer|null $id_shop Opional shop ID
      */
-    public function updatePackQuantity($product, $stock_available, $delta_quantity, $id_shop = null)
-    {
+    public function updatePackQuantity($product, $stock_available, $delta_quantity, $id_shop = null) {
         $configuration = Adapter_ServiceLocator::get('Core_Business_ConfigurationInterface');
         if ($product->pack_stock_type == 1 || $product->pack_stock_type == 2 || ($product->pack_stock_type == 3 && $configuration->get('PS_PACK_STOCK_TYPE') > 0)) {
             $packItemsManager = Adapter_ServiceLocator::get('Adapter_PackItemsManager');
@@ -48,14 +47,14 @@ class Core_Business_Stock_StockManager
                 $productStockAvailable->quantity = $productStockAvailable->quantity + ($delta_quantity * $product_pack->pack_quantity);
                 $productStockAvailable->update();
 
-                $cacheManager->clean('StockAvailable::getQuantityAvailableByProduct_'.(int)$product_pack->id.'*');
+                $cacheManager->clean('StockAvailable::getQuantityAvailableByProduct_' . (int) $product_pack->id . '*');
             }
         }
 
         $stock_available->quantity = $stock_available->quantity + $delta_quantity;
 
         if ($product->pack_stock_type == 0 || $product->pack_stock_type == 2 ||
-            ($product->pack_stock_type == 3 && ($configuration->get('PS_PACK_STOCK_TYPE') == 0 || $configuration->get('PS_PACK_STOCK_TYPE') == 2))) {
+                ($product->pack_stock_type == 3 && ($configuration->get('PS_PACK_STOCK_TYPE') == 0 || $configuration->get('PS_PACK_STOCK_TYPE') == 2))) {
             $stock_available->update();
         }
     }
@@ -69,23 +68,21 @@ class Core_Business_Stock_StockManager
      * @param StockAvailable $stock_available the stock of the product to fix with correct quantity
      * @param integer|null $id_shop Opional shop ID
      */
-    public function updatePacksQuantityContainingProduct($product, $id_product_attribute, $stock_available, $id_shop = null)
-    {
+    public function updatePacksQuantityContainingProduct($product, $id_product_attribute, $stock_available, $id_shop = null) {
         $configuration = Adapter_ServiceLocator::get('Core_Business_ConfigurationInterface');
         $packItemsManager = Adapter_ServiceLocator::get('Adapter_PackItemsManager');
         $stockManager = Adapter_ServiceLocator::get('Adapter_StockManager');
         $cacheManager = Adapter_ServiceLocator::get('Adapter_CacheManager');
         $packs = $packItemsManager->getPacksContainingItem($product, $id_product_attribute);
-        foreach($packs as $pack) {
+        foreach ($packs as $pack) {
             // Decrease stocks of the pack only if pack is in linked stock mode (option called 'Decrement both')
-            if (!((int)$pack->pack_stock_type == 2) &&
-                !((int)$pack->pack_stock_type == 3 && $configuration->get('PS_PACK_STOCK_TYPE') == 2)
-                ) {
+            if (!((int) $pack->pack_stock_type == 2) &&
+                    !((int) $pack->pack_stock_type == 3 && $configuration->get('PS_PACK_STOCK_TYPE') == 2)
+            ) {
                 continue;
             }
 
             // Decrease stocks of the pack only if there is not enough items to constituate the actual pack stocks.
-
             // How many packs can be constituated with the remaining product stocks
             $quantity_by_pack = $pack->pack_item_quantity;
             $max_pack_quantity = max(array(0, floor($stock_available->quantity / $quantity_by_pack)));
@@ -95,7 +92,7 @@ class Core_Business_Stock_StockManager
                 $stock_available_pack->quantity = $max_pack_quantity;
                 $stock_available_pack->update();
 
-                $cacheManager->clean('StockAvailable::getQuantityAvailableByProduct_'.(int)$pack->id.'*');
+                $cacheManager->clean('StockAvailable::getQuantityAvailableByProduct_' . (int) $pack->id . '*');
             }
         }
     }
@@ -109,8 +106,7 @@ class Core_Business_Stock_StockManager
      * @param integer $delta_quantity The quantity change (positive or negative)
      * @param integer|null $id_shop Optional
      */
-    public function updateQuantity($product, $id_product_attribute, $delta_quantity, $id_shop = null)
-    {
+    public function updateQuantity($product, $id_product_attribute, $delta_quantity, $id_shop = null) {
         $stockManager = Adapter_ServiceLocator::get('Adapter_StockManager');
         $stockAvailable = $stockManager->getStockAvailableByProduct($product, $id_product_attribute, $id_shop);
         $packItemsManager = Adapter_ServiceLocator::get('Adapter_PackItemsManager');
@@ -124,7 +120,7 @@ class Core_Business_Stock_StockManager
         } else {
             // The product is not a pack
             $stockAvailable->quantity = $stockAvailable->quantity + $delta_quantity;
-            $stockAvailable->id_product = (int)$product->id;
+            $stockAvailable->id_product = (int) $product->id;
             $stockAvailable->update();
 
             // Decrease case only: the stock of linked packs should be decreased too.
@@ -136,16 +132,14 @@ class Core_Business_Stock_StockManager
             }
         }
 
-        $cacheManager->clean('StockAvailable::getQuantityAvailableByProduct_'.(int)$product->id.'*');
+        $cacheManager->clean('StockAvailable::getQuantityAvailableByProduct_' . (int) $product->id . '*');
 
-        $hookManager->exec('actionUpdateQuantity',
-            array(
-                'id_product' => $product->id,
-                'id_product_attribute' => $id_product_attribute,
-                'quantity' => $stockAvailable->quantity
-            )
+        $hookManager->exec('actionUpdateQuantity', array(
+            'id_product' => $product->id,
+            'id_product_attribute' => $id_product_attribute,
+            'quantity' => $stockAvailable->quantity
+                )
         );
     }
-
 
 }

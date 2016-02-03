@@ -1,4 +1,5 @@
 <?php
+
 /**
  * UpdateStatement.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: UpdateStatementBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/WhereBuilder.php';
 require_once dirname(__FILE__) . '/SetBuilder.php';
 require_once dirname(__FILE__) . '/UpdateBuilder.php';
@@ -75,5 +75,7 @@ class UpdateStatementBuilder {
         }
         return $sql;
     }
+
 }
+
 ?>

@@ -1,37 +1,37 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 /**
  * @since 1.5.0
  * @property StockMvt $object
  */
-class AdminStockMvtControllerCore extends AdminController
-{
-    public function __construct()
-    {
+class AdminStockMvtControllerCore extends AdminController {
+
+    public function __construct() {
         $this->bootstrap = true;
         $this->context = Context::getContext();
         $this->table = 'stock_mvt';
@@ -41,7 +41,7 @@ class AdminStockMvtControllerCore extends AdminController
         $this->multishop_context = Shop::CONTEXT_ALL;
 
         $this->list_no_link = true;
-        $this->displayInformation($this->l('This interface allows you to display the stock movement for a selected warehouse.').'<br />');
+        $this->displayInformation($this->l('This interface allows you to display the stock movement for a selected warehouse.') . '<br />');
 
         $this->fields_list = array(
             'product_reference' => array(
@@ -111,14 +111,13 @@ class AdminStockMvtControllerCore extends AdminController
         parent::__construct();
     }
 
-    public function initPageHeaderToolbar()
-    {
+    public function initPageHeaderToolbar() {
         $this->page_header_toolbar_title = $this->l('Stock movement');
 
-        if (Tools::isSubmit('id_warehouse') && (int)Tools::getValue('id_warehouse') != -1) {
+        if (Tools::isSubmit('id_warehouse') && (int) Tools::getValue('id_warehouse') != -1) {
             $this->page_header_toolbar_btn['export-stock-mvt-csv'] = array(
                 'short' => $this->l('Export this list as CSV', null, null, false),
-                'href' => $this->context->link->getAdminLink('AdminStockMvt').'&csv&id_warehouse='.(int)$this->getCurrentWarehouseId(),
+                'href' => $this->context->link->getAdminLink('AdminStockMvt') . '&csv&id_warehouse=' . (int) $this->getCurrentWarehouseId(),
                 'desc' => $this->l('Export (CSV)', null, null, false),
                 'imgclass' => 'export'
             );
@@ -131,8 +130,7 @@ class AdminStockMvtControllerCore extends AdminController
      * AdminController::renderList() override
      * @see AdminController::renderList()
      */
-    public function renderList()
-    {
+    public function renderList() {
         // removes toolbar btn
         $this->toolbar_btn = array();
 
@@ -148,30 +146,30 @@ class AdminStockMvtControllerCore extends AdminController
 			w.name as warehouse_name';
 
         // overrides join
-        $this->_join = 'INNER JOIN '._DB_PREFIX_.'stock stock ON a.id_stock = stock.id_stock
-							LEFT JOIN `'._DB_PREFIX_.'product_lang` pl ON (
+        $this->_join = 'INNER JOIN ' . _DB_PREFIX_ . 'stock stock ON a.id_stock = stock.id_stock
+							LEFT JOIN `' . _DB_PREFIX_ . 'product_lang` pl ON (
 								stock.id_product = pl.id_product
-								AND pl.id_lang = '.(int)$this->context->language->id.Shop::addSqlRestrictionOnLang('pl').'
+								AND pl.id_lang = ' . (int) $this->context->language->id . Shop::addSqlRestrictionOnLang('pl') . '
 							)
-							LEFT JOIN `'._DB_PREFIX_.'stock_mvt_reason_lang` mrl ON (
+							LEFT JOIN `' . _DB_PREFIX_ . 'stock_mvt_reason_lang` mrl ON (
 								a.id_stock_mvt_reason = mrl.id_stock_mvt_reason
-								AND mrl.id_lang = '.(int)$this->context->language->id.'
+								AND mrl.id_lang = ' . (int) $this->context->language->id . '
 							)
-							LEFT JOIN `'._DB_PREFIX_.'warehouse` w ON (w.id_warehouse = stock.id_warehouse)
-							LEFT JOIN `'._DB_PREFIX_.'product_attribute_combination` pac ON (pac.id_product_attribute = stock.id_product_attribute)
-							LEFT JOIN `'._DB_PREFIX_.'attribute_lang` al ON (
+							LEFT JOIN `' . _DB_PREFIX_ . 'warehouse` w ON (w.id_warehouse = stock.id_warehouse)
+							LEFT JOIN `' . _DB_PREFIX_ . 'product_attribute_combination` pac ON (pac.id_product_attribute = stock.id_product_attribute)
+							LEFT JOIN `' . _DB_PREFIX_ . 'attribute_lang` al ON (
 								al.id_attribute = pac.id_attribute
 								AND pac.id_product_attribute <> 0
-								AND al.id_lang = '.(int)$this->context->language->id.'
+								AND al.id_lang = ' . (int) $this->context->language->id . '
 							)';
         // overrides group
         $this->_group = 'GROUP BY a.id_stock_mvt';
 
         // overrides where depending on the warehouse
-        $id_warehouse = (int)$this->getCurrentWarehouseId();
+        $id_warehouse = (int) $this->getCurrentWarehouseId();
         if ($id_warehouse > 0) {
-            $this->_where = ' AND w.id_warehouse = '.$id_warehouse;
-            self::$currentIndex .= '&id_warehouse='.$id_warehouse;
+            $this->_where = ' AND w.id_warehouse = ' . $id_warehouse;
+            self::$currentIndex .= '&id_warehouse=' . $id_warehouse;
         }
 
         // sets the current warehouse
@@ -206,14 +204,13 @@ class AdminStockMvtControllerCore extends AdminController
      *
      * @return int warehouse_id
      */
-    protected function getCurrentWarehouseId()
-    {
+    protected function getCurrentWarehouseId() {
         static $warehouse = 0;
 
         if ($warehouse == 0) {
             $warehouse = -1;
-            if ((int)Tools::getValue('id_warehouse')) {
-                $warehouse = (int)Tools::getValue('id_warehouse');
+            if ((int) Tools::getValue('id_warehouse')) {
+                $warehouse = (int) Tools::getValue('id_warehouse');
             }
         }
 
@@ -233,8 +230,7 @@ class AdminStockMvtControllerCore extends AdminController
      *
      * @throws PrestaShopException
      */
-    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false)
-    {
+    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false) {
         if (Tools::isSubmit('csv')) {
             $limit = false;
         }
@@ -260,12 +256,11 @@ class AdminStockMvtControllerCore extends AdminController
     /**
      * @see AdminController::initToolbar();
      */
-    public function initToolbar()
-    {
-        if (Tools::isSubmit('id_warehouse') && (int)Tools::getValue('id_warehouse') != -1) {
+    public function initToolbar() {
+        if (Tools::isSubmit('id_warehouse') && (int) Tools::getValue('id_warehouse') != -1) {
             $this->toolbar_btn['export-stock-mvt-csv'] = array(
                 'short' => 'Export this list as CSV',
-                'href' => $this->context->link->getAdminLink('AdminStockMvt').'&amp;csv&amp;id_warehouse='.(int)$this->getCurrentWarehouseId(),
+                'href' => $this->context->link->getAdminLink('AdminStockMvt') . '&amp;csv&amp;id_warehouse=' . (int) $this->getCurrentWarehouseId(),
                 'desc' => $this->l('Export (CSV)'),
                 'imgclass' => 'export'
             );
@@ -278,56 +273,54 @@ class AdminStockMvtControllerCore extends AdminController
     /**
      * Exports CSV
      */
-    public function renderCSV()
-    {
+    public function renderCSV() {
         if (!$this->_list) {
             return;
         }
 
         // header
         if (Tools::getValue('id_warehouse') != -1) {
-            $filename = $this->l('stock_mvt').'_'.Warehouse::getWarehouseNameById((int)Tools::getValue('id_warehouse')).'.csv';
+            $filename = $this->l('stock_mvt') . '_' . Warehouse::getWarehouseNameById((int) Tools::getValue('id_warehouse')) . '.csv';
         } else {
-            $filename = $this->l('stock_mvt').'.csv';
+            $filename = $this->l('stock_mvt') . '.csv';
         }
         header('Content-type: text/csv');
         header('Cache-Control: no-store, no-cache');
-        header('Content-disposition: attachment; filename="'.$filename);
+        header('Content-disposition: attachment; filename="' . $filename);
 
         // puts keys
         $keys = array('id_order', 'id_supply_order', 'emloyee_firstname', 'employee_lastname', 'physical_quantity',
-                      'date_add', 'sign', 'price_te', 'product_name', 'label', 'product_reference', 'product_ean13', 'product_upc');
+            'date_add', 'sign', 'price_te', 'product_name', 'label', 'product_reference', 'product_ean13', 'product_upc');
         echo sprintf("%s\n", implode(';', $keys));
 
 
         // puts rows
         foreach ($this->_list as $row) {
             $row_csv = array($row['id_order'], $row['id_supply_order'], $row['employee_firstname'],
-                             $row['employee_lastname'], $row['physical_quantity'], $row['date_add'],
-                             $row['sign'], $row['price_te'], $row['product_name'],
-                             $row['reason'], $row['product_reference'], $row['product_ean13'], $row['product_upc']
+                $row['employee_lastname'], $row['physical_quantity'], $row['date_add'],
+                $row['sign'], $row['price_te'], $row['product_name'],
+                $row['reason'], $row['product_reference'], $row['product_ean13'], $row['product_upc']
             );
 
             // puts one row
             echo sprintf("%s\n", implode(';', array_map(array('CSVCore', 'wrap'), $row_csv)));
         }
     }
-    
-    public function initContent()
-    {
+
+    public function initContent() {
         if (!Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
             $this->warnings[md5('PS_ADVANCED_STOCK_MANAGEMENT')] = $this->l('You need to activate advanced stock management before using this feature.');
             return false;
         }
         parent::initContent();
     }
-    
-    public function initProcess()
-    {
+
+    public function initProcess() {
         if (!Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
             $this->warnings[md5('PS_ADVANCED_STOCK_MANAGEMENT')] = $this->l('You need to activate advanced stock management before using this feature.');
             return false;
         }
         parent::initProcess();
     }
+
 }

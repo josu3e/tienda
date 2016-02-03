@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -18,8 +19,7 @@
  *
  * @return string with compiled code
  */
-function smarty_modifiercompiler_unescape($params)
-{
+function smarty_modifiercompiler_unescape($params) {
     if (!isset($params[1])) {
         $params[1] = 'html';
     }

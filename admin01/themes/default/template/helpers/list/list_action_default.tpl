@@ -23,5 +23,5 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <a href="{$href|escape:'html':'UTF-8'}" title="{$action}"{if isset($name)} name="{$name|escape:'html':'UTF-8'}"{/if} class="default">
-	<i class="icon-asterisk"></i> {$action}
+    <i class="icon-asterisk"></i> {$action}
 </a>

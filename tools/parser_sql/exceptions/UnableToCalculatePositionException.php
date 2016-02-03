@@ -1,4 +1,5 @@
 <?php
+
 /**
  * UnableToCalculatePositionException.php
  *
@@ -57,6 +58,7 @@ class UnableToCalculatePositionException extends Exception {
     public function getHaystack() {
         return $this->haystack;
     }
+
 }
 
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SQLChunkProcessor.php
  *
@@ -29,7 +30,6 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-
 require_once(dirname(__FILE__) . '/AbstractProcessor.php');
 require_once(dirname(__FILE__) . '/FromProcessor.php');
 require_once(dirname(__FILE__) . '/RecordProcessor.php');
@@ -182,5 +182,7 @@ class SQLChunkProcessor extends AbstractProcessor {
         }
         return $out;
     }
+
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CreateBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: CreateBuilder.php 833 2013-12-18 10:13:59Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/CreateTableBuilder.php';
 require_once dirname(__FILE__) . '/SubTreeBuilder.php';
@@ -67,8 +67,7 @@ class CreateBuilder {
         $create = $parsed['CREATE'];
         $sql = $this->buildSubTree($create);
 
-        if (($create['expr_type'] === ExpressionType::TABLE)
-            || ($create['expr_type'] === ExpressionType::TEMPORARY_TABLE)) {
+        if (($create['expr_type'] === ExpressionType::TABLE) || ($create['expr_type'] === ExpressionType::TEMPORARY_TABLE)) {
             $sql .= " " . $this->buildCreateTable($parsed['TABLE']);
         }
         // TODO: add more expr_types here (like VIEW), if available
@@ -76,4 +75,5 @@ class CreateBuilder {
     }
 
 }
+
 ?>

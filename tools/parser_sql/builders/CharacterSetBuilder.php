@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CharacterSetBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: CharacterSetBuilder.php 914 2014-01-08 11:33:25Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ColumnListBuilder.php';
@@ -90,5 +90,7 @@ class CharacterSetBuilder {
         }
         return substr($sql, 0, -1);
     }
+
 }
+
 ?>

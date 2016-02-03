@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -21,18 +22,16 @@
  * @param Smarty_Internal_Template $template template object
  * @return string|null if the assign parameter is passed, Smarty assigns the result to a template variable
  */
-function smarty_function_implode($params, $template)
-{
-    if (!isset($params['value']))
-    {
+function smarty_function_implode($params, $template) {
+    if (!isset($params['value'])) {
         trigger_error("[plugin] implode parameter 'value' cannot be empty", E_USER_NOTICE);
         return;
     }
 
     if (empty($params['separator']))
-		$params['separator'] = ',';
+        $params['separator'] = ',';
 
-	return implode($params['value'], $params['separator']);
+    return implode($params['value'], $params['separator']);
 }
 
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,16 +24,14 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class HelperShopCore extends Helper {
 
-class HelperShopCore extends Helper
-{
     /**
      * Render shop list
      *
      * @return string
      */
-    public function getRenderedShopList()
-    {
+    public function getRenderedShopList() {
         if (!Shop::isFeatureActive() || Shop::getTotalShops(false, null) < 2) {
             return '';
         }
@@ -45,10 +44,10 @@ class HelperShopCore extends Helper
             $current_shop_value = '';
             $current_shop_name = Translate::getAdminTranslation('All shops');
         } elseif ($shop_context == Shop::CONTEXT_GROUP) {
-            $current_shop_value = 'g-'.Shop::getContextShopGroupID();
+            $current_shop_value = 'g-' . Shop::getContextShopGroupID();
             $current_shop_name = sprintf(Translate::getAdminTranslation('%s group'), $tree[Shop::getContextShopGroupID()]['name']);
         } else {
-            $current_shop_value = 's-'.Shop::getContextShopID();
+            $current_shop_value = 's-' . Shop::getContextShopID();
 
             foreach ($tree as $group_id => $group_data) {
                 foreach ($group_data['shops'] as $shop_id => $shop_data) {
@@ -67,12 +66,13 @@ class HelperShopCore extends Helper
             'current_shop_value' => $current_shop_value,
             'multishop_context' => $context->controller->multishop_context,
             'multishop_context_group' => $context->controller->multishop_context_group,
-            'is_shop_context'  => ($context->controller->multishop_context & Shop::CONTEXT_SHOP),
+            'is_shop_context' => ($context->controller->multishop_context & Shop::CONTEXT_SHOP),
             'is_group_context' => ($context->controller->multishop_context & Shop::CONTEXT_GROUP),
             'shop_context' => $shop_context,
-            'url' => $_SERVER['REQUEST_URI'].(($_SERVER['QUERY_STRING']) ? '&' : '?').'setShopContext='
+            'url' => $_SERVER['REQUEST_URI'] . (($_SERVER['QUERY_STRING']) ? '&' : '?') . 'setShopContext='
         ));
 
         return $tpl->fetch();
     }
+
 }

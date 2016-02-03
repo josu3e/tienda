@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Minify_HTML
  * @package Minify
@@ -17,6 +18,7 @@
  * @author Stephen Clay <steve@mrclay.org>
  */
 class Minify_HTML {
+
     /**
      * @var boolean
      */
@@ -40,16 +42,14 @@ class Minify_HTML {
      *
      * @return string
      */
-
-	/* PrestaShop
-	 * added a limit for all preg_replace_callback
-	 */
+    /* PrestaShop
+     * added a limit for all preg_replace_callback
+     */
 
     public static function minify($html, $options = array()) {
         $min = new self($html, $options);
         return $min->process();
     }
-
 
     /**
      * Create a minifier object
@@ -71,11 +71,10 @@ class Minify_HTML {
      *
      * @return null
      */
-    public function __construct($html, $options = array())
-    {
+    public function __construct($html, $options = array()) {
         $this->_html = str_replace("\r\n", "\n", trim($html));
         if (isset($options['xhtml'])) {
-            $this->_isXhtml = (bool)$options['xhtml'];
+            $this->_isXhtml = (bool) $options['xhtml'];
         }
         if (isset($options['cssMinifier'])) {
             $this->_cssMinifier = $options['cssMinifier'];
@@ -84,18 +83,16 @@ class Minify_HTML {
             $this->_jsMinifier = $options['jsMinifier'];
         }
         if (isset($options['jsCleanComments'])) {
-            $this->_jsCleanComments = (bool)$options['jsCleanComments'];
+            $this->_jsCleanComments = (bool) $options['jsCleanComments'];
         }
     }
-
 
     /**
      * Minify the markeup given in the constructor
      *
      * @return string
      */
-    public function process()
-    {
+    public function process() {
         if ($this->_isXhtml === null) {
             $this->_isXhtml = (false !== strpos($this->_html, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML'));
         }
@@ -105,22 +102,22 @@ class Minify_HTML {
 
         // replace SCRIPTs (and minify) with placeholders
         $this->_html = preg_replace_callback(
-            '/(\\s*)<script(\\b[^>]*?>)([\\s\\S]*?)<\\/script>(\\s*)/i', array($this, '_removeScriptCB'), $this->_html, Media::getBackTrackLimit());
+                '/(\\s*)<script(\\b[^>]*?>)([\\s\\S]*?)<\\/script>(\\s*)/i', array($this, '_removeScriptCB'), $this->_html, Media::getBackTrackLimit());
 
         // replace STYLEs (and minify) with placeholders
         $this->_html = preg_replace_callback(
-            '/\\s*<style(\\b[^>]*>)([\\s\\S]*?)<\\/style>\\s*/i', array($this, '_removeStyleCB'), $this->_html, Media::getBackTrackLimit());
+                '/\\s*<style(\\b[^>]*>)([\\s\\S]*?)<\\/style>\\s*/i', array($this, '_removeStyleCB'), $this->_html, Media::getBackTrackLimit());
 
         // remove HTML comments (not containing IE conditional comments).
         $this->_html = preg_replace_callback(
-            '/<!--([\\s\\S]*?)-->/', array($this, '_commentCB'), $this->_html, Media::getBackTrackLimit());
+                '/<!--([\\s\\S]*?)-->/', array($this, '_commentCB'), $this->_html, Media::getBackTrackLimit());
 
         // replace PREs with placeholders
         $this->_html = preg_replace_callback('/\\s*<pre(\\b[^>]*?>[\\s\\S]*?<\\/pre>)\\s*/i', array($this, '_removePreCB'), $this->_html, Media::getBackTrackLimit());
 
         // replace TEXTAREAs with placeholders
         $this->_html = preg_replace_callback(
-            '/\\s*<textarea(\\b[^>]*?>[\\s\\S]*?<\\/textarea>)\\s*/i', array($this, '_removeTextareaCB'), $this->_html, Media::getBackTrackLimit());
+                '/\\s*<textarea(\\b[^>]*?>[\\s\\S]*?<\\/textarea>)\\s*/i', array($this, '_removeTextareaCB'), $this->_html, Media::getBackTrackLimit());
 
         // trim each line.
         // @todo take into account attribute values that span multiple lines.
@@ -128,39 +125,35 @@ class Minify_HTML {
 
         // remove ws around block/undisplayed elements
         $this->_html = preg_replace('/\\s+(<\\/?(?:area|base(?:font)?|blockquote|body'
-            .'|caption|center|cite|col(?:group)?|dd|dir|div|dl|dt|fieldset|form'
-            .'|frame(?:set)?|h[1-6]|head|hr|html|legend|li|link|map|menu|meta'
-            .'|ol|opt(?:group|ion)|p|param|t(?:able|body|head|d|h||r|foot|itle)'
-            .'|ul)\\b[^>]*>)/i', '$1', $this->_html);
+                . '|caption|center|cite|col(?:group)?|dd|dir|div|dl|dt|fieldset|form'
+                . '|frame(?:set)?|h[1-6]|head|hr|html|legend|li|link|map|menu|meta'
+                . '|ol|opt(?:group|ion)|p|param|t(?:able|body|head|d|h||r|foot|itle)'
+                . '|ul)\\b[^>]*>)/i', '$1', $this->_html);
 
         // remove ws outside of all elements
         $this->_html = preg_replace(
-            '/>(\\s(?:\\s*))?([^<]+)(\\s(?:\s*))?</', '>$1$2$3<', $this->_html);
+                '/>(\\s(?:\\s*))?([^<]+)(\\s(?:\s*))?</', '>$1$2$3<', $this->_html);
 
         // use newlines before 1st attribute in open tags (to limit line lengths)
-		// $this->_html = preg_replace('/(<[a-z\\-]+)\\s+([^>]+>)/i', "$1\n$2", $this->_html);
-		$this->_html = preg_replace(Tools::cleanNonUnicodeSupport('/\s+/mu'), ' ', $this->_html);
+        // $this->_html = preg_replace('/(<[a-z\\-]+)\\s+([^>]+>)/i', "$1\n$2", $this->_html);
+        $this->_html = preg_replace(Tools::cleanNonUnicodeSupport('/\s+/mu'), ' ', $this->_html);
 
         // fill placeholders
         $this->_html = str_replace(
-            array_keys($this->_placeholders), array_values($this->_placeholders), $this->_html
+                array_keys($this->_placeholders), array_values($this->_placeholders), $this->_html
         );
         // issue 229: multi-pass to catch scripts that didn't get replaced in textareas
         $this->_html = str_replace(
-            array_keys($this->_placeholders), array_values($this->_placeholders), $this->_html
+                array_keys($this->_placeholders), array_values($this->_placeholders), $this->_html
         );
         return $this->_html;
     }
 
-    protected function _commentCB($m)
-    {
-        return (0 === strpos($m[1], '[') || false !== strpos($m[1], '<!['))
-            ? $m[0]
-            : '';
+    protected function _commentCB($m) {
+        return (0 === strpos($m[1], '[') || false !== strpos($m[1], '<![')) ? $m[0] : '';
     }
 
-    protected function _reservePlace($content)
-    {
+    protected function _reservePlace($content) {
         $placeholder = '%' . $this->_replacementHash . count($this->_placeholders) . '%';
         $this->_placeholders[$placeholder] = $content;
         return $placeholder;
@@ -172,18 +165,15 @@ class Minify_HTML {
     protected $_cssMinifier = null;
     protected $_jsMinifier = null;
 
-    protected function _removePreCB($m)
-    {
+    protected function _removePreCB($m) {
         return $this->_reservePlace("<pre{$m[1]}");
     }
 
-    protected function _removeTextareaCB($m)
-    {
+    protected function _removeTextareaCB($m) {
         return $this->_reservePlace("<textarea{$m[1]}");
     }
 
-    protected function _removeStyleCB($m)
-    {
+    protected function _removeStyleCB($m) {
         $openStyle = "<style{$m[1]}";
         $css = $m[2];
         // remove HTML comments
@@ -193,19 +183,14 @@ class Minify_HTML {
         $css = $this->_removeCdata($css);
 
         // minify
-        $minifier = $this->_cssMinifier
-            ? $this->_cssMinifier
-            : 'trim';
+        $minifier = $this->_cssMinifier ? $this->_cssMinifier : 'trim';
         $css = call_user_func($minifier, $css);
 
-        return $this->_reservePlace($this->_needsCdata($css)
-            ? "{$openStyle}/*<![CDATA[*/{$css}/*]]>*/</style>"
-            : "{$openStyle}{$css}</style>"
+        return $this->_reservePlace($this->_needsCdata($css) ? "{$openStyle}/*<![CDATA[*/{$css}/*]]>*/</style>" : "{$openStyle}{$css}</style>"
         );
     }
 
-    protected function _removeScriptCB($m)
-    {
+    protected function _removeScriptCB($m) {
         $openScript = "<script{$m[2]}";
         $js = $m[3];
 
@@ -222,26 +207,19 @@ class Minify_HTML {
         $js = $this->_removeCdata($js);
 
         // minify
-        $minifier = $this->_jsMinifier
-            ? $this->_jsMinifier
-            : 'trim';
+        $minifier = $this->_jsMinifier ? $this->_jsMinifier : 'trim';
         $js = call_user_func($minifier, $js);
 
-        return $this->_reservePlace($this->_needsCdata($js)
-            ? "{$ws1}{$openScript}/*<![CDATA[*/{$js}/*]]>*/</script>{$ws2}"
-            : "{$ws1}{$openScript}{$js}</script>{$ws2}"
+        return $this->_reservePlace($this->_needsCdata($js) ? "{$ws1}{$openScript}/*<![CDATA[*/{$js}/*]]>*/</script>{$ws2}" : "{$ws1}{$openScript}{$js}</script>{$ws2}"
         );
     }
 
-    protected function _removeCdata($str)
-    {
-        return (false !== strpos($str, '<![CDATA['))
-            ? str_replace(array('<![CDATA[', ']]>'), '', $str)
-            : $str;
+    protected function _removeCdata($str) {
+        return (false !== strpos($str, '<![CDATA[')) ? str_replace(array('<![CDATA[', ']]>'), '', $str) : $str;
     }
 
-    protected function _needsCdata($str)
-    {
+    protected function _needsCdata($str) {
         return ($this->_isXhtml && preg_match('/(?:[<&]|\\-\\-|\\]\\]>)/', $str));
     }
+
 }

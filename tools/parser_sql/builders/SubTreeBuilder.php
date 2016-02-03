@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SubTreeBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: SubTreeBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ReservedBuilder.php';
 require_once dirname(__FILE__) . '/SelectBracketExpressionBuilder.php';
@@ -117,5 +117,7 @@ class SubTreeBuilder {
         }
         return substr($sql, 0, -strlen($delim));
     }
+
 }
+
 ?>

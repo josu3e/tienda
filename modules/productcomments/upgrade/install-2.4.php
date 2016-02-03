@@ -1,9 +1,8 @@
 <?php
 
 if (!defined('_PS_VERSION_'))
-	exit;
+    exit;
 
-function upgrade_module_2_4($object)
-{
-	return ($object->registerHook('displayProductListReviews') && $object->registerHook('top'));
+function upgrade_module_2_4($object) {
+    return ($object->registerHook('displayProductListReviews') && $object->registerHook('top'));
 }

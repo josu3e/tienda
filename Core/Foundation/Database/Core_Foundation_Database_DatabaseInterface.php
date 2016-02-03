@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,9 +24,9 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+interface Core_Foundation_Database_DatabaseInterface {
 
-interface Core_Foundation_Database_DatabaseInterface
-{
     public function select($sqlString);
+
     public function escape($unsafeData);
 }

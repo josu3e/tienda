@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CreateTable.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: CreateTableBuilder.php 892 2013-12-31 00:21:33Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/CreateTableDefinitionBuilder.php';
 require_once dirname(__FILE__) . '/CreateTableSelectOptionBuilder.php';
@@ -63,12 +63,12 @@ class CreateTableBuilder {
         $builder = new CreateTableOptionsBuilder();
         return $builder->build($parsed);
     }
-    
+
     protected function buildCreateTableSelectOption($parsed) {
         $builder = new CreateTableSelectOptionBuilder();
         return $builder->build($parsed);
     }
-    
+
     public function build($parsed) {
         $sql = $parsed['name'];
         $sql .= $this->buildCreateTableDefinition($parsed);
@@ -76,6 +76,7 @@ class CreateTableBuilder {
         $sql .= $this->buildCreateTableSelectOption($parsed);
         return $sql;
     }
-    
+
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * JSMin.php - modified PHP implementation of Douglas Crockford's JSMin.
  *
@@ -53,22 +54,22 @@
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @link http://code.google.com/p/jsmin-php/
  */
-
 class JSMin {
-    const ORD_LF            = 10;
-    const ORD_SPACE         = 32;
-    const ACTION_KEEP_A     = 1;
-    const ACTION_DELETE_A   = 2;
+
+    const ORD_LF = 10;
+    const ORD_SPACE = 32;
+    const ACTION_KEEP_A = 1;
+    const ACTION_DELETE_A = 2;
     const ACTION_DELETE_A_B = 3;
 
-    protected $a           = "\n";
-    protected $b           = '';
-    protected $input       = '';
-    protected $inputIndex  = 0;
+    protected $a = "\n";
+    protected $b = '';
+    protected $input = '';
+    protected $inputIndex = 0;
     protected $inputLength = 0;
-    protected $lookAhead   = null;
-    protected $output      = '';
-    protected $lastByteOut  = '';
+    protected $lookAhead = null;
+    protected $output = '';
+    protected $lastByteOut = '';
 
     /**
      * Minify Javascript.
@@ -77,8 +78,7 @@ class JSMin {
      *
      * @return string
      */
-    public static function minify($js)
-    {
+    public static function minify($js) {
         $jsmin = new JSMin($js);
         return $jsmin->min();
     }
@@ -86,8 +86,7 @@ class JSMin {
     /**
      * @param string $input
      */
-    public function __construct($input)
-    {
+    public function __construct($input) {
         $this->input = $input;
     }
 
@@ -96,14 +95,13 @@ class JSMin {
      *
      * @return string
      */
-    public function min()
-    {
+    public function min() {
         if ($this->output !== '') { // min already run
             return $this->output;
         }
 
         $mbIntEnc = null;
-        if (function_exists('mb_strlen') && ((int)ini_get('mbstring.func_overload') & 2)) {
+        if (function_exists('mb_strlen') && ((int) ini_get('mbstring.func_overload') & 2)) {
             $mbIntEnc = mb_internal_encoding();
             mb_internal_encoding('8bit');
         }
@@ -116,27 +114,22 @@ class JSMin {
             // determine next command
             $command = self::ACTION_KEEP_A; // default
             if ($this->a === ' ') {
-                if (($this->lastByteOut === '+' || $this->lastByteOut === '-') 
-                    && ($this->b === $this->lastByteOut)) {
+                if (($this->lastByteOut === '+' || $this->lastByteOut === '-') && ($this->b === $this->lastByteOut)) {
                     // Don't delete this space. If we do, the addition/subtraction
                     // could be parsed as a post-increment
-                } elseif (! $this->isAlphaNum($this->b)) {
+                } elseif (!$this->isAlphaNum($this->b)) {
                     $command = self::ACTION_DELETE_A;
                 }
             } elseif ($this->a === "\n") {
                 if ($this->b === ' ') {
                     $command = self::ACTION_DELETE_A_B;
-                // in case of mbstring.func_overload & 2, must check for null b,
-                // otherwise mb_strpos will give WARNING
-                } elseif ($this->b === null
-                          || (false === strpos('{[(+-', $this->b)
-                              && ! $this->isAlphaNum($this->b))) {
+                    // in case of mbstring.func_overload & 2, must check for null b,
+                    // otherwise mb_strpos will give WARNING
+                } elseif ($this->b === null || (false === strpos('{[(+-', $this->b) && !$this->isAlphaNum($this->b))) {
                     $command = self::ACTION_DELETE_A;
                 }
-            } elseif (! $this->isAlphaNum($this->a)) {
-                if ($this->b === ' '
-                    || ($this->b === "\n" 
-                        && (false === strpos('}])+-"\'', $this->a)))) {
+            } elseif (!$this->isAlphaNum($this->a)) {
+                if ($this->b === ' ' || ($this->b === "\n" && (false === strpos('}])+-"\'', $this->a)))) {
                     $command = self::ACTION_DELETE_A_B;
                 }
             }
@@ -158,11 +151,8 @@ class JSMin {
      * @param int $command
      * @throws JSMin_UnterminatedRegExpException|JSMin_UnterminatedStringException
      */
-    protected function action($command)
-    {
-        if ($command === self::ACTION_DELETE_A_B 
-            && $this->b === ' '
-            && ($this->a === '+' || $this->a === '-')) {
+    protected function action($command) {
+        if ($command === self::ACTION_DELETE_A_B && $this->b === ' ' && ($this->a === '+' || $this->a === '-')) {
             // Note: we're at an addition/substraction operator; the inputIndex
             // will certainly be a valid index
             if ($this->input[$this->inputIndex] === $this->a) {
@@ -174,8 +164,8 @@ class JSMin {
             case self::ACTION_KEEP_A:
                 $this->output .= $this->a;
                 $this->lastByteOut = $this->a;
-                
-                // fallthrough
+
+            // fallthrough
             case self::ACTION_DELETE_A:
                 $this->a = $this->b;
                 if ($this->a === "'" || $this->a === '"') { // string literal
@@ -183,27 +173,27 @@ class JSMin {
                     while (true) {
                         $this->output .= $this->a;
                         $this->lastByteOut = $this->a;
-                        
-                        $this->a       = $this->get();
+
+                        $this->a = $this->get();
                         if ($this->a === $this->b) { // end quote
                             break;
                         }
                         if (ord($this->a) <= self::ORD_LF) {
                             throw new JSMin_UnterminatedStringException(
-                                "JSMin: Unterminated String at byte "
-                                . $this->inputIndex . ": {$str}");
+                            "JSMin: Unterminated String at byte "
+                            . $this->inputIndex . ": {$str}");
                         }
                         $str .= $this->a;
                         if ($this->a === '\\') {
                             $this->output .= $this->a;
                             $this->lastByteOut = $this->a;
-                            
-                            $this->a       = $this->get();
+
+                            $this->a = $this->get();
                             $str .= $this->a;
                         }
                     }
                 }
-                // fallthrough
+            // fallthrough
             case self::ACTION_DELETE_A_B:
                 $this->b = $this->next();
                 if ($this->b === '/' && $this->isRegexpLiteral()) { // RegExp literal
@@ -216,12 +206,12 @@ class JSMin {
                             break; // while (true)
                         } elseif ($this->a === '\\') {
                             $this->output .= $this->a;
-                            $this->a       = $this->get();
-                            $pattern      .= $this->a;
+                            $this->a = $this->get();
+                            $pattern .= $this->a;
                         } elseif (ord($this->a) <= self::ORD_LF) {
                             throw new JSMin_UnterminatedRegExpException(
-                                "JSMin: Unterminated RegExp at byte "
-                                . $this->inputIndex .": {$pattern}");
+                            "JSMin: Unterminated RegExp at byte "
+                            . $this->inputIndex . ": {$pattern}");
                         }
                         $this->output .= $this->a;
                         $this->lastByteOut = $this->a;
@@ -235,8 +225,7 @@ class JSMin {
     /**
      * @return bool
      */
-    protected function isRegexpLiteral()
-    {
+    protected function isRegexpLiteral() {
         if (false !== strpos("\n{;(,=:[!&|?", $this->a)) { // we aren't dividing
             return true;
         }
@@ -252,7 +241,7 @@ class JSMin {
                 }
                 // make sure it's a keyword, not end of an identifier
                 $charBeforeKeyword = substr($this->output, $length - strlen($m[0]) - 1, 1);
-                if (! $this->isAlphaNum($charBeforeKeyword)) {
+                if (!$this->isAlphaNum($charBeforeKeyword)) {
                     return true;
                 }
             }
@@ -265,8 +254,7 @@ class JSMin {
      *
      * @return string
      */
-    protected function get()
-    {
+    protected function get() {
         $c = $this->lookAhead;
         $this->lookAhead = null;
         if ($c === null) {
@@ -291,8 +279,7 @@ class JSMin {
      *
      * @return string
      */
-    protected function peek()
-    {
+    protected function peek() {
         $this->lookAhead = $this->get();
         return $this->lookAhead;
     }
@@ -304,16 +291,14 @@ class JSMin {
      *
      * @return bool
      */
-    protected function isAlphaNum($c)
-    {
+    protected function isAlphaNum($c) {
         return (preg_match('/^[0-9a-zA-Z_\\$\\\\]$/', $c) || ord($c) > 126);
     }
 
     /**
      * @return string
      */
-    protected function singleLineComment()
-    {
+    protected function singleLineComment() {
         $comment = '';
         while (true) {
             $get = $this->get();
@@ -332,8 +317,7 @@ class JSMin {
      * @return string
      * @throws JSMin_UnterminatedCommentException
      */
-    protected function multipleLineComment()
-    {
+    protected function multipleLineComment() {
         $this->get();
         $comment = '';
         while (true) {
@@ -353,8 +337,8 @@ class JSMin {
                 }
             } elseif ($get === null) {
                 throw new JSMin_UnterminatedCommentException(
-                    "JSMin: Unterminated comment at byte "
-                    . $this->inputIndex . ": /*{$comment}");
+                "JSMin: Unterminated comment at byte "
+                . $this->inputIndex . ": /*{$comment}");
             }
             $comment .= $get;
         }
@@ -366,8 +350,7 @@ class JSMin {
      *
      * @return string
      */
-    protected function next()
-    {
+    protected function next() {
         $get = $this->get();
         if ($get !== '/') {
             return $get;
@@ -378,8 +361,17 @@ class JSMin {
             default: return $get;
         }
     }
+
 }
 
-class JSMin_UnterminatedStringException extends Exception {}
-class JSMin_UnterminatedCommentException extends Exception {}
-class JSMin_UnterminatedRegExpException extends Exception {}
+class JSMin_UnterminatedStringException extends Exception {
+    
+}
+
+class JSMin_UnterminatedCommentException extends Exception {
+    
+}
+
+class JSMin_UnterminatedRegExpException extends Exception {
+    
+}

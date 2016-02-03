@@ -1,19 +1,18 @@
 <?php
+
 include('config/config.php');
 if ($_SESSION['verify'] != 'RESPONSIVEfilemanager') {
     die('forbiden');
 }
 include('include/utils.php');
 
-$_POST['path_thumb'] = $thumbs_base_path.$_POST['path_thumb'];
+$_POST['path_thumb'] = $thumbs_base_path . $_POST['path_thumb'];
 if (!isset($_POST['path_thumb']) && trim($_POST['path_thumb']) == '') {
     die('wrong path');
 }
 
 $thumb_pos = strpos($_POST['path_thumb'], $thumbs_base_path);
-if ($thumb_pos === false
-    || preg_match('/\.{1,2}[\/|\\\]/', $_POST['path_thumb']) !== 0
-    || preg_match('/\.{1,2}[\/|\\\]/', $_POST['path']) !== 0
+if ($thumb_pos === false || preg_match('/\.{1,2}[\/|\\\]/', $_POST['path_thumb']) !== 0 || preg_match('/\.{1,2}[\/|\\\]/', $_POST['path']) !== 0
 ) {
     die('wrong path');
 }
@@ -21,8 +20,8 @@ if ($thumb_pos === false
 $language_file = 'lang/en.php';
 if (isset($_GET['lang']) && $_GET['lang'] != 'undefined' && $_GET['lang'] != '') {
     $path_parts = pathinfo($_GET['lang']);
-    if (is_readable('lang/'.$path_parts['basename'].'.php')) {
-        $language_file = 'lang/'.$path_parts['basename'].'.php';
+    if (is_readable('lang/' . $path_parts['basename'] . '.php')) {
+        $language_file = 'lang/' . $path_parts['basename'] . '.php';
     }
 }
 require_once $language_file;
@@ -30,7 +29,7 @@ require_once $language_file;
 $base = $current_path;
 
 if (isset($_POST['path'])) {
-    $path = $current_path.str_replace("\0", "", $_POST['path']);
+    $path = $current_path . str_replace("\0", "", $_POST['path']);
 } else {
     $path = $current_path;
 }
@@ -44,15 +43,15 @@ while ($cycle && $i < $max_cycles) {
         $cycle = false;
     }
 
-    if (file_exists($path.'config.php')) {
-        require_once($path.'config.php');
+    if (file_exists($path . 'config.php')) {
+        require_once($path . 'config.php');
         $cycle = false;
     }
-    $path = fix_dirname($path).'/';
+    $path = fix_dirname($path) . '/';
     $cycle = false;
 }
 
-$path = $current_path.str_replace("\0", "", $_POST['path']);
+$path = $current_path . str_replace("\0", "", $_POST['path']);
 $path_thumb = $_POST['path_thumb'];
 if (isset($_POST['name'])) {
     $name = $_POST['name'];
@@ -81,8 +80,8 @@ if (isset($_GET['action'])) {
                         if ($path != '' && $path[strlen($path) - 1] != '/') {
                             $path .= '/';
                         }
-                        if (file_exists($info['dirname'].'/'.$path.$relative_image_creation_name_to_prepend[$k].$info['filename'].$relative_image_creation_name_to_append[$k].'.'.$info['extension'])) {
-                            unlink($info['dirname'].'/'.$path.$relative_image_creation_name_to_prepend[$k].$info['filename'].$relative_image_creation_name_to_append[$k].'.'.$info['extension']);
+                        if (file_exists($info['dirname'] . '/' . $path . $relative_image_creation_name_to_prepend[$k] . $info['filename'] . $relative_image_creation_name_to_append[$k] . '.' . $info['extension'])) {
+                            unlink($info['dirname'] . '/' . $path . $relative_image_creation_name_to_prepend[$k] . $info['filename'] . $relative_image_creation_name_to_append[$k] . '.' . $info['extension']);
                         }
                     }
                 }
@@ -92,9 +91,9 @@ if (isset($_GET['action'])) {
                         if ($path != '' && $path[strlen($path) - 1] != '/') {
                             $path .= '/';
                         }
-                        $base_dir = $path.substr_replace($info['dirname'].'/', '', 0, strlen($current_path));
-                        if (file_exists($base_dir.$fixed_image_creation_name_to_prepend[$k].$info['filename'].$fixed_image_creation_to_append[$k].'.'.$info['extension'])) {
-                            unlink($base_dir.$fixed_image_creation_name_to_prepend[$k].$info['filename'].$fixed_image_creation_to_append[$k].'.'.$info['extension']);
+                        $base_dir = $path . substr_replace($info['dirname'] . '/', '', 0, strlen($current_path));
+                        if (file_exists($base_dir . $fixed_image_creation_name_to_prepend[$k] . $info['filename'] . $fixed_image_creation_to_append[$k] . '.' . $info['extension'])) {
+                            unlink($base_dir . $fixed_image_creation_name_to_prepend[$k] . $info['filename'] . $fixed_image_creation_to_append[$k] . '.' . $info['extension']);
                         }
                     }
                 }
@@ -112,7 +111,7 @@ if (isset($_GET['action'])) {
                             if ($paths != '' && $paths[strlen($paths) - 1] != '/') {
                                 $paths .= '/';
                             }
-                            $base_dir = $paths.substr_replace($path, '', 0, strlen($current_path));
+                            $base_dir = $paths . substr_replace($path, '', 0, strlen($current_path));
                             if (is_dir($base_dir)) {
                                 deleteDir($base_dir);
                             }
@@ -141,7 +140,7 @@ if (isset($_GET['action'])) {
                             if ($paths != '' && $paths[strlen($paths) - 1] != '/') {
                                 $paths .= '/';
                             }
-                            $base_dir = $paths.substr_replace($path, '', 0, strlen($current_path));
+                            $base_dir = $paths . substr_replace($path, '', 0, strlen($current_path));
                             rename_folder($base_dir, $name, $transliteration);
                         }
                     }
@@ -164,9 +163,9 @@ if (isset($_GET['action'])) {
                             if ($paths != '' && $paths[strlen($paths) - 1] != '/') {
                                 $paths .= '/';
                             }
-                            $base_dir = $paths.substr_replace($info['dirname'].'/', '', 0, strlen($current_path));
-                            if (file_exists($base_dir.$fixed_image_creation_name_to_prepend[$k].$info['filename'].$fixed_image_creation_to_append[$k].'.'.$info['extension'])) {
-                                rename_file($base_dir.$fixed_image_creation_name_to_prepend[$k].$info['filename'].$fixed_image_creation_to_append[$k].'.'.$info['extension'], $fixed_image_creation_name_to_prepend[$k].$name.$fixed_image_creation_to_append[$k], $transliteration);
+                            $base_dir = $paths . substr_replace($info['dirname'] . '/', '', 0, strlen($current_path));
+                            if (file_exists($base_dir . $fixed_image_creation_name_to_prepend[$k] . $info['filename'] . $fixed_image_creation_to_append[$k] . '.' . $info['extension'])) {
+                                rename_file($base_dir . $fixed_image_creation_name_to_prepend[$k] . $info['filename'] . $fixed_image_creation_to_append[$k] . '.' . $info['extension'], $fixed_image_creation_name_to_prepend[$k] . $name . $fixed_image_creation_to_append[$k], $transliteration);
                             }
                         }
                     }
@@ -189,9 +188,9 @@ if (isset($_GET['action'])) {
                             if ($paths != '' && $paths[strlen($paths) - 1] != '/') {
                                 $paths .= '/';
                             }
-                            $base_dir = $paths.substr_replace($info['dirname'].'/', '', 0, strlen($current_path));
-                            if (file_exists($base_dir.$fixed_image_creation_name_to_prepend[$k].$info['filename'].$fixed_image_creation_to_append[$k].'.'.$info['extension'])) {
-                                duplicate_file($base_dir.$fixed_image_creation_name_to_prepend[$k].$info['filename'].$fixed_image_creation_to_append[$k].'.'.$info['extension'], $fixed_image_creation_name_to_prepend[$k].$name.$fixed_image_creation_to_append[$k]);
+                            $base_dir = $paths . substr_replace($info['dirname'] . '/', '', 0, strlen($current_path));
+                            if (file_exists($base_dir . $fixed_image_creation_name_to_prepend[$k] . $info['filename'] . $fixed_image_creation_to_append[$k] . '.' . $info['extension'])) {
+                                duplicate_file($base_dir . $fixed_image_creation_name_to_prepend[$k] . $info['filename'] . $fixed_image_creation_to_append[$k] . '.' . $info['extension'], $fixed_image_creation_name_to_prepend[$k] . $name . $fixed_image_creation_to_append[$k]);
                             }
                         }
                     }

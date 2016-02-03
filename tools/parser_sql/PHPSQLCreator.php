@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPSQLCreator.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: PHPSQLCreator.php 790 2013-12-17 12:16:48Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/exceptions/UnsupportedFeatureException.php';
 require_once dirname(__FILE__) . '/builders/SelectStatementBuilder.php';
 require_once dirname(__FILE__) . '/builders/DeleteStatementBuilder.php';
@@ -66,40 +66,40 @@ class PHPSQLCreator {
         $k = key($parsed);
         switch ($k) {
 
-        case "UNION":
-        case "UNION ALL":
-            throw new UnsupportedFeatureException($k);
-            break;
-        case "SELECT":
-            $builder = new SelectStatementBuilder($parsed);
-            $this->created = $builder->build($parsed);
-            break;
-        case "INSERT":
-            $builder = new InsertStatementBuilder($parsed);
-            $this->created = $builder->build($parsed);
-            break;
-        case "DELETE":
-            $builder = new DeleteStatementBuilder($parsed);
-            $this->created = $builder->build($parsed);
-            break;
-        case "UPDATE":
-            $builder = new UpdateStatementBuilder($parsed);
-            $this->created = $builder->build($parsed);
-            break;
-        case "RENAME":
-            $this->created = $this->processRenameTableStatement($parsed);
-            break;
-        case "SHOW":
-            $builder = new ShowStatementBuilder($parsed);
-            $this->created = $builder->build($parsed);
-            break;
-        case "CREATE":
-            $builder = new CreateStatementBuilder($parsed);
-            $this->created = $builder->build($parsed);
-            break;
-        default:
-            throw new UnsupportedFeatureException($k);
-            break;
+            case "UNION":
+            case "UNION ALL":
+                throw new UnsupportedFeatureException($k);
+                break;
+            case "SELECT":
+                $builder = new SelectStatementBuilder($parsed);
+                $this->created = $builder->build($parsed);
+                break;
+            case "INSERT":
+                $builder = new InsertStatementBuilder($parsed);
+                $this->created = $builder->build($parsed);
+                break;
+            case "DELETE":
+                $builder = new DeleteStatementBuilder($parsed);
+                $this->created = $builder->build($parsed);
+                break;
+            case "UPDATE":
+                $builder = new UpdateStatementBuilder($parsed);
+                $this->created = $builder->build($parsed);
+                break;
+            case "RENAME":
+                $this->created = $this->processRenameTableStatement($parsed);
+                break;
+            case "SHOW":
+                $builder = new ShowStatementBuilder($parsed);
+                $this->created = $builder->build($parsed);
+                break;
+            case "CREATE":
+                $builder = new CreateStatementBuilder($parsed);
+                $this->created = $builder->build($parsed);
+                break;
+            default:
+                throw new UnsupportedFeatureException($k);
+                break;
         }
         return $this->created;
     }
@@ -129,5 +129,7 @@ class PHPSQLCreator {
         }
         return $v['source']['base_expr'] . " TO " . $v['destination']['base_expr'];
     }
+
 }
+
 ?>

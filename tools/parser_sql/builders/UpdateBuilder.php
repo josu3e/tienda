@@ -1,4 +1,5 @@
 <?php
+
 /**
  * UpdateBuilder.php
  *
@@ -52,5 +53,7 @@ class UpdateBuilder {
     public function build($parsed) {
         return "UPDATE " . $parsed[0]['table'];
     }
+
 }
+
 ?>

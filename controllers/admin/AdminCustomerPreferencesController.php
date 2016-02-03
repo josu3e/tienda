@@ -1,36 +1,36 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 /**
  * @property Configuration $object
  */
-class AdminCustomerPreferencesControllerCore extends AdminController
-{
-    public function __construct()
-    {
+class AdminCustomerPreferencesControllerCore extends AdminController {
+
+    public function __construct() {
         $this->bootstrap = true;
         $this->className = 'Configuration';
         $this->table = 'configuration';
@@ -50,9 +50,9 @@ class AdminCustomerPreferencesControllerCore extends AdminController
 
         $this->fields_options = array(
             'general' => array(
-                'title' =>    $this->l('General'),
-                'icon' =>    'icon-cogs',
-                'fields' =>    array(
+                'title' => $this->l('General'),
+                'icon' => 'icon-cogs',
+                'fields' => array(
                     'PS_REGISTRATION_PROCESS_TYPE' => array(
                         'title' => $this->l('Registration process type'),
                         'hint' => $this->l('The "Only account creation" registration option allows the customer to register faster, and create his/her address later.'),
@@ -123,9 +123,8 @@ class AdminCustomerPreferencesControllerCore extends AdminController
      * Update PS_B2B_ENABLE and enables / disables the associated tabs
      * @param $value integer Value of option
      */
-    public function updateOptionPsB2bEnable($value)
-    {
-        $value = (int)$value;
+    public function updateOptionPsB2bEnable($value) {
+        $value = (int) $value;
 
         $tabs_class_name = array('AdminOutstanding');
         if (!empty($tabs_class_name)) {
@@ -139,4 +138,5 @@ class AdminCustomerPreferencesControllerCore extends AdminController
         }
         Configuration::updateValue('PS_B2B_ENABLE', $value);
     }
+
 }

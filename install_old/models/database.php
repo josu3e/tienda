@@ -1,31 +1,32 @@
 <?php
-/*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
 
-class InstallModelDatabase extends InstallAbstractModel
-{
+/*
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
+
+class InstallModelDatabase extends InstallAbstractModel {
+
     /**
      * Check database configuration and try a connection
      *
@@ -38,8 +39,7 @@ class InstallModelDatabase extends InstallAbstractModel
      * @param bool $clear
      * @return array List of errors
      */
-    public function testDatabaseSettings($server, $database, $login, $password, $prefix, $clear = false)
-    {
+    public function testDatabaseSettings($server, $database, $login, $password, $prefix, $clear = false) {
         $errors = array();
 
         // Check if fields are correctly typed
@@ -60,12 +60,12 @@ class InstallModelDatabase extends InstallAbstractModel
         }
 
         if (!$errors) {
-            $dbtype = ' ('.Db::getClass().')';
+            $dbtype = ' (' . Db::getClass() . ')';
             // Try to connect to database
             switch (Db::checkConnection($server, $login, $password, $database, true)) {
                 case 0:
                     if (!Db::checkEncoding($server, $login, $password)) {
-                        $errors[] = $this->language->l('Cannot convert database data to utf-8').$dbtype;
+                        $errors[] = $this->language->l('Cannot convert database data to utf-8') . $dbtype;
                     }
 
                     // Check if a table with same prefix already exists
@@ -84,13 +84,13 @@ class InstallModelDatabase extends InstallAbstractModel
                     break;
 
                 case 1:
-                    $errors[] = $this->language->l('Database Server is not found. Please verify the login, password and server fields').$dbtype;
+                    $errors[] = $this->language->l('Database Server is not found. Please verify the login, password and server fields') . $dbtype;
                     break;
 
                 case 2:
-                    $error = $this->language->l('Connection to MySQL server succeeded, but database "%s" not found', $database).$dbtype;
+                    $error = $this->language->l('Connection to MySQL server succeeded, but database "%s" not found', $database) . $dbtype;
                     if ($this->createDatabase($server, $database, $login, $password, true)) {
-                        $error .= '<p>'.sprintf('<input type="button" value="%s" class="button" id="btCreateDB">', $this->language->l('Attempt to create the database automatically')).'</p>
+                        $error .= '<p>' . sprintf('<input type="button" value="%s" class="button" id="btCreateDB">', $this->language->l('Attempt to create the database automatically')) . '</p>
 						<script type="text/javascript">bindCreateDB();</script>';
                     }
                     $errors[] = $error;
@@ -101,18 +101,17 @@ class InstallModelDatabase extends InstallAbstractModel
         return $errors;
     }
 
-    public function createDatabase($server, $database, $login, $password, $dropit = false)
-    {
+    public function createDatabase($server, $database, $login, $password, $dropit = false) {
         $class = Db::getClass();
         return call_user_func(array($class, 'createDatabase'), $server, $login, $password, $database, $dropit);
     }
 
-    public function getBestEngine($server, $database, $login, $password)
-    {
+    public function getBestEngine($server, $database, $login, $password) {
         $class = Db::getClass();
         $instance = new $class($server, $login, $password, $database, true);
         $engine = $instance->getBestEngine();
         unset($instance);
         return $engine;
     }
+
 }

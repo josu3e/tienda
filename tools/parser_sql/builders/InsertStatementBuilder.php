@@ -1,4 +1,5 @@
 <?php
+
 /**
  * InsertStatement.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: InsertStatementBuilder.php 834 2013-12-18 10:14:26Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/InsertBuilder.php';
 require_once dirname(__FILE__) . '/ValuesBuilder.php';
 
@@ -67,5 +67,7 @@ class InsertStatementBuilder {
         return $this->buildINSERT($parsed['INSERT'][0]) . " " . $this->buildVALUES($parsed['VALUES']);
         // TODO: subquery?
     }
+
 }
+
 ?>

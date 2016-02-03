@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Procedureuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: ProcedureBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 
 /**
@@ -57,5 +57,7 @@ class ProcedureBuilder {
         }
         return $parsed['base_expr'];
     }
+
 }
+
 ?>

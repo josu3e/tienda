@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,13 +24,11 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class Core_Business_Email_EmailLister {
 
-class Core_Business_Email_EmailLister
-{
     private $filesystem;
 
-    public function __construct(Core_Foundation_FileSystem_FileSystem $fs)
-    {
+    public function __construct(Core_Foundation_FileSystem_FileSystem $fs) {
         // Register dependencies
         $this->filesystem = $fs;
     }
@@ -40,8 +39,7 @@ class Core_Business_Email_EmailLister
      * @param null $dir
      * @return array|null
      */
-    public function getAvailableMails($dir)
-    {
+    public function getAvailableMails($dir) {
         if (!is_dir($dir)) {
             return null;
         }
@@ -69,13 +67,11 @@ class Core_Business_Email_EmailLister
         return $mail_list;
     }
 
-
     /**
      * Give in input getAvailableMails(), will output a human readable and proper string name
      * @return string
      */
-    public function getCleanedMailName($mail_name)
-    {
+    public function getCleanedMailName($mail_name) {
         if (strpos($mail_name, '.') !== false) {
             $tmp = explode('.', $mail_name);
 
@@ -88,4 +84,5 @@ class Core_Business_Email_EmailLister
 
         return ucfirst(str_replace(array('_', '-'), ' ', $mail_name));
     }
+
 }

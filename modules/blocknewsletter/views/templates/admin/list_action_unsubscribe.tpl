@@ -23,5 +23,5 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <a href="{$href|escape:'html':'UTF-8'}" class="" title="{$action}" >
-	<i class="icon-check"></i> {$action}
+    <i class="icon-check"></i> {$action}
 </a>

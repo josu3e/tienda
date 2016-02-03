@@ -1,34 +1,35 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 /**
  * @since 1.5.0 It now defines stock movements when the advanced stock management system is available
  */
-class StockMvtCore extends ObjectModel
-{
+class StockMvtCore extends ObjectModel {
+
     public $id;
 
     /**
@@ -131,32 +132,31 @@ class StockMvtCore extends ObjectModel
         'table' => 'stock_mvt',
         'primary' => 'id_stock_mvt',
         'fields' => array(
-            'id_employee' =>        array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
+            'id_employee' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
             'employee_firstname' => array('type' => self::TYPE_STRING, 'validate' => 'isName'),
-            'employee_lastname' =>    array('type' => self::TYPE_STRING, 'validate' => 'isName'),
-            'id_stock' =>            array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
-            'physical_quantity' =>    array('type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true),
-            'id_stock_mvt_reason' =>array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
-            'id_order' =>            array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
-            'id_supply_order' =>    array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
-            'sign' =>                array('type' => self::TYPE_INT, 'validate' => 'isInt', 'required' => true),
-            'last_wa' =>            array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice'),
-            'current_wa' =>        array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice'),
-            'price_te' =>            array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice', 'required' => true),
-            'referer' =>            array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
-            'date_add' =>            array('type' => self::TYPE_DATE, 'validate' => 'isDate', 'required' => true),
+            'employee_lastname' => array('type' => self::TYPE_STRING, 'validate' => 'isName'),
+            'id_stock' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
+            'physical_quantity' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedInt', 'required' => true),
+            'id_stock_mvt_reason' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
+            'id_order' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
+            'id_supply_order' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
+            'sign' => array('type' => self::TYPE_INT, 'validate' => 'isInt', 'required' => true),
+            'last_wa' => array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice'),
+            'current_wa' => array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice'),
+            'price_te' => array('type' => self::TYPE_FLOAT, 'validate' => 'isPrice', 'required' => true),
+            'referer' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
+            'date_add' => array('type' => self::TYPE_DATE, 'validate' => 'isDate', 'required' => true),
         ),
     );
-
     protected $webserviceParameters = array(
         'objectsNodeName' => 'stock_movements',
         'objectNodeName' => 'stock_movement',
         'fields' => array(
-            'id_employee' => array('xlink_resource'=> 'employees'),
-            'id_stock' => array('xlink_resource'=> 'stock'),
-            'id_stock_mvt_reason' => array('xlink_resource'=> 'stock_movement_reasons'),
-            'id_order' => array('xlink_resource'=> 'orders'),
-            'id_supply_order' => array('xlink_resource'=> 'supply_order'),
+            'id_employee' => array('xlink_resource' => 'employees'),
+            'id_stock' => array('xlink_resource' => 'stock'),
+            'id_stock_mvt_reason' => array('xlink_resource' => 'stock_movement_reasons'),
+            'id_order' => array('xlink_resource' => 'orders'),
+            'id_supply_order' => array('xlink_resource' => 'supply_order'),
         ),
     );
 
@@ -166,8 +166,7 @@ class StockMvtCore extends ObjectModel
      * This method no longer exists.
      * There is no equivalent or replacement, considering that this should be handled by inventories.
      */
-    public static function addMissingMvt($id_employee)
-    {
+    public static function addMissingMvt($id_employee) {
         // display that this method is deprecated
         Tools::displayAsDeprecated();
     }
@@ -184,8 +183,7 @@ class StockMvtCore extends ObjectModel
      * @param int $id_warehouse Optional
      * @return Array mvts
      */
-    public static function getNegativeStockMvts($id_order, $id_product, $id_product_attribute, $quantity, $id_warehouse = null)
-    {
+    public static function getNegativeStockMvts($id_order, $id_product, $id_product_attribute, $quantity, $id_warehouse = null) {
         $movements = array();
         $quantity_total = 0;
 
@@ -195,12 +193,12 @@ class StockMvtCore extends ObjectModel
         $query->from('stock_mvt', 'sm');
         $query->innerJoin('stock', 's', 's.id_stock = sm.id_stock');
         $query->where('sm.sign = -1');
-        $query->where('sm.id_order = '.(int)$id_order);
-        $query->where('s.id_product = '.(int)$id_product.' AND s.id_product_attribute = '.(int)$id_product_attribute);
+        $query->where('sm.id_order = ' . (int) $id_order);
+        $query->where('s.id_product = ' . (int) $id_product . ' AND s.id_product_attribute = ' . (int) $id_product_attribute);
 
         // if filer by warehouse
         if (!is_null($id_warehouse)) {
-            $query->where('s.id_warehouse = '.(int)$id_warehouse);
+            $query->where('s.id_warehouse = ' . (int) $id_warehouse);
         }
 
         // orders the movements by date
@@ -214,7 +212,7 @@ class StockMvtCore extends ObjectModel
             if ($quantity_total >= $quantity) {
                 break;
             }
-            $quantity_total += (int)$row['physical_quantity'];
+            $quantity_total += (int) $row['physical_quantity'];
             $movements[] = $row;
         }
 
@@ -229,8 +227,7 @@ class StockMvtCore extends ObjectModel
      * @param int $id_product_attribute Use 0 if the product does not have attributes
      * @return bool|array
      */
-    public static function getLastPositiveStockMvt($id_product, $id_product_attribute)
-    {
+    public static function getLastPositiveStockMvt($id_product, $id_product_attribute) {
         $query = new DbQuery();
         $query->select('sm.*, w.id_currency, (s.usable_quantity = sm.physical_quantity) as is_usable');
         $query->from('stock_mvt', 'sm');
@@ -238,9 +235,9 @@ class StockMvtCore extends ObjectModel
         $query->innerJoin('warehouse', 'w', 'w.id_warehouse = s.id_warehouse');
         $query->where('sm.sign = 1');
         if ($id_product_attribute) {
-            $query->where('s.id_product = '.(int)$id_product.' AND s.id_product_attribute = '.(int)$id_product_attribute);
+            $query->where('s.id_product = ' . (int) $id_product . ' AND s.id_product_attribute = ' . (int) $id_product_attribute);
         } else {
-            $query->where('s.id_product = '.(int)$id_product);
+            $query->where('s.id_product = ' . (int) $id_product);
         }
         $query->orderBy('date_add DESC');
 
@@ -251,4 +248,5 @@ class StockMvtCore extends ObjectModel
         }
         return false;
     }
+
 }

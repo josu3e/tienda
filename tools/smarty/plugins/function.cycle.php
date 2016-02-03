@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -43,9 +44,7 @@
  *
  * @return string|null
  */
-
-function smarty_function_cycle($params, $template)
-{
+function smarty_function_cycle($params, $template) {
     static $cycle_vars;
 
     $name = (empty($params['name'])) ? 'default' : $params['name'];
@@ -60,8 +59,7 @@ function smarty_function_cycle($params, $template)
             return;
         }
     } else {
-        if (isset($cycle_vars[$name]['values'])
-            && $cycle_vars[$name]['values'] != $params['values']
+        if (isset($cycle_vars[$name]['values']) && $cycle_vars[$name]['values'] != $params['values']
         ) {
             $cycle_vars[$name]['index'] = 0;
         }

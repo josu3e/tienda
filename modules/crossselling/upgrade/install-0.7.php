@@ -1,9 +1,8 @@
 <?php
 
 if (!defined('_PS_VERSION_'))
-	exit;
+    exit;
 
-function upgrade_module_0_7($object)
-{
-	return $object->registerHook('actionOrderStatusPostUpdate');
+function upgrade_module_0_7($object) {
+    return $object->registerHook('actionOrderStatusPostUpdate');
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TableBracketExpressionBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: TableBracketExpressionBuilder.php 928 2014-01-08 13:01:57Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ColumnDefinitionBuilder.php';
 require_once dirname(__FILE__) . '/PrimaryKeyBuilder.php';
@@ -46,6 +46,7 @@ require_once dirname(__FILE__) . '/ForeignKeyBuilder.php';
 require_once dirname(__FILE__) . '/CheckBuilder.php';
 require_once dirname(__FILE__) . '/LikeExpressionBuilder.php';
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
+
 /**
  * This class implements the builder for the table expressions 
  * within the create definitions of CREATE TABLE. 
@@ -71,17 +72,17 @@ class TableBracketExpressionBuilder {
         $builder = new ForeignKeyBuilder();
         return $builder->build($parsed);
     }
-    
+
     protected function buildCheck($parsed) {
         $builder = new CheckBuilder();
         return $builder->build($parsed);
     }
-    
+
     protected function buildLikeExpression($parsed) {
         $builder = new LikeExpressionBuilder();
         return $builder->build($parsed);
     }
-    
+
     public function build($parsed) {
         if ($parsed['expr_type'] !== ExpressionType::BRACKET_EXPRESSION) {
             return "";
@@ -94,7 +95,7 @@ class TableBracketExpressionBuilder {
             $sql .= $this->buildCheck($v);
             $sql .= $this->buildLikeExpression($v);
             $sql .= $this->buildForeignKey($v);
-            
+
             if ($len == strlen($sql)) {
                 throw new UnableToCreateSQLException('CREATE TABLE create-def expression subtree', $k, $v, 'expr_type');
             }
@@ -105,6 +106,7 @@ class TableBracketExpressionBuilder {
         $sql = " (" . substr($sql, 0, -2) . ")";
         return $sql;
     }
-    
+
 }
+
 ?>

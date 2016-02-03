@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -27,8 +28,8 @@
 /**
  * @since 1.5
  */
-class HTMLTemplateOrderReturnCore extends HTMLTemplate
-{
+class HTMLTemplateOrderReturnCore extends HTMLTemplate {
+
     public $order_return;
     public $order;
 
@@ -37,8 +38,7 @@ class HTMLTemplateOrderReturnCore extends HTMLTemplate
      * @param $smarty
      * @throws PrestaShopException
      */
-    public function __construct(OrderReturn $order_return, $smarty)
-    {
+    public function __construct(OrderReturn $order_return, $smarty) {
         $this->order_return = $order_return;
         $this->smarty = $smarty;
         $this->order = new Order($order_return->id_order);
@@ -48,7 +48,7 @@ class HTMLTemplateOrderReturnCore extends HTMLTemplate
         $prefix = Configuration::get('PS_RETURN_PREFIX', Context::getContext()->language->id);
         $this->title = sprintf(HTMLTemplateOrderReturn::l('%1$s%2$06d'), $prefix, $this->order_return->id);
 
-        $this->shop = new Shop((int)$this->order->id_shop);
+        $this->shop = new Shop((int) $this->order->id_shop);
     }
 
     /**
@@ -56,26 +56,25 @@ class HTMLTemplateOrderReturnCore extends HTMLTemplate
      *
      * @return string HTML content
      */
-    public function getContent()
-    {
-        $delivery_address = new Address((int)$this->order->id_address_delivery);
+    public function getContent() {
+        $delivery_address = new Address((int) $this->order->id_address_delivery);
         $formatted_delivery_address = AddressFormat::generateAddress($delivery_address, array(), '<br />', ' ');
         $formatted_invoice_address = '';
 
         if ($this->order->id_address_delivery != $this->order->id_address_invoice) {
-            $invoice_address = new Address((int)$this->order->id_address_invoice);
+            $invoice_address = new Address((int) $this->order->id_address_invoice);
             $formatted_invoice_address = AddressFormat::generateAddress($invoice_address, array(), '<br />', ' ');
         }
 
         $this->smarty->assign(array(
             'order_return' => $this->order_return,
-            'return_nb_days' => (int)Configuration::get('PS_ORDER_RETURN_NB_DAYS'),
-            'products' => OrderReturn::getOrdersReturnProducts((int)$this->order_return->id, $this->order),
+            'return_nb_days' => (int) Configuration::get('PS_ORDER_RETURN_NB_DAYS'),
+            'products' => OrderReturn::getOrdersReturnProducts((int) $this->order_return->id, $this->order),
             'delivery_address' => $formatted_delivery_address,
             'invoice_address' => $formatted_invoice_address,
             'shop_address' => AddressFormat::generateAddress($this->shop->getAddress(), array(), '<br />', ' ')
         ));
-        
+
         $tpls = array(
             'style_tab' => $this->smarty->fetch($this->getTemplate('invoice.style-tab')),
             'addresses_tab' => $this->smarty->fetch($this->getTemplate('order-return.addresses-tab')),
@@ -84,7 +83,7 @@ class HTMLTemplateOrderReturnCore extends HTMLTemplate
             'conditions_tab' => $this->smarty->fetch($this->getTemplate('order-return.conditions-tab')),
         );
         $this->smarty->assign($tpls);
-        
+
         return $this->smarty->fetch($this->getTemplate('order-return'));
     }
 
@@ -93,9 +92,8 @@ class HTMLTemplateOrderReturnCore extends HTMLTemplate
      *
      * @return string filename
      */
-    public function getFilename()
-    {
-        return sprintf('%06d', $this->order_return->id).'.pdf';
+    public function getFilename() {
+        return sprintf('%06d', $this->order_return->id) . '.pdf';
     }
 
     /**
@@ -103,18 +101,16 @@ class HTMLTemplateOrderReturnCore extends HTMLTemplate
      *
      * @return string filename
      */
-    public function getBulkFilename()
-    {
+    public function getBulkFilename() {
         return 'invoices.pdf';
     }
-    
+
     /**
      * Returns the template's HTML header
      *
      * @return string HTML header
      */
-    public function getHeader()
-    {
+    public function getHeader() {
         $this->assignCommonHeaderData();
         $this->smarty->assign(array(
             'header' => HTMLTemplateOrderReturn::l('Order return'),
@@ -122,4 +118,5 @@ class HTMLTemplateOrderReturnCore extends HTMLTemplate
 
         return $this->smarty->fetch($this->getTemplate('header'));
     }
+
 }

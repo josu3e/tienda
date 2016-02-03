@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ColumnTypeExpressionBuilder.php
  *
@@ -38,9 +39,9 @@
  * @version   SVN: $Id: ColumnTypeBracketExpressionBuilder.php 934 2014-01-08 13:57:16Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/SubTreeBuilder.php';
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
+
 /**
  * This class implements the builder for bracket expressions within a column type. 
  * You can overwrite all functions to achieve another handling.
@@ -64,5 +65,7 @@ class ColumnTypeBracketExpressionBuilder {
         $sql = "(" . $sql . ")";
         return $sql;
     }
+
 }
+
 ?>

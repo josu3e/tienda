@@ -1,34 +1,35 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 /**
  * @since 1.5.0
  */
-class SupplyOrderStateCore extends ObjectModel
-{
+class SupplyOrderStateCore extends ObjectModel {
+
     /**
      * @var string Name of the state
      */
@@ -72,13 +73,13 @@ class SupplyOrderStateCore extends ObjectModel
         'primary' => 'id_supply_order_state',
         'multilang' => true,
         'fields' => array(
-            'delivery_note' =>        array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
-            'editable' =>            array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
-            'receipt_state' =>        array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
-            'pending_receipt' =>    array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
-            'enclosed' =>            array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
-            'color' =>                array('type' => self::TYPE_STRING, 'validate' => 'isColor'),
-            'name' =>                array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isGenericName', 'required' => true, 'size' => 128),
+            'delivery_note' => array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
+            'editable' => array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
+            'receipt_state' => array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
+            'pending_receipt' => array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
+            'enclosed' => array('type' => self::TYPE_BOOL, 'validate' => 'isBool'),
+            'color' => array('type' => self::TYPE_STRING, 'validate' => 'isColor'),
+            'name' => array('type' => self::TYPE_STRING, 'lang' => true, 'validate' => 'isGenericName', 'required' => true, 'size' => 128),
         ),
     );
 
@@ -99,8 +100,7 @@ class SupplyOrderStateCore extends ObjectModel
      * @param int $id_lang Optional Id Language
      * @return array States
      */
-    public static function getSupplyOrderStates($id_state_referrer = null, $id_lang = null)
-    {
+    public static function getSupplyOrderStates($id_state_referrer = null, $id_lang = null) {
         if ($id_lang == null) {
             $id_lang = Context::getContext()->language->id;
         }
@@ -108,7 +108,7 @@ class SupplyOrderStateCore extends ObjectModel
         $query = new DbQuery();
         $query->select('sl.name, s.id_supply_order_state');
         $query->from('supply_order_state', 's');
-        $query->leftjoin('supply_order_state_lang', 'sl', 's.id_supply_order_state = sl.id_supply_order_state AND sl.id_lang='.(int)$id_lang);
+        $query->leftjoin('supply_order_state_lang', 'sl', 's.id_supply_order_state = sl.id_supply_order_state AND sl.id_lang=' . (int) $id_lang);
 
         if (!is_null($id_state_referrer)) {
             $is_receipt_state = false;
@@ -117,7 +117,7 @@ class SupplyOrderStateCore extends ObjectModel
             $is_pending_receipt = false;
 
             //check current state to see what state is available
-            $state = new SupplyOrderState((int)$id_state_referrer);
+            $state = new SupplyOrderState((int) $id_state_referrer);
             if (Validate::isLoadedObject($state)) {
                 $is_receipt_state = $state->receipt_state;
                 $is_editable = $state->editable;
@@ -125,7 +125,7 @@ class SupplyOrderStateCore extends ObjectModel
                 $is_pending_receipt = $state->pending_receipt;
             }
 
-            $query->where('s.id_supply_order_state <> '.(int)$id_state_referrer);
+            $query->where('s.id_supply_order_state <> ' . (int) $id_state_referrer);
 
             //check first if the order is editable
             if ($is_editable) {
@@ -151,8 +151,7 @@ class SupplyOrderStateCore extends ObjectModel
      * @param int $id_lang Optional
      * @return array
      */
-    public static function getStates($ids = null, $id_lang = null)
-    {
+    public static function getStates($ids = null, $id_lang = null) {
         if ($id_lang == null) {
             $id_lang = Context::getContext()->language->id;
         }
@@ -164,13 +163,14 @@ class SupplyOrderStateCore extends ObjectModel
         $query = new DbQuery();
         $query->select('sl.name, s.id_supply_order_state');
         $query->from('supply_order_state', 's');
-        $query->leftjoin('supply_order_state_lang', 'sl', 's.id_supply_order_state = sl.id_supply_order_state AND sl.id_lang='.(int)$id_lang);
+        $query->leftjoin('supply_order_state_lang', 'sl', 's.id_supply_order_state = sl.id_supply_order_state AND sl.id_lang=' . (int) $id_lang);
         if ($ids) {
-            $query->where('s.id_supply_order_state NOT IN('.implode(',', array_map('intval', $ids)).')');
+            $query->where('s.id_supply_order_state NOT IN(' . implode(',', array_map('intval', $ids)) . ')');
         }
 
         $query->orderBy('sl.name ASC');
 
         return Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($query);
     }
+
 }

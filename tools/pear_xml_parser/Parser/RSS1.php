@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -29,8 +30,8 @@
  * @package XML_Feed_Parser
  * @todo    Find a Relax NG URI we can use
  */
-class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
-{
+class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type {
+
     /**
      * The URI of the RelaxNG schema used to (optionally) validate the feed 
      * @var string
@@ -54,7 +55,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      * @var string
      */
     protected $itemClass = 'XML_Feed_Parser_RSS1Element';
-    
+
     /**
      * The element containing entries 
      * @var string
@@ -84,7 +85,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
         'publisher' => array('Text'), # dc:publisher
         'contributor' => array('Text'), # dc:contributor
         'date' => array('Date') # dc:contributor
-        );
+    );
 
     /**
      * Here we map some elements to their atom equivalents. This is going to be
@@ -117,11 +118,10 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      * @param    DOMDocument    $xml    A DOM object representing the feed
      * @param    bool (optional) $string    Whether or not to validate this feed
      */
-    function __construct(DOMDocument $model, $strict = false)
-    {
+    function __construct(DOMDocument $model, $strict = false) {
         $this->model = $model;
         if ($strict) {
-            if (! $this->relaxNGValidate()) {
+            if (!$this->relaxNGValidate()) {
                 throw new XML_Feed_Parser_Exception('Failed required validation');
             }
         }
@@ -146,8 +146,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      * @param    string    $id    any valid ID.
      * @return    XML_Feed_Parser_RSS1Element
      */
-    function getEntryById($id)
-    {
+    function getEntryById($id) {
         if (isset($this->idMappings[$id])) {
             return $this->entries[$this->idMappings[$id]];
         }
@@ -171,8 +170,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      *
      * @return  array|false an array simply containing the child elements
      */
-    protected function getImage()
-    {
+    protected function getImage() {
         $images = $this->model->getElementsByTagName('image');
         if ($images->length > 0) {
             $image = $images->item(0);
@@ -188,7 +186,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
                     'url' => $image->attributes->getNamedItem('resource')->nodeValue);
             }
             $details = array_merge($details, array('description' => false, 'height' => false, 'width' => false));
-            if (! empty($details)) {
+            if (!empty($details)) {
                 return $details;
             }
         }
@@ -201,30 +199,28 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      *
      * @return  array|false
      */
-    protected function getTextInput()
-    {
+    protected function getTextInput() {
         $inputs = $this->model->getElementsByTagName('textinput');
         if ($inputs->length > 0) {
             $input = $inputs->item(0);
             $results = array();
             $results['title'] = isset(
-                $input->getElementsByTagName('title')->item(0)->value) ? 
-                $input->getElementsByTagName('title')->item(0)->value : null;
+                            $input->getElementsByTagName('title')->item(0)->value) ?
+                    $input->getElementsByTagName('title')->item(0)->value : null;
             $results['description'] = isset(
-                $input->getElementsByTagName('description')->item(0)->value) ? 
-                $input->getElementsByTagName('description')->item(0)->value : null;
+                            $input->getElementsByTagName('description')->item(0)->value) ?
+                    $input->getElementsByTagName('description')->item(0)->value : null;
             $results['name'] = isset(
-                $input->getElementsByTagName('name')->item(0)->value) ? 
-                $input->getElementsByTagName('name')->item(0)->value : null;
+                            $input->getElementsByTagName('name')->item(0)->value) ?
+                    $input->getElementsByTagName('name')->item(0)->value : null;
             $results['link'] = isset(
-                   $input->getElementsByTagName('link')->item(0)->value) ? 
-                   $input->getElementsByTagName('link')->item(0)->value : null;
-            if (empty($results['link']) and 
-                $input->attributes->getNamedItem('resource')) {
-                $results['link'] = 
-                    $input->attributes->getNamedItem('resource')->nodeValue;
+                            $input->getElementsByTagName('link')->item(0)->value) ?
+                    $input->getElementsByTagName('link')->item(0)->value : null;
+            if (empty($results['link']) and
+                    $input->attributes->getNamedItem('resource')) {
+                $results['link'] = $input->attributes->getNamedItem('resource')->nodeValue;
             }
-            if (! empty($results)) {
+            if (!empty($results)) {
                 return $results;
             }
         }
@@ -241,8 +237,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      *
      * @return  array|false
      */
-    function getAuthor()
-    {
+    function getAuthor() {
         $options = array('creator', 'contributor', 'publisher');
         foreach ($options as $element) {
             $test = $this->model->getElementsByTagName($element);
@@ -252,7 +247,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
         }
         return false;
     }
-    
+
     /**
      * Retrieve a link
      * 
@@ -261,8 +256,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
      *
      * @return  string
      */
-    function getLink($offset = 0, $attribute = 'href', $params = false)
-    {
+    function getLink($offset = 0, $attribute = 'href', $params = false) {
         $links = $this->model->getElementsByTagName('link');
         if ($links->length <= $offset) {
             return false;
@@ -270,6 +264,7 @@ class XML_Feed_Parser_RSS1 extends XML_Feed_Parser_Type
         $link = $links->item($offset);
         return $this->addBase($link->nodeValue, $link);
     }
+
 }
 
 ?>

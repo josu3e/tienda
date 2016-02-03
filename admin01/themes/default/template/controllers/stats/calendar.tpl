@@ -24,4 +24,4 @@
 *}
 
 <div id="statsContainer" class="col-md-9">
-	{include file="../../form_date_range_picker.tpl"}
+    {include file="../../form_date_range_picker.tpl"}

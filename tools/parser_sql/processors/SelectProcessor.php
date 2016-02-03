@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SelectProcessor.php
  *
@@ -29,7 +30,6 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-
 require_once(dirname(__FILE__) . '/SelectExpressionProcessor.php');
 
 /**
@@ -53,25 +53,25 @@ class SelectProcessor extends SelectExpressionProcessor {
             } else {
                 switch (strtoupper($token)) {
 
-                // add more SELECT options here
-                case 'DISTINCT':
-                case 'DISTINCTROW':
-                case 'HIGH_PRIORITY':
-                case 'SQL_CACHE':
-                case 'SQL_NO_CACHE':
-                case 'SQL_CALC_FOUND_ROWS':
-                case 'STRAIGHT_JOIN':
-                case 'SQL_SMALL_RESULT':
-                case 'SQL_BIG_RESULT':
-                case 'SQL_BUFFER_RESULT':
-                    $expression = parent::process(trim($token));
-                    $expression['delim'] = ' ';
-                    $expressionList[] = $expression;
-                    $expression = "";
-                    break;
+                    // add more SELECT options here
+                    case 'DISTINCT':
+                    case 'DISTINCTROW':
+                    case 'HIGH_PRIORITY':
+                    case 'SQL_CACHE':
+                    case 'SQL_NO_CACHE':
+                    case 'SQL_CALC_FOUND_ROWS':
+                    case 'STRAIGHT_JOIN':
+                    case 'SQL_SMALL_RESULT':
+                    case 'SQL_BIG_RESULT':
+                    case 'SQL_BUFFER_RESULT':
+                        $expression = parent::process(trim($token));
+                        $expression['delim'] = ' ';
+                        $expressionList[] = $expression;
+                        $expression = "";
+                        break;
 
-                default:
-                    $expression .= $token;
+                    default:
+                        $expression .= $token;
                 }
             }
         }
@@ -82,5 +82,7 @@ class SelectProcessor extends SelectExpressionProcessor {
         }
         return $expressionList;
     }
+
 }
+
 ?>

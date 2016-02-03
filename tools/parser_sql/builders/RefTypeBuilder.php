@@ -1,4 +1,5 @@
 <?php
+
 /**
  * RefTypeBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: RefTypeBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../exceptions/UnsupportedFeatureException.php';
 
 /**
@@ -64,5 +64,7 @@ class RefTypeBuilder {
         // TODO: add more
         throw new UnsupportedFeatureException($parsed);
     }
+
 }
+
 ?>

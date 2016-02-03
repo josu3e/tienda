@@ -1,60 +1,58 @@
 <?php
-/*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
 
-class InstallControllerHttpProcess extends InstallControllerHttp
-{
+/*
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
+
+class InstallControllerHttpProcess extends InstallControllerHttp {
+
     const SETTINGS_FILE = 'config/settings.inc.php';
 
     protected $model_install;
     public $process_steps = array();
     public $previous_button = false;
 
-    public function init()
-    {
-        require_once _PS_INSTALL_MODELS_PATH_.'install.php';
+    public function init() {
+        require_once _PS_INSTALL_MODELS_PATH_ . 'install.php';
         $this->model_install = new InstallModelInstall();
     }
 
     /**
      * @see InstallAbstractModel::processNextStep()
      */
-    public function processNextStep()
-    {
+    public function processNextStep() {
+        
     }
 
     /**
      * @see InstallAbstractModel::validate()
      */
-    public function validate()
-    {
+    public function validate() {
         return false;
     }
 
-    public function initializeContext()
-    {
+    public function initializeContext() {
         global $smarty;
 
         Context::getContext()->shop = new Shop(1);
@@ -66,15 +64,14 @@ class InstallControllerHttpProcess extends InstallControllerHttp
         Context::getContext()->cart = new Cart();
         Context::getContext()->employee = new Employee(1);
         define('_PS_SMARTY_FAST_LOAD_', true);
-        require_once _PS_ROOT_DIR_.'/config/smarty.config.inc.php';
+        require_once _PS_ROOT_DIR_ . '/config/smarty.config.inc.php';
 
         Context::getContext()->smarty = $smarty;
     }
 
-    public function process()
-    {
-        if (file_exists(_PS_ROOT_DIR_.'/'.self::SETTINGS_FILE)) {
-            require_once _PS_ROOT_DIR_.'/'.self::SETTINGS_FILE;
+    public function process() {
+        if (file_exists(_PS_ROOT_DIR_ . '/' . self::SETTINGS_FILE)) {
+            require_once _PS_ROOT_DIR_ . '/' . self::SETTINGS_FILE;
         }
 
         if (!$this->session->process_validated) {
@@ -121,15 +118,9 @@ class InstallControllerHttpProcess extends InstallControllerHttp
     /**
      * PROCESS : generateSettingsFile
      */
-    public function processGenerateSettingsFile()
-    {
+    public function processGenerateSettingsFile() {
         $success = $this->model_install->generateSettingsFile(
-            $this->session->database_server,
-            $this->session->database_login,
-            $this->session->database_password,
-            $this->session->database_name,
-            $this->session->database_prefix,
-            $this->session->database_engine
+                $this->session->database_server, $this->session->database_login, $this->session->database_password, $this->session->database_name, $this->session->database_prefix, $this->session->database_engine
         );
 
         if (!$success) {
@@ -143,8 +134,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
      * PROCESS : installDatabase
      * Create database structure
      */
-    public function processInstallDatabase()
-    {
+    public function processInstallDatabase() {
         if (!$this->model_install->installDatabase($this->session->database_clear) || $this->model_install->getErrors()) {
             $this->ajaxJsonAnswer(false, $this->model_install->getErrors());
         }
@@ -156,8 +146,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
      * PROCESS : installDefaultData
      * Create default shop and languages
      */
-    public function processInstallDefaultData()
-    {
+    public function processInstallDefaultData() {
         // @todo remove true in populateDatabase for 1.5.0 RC version
         $result = $this->model_install->installDefaultData($this->session->shop_name, $this->session->shop_country, false, true);
 
@@ -171,8 +160,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
      * PROCESS : populateDatabase
      * Populate database with default data
      */
-    public function processPopulateDatabase()
-    {
+    public function processPopulateDatabase() {
         $this->initializeContext();
 
         $this->model_install->xml_loader_ids = $this->session->xml_loader_ids;
@@ -189,22 +177,21 @@ class InstallControllerHttpProcess extends InstallControllerHttp
      * PROCESS : configureShop
      * Set default shop configuration
      */
-    public function processConfigureShop()
-    {
+    public function processConfigureShop() {
         $this->initializeContext();
 
         $success = $this->model_install->configureShop(array(
-            'shop_name' =>                $this->session->shop_name,
-            'shop_activity' =>            $this->session->shop_activity,
-            'shop_country' =>            $this->session->shop_country,
-            'shop_timezone' =>            $this->session->shop_timezone,
-            'admin_firstname' =>        $this->session->admin_firstname,
-            'admin_lastname' =>            $this->session->admin_lastname,
-            'admin_password' =>            $this->session->admin_password,
-            'admin_email' =>            $this->session->admin_email,
-            'send_informations' =>        $this->session->send_informations,
-            'configuration_agrement' =>    $this->session->configuration_agrement,
-            'rewrite_engine' =>            $this->session->rewrite_engine,
+            'shop_name' => $this->session->shop_name,
+            'shop_activity' => $this->session->shop_activity,
+            'shop_country' => $this->session->shop_country,
+            'shop_timezone' => $this->session->shop_timezone,
+            'admin_firstname' => $this->session->admin_firstname,
+            'admin_lastname' => $this->session->admin_lastname,
+            'admin_password' => $this->session->admin_password,
+            'admin_email' => $this->session->admin_email,
+            'send_informations' => $this->session->send_informations,
+            'configuration_agrement' => $this->session->configuration_agrement,
+            'rewrite_engine' => $this->session->rewrite_engine,
         ));
 
         if (!$success || $this->model_install->getErrors()) {
@@ -219,8 +206,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
      * PROCESS : installModules
      * Install all modules in ~/modules/ directory
      */
-    public function processInstallModules()
-    {
+    public function processInstallModules() {
         $this->initializeContext();
 
         $result = $this->model_install->installModules(Tools::getValue('module'));
@@ -230,13 +216,12 @@ class InstallControllerHttpProcess extends InstallControllerHttp
         $this->session->process_validated = array_merge($this->session->process_validated, array('installModules' => true));
         $this->ajaxJsonAnswer(true);
     }
-    
+
     /**
      * PROCESS : installModulesAddons
      * Install modules from addons
      */
-    public function processInstallAddonsModules()
-    {
+    public function processInstallAddonsModules() {
         $this->initializeContext();
         if (($module = Tools::getValue('module')) && $id_module = Tools::getValue('id_module')) {
             $result = $this->model_install->installModulesAddons(array('name' => $module, 'id_module' => $id_module));
@@ -254,8 +239,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
      * PROCESS : installFixtures
      * Install fixtures (E.g. demo products)
      */
-    public function processInstallFixtures()
-    {
+    public function processInstallFixtures() {
         $this->initializeContext();
 
         $this->model_install->xml_loader_ids = $this->session->xml_loader_ids;
@@ -271,8 +255,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
      * PROCESS : installTheme
      * Install theme
      */
-    public function processInstallTheme()
-    {
+    public function processInstallTheme() {
         $this->initializeContext();
 
         $this->model_install->installTheme();
@@ -287,8 +270,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
     /**
      * @see InstallAbstractModel::display()
      */
-    public function display()
-    {
+    public function display() {
         // The installer SHOULD take less than 32M, but may take up to 35/36M sometimes. So 42M is a good value :)
         $low_memory = Tools::getMemoryLimit() < Tools::getOctets('42M');
 
@@ -331,7 +313,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
             }
         }
         $this->process_steps[] = $install_modules;
-        
+
         $install_modules = array('key' => 'installModulesAddons', 'lang' => $this->l('Install Addons modules'));
 
         $params = array(
@@ -344,7 +326,7 @@ class InstallControllerHttpProcess extends InstallControllerHttp
 
         if ($low_memory) {
             foreach ($this->model_install->getAddonsModulesList($params) as $module) {
-                $install_modules['subtasks'][] = array('module' => (string)$module['name'], 'id_module' => (string)$module['id_module']);
+                $install_modules['subtasks'][] = array('module' => (string) $module['name'], 'id_module' => (string) $module['id_module']);
             }
         }
         $this->process_steps[] = $install_modules;
@@ -353,4 +335,5 @@ class InstallControllerHttpProcess extends InstallControllerHttp
 
         $this->displayTemplate('process');
     }
+
 }

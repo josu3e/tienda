@@ -1,9 +1,8 @@
 <?php
 
 if (!defined('_PS_VERSION_'))
-	exit;
+    exit;
 
-function upgrade_module_1_4($object)
-{
-	return ($object->registerHook('actionAdminStoresControllerUpdate_optionsAfter'));
+function upgrade_module_1_4($object) {
+    return ($object->registerHook('actionAdminStoresControllerUpdate_optionsAfter'));
 }

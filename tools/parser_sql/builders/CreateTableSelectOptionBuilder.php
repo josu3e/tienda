@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CreateTableSelectOptionBuilder.php
  *
@@ -59,5 +60,7 @@ class CreateTableSelectOptionBuilder {
         $sql .= ($option['as'] === false ? '' : ' AS');
         return $sql;
     }
+
 }
+
 ?>

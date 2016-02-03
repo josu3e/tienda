@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PrimaryKeyBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: PrimaryKeyBuilder.php 919 2014-01-08 11:49:02Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ColumnListBuilder.php';
@@ -77,17 +77,17 @@ class PrimaryKeyBuilder {
         $builder = new IndexTypeBuilder();
         return $builder->build($parsed);
     }
-    
+
     protected function buildIndexSize($parsed) {
         $builder = new IndexSizeBuilder();
         return $builder->build($parsed);
     }
-    
+
     protected function buildIndexParser($parsed) {
         $builder = new IndexParserBuilder();
         return $builder->build($parsed);
     }
-    
+
     public function build($parsed) {
         if ($parsed['expr_type'] !== ExpressionType::PRIMARY_KEY) {
             return "";
@@ -110,5 +110,7 @@ class PrimaryKeyBuilder {
         }
         return substr($sql, 0, -1);
     }
+
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,9 +24,8 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class Core_Business_Payment_PaymentOption {
 
-class Core_Business_Payment_PaymentOption
-{
     private $callToActionText;
     private $logo;
     private $action;
@@ -38,8 +38,7 @@ class Core_Business_Payment_PaymentOption
      * Return Call to Action Text
      * @return string
      */
-    public function getCallToActionText()
-    {
+    public function getCallToActionText() {
         return $this->callToActionText;
     }
 
@@ -48,8 +47,7 @@ class Core_Business_Payment_PaymentOption
      * @param $callToActionText
      * @return $this
      */
-    public function setCallToActionText($callToActionText)
-    {
+    public function setCallToActionText($callToActionText) {
         $this->callToActionText = $callToActionText;
         return $this;
     }
@@ -58,8 +56,7 @@ class Core_Business_Payment_PaymentOption
      * Return logo path
      * @return string
      */
-    public function getLogo()
-    {
+    public function getLogo() {
         return $this->logo;
     }
 
@@ -68,8 +65,7 @@ class Core_Business_Payment_PaymentOption
      * @param $logo
      * @return $this
      */
-    public function setLogo($logo)
-    {
+    public function setLogo($logo) {
         $this->logo = $logo;
         return $this;
     }
@@ -78,30 +74,25 @@ class Core_Business_Payment_PaymentOption
      * Return action to perform (POST/GET)
      * @return string
      */
-    public function getAction()
-    {
+    public function getAction() {
         return $this->action;
     }
-
 
     /**
      * Set action to be performed by this option
      * @param $action
      * @return $this
      */
-    public function setAction($action)
-    {
+    public function setAction($action) {
         $this->action = $action;
         return $this;
     }
 
-    public function getMethod()
-    {
+    public function getMethod() {
         return $this->method;
     }
 
-    public function setMethod($method)
-    {
+    public function setMethod($method) {
         $this->method = $method;
         return $this;
     }
@@ -110,8 +101,7 @@ class Core_Business_Payment_PaymentOption
      * Return inputs contained in this payment option
      * @return mixed
      */
-    public function getInputs()
-    {
+    public function getInputs() {
         return $this->inputs;
     }
 
@@ -120,8 +110,7 @@ class Core_Business_Payment_PaymentOption
      * @param $inputs
      * @return $this
      */
-    public function setInputs($inputs)
-    {
+    public function setInputs($inputs) {
         $this->inputs = $inputs;
         return $this;
     }
@@ -130,8 +119,7 @@ class Core_Business_Payment_PaymentOption
      * Get payment option form
      * @return mixed
      */
-    public function getForm()
-    {
+    public function getForm() {
         return $this->form;
     }
 
@@ -140,8 +128,7 @@ class Core_Business_Payment_PaymentOption
      * @param $form
      * @return $this
      */
-    public function setForm($form)
-    {
+    public function setForm($form) {
         $this->form = $form;
         return $this;
     }
@@ -150,8 +137,7 @@ class Core_Business_Payment_PaymentOption
      * Get related module name to this payment option
      * @return string
      */
-    public function getModuleName()
-    {
+    public function getModuleName() {
         return $this->moduleName;
     }
 
@@ -160,8 +146,7 @@ class Core_Business_Payment_PaymentOption
      * @param $moduleName
      * @return $this
      */
-    public function setModuleName($moduleName)
-    {
+    public function setModuleName($moduleName) {
         $this->moduleName = $moduleName;
         return $this;
     }
@@ -175,8 +160,7 @@ class Core_Business_Payment_PaymentOption
      * It takes as input a legacy option (in either form) and always
      * returns an array of instances of Core_Business_Payment_PaymentOption
      */
-    public static function convertLegacyOption(array $legacyOption)
-    {
+    public static function convertLegacyOption(array $legacyOption) {
         if (!$legacyOption) {
             return;
         }
@@ -200,15 +184,16 @@ class Core_Business_Payment_PaymentOption
 
             $newOption = new Core_Business_Payment_PaymentOption();
             $newOption->setCallToActionText($option['cta_text'])
-                      ->setAction($option['action'])
-                      ->setForm($option['form'])
-                      ->setInputs($option['inputs'])
-                      ->setLogo($option['logo'])
-                      ->setMethod($option['method']);
+                    ->setAction($option['action'])
+                    ->setForm($option['form'])
+                    ->setInputs($option['inputs'])
+                    ->setLogo($option['logo'])
+                    ->setMethod($option['method']);
 
             $newOptions[] = $newOption;
         }
 
         return $newOptions;
     }
+
 }

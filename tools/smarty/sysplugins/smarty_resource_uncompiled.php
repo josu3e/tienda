@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Resource Plugin
  *
@@ -14,8 +15,8 @@
  * @package    Smarty
  * @subpackage TemplateResources
  */
-abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
-{
+abstract class Smarty_Resource_Uncompiled extends Smarty_Resource {
+
     /**
      * Render and output the template (without using the compiler)
      *
@@ -32,10 +33,10 @@ abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
      * @param Smarty_Template_Compiled $compiled  compiled object
      * @param Smarty_Internal_Template $_template template object (is ignored)
      */
-    public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
-    {
+    public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template) {
         $compiled->filepath = false;
         $compiled->timestamp = false;
         $compiled->exists = false;
     }
+
 }

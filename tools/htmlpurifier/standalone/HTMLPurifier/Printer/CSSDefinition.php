@@ -1,7 +1,7 @@
 <?php
 
-class HTMLPurifier_Printer_CSSDefinition extends HTMLPurifier_Printer
-{
+class HTMLPurifier_Printer_CSSDefinition extends HTMLPurifier_Printer {
+
     /**
      * @type HTMLPurifier_CSSDefinition
      */
@@ -11,8 +11,7 @@ class HTMLPurifier_Printer_CSSDefinition extends HTMLPurifier_Printer
      * @param HTMLPurifier_Config $config
      * @return string
      */
-    public function render($config)
-    {
+    public function render($config) {
         $this->def = $config->getCSSDefinition();
         $ret = '';
 
@@ -39,6 +38,7 @@ class HTMLPurifier_Printer_CSSDefinition extends HTMLPurifier_Printer
 
         return $ret;
     }
+
 }
 
 // vim: et sw=4 sts=4

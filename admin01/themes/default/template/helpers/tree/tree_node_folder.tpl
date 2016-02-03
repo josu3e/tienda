@@ -23,11 +23,11 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <li class="tree-folder">
-	<span class="tree-folder-name">
-		<i class="icon-folder-close"></i>
-		<label class="tree-toggler">{$node['name']|escape:'html':'UTF-8'}</label>
-	</span>
-	<ul class="tree">
-		{$children|escape:'UTF-8'}
-	</ul>
+    <span class="tree-folder-name">
+        <i class="icon-folder-close"></i>
+        <label class="tree-toggler">{$node['name']|escape:'html':'UTF-8'}</label>
+    </span>
+    <ul class="tree">
+        {$children|escape:'UTF-8'}
+    </ul>
 </li>

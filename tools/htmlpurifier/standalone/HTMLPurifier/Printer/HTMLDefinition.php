@@ -1,7 +1,6 @@
 <?php
 
-class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
-{
+class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer {
 
     /**
      * @type HTMLPurifier_HTMLDefinition, for easy access
@@ -12,10 +11,9 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * @param HTMLPurifier_Config $config
      * @return string
      */
-    public function render($config)
-    {
+    public function render($config) {
         $ret = '';
-        $this->config =& $config;
+        $this->config = & $config;
 
         $this->def = $config->getHTMLDefinition();
 
@@ -35,8 +33,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * Renders the Doctype table
      * @return string
      */
-    protected function renderDoctype()
-    {
+    protected function renderDoctype() {
         $doctype = $this->def->doctype;
         $ret = '';
         $ret .= $this->start('table');
@@ -49,13 +46,11 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
         return $ret;
     }
 
-
     /**
      * Renders environment table, which is miscellaneous info
      * @return string
      */
-    protected function renderEnvironment()
-    {
+    protected function renderEnvironment() {
         $def = $this->def;
 
         $ret = '';
@@ -100,8 +95,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * Renders the Content Sets table
      * @return string
      */
-    protected function renderContentSets()
-    {
+    protected function renderContentSets() {
         $ret = '';
         $ret .= $this->start('table');
         $ret .= $this->element('caption', 'Content Sets');
@@ -119,8 +113,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * Renders the Elements ($info) table
      * @return string
      */
-    protected function renderInfo()
-    {
+    protected function renderInfo() {
         $ret = '';
         $ret .= $this->start('table');
         $ret .= $this->element('caption', 'Elements ($info)');
@@ -181,8 +174,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * @param HTMLPurifier_ChildDef $def HTMLPurifier_ChildDef of pertinent element
      * @return string
      */
-    protected function renderChildren($def)
-    {
+    protected function renderChildren($def) {
         $context = new HTMLPurifier_Context();
         $ret = '';
         $ret .= $this->start('tr');
@@ -200,15 +192,15 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
             $elements = array();
         } elseif ($def->type == 'table') {
             $elements = array_flip(
-                array(
-                    'col',
-                    'caption',
-                    'colgroup',
-                    'thead',
-                    'tfoot',
-                    'tbody',
-                    'tr'
-                )
+                    array(
+                        'col',
+                        'caption',
+                        'colgroup',
+                        'thead',
+                        'tfoot',
+                        'tbody',
+                        'tr'
+                    )
             );
         }
         $ret .= $this->element('th', 'Allowed children', $attr);
@@ -216,37 +208,25 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
         if ($def->type == 'chameleon') {
 
             $ret .= $this->element(
-                'td',
-                '<em>Block</em>: ' .
-                $this->escape($this->listifyTagLookup($def->block->elements)),
-                null,
-                0
+                    'td', '<em>Block</em>: ' .
+                    $this->escape($this->listifyTagLookup($def->block->elements)), null, 0
             );
             $ret .= $this->end('tr');
             $ret .= $this->start('tr');
             $ret .= $this->element(
-                'td',
-                '<em>Inline</em>: ' .
-                $this->escape($this->listifyTagLookup($def->inline->elements)),
-                null,
-                0
+                    'td', '<em>Inline</em>: ' .
+                    $this->escape($this->listifyTagLookup($def->inline->elements)), null, 0
             );
-
         } elseif ($def->type == 'custom') {
 
             $ret .= $this->element(
-                'td',
-                '<em>' . ucfirst($def->type) . '</em>: ' .
-                $def->dtd_regex
+                    'td', '<em>' . ucfirst($def->type) . '</em>: ' .
+                    $def->dtd_regex
             );
-
         } else {
             $ret .= $this->element(
-                'td',
-                '<em>' . ucfirst($def->type) . '</em>: ' .
-                $this->escape($this->listifyTagLookup($elements)),
-                null,
-                0
+                    'td', '<em>' . ucfirst($def->type) . '</em>: ' .
+                    $this->escape($this->listifyTagLookup($elements)), null, 0
             );
         }
         $ret .= $this->end('tr');
@@ -258,8 +238,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * @param array $array Tag lookup array in form of array('tagname' => true)
      * @return string
      */
-    protected function listifyTagLookup($array)
-    {
+    protected function listifyTagLookup($array) {
         ksort($array);
         $list = array();
         foreach ($array as $name => $discard) {
@@ -277,8 +256,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * @return string
      * @todo Also add information about internal state
      */
-    protected function listifyObjectList($array)
-    {
+    protected function listifyObjectList($array) {
         ksort($array);
         $list = array();
         foreach ($array as $obj) {
@@ -292,8 +270,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * @param array $array Array hash in form of array('attrname' => HTMLPurifier_AttrDef)
      * @return string
      */
-    protected function listifyAttr($array)
-    {
+    protected function listifyAttr($array) {
         ksort($array);
         $list = array();
         foreach ($array as $name => $obj) {
@@ -311,14 +288,14 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      * @param int $num
      * @return string
      */
-    protected function heavyHeader($text, $num = 1)
-    {
+    protected function heavyHeader($text, $num = 1) {
         $ret = '';
         $ret .= $this->start('tr');
         $ret .= $this->element('th', $text, array('colspan' => $num, 'class' => 'heavy'));
         $ret .= $this->end('tr');
         return $ret;
     }
+
 }
 
 // vim: et sw=4 sts=4

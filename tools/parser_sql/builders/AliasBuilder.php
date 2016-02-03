@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AliasBuilder.php
  *
@@ -64,5 +65,7 @@ class AliasBuilder {
         $sql .= " " . $parsed['alias']['name'];
         return $sql;
     }
+
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -29,8 +30,8 @@
  * @package XML_Feed_Parser
  * @todo    Find a Relax NG URI we can use
  */
-class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
-{
+class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type {
+
     /**
      * The URI of the RelaxNG schema used to (optionally) validate the feed 
      * @var string
@@ -54,7 +55,7 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
      * @var string
      */
     protected $itemClass = 'XML_Feed_Parser_RSS09Element';
-    
+
     /**
      * The element containing entries 
      * @var string
@@ -102,14 +103,13 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
      * @param    DOMDocument    $xml    A DOM object representing the feed
      * @param    bool (optional) $string    Whether or not to validate this feed
      */
-    function __construct(DOMDocument $model, $strict = false)
-    {
+    function __construct(DOMDocument $model, $strict = false) {
         $this->model = $model;
 
         $this->xpath = new DOMXPath($model);
         foreach ($this->namespaces as $key => $value) {
             $this->xpath->registerNamespace($key, $value);
-        }            
+        }
         $this->numberEntries = $this->count('item');
     }
 
@@ -122,9 +122,8 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
      * @param    string    $id    any valid ID.
      * @return    false
      */
-    function getEntryById($id)
-    {
-        return false;        
+    function getEntryById($id) {
+        return false;
     }
 
     /**
@@ -132,8 +131,7 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
      *
      * @return  array|false an array simply containing the child elements
      */
-    protected function getImage()
-    {
+    protected function getImage() {
         $images = $this->model->getElementsByTagName('image');
         if ($images->length > 0) {
             $image = $images->item(0);
@@ -148,9 +146,8 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
                     'link' => false,
                     'url' => $image->attributes->getNamedItem('resource')->nodeValue);
             }
-            $details = array_merge($details, 
-                array('description' => false, 'height' => false, 'width' => false));
-            if (! empty($details)) {
+            $details = array_merge($details, array('description' => false, 'height' => false, 'width' => false));
+            if (!empty($details)) {
                 return $details;
             }
         }
@@ -163,35 +160,34 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
      *
      * @return  array|false
      */
-    protected function getTextInput()
-    {
+    protected function getTextInput() {
         $inputs = $this->model->getElementsByTagName('textinput');
         if ($inputs->length > 0) {
             $input = $inputs->item(0);
             $results = array();
             $results['title'] = isset(
-                $input->getElementsByTagName('title')->item(0)->value) ? 
-                $input->getElementsByTagName('title')->item(0)->value : null;
+                            $input->getElementsByTagName('title')->item(0)->value) ?
+                    $input->getElementsByTagName('title')->item(0)->value : null;
             $results['description'] = isset(
-                $input->getElementsByTagName('description')->item(0)->value) ? 
-                $input->getElementsByTagName('description')->item(0)->value : null;
+                            $input->getElementsByTagName('description')->item(0)->value) ?
+                    $input->getElementsByTagName('description')->item(0)->value : null;
             $results['name'] = isset(
-                $input->getElementsByTagName('name')->item(0)->value) ? 
-                $input->getElementsByTagName('name')->item(0)->value : null;
+                            $input->getElementsByTagName('name')->item(0)->value) ?
+                    $input->getElementsByTagName('name')->item(0)->value : null;
             $results['link'] = isset(
-                   $input->getElementsByTagName('link')->item(0)->value) ? 
-                   $input->getElementsByTagName('link')->item(0)->value : null;
-            if (empty($results['link']) && 
-                $input->attributes->getNamedItem('resource')) {
+                            $input->getElementsByTagName('link')->item(0)->value) ?
+                    $input->getElementsByTagName('link')->item(0)->value : null;
+            if (empty($results['link']) &&
+                    $input->attributes->getNamedItem('resource')) {
                 $results['link'] = $input->attributes->getNamedItem('resource')->nodeValue;
             }
-            if (! empty($results)) {
+            if (!empty($results)) {
                 return $results;
             }
         }
         return false;
     }
-    
+
     /**
      * Get details of a link from the feed.
      *
@@ -200,8 +196,7 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
      *
      * @return  string
      */
-    function getLink($offset = 0, $attribute = 'href', $params = false)
-    {
+    function getLink($offset = 0, $attribute = 'href', $params = false) {
         $links = $this->model->getElementsByTagName('link');
         if ($links->length <= $offset) {
             return false;
@@ -215,7 +210,8 @@ class XML_Feed_Parser_RSS09 extends XML_Feed_Parser_Type
      */
     public function relaxNGValidate() {
         return true;
-}
+    }
+
 }
 
 ?>

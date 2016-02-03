@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Internal Plugin Smarty Template Compiler Base
  * This file contains the basic classes and methods for compiling Smarty templates with lexer/parser
@@ -7,7 +8,6 @@
  * @subpackage Compiler
  * @author     Uwe Tews
  */
-
 /**
  * @ignore
  */
@@ -19,8 +19,8 @@ include 'smarty_internal_parsetree.php';
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase
-{
+class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase {
+
     /**
      * Lexer class name
      *
@@ -70,8 +70,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * @param string $parser_class class name
      * @param Smarty $smarty       global instance
      */
-    public function __construct($lexer_class, $parser_class, $smarty)
-    {
+    public function __construct($lexer_class, $parser_class, $smarty) {
         $this->smarty = $smarty;
         parent::__construct();
         // get required plugins
@@ -86,8 +85,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      *
      * @return bool  true if compiling succeeded, false if it failed
      */
-    protected function doCompile($_content)
-    {
+    protected function doCompile($_content) {
         /* here is where the compiling takes place. Smarty
           tags in the templates are replaces with PHP code,
           then written to compiled files. */
@@ -113,7 +111,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         while ($this->lex->yylex() && !$this->abort_and_recompile) {
             if ($this->smarty->_parserdebug) {
                 echo "<pre>Line {$this->lex->line} Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token " .
-                    htmlentities($this->lex->value) . "</pre>";
+                htmlentities($this->lex->value) . "</pre>";
             }
             $this->parser->doParse($this->lex->token, $this->lex->value);
         }
@@ -137,4 +135,5 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         // return str_replace(array("? >\n<?php","? ><?php"), array('',''), $this->parser->retvalue);
         return $this->parser->retvalue;
     }
+
 }

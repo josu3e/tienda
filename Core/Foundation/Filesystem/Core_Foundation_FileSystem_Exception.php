@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,7 +24,6 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-
-class Core_Foundation_FileSystem_Exception extends Core_Foundation_Exception_Exception
-{
+class Core_Foundation_FileSystem_Exception extends Core_Foundation_Exception_Exception {
+    
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SelectBuilder.php
  *
@@ -84,6 +85,7 @@ class SelectBuilder {
         $builder = new ReservedBuilder();
         return $builder->build($parsed);
     }
+
     /**
      * Returns a well-formatted delimiter string. If you don't need nice SQL,
      * you could simply return $parsed['delim'].
@@ -114,5 +116,7 @@ class SelectBuilder {
         }
         return "SELECT " . $sql;
     }
+
 }
+
 ?>

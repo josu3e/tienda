@@ -5,4 +5,6 @@
  * @package Swift
  * @author Chris Corbyn <chris@w3style.co.uk>
  */
-abstract class Swift_AddressContainer {}
+abstract class Swift_AddressContainer {
+    
+}

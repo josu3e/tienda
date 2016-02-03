@@ -1,31 +1,32 @@
 <?php
-/*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
 
-class Datas
-{
+/*
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
+
+class Datas {
+
     private static $instance = null;
     protected static $available_args = array(
         'step' => array(
@@ -111,7 +112,7 @@ class Datas
             'validate' => 'isGenericName',
             'default' => 'PrestaShop',
         ),
-        'shop_activity'    => array(
+        'shop_activity' => array(
             'name' => 'activity',
             'default' => 0,
             'validate' => 'isInt',
@@ -120,13 +121,13 @@ class Datas
             'name' => 'country',
             'validate' => 'isLanguageIsoCode',
             'default' => 'fr',
-            ),
+        ),
         'admin_firstname' => array(
             'name' => 'firstname',
             'validate' => 'isName',
             'default' => 'John',
         ),
-        'admin_lastname'    => array(
+        'admin_lastname' => array(
             'name' => 'lastname',
             'validate' => 'isName',
             'default' => 'Doe',
@@ -157,11 +158,9 @@ class Datas
             'help' => 'send an email to the administrator after installation',
         ),
     );
-
     protected $datas = array();
 
-    public function __get($key)
-    {
+    public function __get($key) {
         if (isset($this->datas[$key])) {
             return $this->datas[$key];
         }
@@ -169,26 +168,22 @@ class Datas
         return false;
     }
 
-    public function __set($key, $value)
-    {
+    public function __set($key, $value) {
         $this->datas[$key] = $value;
     }
 
-    public static function getInstance()
-    {
+    public static function getInstance() {
         if (Datas::$instance === null) {
             Datas::$instance = new Datas();
         }
         return Datas::$instance;
     }
 
-    public static function getArgs()
-    {
+    public static function getArgs() {
         return Datas::$available_args;
     }
 
-    public function getAndCheckArgs($argv)
-    {
+    public function getAndCheckArgs($argv) {
         if (!$argv) {
             return false;
         }
@@ -217,12 +212,12 @@ class Datas
             }
             if (!isset($args_ok[$name])) {
                 if (!isset($row['default'])) {
-                    $errors[] = 'Field '.$row['name'].' is empty';
+                    $errors[] = 'Field ' . $row['name'] . ' is empty';
                 } else {
                     $this->$key = $row['default'];
                 }
             } elseif (isset($row['validate']) && !call_user_func(array('Validate', $row['validate']), $args_ok[$name])) {
-                $errors[] = 'Field '.$key.' is not valid';
+                $errors[] = 'Field ' . $key . ' is not valid';
             } else {
                 $this->$key = $args_ok[$name];
             }
@@ -230,4 +225,5 @@ class Datas
 
         return count($errors) ? $errors : true;
     }
+
 }

@@ -1,38 +1,38 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 /**
  * @property Supplier $object
  */
-class AdminSuppliersControllerCore extends AdminController
-{
-    public $bootstrap = true ;
+class AdminSuppliersControllerCore extends AdminController {
 
-    public function __construct()
-    {
+    public $bootstrap = true;
+
+    public function __construct() {
         $this->table = 'supplier';
         $this->className = 'Supplier';
 
@@ -53,7 +53,7 @@ class AdminSuppliersControllerCore extends AdminController
         );
 
         $this->_select = 'COUNT(DISTINCT ps.`id_product`) AS products';
-        $this->_join = 'LEFT JOIN `'._DB_PREFIX_.'product_supplier` ps ON (a.`id_supplier` = ps.`id_supplier`)';
+        $this->_join = 'LEFT JOIN `' . _DB_PREFIX_ . 'product_supplier` ps ON (a.`id_supplier` = ps.`id_supplier`)';
         $this->_group = 'GROUP BY a.`id_supplier`';
 
         $this->fieldImageSettings = array('name' => 'logo', 'dir' => 'su');
@@ -69,18 +69,16 @@ class AdminSuppliersControllerCore extends AdminController
         parent::__construct();
     }
 
-    public function setMedia()
-    {
+    public function setMedia() {
         parent::setMedia();
         $this->addJqueryUi('ui.widget');
         $this->addJqueryPlugin('tagify');
     }
 
-    public function initPageHeaderToolbar()
-    {
+    public function initPageHeaderToolbar() {
         if (empty($this->display)) {
             $this->page_header_toolbar_btn['new_supplier'] = array(
-                'href' => self::$currentIndex.'&addsupplier&token='.$this->token,
+                'href' => self::$currentIndex . '&addsupplier&token=' . $this->token,
                 'desc' => $this->l('Add new supplier', null, null, false),
                 'icon' => 'process-icon-new'
             );
@@ -89,23 +87,21 @@ class AdminSuppliersControllerCore extends AdminController
         parent::initPageHeaderToolbar();
     }
 
-    public function renderForm()
-    {
+    public function renderForm() {
         // loads current warehouse
         if (!($obj = $this->loadObject(true))) {
             return;
         }
 
-        $image = _PS_SUPP_IMG_DIR_.$obj->id.'.jpg';
-        $image_url = ImageManager::thumbnail($image, $this->table.'_'.(int)$obj->id.'.'.$this->imageType, 350,
-            $this->imageType, true, true);
+        $image = _PS_SUPP_IMG_DIR_ . $obj->id . '.jpg';
+        $image_url = ImageManager::thumbnail($image, $this->table . '_' . (int) $obj->id . '.' . $this->imageType, 350, $this->imageType, true, true);
         $image_size = file_exists($image) ? filesize($image) / 1000 : false;
 
         $tmp_addr = new Address();
         $res = $tmp_addr->getFieldsRequiredDatabase();
         $required_fields = array();
         foreach ($res as $row) {
-            $required_fields[(int)$row['id_required_field']] = $row['field_name'];
+            $required_fields[(int) $row['id_required_field']] = $row['field_name'];
         }
 
         $this->fields_form = array(
@@ -124,20 +120,19 @@ class AdminSuppliersControllerCore extends AdminController
                     'name' => 'name',
                     'required' => true,
                     'col' => 4,
-                    'hint' => $this->l('Invalid characters:').' &lt;&gt;;=#{}',
+                    'hint' => $this->l('Invalid characters:') . ' &lt;&gt;;=#{}',
                 ),
                 (in_array('company', $required_fields) ?
-                    array(
-                        'type' => 'text',
-                        'label' => $this->l('Company'),
-                        'name' => 'company',
-                        'display' => in_array('company', $required_fields),
-                        'required' => in_array('company', $required_fields),
-                        'maxlength' => 16,
-                        'col' => 4,
-                        'hint' => $this->l('Company name for this supplier')
-                    )
-                    : null
+                        array(
+                    'type' => 'text',
+                    'label' => $this->l('Company'),
+                    'name' => 'company',
+                    'display' => in_array('company', $required_fields),
+                    'required' => in_array('company', $required_fields),
+                    'maxlength' => 16,
+                    'col' => 4,
+                    'hint' => $this->l('Company name for this supplier')
+                        ) : null
                 ),
                 array(
                     'type' => 'textarea',
@@ -145,7 +140,7 @@ class AdminSuppliersControllerCore extends AdminController
                     'name' => 'description',
                     'lang' => true,
                     'hint' => array(
-                        $this->l('Invalid characters:').' &lt;&gt;;=#{}',
+                        $this->l('Invalid characters:') . ' &lt;&gt;;=#{}',
                         $this->l('Will appear in the list of suppliers.')
                     ),
                     'autoload_rte' => 'rte' //Enable TinyMCE editor for short description
@@ -178,7 +173,7 @@ class AdminSuppliersControllerCore extends AdminController
                 ),
                 array(
                     'type' => 'text',
-                    'label' => $this->l('Address').' (2)',
+                    'label' => $this->l('Address') . ' (2)',
                     'name' => 'address2',
                     'required' => in_array('address2', $required_fields),
                     'col' => 6,
@@ -206,7 +201,7 @@ class AdminSuppliersControllerCore extends AdminController
                     'name' => 'id_country',
                     'required' => true,
                     'col' => 4,
-                    'default_value' => (int)$this->context->country->id,
+                    'default_value' => (int) $this->context->country->id,
                     'options' => array(
                         'query' => Country::getCountries($this->context->language->id, false),
                         'id' => 'id_country',
@@ -239,7 +234,7 @@ class AdminSuppliersControllerCore extends AdminController
                     'name' => 'meta_title',
                     'lang' => true,
                     'col' => 4,
-                    'hint' => $this->l('Forbidden characters:').' &lt;&gt;;=#{}'
+                    'hint' => $this->l('Forbidden characters:') . ' &lt;&gt;;=#{}'
                 ),
                 array(
                     'type' => 'text',
@@ -247,7 +242,7 @@ class AdminSuppliersControllerCore extends AdminController
                     'name' => 'meta_description',
                     'lang' => true,
                     'col' => 6,
-                    'hint' => $this->l('Forbidden characters:').' &lt;&gt;;=#{}'
+                    'hint' => $this->l('Forbidden characters:') . ' &lt;&gt;;=#{}'
                 ),
                 array(
                     'type' => 'tags',
@@ -257,7 +252,7 @@ class AdminSuppliersControllerCore extends AdminController
                     'col' => 6,
                     'hint' => array(
                         $this->l('To add "tags" click in the field, write something and then press "Enter".'),
-                        $this->l('Forbidden characters:').' &lt;&gt;;=#{}'
+                        $this->l('Forbidden characters:') . ' &lt;&gt;;=#{}'
                     )
                 ),
                 array(
@@ -292,7 +287,7 @@ class AdminSuppliersControllerCore extends AdminController
             $id_address = Address::getAddressIdBySupplierId($obj->id);
 
             if ($id_address > 0) {
-                $address = new Address((int)$id_address);
+                $address = new Address((int) $id_address);
             }
         }
 
@@ -333,21 +328,19 @@ class AdminSuppliersControllerCore extends AdminController
      * @see AdminController::initToolbar()
      *
      */
-    public function initToolbar()
-    {
+    public function initToolbar() {
         parent::initToolbar();
         $this->addPageHeaderToolBarModulesListButton();
 
         if (empty($this->display) && $this->can_import) {
             $this->toolbar_btn['import'] = array(
-                'href' => $this->context->link->getAdminLink('AdminImport', true).'&import_type=suppliers',
+                'href' => $this->context->link->getAdminLink('AdminImport', true) . '&import_type=suppliers',
                 'desc' => $this->l('Import')
             );
         }
     }
 
-    public function renderView()
-    {
+    public function renderView() {
         $this->initTabModuleList();
         $this->toolbar_title = $this->object->name;
         $products = $this->object->getProductsLite($this->context->language->id);
@@ -359,9 +352,7 @@ class AdminSuppliersControllerCore extends AdminController
             // Build attributes combinations
             $combinations = $products[$i]->getAttributeCombinations($this->context->language->id);
             foreach ($combinations as $k => $combination) {
-                $comb_infos = Supplier::getProductInformationsBySupplier($this->object->id,
-                                                                         $products[$i]->id,
-                                                                         $combination['id_product_attribute']);
+                $comb_infos = Supplier::getProductInformationsBySupplier($this->object->id, $products[$i]->id, $combination['id_product_attribute']);
                 $comb_array[$combination['id_product_attribute']]['product_supplier_reference'] = $comb_infos['product_supplier_reference'];
                 $comb_array[$combination['id_product_attribute']]['product_supplier_price_te'] = Tools::displayPrice($comb_infos['product_supplier_price_te'], new Currency($comb_infos['id_currency']));
                 $comb_array[$combination['id_product_attribute']]['reference'] = $combination['reference'];
@@ -379,16 +370,14 @@ class AdminSuppliersControllerCore extends AdminController
                 foreach ($comb_array as $key => $product_attribute) {
                     $list = '';
                     foreach ($product_attribute['attributes'] as $attribute) {
-                        $list .= $attribute[0].' - '.$attribute[1].', ';
+                        $list .= $attribute[0] . ' - ' . $attribute[1] . ', ';
                     }
                     $comb_array[$key]['attributes'] = rtrim($list, ', ');
                 }
                 isset($comb_array) ? $products[$i]->combination = $comb_array : '';
                 unset($comb_array);
             } else {
-                $product_infos = Supplier::getProductInformationsBySupplier($this->object->id,
-                                                                            $products[$i]->id,
-                                                                            0);
+                $product_infos = Supplier::getProductInformationsBySupplier($this->object->id, $products[$i]->id, 0);
                 $products[$i]->product_supplier_reference = $product_infos['product_supplier_reference'];
                 $products[$i]->product_supplier_price_te = Tools::displayPrice($product_infos['product_supplier_price_te'], new Currency($product_infos['id_currency']));
             }
@@ -404,29 +393,28 @@ class AdminSuppliersControllerCore extends AdminController
         return parent::renderView();
     }
 
-    protected function afterImageUpload()
-    {
+    protected function afterImageUpload() {
         $return = true;
-        $generate_hight_dpi_images = (bool)Configuration::get('PS_HIGHT_DPI');
+        $generate_hight_dpi_images = (bool) Configuration::get('PS_HIGHT_DPI');
 
         /* Generate image with differents size */
-        if (($id_supplier = (int)Tools::getValue('id_supplier')) &&
-             isset($_FILES) && count($_FILES) && file_exists(_PS_SUPP_IMG_DIR_.$id_supplier.'.jpg')) {
+        if (($id_supplier = (int) Tools::getValue('id_supplier')) &&
+                isset($_FILES) && count($_FILES) && file_exists(_PS_SUPP_IMG_DIR_ . $id_supplier . '.jpg')) {
             $images_types = ImageType::getImagesTypes('suppliers');
             foreach ($images_types as $k => $image_type) {
-                $file = _PS_SUPP_IMG_DIR_.$id_supplier.'.jpg';
-                if (!ImageManager::resize($file, _PS_SUPP_IMG_DIR_.$id_supplier.'-'.stripslashes($image_type['name']).'.jpg', (int)$image_type['width'], (int)$image_type['height'])) {
+                $file = _PS_SUPP_IMG_DIR_ . $id_supplier . '.jpg';
+                if (!ImageManager::resize($file, _PS_SUPP_IMG_DIR_ . $id_supplier . '-' . stripslashes($image_type['name']) . '.jpg', (int) $image_type['width'], (int) $image_type['height'])) {
                     $return = false;
                 }
 
                 if ($generate_hight_dpi_images) {
-                    if (!ImageManager::resize($file, _PS_SUPP_IMG_DIR_.$id_supplier.'-'.stripslashes($image_type['name']).'2x.jpg', (int)$image_type['width']*2, (int)$image_type['height']*2)) {
+                    if (!ImageManager::resize($file, _PS_SUPP_IMG_DIR_ . $id_supplier . '-' . stripslashes($image_type['name']) . '2x.jpg', (int) $image_type['width'] * 2, (int) $image_type['height'] * 2)) {
                         $return = false;
                     }
                 }
             }
 
-            $current_logo_file = _PS_TMP_IMG_DIR_.'supplier_mini_'.$id_supplier.'_'.$this->context->shop->id.'.jpg';
+            $current_logo_file = _PS_TMP_IMG_DIR_ . 'supplier_mini_' . $id_supplier . '_' . $this->context->shop->id . '.jpg';
 
             if (file_exists($current_logo_file)) {
                 unlink($current_logo_file);
@@ -439,22 +427,21 @@ class AdminSuppliersControllerCore extends AdminController
      * AdminController::postProcess() override
      * @see AdminController::postProcess()
      */
-    public function postProcess()
-    {
+    public function postProcess() {
         // checks access
-        if (Tools::isSubmit('submitAdd'.$this->table) && !($this->tabAccess['add'] === '1')) {
+        if (Tools::isSubmit('submitAdd' . $this->table) && !($this->tabAccess['add'] === '1')) {
             $this->errors[] = Tools::displayError('You do not have permission to add suppliers.');
             return parent::postProcess();
         }
 
-        if (Tools::isSubmit('submitAdd'.$this->table)) {
+        if (Tools::isSubmit('submitAdd' . $this->table)) {
             if (Tools::isSubmit('id_supplier') && !($obj = $this->loadObject(true))) {
                 return;
             }
 
             // updates/creates address if it does not exist
-            if (Tools::isSubmit('id_address') && (int)Tools::getValue('id_address') > 0) {
-                $address = new Address((int)Tools::getValue('id_address'));
+            if (Tools::isSubmit('id_address') && (int) Tools::getValue('id_address') > 0) {
+                $address = new Address((int) Tools::getValue('id_address'));
             } // updates address
             else {
                 $address = new Address();
@@ -489,14 +476,14 @@ class AdminSuppliersControllerCore extends AdminController
                 }
             }
             return parent::postProcess();
-        } elseif (Tools::isSubmit('delete'.$this->table)) {
+        } elseif (Tools::isSubmit('delete' . $this->table)) {
             if (!($obj = $this->loadObject(true))) {
                 return;
             } elseif (SupplyOrder::supplierHasPendingOrders($obj->id)) {
                 $this->errors[] = $this->l('It is not possible to delete a supplier if there are pending supplier orders.');
             } else {
                 //delete all product_supplier linked to this supplier
-                Db::getInstance()->execute('DELETE FROM `'._DB_PREFIX_.'product_supplier` WHERE `id_supplier`='.(int)$obj->id);
+                Db::getInstance()->execute('DELETE FROM `' . _DB_PREFIX_ . 'product_supplier` WHERE `id_supplier`=' . (int) $obj->id);
 
                 $id_address = Address::getAddressIdBySupplierId($obj->id);
                 $address = new Address($id_address);
@@ -518,9 +505,8 @@ class AdminSuppliersControllerCore extends AdminController
      *
      * @return bool
      */
-    protected function afterAdd($object)
-    {
-        $id_address = (int)$_POST['id_address'];
+    protected function afterAdd($object) {
+        $id_address = (int) $_POST['id_address'];
         $address = new Address($id_address);
         if (Validate::isLoadedObject($address)) {
             $address->id_supplier = $object->id;
@@ -537,9 +523,8 @@ class AdminSuppliersControllerCore extends AdminController
      *
      * @return bool
      */
-    protected function afterUpdate($object)
-    {
-        $id_address = (int)$_POST['id_address'];
+    protected function afterUpdate($object) {
+        $id_address = (int) $_POST['id_address'];
         $address = new Address($id_address);
         if (Validate::isLoadedObject($address)) {
             if ($address->id_supplier != $object->id) {
@@ -549,4 +534,5 @@ class AdminSuppliersControllerCore extends AdminController
         }
         return true;
     }
+
 }

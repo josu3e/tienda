@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CheckBuilder.php
  *
@@ -38,11 +39,11 @@
  * @version   SVN: $Id: CheckBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ReservedBuilder.php';
 require_once dirname(__FILE__) . '/SelectBracketExpressionBuilder.php';
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
+
 /**
  * This class implements the builder for the CHECK statement part of CREATE TABLE. 
  * You can overwrite all functions to achieve another handling.
@@ -81,5 +82,7 @@ class CheckBuilder {
         }
         return substr($sql, 0, -1);
     }
+
 }
+
 ?>

@@ -1,40 +1,40 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 /**
  * @property Carrier $object
  */
-class AdminCarriersControllerCore extends AdminController
-{
+class AdminCarriersControllerCore extends AdminController {
+
     protected $position_identifier = 'id_carrier';
 
-    public function __construct()
-    {
+    public function __construct() {
         if ($id_carrier = Tools::getValue('id_carrier') && !Tools::isSubmit('deletecarrier') && !Tools::isSubmit('statuscarrier') && !Tools::isSubmit('isFreecarrier') && !Tools::isSubmit('onboarding_carrier')) {
-            Tools::redirectAdmin(Context::getContext()->link->getAdminLink('AdminCarrierWizard').'&id_carrier='.(int)$id_carrier);
+            Tools::redirectAdmin(Context::getContext()->link->getAdminLink('AdminCarrierWizard') . '&id_carrier=' . (int) $id_carrier);
         }
 
         $this->bootstrap = true;
@@ -115,21 +115,19 @@ class AdminCarriersControllerCore extends AdminController
         }
     }
 
-    public function initToolbar()
-    {
+    public function initToolbar() {
         parent::initToolbar();
 
         if (isset($this->toolbar_btn['new']) && $this->display != 'view') {
-            $this->toolbar_btn['new']['href'] = $this->context->link->getAdminLink('AdminCarriers').'&onboarding_carrier';
+            $this->toolbar_btn['new']['href'] = $this->context->link->getAdminLink('AdminCarriers') . '&onboarding_carrier';
         }
     }
 
-    public function initPageHeaderToolbar()
-    {
+    public function initPageHeaderToolbar() {
         $this->page_header_toolbar_title = $this->l('Carriers');
         if ($this->display != 'view') {
             $this->page_header_toolbar_btn['new_carrier'] = array(
-                'href' => $this->context->link->getAdminLink('AdminCarriers').'&onboarding_carrier',
+                'href' => $this->context->link->getAdminLink('AdminCarriers') . '&onboarding_carrier',
                 'desc' => $this->l('Add new carrier', null, null, false),
                 'icon' => 'process-icon-new'
             );
@@ -138,8 +136,7 @@ class AdminCarriersControllerCore extends AdminController
         parent::initPageHeaderToolbar();
     }
 
-    public function renderView()
-    {
+    public function renderView() {
         $this->initTabModuleList();
         $this->filterTabModuleList();
         $this->context->smarty->assign('panel_title', $this->l('Use one of our recommended carrier modules'));
@@ -148,16 +145,14 @@ class AdminCarriersControllerCore extends AdminController
         return parent::renderView();
     }
 
-    public function renderList()
-    {
+    public function renderList() {
         $this->_select = 'b.*';
-        $this->_join = 'INNER JOIN `'._DB_PREFIX_.'carrier_lang` b ON a.id_carrier = b.id_carrier'.Shop::addSqlRestrictionOnLang('b').' AND b.id_lang = '.$this->context->language->id.' LEFT JOIN `'._DB_PREFIX_.'carrier_tax_rules_group_shop` ctrgs ON (a.`id_carrier` = ctrgs.`id_carrier` AND ctrgs.id_shop='.(int)$this->context->shop->id.')';
+        $this->_join = 'INNER JOIN `' . _DB_PREFIX_ . 'carrier_lang` b ON a.id_carrier = b.id_carrier' . Shop::addSqlRestrictionOnLang('b') . ' AND b.id_lang = ' . $this->context->language->id . ' LEFT JOIN `' . _DB_PREFIX_ . 'carrier_tax_rules_group_shop` ctrgs ON (a.`id_carrier` = ctrgs.`id_carrier` AND ctrgs.id_shop=' . (int) $this->context->shop->id . ')';
         $this->_use_found_rows = false;
         return parent::renderList();
     }
 
-    public function renderForm()
-    {
+    public function renderForm() {
         $this->fields_form = array(
             'legend' => array(
                 'title' => $this->l('Carriers'),
@@ -179,7 +174,7 @@ class AdminCarriersControllerCore extends AdminController
                     'type' => 'file',
                     'label' => $this->l('Logo'),
                     'name' => 'logo',
-                    'hint' => $this->l('Upload a logo from your computer.').' (.gif, .jpg, .jpeg '.$this->l('or').' .png)'
+                    'hint' => $this->l('Upload a logo from your computer.') . ' (.gif, .jpg, .jpeg ' . $this->l('or') . ' .png)'
                 ),
                 array(
                     'type' => 'text',
@@ -252,12 +247,12 @@ class AdminCarriersControllerCore extends AdminController
                         array(
                             'id' => 'is_free_on',
                             'value' => 0,
-                            'label' => '<img src="../img/admin/enabled.gif" alt="'.$this->l('Yes').'" title="'.$this->l('Yes').'" />'
+                            'label' => '<img src="../img/admin/enabled.gif" alt="' . $this->l('Yes') . '" title="' . $this->l('Yes') . '" />'
                         ),
                         array(
                             'id' => 'is_free_off',
                             'value' => 1,
-                            'label' => '<img src="../img/admin/disabled.gif" alt="'.$this->l('No').'" title="'.$this->l('No').'" />'
+                            'label' => '<img src="../img/admin/disabled.gif" alt="' . $this->l('No') . '" title="' . $this->l('No') . '" />'
                         )
                     ),
                     'hint' => $this->l('Apply both regular shipping cost and product-specific shipping costs.')
@@ -409,17 +404,16 @@ class AdminCarriersControllerCore extends AdminController
         return parent::renderForm();
     }
 
-    public function postProcess()
-    {
+    public function postProcess() {
         if (Tools::getValue('action') == 'GetModuleQuickView' && Tools::getValue('ajax') == '1') {
             $this->ajaxProcessGetModuleQuickView();
         }
 
-        if (Tools::getValue('submitAdd'.$this->table)) {
+        if (Tools::getValue('submitAdd' . $this->table)) {
             /* Checking fields validity */
             $this->validateRules();
             if (!count($this->errors)) {
-                $id = (int)Tools::getValue('id_'.$this->table);
+                $id = (int) Tools::getValue('id_' . $this->table);
 
                 /* Object update */
                 if (isset($id) && !empty($id)) {
@@ -444,19 +438,19 @@ class AdminCarriersControllerCore extends AdminController
                                 $new_carrier->update();
 
                                 $this->updateAssoShop($new_carrier->id);
-                                $new_carrier->copyCarrierData((int)$current_carrier->id);
+                                $new_carrier->copyCarrierData((int) $current_carrier->id);
                                 $this->changeGroups($new_carrier->id);
                                 // Call of hooks
                                 Hook::exec('actionCarrierUpdate', array(
-                                    'id_carrier' => (int)$current_carrier->id,
+                                    'id_carrier' => (int) $current_carrier->id,
                                     'carrier' => $new_carrier
                                 ));
                                 $this->postImage($new_carrier->id);
                                 $this->changeZones($new_carrier->id);
-                                $new_carrier->setTaxRulesGroup((int)Tools::getValue('id_tax_rules_group'));
-                                Tools::redirectAdmin(self::$currentIndex.'&id_'.$this->table.'='.$current_carrier->id.'&conf=4&token='.$this->token);
+                                $new_carrier->setTaxRulesGroup((int) Tools::getValue('id_tax_rules_group'));
+                                Tools::redirectAdmin(self::$currentIndex . '&id_' . $this->table . '=' . $current_carrier->id . '&conf=4&token=' . $this->token);
                             } else {
-                                $this->errors[] = Tools::displayError('An error occurred while updating an object.').' <b>'.$this->table.'</b>';
+                                $this->errors[] = Tools::displayError('An error occurred while updating an object.') . ' <b>' . $this->table . '</b>';
                             }
                         } else {
                             $this->errors[] = Tools::displayError('You do not have permission to edit this.');
@@ -466,23 +460,22 @@ class AdminCarriersControllerCore extends AdminController
                     }
                 }
 
-                /* Object creation */
-                else {
+                /* Object creation */ else {
                     if ($this->tabAccess['add'] === '1') {
                         // Create new Carrier
                         $carrier = new Carrier();
                         $this->copyFromPost($carrier, $this->table);
                         $carrier->position = Carrier::getHigherPosition() + 1;
                         if ($carrier->add()) {
-                            if (($_POST['id_'.$this->table] = $carrier->id /* voluntary */) && $this->postImage($carrier->id) && $this->_redirect) {
-                                $carrier->setTaxRulesGroup((int)Tools::getValue('id_tax_rules_group'), true);
+                            if (($_POST['id_' . $this->table] = $carrier->id /* voluntary */) && $this->postImage($carrier->id) && $this->_redirect) {
+                                $carrier->setTaxRulesGroup((int) Tools::getValue('id_tax_rules_group'), true);
                                 $this->changeZones($carrier->id);
                                 $this->changeGroups($carrier->id);
                                 $this->updateAssoShop($carrier->id);
-                                Tools::redirectAdmin(self::$currentIndex.'&id_'.$this->table.'='.$carrier->id.'&conf=3&token='.$this->token);
+                                Tools::redirectAdmin(self::$currentIndex . '&id_' . $this->table . '=' . $carrier->id . '&conf=3&token=' . $this->token);
                             }
                         } else {
-                            $this->errors[] = Tools::displayError('An error occurred while creating an object.').' <b>'.$this->table.'</b>';
+                            $this->errors[] = Tools::displayError('An error occurred while creating an object.') . ' <b>' . $this->table . '</b>';
                         }
                     } else {
                         $this->errors[] = Tools::displayError('You do not have permission to add this.');
@@ -492,52 +485,50 @@ class AdminCarriersControllerCore extends AdminController
             parent::postProcess();
         }
         /*
-elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools::getValue($this->identifier))
-        {
-            if ($this->tabAccess['edit'] === '1')
-            {
-                if (Tools::getValue('id_carrier') == Configuration::get('PS_CARRIER_DEFAULT'))
-                    $this->errors[] = Tools::displayError('You cannot disable the default carrier, however you can change your default carrier. ');
-                else
-                    parent::postProcess();
-            }
-            else
-                $this->errors[] = Tools::displayError('You do not have permission to edit this.');
-        }
-*/
-        elseif (isset($_GET['isFree'.$this->table])) {
+          elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools::getValue($this->identifier))
+          {
+          if ($this->tabAccess['edit'] === '1')
+          {
+          if (Tools::getValue('id_carrier') == Configuration::get('PS_CARRIER_DEFAULT'))
+          $this->errors[] = Tools::displayError('You cannot disable the default carrier, however you can change your default carrier. ');
+          else
+          parent::postProcess();
+          }
+          else
+          $this->errors[] = Tools::displayError('You do not have permission to edit this.');
+          }
+         */ elseif (isset($_GET['isFree' . $this->table])) {
             $this->processIsFree();
         } else {
             /*
-    if ((Tools::isSubmit('submitDel'.$this->table) && in_array(Configuration::get('PS_CARRIER_DEFAULT'), Tools::getValue('carrierBox')))
-                || (isset($_GET['delete'.$this->table]) && Tools::getValue('id_carrier') == Configuration::get('PS_CARRIER_DEFAULT')))
-                    $this->errors[] = $this->l('Please set another carrier as default before deleting this one.');
-            else
-            {
-*/
-                // if deletion : removes the carrier from the warehouse/carrier association
-                if (Tools::isSubmit('delete'.$this->table)) {
-                    $id = (int)Tools::getValue('id_'.$this->table);
+              if ((Tools::isSubmit('submitDel'.$this->table) && in_array(Configuration::get('PS_CARRIER_DEFAULT'), Tools::getValue('carrierBox')))
+              || (isset($_GET['delete'.$this->table]) && Tools::getValue('id_carrier') == Configuration::get('PS_CARRIER_DEFAULT')))
+              $this->errors[] = $this->l('Please set another carrier as default before deleting this one.');
+              else
+              {
+             */
+            // if deletion : removes the carrier from the warehouse/carrier association
+            if (Tools::isSubmit('delete' . $this->table)) {
+                $id = (int) Tools::getValue('id_' . $this->table);
+                // Delete from the reference_id and not from the carrier id
+                $carrier = new Carrier((int) $id);
+                Warehouse::removeCarrier($carrier->id_reference);
+            } elseif (Tools::isSubmit($this->table . 'Box') && count(Tools::isSubmit($this->table . 'Box')) > 0) {
+                $ids = Tools::getValue($this->table . 'Box');
+                array_walk($ids, 'intval');
+                foreach ($ids as $id) {
                     // Delete from the reference_id and not from the carrier id
-                    $carrier = new Carrier((int)$id);
+                    $carrier = new Carrier((int) $id);
                     Warehouse::removeCarrier($carrier->id_reference);
-                } elseif (Tools::isSubmit($this->table.'Box') && count(Tools::isSubmit($this->table.'Box')) > 0) {
-                    $ids = Tools::getValue($this->table.'Box');
-                    array_walk($ids, 'intval');
-                    foreach ($ids as $id) {
-                        // Delete from the reference_id and not from the carrier id
-                        $carrier = new Carrier((int)$id);
-                        Warehouse::removeCarrier($carrier->id_reference);
-                    }
                 }
+            }
             parent::postProcess();
             Carrier::cleanPositions();
             //}
         }
     }
 
-    public function processIsFree()
-    {
+    public function processIsFree() {
         $carrier = new Carrier($this->id_object);
         if (!Validate::isLoadedObject($carrier)) {
             $this->errors[] = Tools::displayError('An error occurred while updating carrier information.');
@@ -546,7 +537,7 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
         if (!$carrier->update()) {
             $this->errors[] = Tools::displayError('An error occurred while updating carrier information.');
         }
-        Tools::redirectAdmin(self::$currentIndex.'&token='.$this->token);
+        Tools::redirectAdmin(self::$currentIndex . '&token=' . $this->token);
     }
 
     /**
@@ -554,8 +545,7 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
      *
      * @param object $obj
      */
-    public function getFieldsValues($obj)
-    {
+    public function getFieldsValues($obj) {
         if ($this->getFieldValue($obj, 'is_module')) {
             $this->fields_value['is_module'] = 1;
         }
@@ -578,7 +568,7 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
 
         $zones = Zone::getZones(false);
         foreach ($zones as $zone) {
-            $this->fields_value['zone_'.$zone['id_zone']] = Tools::getValue('zone_'.$zone['id_zone'], (in_array($zone['id_zone'], $carrier_zones_ids)));
+            $this->fields_value['zone_' . $zone['id_zone']] = Tools::getValue('zone_' . $zone['id_zone'], (in_array($zone['id_zone'], $carrier_zones_ids)));
         }
 
         // Added values of object Group
@@ -593,7 +583,7 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
         $groups = Group::getGroups($this->context->language->id);
 
         foreach ($groups as $group) {
-            $this->fields_value['groupBox_'.$group['id_group']] = Tools::getValue('groupBox_'.$group['id_group'], (in_array($group['id_group'], $carrier_groups_ids) || empty($carrier_groups_ids) && !$obj->id));
+            $this->fields_value['groupBox_' . $group['id_group']] = Tools::getValue('groupBox_' . $group['id_group'], (in_array($group['id_group'], $carrier_groups_ids) || empty($carrier_groups_ids) && !$obj->id));
         }
 
         $this->fields_value['id_tax_rules_group'] = $this->object->getIdTaxRulesGroup($this->context);
@@ -603,29 +593,26 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
      * @param Carrier $object
      * @return int
      */
-    protected function beforeDelete($object)
-    {
+    protected function beforeDelete($object) {
         return $object->isUsed();
     }
 
-    protected function changeGroups($id_carrier, $delete = true)
-    {
+    protected function changeGroups($id_carrier, $delete = true) {
         if ($delete) {
-            Db::getInstance()->execute('DELETE FROM '._DB_PREFIX_.'carrier_group WHERE id_carrier = '.(int)$id_carrier);
+            Db::getInstance()->execute('DELETE FROM ' . _DB_PREFIX_ . 'carrier_group WHERE id_carrier = ' . (int) $id_carrier);
         }
-        $groups = Db::getInstance()->executeS('SELECT id_group FROM `'._DB_PREFIX_.'group`');
+        $groups = Db::getInstance()->executeS('SELECT id_group FROM `' . _DB_PREFIX_ . 'group`');
         foreach ($groups as $group) {
             if (Tools::getIsset('groupBox') && in_array($group['id_group'], Tools::getValue('groupBox'))) {
                 Db::getInstance()->execute('
-					INSERT INTO '._DB_PREFIX_.'carrier_group (id_group, id_carrier)
-					VALUES('.(int)$group['id_group'].','.(int)$id_carrier.')
+					INSERT INTO ' . _DB_PREFIX_ . 'carrier_group (id_group, id_carrier)
+					VALUES(' . (int) $group['id_group'] . ',' . (int) $id_carrier . ')
 				');
             }
         }
     }
 
-    public function changeZones($id)
-    {
+    public function changeZones($id) {
         /** @var Carrier $carrier */
         $carrier = new $this->className($id);
         if (!Validate::isLoadedObject($carrier)) {
@@ -634,10 +621,10 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
         $zones = Zone::getZones(false);
         foreach ($zones as $zone) {
             if (count($carrier->getZone($zone['id_zone']))) {
-                if (!isset($_POST['zone_'.$zone['id_zone']]) || !$_POST['zone_'.$zone['id_zone']]) {
+                if (!isset($_POST['zone_' . $zone['id_zone']]) || !$_POST['zone_' . $zone['id_zone']]) {
                     $carrier->deleteZone($zone['id_zone']);
                 }
-            } elseif (isset($_POST['zone_'.$zone['id_zone']]) && $_POST['zone_'.$zone['id_zone']]) {
+            } elseif (isset($_POST['zone_' . $zone['id_zone']]) && $_POST['zone_' . $zone['id_zone']]) {
                 $carrier->addZone($zone['id_zone']);
             }
         }
@@ -655,8 +642,7 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
      *
      * @throws PrestaShopException
      */
-    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false)
-    {
+    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false) {
         parent::getList($id_lang, $order_by, $order_way, $start, $limit, $id_lang_shop);
 
         foreach ($this->_list as $key => $list) {
@@ -666,24 +652,23 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
         }
     }
 
-    public function ajaxProcessUpdatePositions()
-    {
-        $way = (int)(Tools::getValue('way'));
-        $id_carrier = (int)(Tools::getValue('id'));
+    public function ajaxProcessUpdatePositions() {
+        $way = (int) (Tools::getValue('way'));
+        $id_carrier = (int) (Tools::getValue('id'));
         $positions = Tools::getValue($this->table);
 
         foreach ($positions as $position => $value) {
             $pos = explode('_', $value);
 
-            if (isset($pos[2]) && (int)$pos[2] === $id_carrier) {
-                if ($carrier = new Carrier((int)$pos[2])) {
+            if (isset($pos[2]) && (int) $pos[2] === $id_carrier) {
+                if ($carrier = new Carrier((int) $pos[2])) {
                     if (isset($position) && $carrier->updatePosition($way, $position)) {
-                        echo 'ok position '.(int)$position.' for carrier '.(int)$pos[1].'\r\n';
+                        echo 'ok position ' . (int) $position . ' for carrier ' . (int) $pos[1] . '\r\n';
                     } else {
-                        echo '{"hasError" : true, "errors" : "Can not update carrier '.(int)$id_carrier.' to position '.(int)$position.' "}';
+                        echo '{"hasError" : true, "errors" : "Can not update carrier ' . (int) $id_carrier . ' to position ' . (int) $position . ' "}';
                     }
                 } else {
-                    echo '{"hasError" : true, "errors" : "This carrier ('.(int)$id_carrier.') can t be loaded"}';
+                    echo '{"hasError" : true, "errors" : "This carrier (' . (int) $id_carrier . ') can t be loaded"}';
                 }
 
                 break;
@@ -691,8 +676,7 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
         }
     }
 
-    public function displayEditLink($token = null, $id, $name = null)
-    {
+    public function displayEditLink($token = null, $id, $name = null) {
         if ($this->tabAccess['edit'] == 1) {
             $tpl = $this->createTemplate('helpers/list/list_action_edit.tpl');
             if (!array_key_exists('Edit', self::$cache_lang)) {
@@ -700,7 +684,7 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
             }
 
             $tpl->assign(array(
-                'href' => $this->context->link->getAdminLink('AdminCarrierWizard').'&id_carrier='.(int)$id,
+                'href' => $this->context->link->getAdminLink('AdminCarrierWizard') . '&id_carrier=' . (int) $id,
                 'action' => self::$cache_lang['Edit'],
                 'id' => $id
             ));
@@ -711,8 +695,7 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
         }
     }
 
-    public function displayDeleteLink($token = null, $id, $name = null)
-    {
+    public function displayDeleteLink($token = null, $id, $name = null) {
         if ($this->tabAccess['delete'] == 1) {
             $tpl = $this->createTemplate('helpers/list/list_action_delete.tpl');
 
@@ -729,17 +712,17 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
             }
 
             if (!is_null($name)) {
-                $name = '\n\n'.self::$cache_lang['Name'].' '.$name;
+                $name = '\n\n' . self::$cache_lang['Name'] . ' ' . $name;
             }
 
             $data = array(
                 $this->identifier => $id,
-                'href' => $this->context->link->getAdminLink('AdminCarriers').'&id_carrier='.(int)$id.'&deletecarrier=1',
+                'href' => $this->context->link->getAdminLink('AdminCarriers') . '&id_carrier=' . (int) $id . '&deletecarrier=1',
                 'action' => self::$cache_lang['Delete'],
             );
 
             if ($this->specificConfirmDelete !== false) {
-                $data['confirm'] = !is_null($this->specificConfirmDelete) ? '\r'.$this->specificConfirmDelete : addcslashes(Tools::htmlentitiesDecodeUTF8(self::$cache_lang['DeleteItem'].$name), '\'');
+                $data['confirm'] = !is_null($this->specificConfirmDelete) ? '\r' . $this->specificConfirmDelete : addcslashes(Tools::htmlentitiesDecodeUTF8(self::$cache_lang['DeleteItem'] . $name), '\'');
             }
 
             $tpl->assign(array_merge($this->tpl_delete_link_vars, $data));
@@ -750,11 +733,11 @@ elseif ((isset($_GET['status'.$this->table]) || isset($_GET['status'])) && Tools
         }
     }
 
-    protected function initTabModuleList()
-    {
+    protected function initTabModuleList() {
         if (Tools::isSubmit('onboarding_carrier')) {
             parent::initTabModuleList();
             $this->filter_modules_list = $this->tab_modules_list['default_list'] = $this->tab_modules_list['slider_list'];
         }
     }
+
 }

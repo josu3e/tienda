@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'informations' => array(
         'documentation' => 'http://doc.prestashop.com/pages/viewpage.action?pageId=28016773',

@@ -1,34 +1,35 @@
 <?php
+
 /*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Open Software License (OSL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/osl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2015 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ *  @author PrestaShop SA <contact@prestashop.com>
+ *  @copyright  2007-2015 PrestaShop SA
+ *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *  International Registered Trademark & Property of PrestaShop SA
+ */
 
 /**
  * Step 2 : check system configuration (permissions on folders, PHP version, etc.)
  */
-class InstallControllerHttpSystem extends InstallControllerHttp
-{
+class InstallControllerHttpSystem extends InstallControllerHttp {
+
     public $tests = array();
 
     /**
@@ -39,17 +40,16 @@ class InstallControllerHttpSystem extends InstallControllerHttp
     /**
      * @see InstallAbstractModel::init()
      */
-    public function init()
-    {
-        require_once _PS_INSTALL_MODELS_PATH_.'system.php';
+    public function init() {
+        require_once _PS_INSTALL_MODELS_PATH_ . 'system.php';
         $this->model_system = new InstallModelSystem();
     }
 
     /**
      * @see InstallAbstractModel::processNextStep()
      */
-    public function processNextStep()
-    {
+    public function processNextStep() {
+        
     }
 
     /**
@@ -57,8 +57,7 @@ class InstallControllerHttpSystem extends InstallControllerHttp
      *
      * @see InstallAbstractModel::validate()
      */
-    public function validate()
-    {
+    public function validate() {
         $this->tests['required'] = $this->model_system->checkRequiredTests();
 
         return $this->tests['required']['success'];
@@ -67,8 +66,7 @@ class InstallControllerHttpSystem extends InstallControllerHttp
     /**
      * Display system step
      */
-    public function display()
-    {
+    public function display() {
         if (!isset($this->tests['required'])) {
             $this->tests['required'] = $this->model_system->checkRequiredTests();
         }
@@ -146,7 +144,7 @@ class InstallControllerHttpSystem extends InstallControllerHttp
                 }
             }
         }
-        
+
         // If required tests failed, disable next button
         if (!$this->tests['required']['success']) {
             $this->next_button = false;
@@ -154,4 +152,5 @@ class InstallControllerHttpSystem extends InstallControllerHttp
 
         $this->displayTemplate('system');
     }
+
 }

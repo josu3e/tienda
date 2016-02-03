@@ -11,206 +11,214 @@
  */
 
 
-(function($) {
-	var passy = {
-		character: { DIGIT: 1, LOWERCASE: 2, UPPERCASE: 4, PUNCTUATION: 8 },
-		strength: { LOW: 0, MEDIUM: 1, HIGH: 2, EXTREME: 3 },
+(function ($) {
+    var passy = {
+        character: {DIGIT: 1, LOWERCASE: 2, UPPERCASE: 4, PUNCTUATION: 8},
+        strength: {LOW: 0, MEDIUM: 1, HIGH: 2, EXTREME: 3},
+        dictionary: [],
+        patterns: [
+            '0123456789',
+            'abcdefghijklmnopqrstuvwxyz',
+            'qwertyuiopasdfghjklzxcvbnm',
+            'azertyuiopqsdfghjklmwxcvbn',
+            '!#$*+-.:?@^'
+        ],
+        threshold: {
+            medium: 16,
+            high: 22,
+            extreme: 36
+        }
+    };
 
-		dictionary: [],
+    passy.requirements = {
+        characters: passy.character.DIGIT | passy.character.LOWERCASE | passy.character.UPPERCASE,
+        length: {
+            min: 6,
+            max: Infinity
+        }
+    };
 
-		patterns: [
-			'0123456789',
-			'abcdefghijklmnopqrstuvwxyz',
-			'qwertyuiopasdfghjklzxcvbnm',
-			'azertyuiopqsdfghjklmwxcvbn',
-			'!#$*+-.:?@^'
-		],
+    if (Object.seal) {
+        Object.seal(passy.character);
+        Object.seal(passy.strength);
+    }
 
-		threshold: {
-			medium: 16,
-			high: 22,
-			extreme: 36
-		}
-	};
+    if (Object.freeze) {
+        Object.freeze(passy.character);
+        Object.freeze(passy.strength);
+    }
 
-	passy.requirements = {
-		characters: passy.character.DIGIT | passy.character.LOWERCASE | passy.character.UPPERCASE,
-		length: {
-			min: 6,
-			max: Infinity
-		}
-	};
+    passy.analize = function (password) {
+        var score = Math.floor(password.length * 2);
+        var i = password.length;
 
-	if(Object.seal) {
-		Object.seal(passy.character);
-		Object.seal(passy.strength);
-	}
+        score += $.passy.analizePatterns(password);
+        score += $.passy.analizeDictionary(password);
 
-	if(Object.freeze) {
-		Object.freeze(passy.character);
-		Object.freeze(passy.strength);
-	}
+        while (i--)
+            score += $.passy.analizeCharacter(password.charAt(i));
 
-	passy.analize = function(password) {
-		var score = Math.floor(password.length * 2);
-		var i = password.length;
+        return $.passy.analizeScore(score);
+    };
 
-		score += $.passy.analizePatterns(password);
-		score += $.passy.analizeDictionary(password);
+    passy.analizeCharacter = function (character) {
+        var code = character.charCodeAt(0);
 
-		while(i--) score += $.passy.analizeCharacter(password.charAt(i));
+        if (code >= 97 && code <= 122)
+            return 1;   // lower case
+        if (code >= 48 && code <= 57)
+            return 2;    // numeric
+        if (code >= 65 && code <= 90)
+            return 3;    // capital
+        if (code <= 126)
+            return 4;                 // punctuation
+        return 5;                                 // foreign characters etc
+    };
 
-		return $.passy.analizeScore(score);
-	};
+    passy.analizePattern = function (password, pattern) {
+        var lastmatch = -1;
+        var score = -2;
 
-	passy.analizeCharacter = function(character) {
-		var code = character.charCodeAt(0);
+        for (var i = 0; i < password.length; i++) {
+            var match = pattern.indexOf(password.charAt(i));
 
-		if(code >= 97 && code <= 122) return 1;   // lower case
-		if(code >= 48 && code <= 57) return 2;    // numeric
-		if(code >= 65 && code <= 90) return 3;    // capital
-		if(code <= 126) return 4;                 // punctuation
-		return 5;                                 // foreign characters etc
-	};
+            if (lastmatch === match - 1) {
+                lastmatch = match;
+                score++;
+            }
+        }
 
-	passy.analizePattern = function(password, pattern) {
-		var lastmatch = -1;
-		var score = -2;
+        return Math.max(0, score);
+    };
 
-		for(var i = 0; i < password.length; i++) {
-			var match = pattern.indexOf(password.charAt(i));
+    passy.analizePatterns = function (password) {
+        var chars = password.toLowerCase();
+        var score = 0;
 
-			if(lastmatch === match - 1) {
-				lastmatch = match;
-				score++;
-			}
-		}
+        for (var i in $.passy.patterns) {
+            var pattern = $.passy.patterns[i].toLowerCase();
+            score += $.passy.analizePattern(chars, pattern);
+        }
 
-		return Math.max(0, score);
-	};
+        // patterns are bad man!
+        return score * -5;
+    };
 
-	passy.analizePatterns = function(password) {
-		var chars = password.toLowerCase();
-		var score = 0;
+    passy.analizeDictionary = function (password) {
+        var chars = password.toLowerCase();
+        var score = 0;
 
-		for(var i in $.passy.patterns) {
-			var pattern = $.passy.patterns[i].toLowerCase();
-			score += $.passy.analizePattern(chars, pattern);
-		}
+        for (var i in $.passy.dictionary) {
+            var word = $.passy.dictionary[i].toLowerCase();
 
-		// patterns are bad man!
-		return score * -5;
-	};
+            if (password.indexOf(word) >= 0)
+                score++;
+        }
 
-	passy.analizeDictionary = function(password) {
-		var chars = password.toLowerCase();
-		var score = 0;
+        // using words are bad too!
+        return score * -5;
+    };
 
-		for(var i in $.passy.dictionary) {
-			var word = $.passy.dictionary[i].toLowerCase();
+    passy.analizeScore = function (score) {
+        if (score >= $.passy.threshold.extreme)
+            return $.passy.strength.EXTREME;
+        if (score >= $.passy.threshold.high)
+            return $.passy.strength.HIGH;
+        if (score >= $.passy.threshold.medium)
+            return $.passy.strength.MEDIUM;
 
-			if(password.indexOf(word) >= 0) score++;
-		}
+        return $.passy.strength.LOW;
+    };
 
-		// using words are bad too!
-		return score * -5;
-	};
+    passy.generate = function (len) {
+        var chars = [
+            '0123456789',
+            'abcdefghijklmnopqrstuvwxyz',
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            '!#$&()*+<=>@[]^'
+        ];
 
-	passy.analizeScore = function(score) {
-		if(score >= $.passy.threshold.extreme) return $.passy.strength.EXTREME;
-		if(score >= $.passy.threshold.high) return $.passy.strength.HIGH;
-		if(score >= $.passy.threshold.medium) return $.passy.strength.MEDIUM;
+        var password = [];
+        var type, index;
 
-		return $.passy.strength.LOW;
-	};
+        len = Math.max(len, $.passy.requirements.length.min);
+        len = Math.min(len, $.passy.requirements.length.max);
 
-	passy.generate = function(len) {
-		var chars = [
-			'0123456789',
-			'abcdefghijklmnopqrstuvwxyz',
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-			'!#$&()*+<=>@[]^'
-		];
+        while (len--) {
+            type = len % chars.length;
+            index = Math.floor(Math.random() * chars[type].length);
+            password.push(chars[type].charAt(index));
+        }
 
-		var password = [];
-		var type, index;
+        password.sort(function () {
+            return Math.random() * 2 - 1;
+        });
 
-		len = Math.max(len, $.passy.requirements.length.min);
-		len = Math.min(len, $.passy.requirements.length.max);
+        return password.join('');
+    };
 
-		while(len--) {
-			type = len % chars.length;
-			index = Math.floor(Math.random() * chars[type].length);
-			password.push(chars[type].charAt(index));
-		}
+    passy.contains = function (str, character) {
+        if (character === $.passy.character.DIGIT) {
+            return /\d/.test(str);
+        } else if (character === $.passy.character.LOWERCASE) {
+            return /[a-z]/.test(str);
+        } else if (character === $.passy.character.UPPERCASE) {
+            return /[A-Z]/.test(str);
+        } else if (character === $.passy.character.PUNCTUATION) {
+            return /[!"#$%&'()*+,\-./:;<=>?@[\\]\^_`{\|}~]/.test(str);
+        }
+    };
 
-		password.sort(function() {
-			return Math.random() * 2 - 1;
-		});
+    passy.valid = function (str) {
+        var valid = true;
 
-		return password.join('');
-	};
+        if (!$.passy.requirements)
+            return true;
 
-	passy.contains = function(str, character) {
-		if(character === $.passy.character.DIGIT) {
-			return /\d/.test(str);
-		} else if(character === $.passy.character.LOWERCASE) {
-			return /[a-z]/.test(str);
-		} else if(character === $.passy.character.UPPERCASE) {
-			return /[A-Z]/.test(str);
-		} else if(character === $.passy.character.PUNCTUATION) {
-			return /[!"#$%&'()*+,\-./:;<=>?@[\\]\^_`{\|}~]/.test(str);
-		}
-	};
+        if (str.length < $.passy.requirements.length.min)
+            return false;
+        if (str.length > $.passy.requirements.length.max)
+            return false;
 
-	passy.valid = function(str) {
-		var valid = true;
+        for (var i in $.passy.character) {
+            if ($.passy.requirements.characters & $.passy.character[i]) {
+                valid = $.passy.contains(str, $.passy.character[i]) && valid;
+            }
+        }
 
-		if(!$.passy.requirements) return true;
+        return valid;
+    };
 
-		if(str.length < $.passy.requirements.length.min) return false;
-		if(str.length > $.passy.requirements.length.max) return false;
+    var methods = {
+        init: function (callback) {
+            var $this = $(this);
 
-		for(var i in $.passy.character) {
-			if($.passy.requirements.characters & $.passy.character[i]) {
-				valid = $.passy.contains(str, $.passy.character[i]) && valid;
-			}
-		}
+            $this.on('change keyup', function () {
+                if (typeof callback !== 'function')
+                    return;
 
-		return valid;
-	};
+                var value = $this.val();
+                callback.call($this, $.passy.analize(value), methods.valid.call($this));
+            });
+        },
+        generate: function (len) {
+            this.val($.passy.generate(len));
+            this.change();
+        },
+        valid: function () {
+            return $.passy.valid(this.val());
+        }
+    };
 
-	var methods = {
-		init: function(callback) {
-			var $this = $(this);
+    $.fn.passy = function (opt) {
+        if (methods[opt]) {
+            return methods[opt].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof opt === 'function' || !opt) {
+            return methods.init.apply(this, arguments);
+        }
 
-			$this.on('change keyup', function() {
-				if(typeof callback !== 'function') return;
+        return this;
+    };
 
-				var value = $this.val();
-				callback.call($this, $.passy.analize(value), methods.valid.call($this));
-			});
-		},
-
-		generate: function(len) {
-			this.val($.passy.generate(len));
-			this.change();
-		},
-
-		valid: function() {
-			return $.passy.valid(this.val());
-		}
-	};
-
-	$.fn.passy = function(opt) {
-		if(methods[opt]) {
-			return methods[opt].apply(this, Array.prototype.slice.call(arguments, 1));
-		} else if (typeof opt === 'function' || !opt) {
-			return methods.init.apply(this, arguments);
-		}
-
-		return this;
-	};
-
-	$.extend({ passy: passy });
+    $.extend({passy: passy});
 })(jQuery);

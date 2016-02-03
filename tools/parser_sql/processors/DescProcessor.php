@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DescProcessor.php
  *
@@ -29,7 +30,6 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-
 require_once(dirname(__FILE__) . '/ExplainProcessor.php');
 
 /**
@@ -44,5 +44,7 @@ class DescProcessor extends ExplainProcessor {
     protected function isStatement($keys, $needle = "DESC") {
         return parent::isStatement($keys, $needle);
     }
+
 }
+
 ?>

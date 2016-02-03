@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
-	xmlns:content="http://purl.org/rss/1.0/modules/content/"
-	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:atom="http://www.w3.org/2005/Atom"
-	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
-	>
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+>
 
-<channel>
-	<title>ES - Blog Ecommerce de PrestaShop</title>
-	<atom:link href="http://www.prestashop.com/blog/es/feed/" rel="self" type="application/rss+xml" />
-	<link>https://www.prestashop.com/blog/es</link>
-	<description></description>
-	<lastBuildDate>Thu, 21 Jan 2016 08:53:09 +0000</lastBuildDate>
-	<language>es-ES</language>
-		<sy:updatePeriod>hourly</sy:updatePeriod>
-		<sy:updateFrequency>1</sy:updateFrequency>
-	<generator>http://wordpress.org/?v=3.8.1</generator>
-	<item>
-		<title>Caso de éxito: Due-Home, decoración en tu vida</title>
-		<link>https://www.prestashop.com/blog/es/caso-de-exito-due-home-decoracion-en-tu-vida/</link>
-		<comments>https://www.prestashop.com/blog/es/caso-de-exito-due-home-decoracion-en-tu-vida/#comments</comments>
-		<pubDate>Wed, 20 Jan 2016 15:00:24 +0000</pubDate>
-		<dc:creator><![CDATA[Jhon Suarez Pardo]]></dc:creator>
-				<category><![CDATA[Caso de éxito]]></category>
+    <channel>
+        <title>ES - Blog Ecommerce de PrestaShop</title>
+        <atom:link href="http://www.prestashop.com/blog/es/feed/" rel="self" type="application/rss+xml" />
+        <link>https://www.prestashop.com/blog/es</link>
+        <description></description>
+        <lastBuildDate>Thu, 21 Jan 2016 08:53:09 +0000</lastBuildDate>
+        <language>es-ES</language>
+        <sy:updatePeriod>hourly</sy:updatePeriod>
+        <sy:updateFrequency>1</sy:updateFrequency>
+        <generator>http://wordpress.org/?v=3.8.1</generator>
+        <item>
+            <title>Caso de éxito: Due-Home, decoración en tu vida</title>
+            <link>https://www.prestashop.com/blog/es/caso-de-exito-due-home-decoracion-en-tu-vida/</link>
+            <comments>https://www.prestashop.com/blog/es/caso-de-exito-due-home-decoracion-en-tu-vida/#comments</comments>
+            <pubDate>Wed, 20 Jan 2016 15:00:24 +0000</pubDate>
+            <dc:creator><![CDATA[Jhon Suarez Pardo]]></dc:creator>
+            <category><![CDATA[Caso de éxito]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13654</guid>
-		<description><![CDATA[<p>Hoy estamos con Xavi Martínez, CEO de Due-Home, empresa dedicada a la venta de muebles y objetos de decoración para la casa y la oficina. Xavi, cuéntanos un poco sobre Due-Home. Due-Home nace en el 2013 como una forma de generar más ingresos al negocio familiar. Seguimos los pasos de nuestro padres y abuelos que [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13654</guid>
+            <description><![CDATA[<p>Hoy estamos con Xavi Martínez, CEO de Due-Home, empresa dedicada a la venta de muebles y objetos de decoración para la casa y la oficina. Xavi, cuéntanos un poco sobre Due-Home. Due-Home nace en el 2013 como una forma de generar más ingresos al negocio familiar. Seguimos los pasos de nuestro padres y abuelos que [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/caso-de-exito-due-home-decoracion-en-tu-vida/">Caso de éxito: Due-Home, decoración en tu vida</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>Hoy estamos con Xavi Martínez, CEO de Due-Home, empresa dedicada a la venta de muebles y objetos de decoración para la casa y la oficina.</p>
+            <content:encoded><![CDATA[<p>Hoy estamos con Xavi Martínez, CEO de Due-Home, empresa dedicada a la venta de muebles y objetos de decoración para la casa y la oficina.</p>
 <h2><span style="font-size: 30px;line-height: 1.3;color: #59bbc4">Xavi, cuéntanos un poco sobre Due-Home.</span></h2>
 <p>Due-Home nace en el 2013 como una forma de <span style="color: #000000">generar</span> más ingresos al negocio familiar. Seguimos los pasos de nuestro padres y abuelos que siempre se han dedicado a la venta de mobiliario y decoración, pero en este caso lanzándonos al mundo online.</p>
 <p>Con un primer año complicado de compaginar tienda física con tienda online se decide <strong>separar el negocio offline del online</strong> y empieza la aventura…en 2015 contamos con un equipo de 8 personas y creciendo cada año.<span id="more-13654"></span></p>
@@ -54,22 +54,22 @@
 <p>Visita la web: <strong><span style="color: #993300"><a href="http://due-home.com/" target="_blank"><span style="color: #993300">www.due-home.com</span></a></span></strong></p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/caso-de-exito-due-home-decoracion-en-tu-vida/">Caso de éxito: Due-Home, decoración en tu vida</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/caso-de-exito-due-home-decoracion-en-tu-vida/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-		<item>
-		<title>Entrevista con Eugen Kuschnir, embajador de PrestaShop</title>
-		<link>https://www.prestashop.com/blog/es/entrevista-con-eugen-kuschnir-embajador-de-prestashop/</link>
-		<comments>https://www.prestashop.com/blog/es/entrevista-con-eugen-kuschnir-embajador-de-prestashop/#comments</comments>
-		<pubDate>Tue, 19 Jan 2016 08:30:15 +0000</pubDate>
-		<dc:creator><![CDATA[Sabrina Maréchal]]></dc:creator>
-				<category><![CDATA[Embajadores PrestaShop]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/caso-de-exito-due-home-decoracion-en-tu-vida/feed/</wfw:commentRss>
+            <slash:comments>0</slash:comments>
+        </item>
+        <item>
+            <title>Entrevista con Eugen Kuschnir, embajador de PrestaShop</title>
+            <link>https://www.prestashop.com/blog/es/entrevista-con-eugen-kuschnir-embajador-de-prestashop/</link>
+            <comments>https://www.prestashop.com/blog/es/entrevista-con-eugen-kuschnir-embajador-de-prestashop/#comments</comments>
+            <pubDate>Tue, 19 Jan 2016 08:30:15 +0000</pubDate>
+            <dc:creator><![CDATA[Sabrina Maréchal]]></dc:creator>
+            <category><![CDATA[Embajadores PrestaShop]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13788</guid>
-		<description><![CDATA[<p>Hace poco más de dos semanas, la comunidad PrestaShop celebró en Düsseldorf su segundo encuentro, íntegramente organizado por el embajador de PrestaShop Eugen Kuschnir. He tenido la oportunidad de entrevistar a Eugen acerca de su cometido de embajador y la organización de los encuentros locales. Eugen, cuéntanos, en primer lugar, ¿cómo conociste PrestaShop? ¿Cuál fue [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13788</guid>
+            <description><![CDATA[<p>Hace poco más de dos semanas, la comunidad PrestaShop celebró en Düsseldorf su segundo encuentro, íntegramente organizado por el embajador de PrestaShop Eugen Kuschnir. He tenido la oportunidad de entrevistar a Eugen acerca de su cometido de embajador y la organización de los encuentros locales. Eugen, cuéntanos, en primer lugar, ¿cómo conociste PrestaShop? ¿Cuál fue [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/entrevista-con-eugen-kuschnir-embajador-de-prestashop/">Entrevista con Eugen Kuschnir, embajador de PrestaShop</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>Hace poco más de dos semanas, la comunidad PrestaShop celebró en Düsseldorf su segundo encuentro, íntegramente organizado por el embajador de PrestaShop Eugen Kuschnir. He tenido la oportunidad de entrevistar a Eugen acerca de su cometido de embajador y la organización de los encuentros locales.<br />
+            <content:encoded><![CDATA[<p>Hace poco más de dos semanas, la comunidad PrestaShop celebró en Düsseldorf su segundo encuentro, íntegramente organizado por el embajador de PrestaShop Eugen Kuschnir. He tenido la oportunidad de entrevistar a Eugen acerca de su cometido de embajador y la organización de los encuentros locales.<br />
 <span id="more-13788"></span></p>
 <p><img src="https://www.prestashop.com/blog/es/files/2016/01/image9-1024x768.jpg" alt="image9" width="700" height="525" class="aligncenter size-large wp-image-21115" /></p>
 <p><strong>Eugen, cuéntanos, en primer lugar, ¿cómo conociste PrestaShop? ¿Cuál fue tu primera experiencia con el sistema de tiendas?</strong></p>
@@ -93,25 +93,25 @@
 <p>Personalmente, me gustaría que acudieran más participantes. En cada reunión había 15 personas, con una buena mezcla de vendedores y desarrolladores, pero nos encantaría que al próximo encuentro acudieran también diseñadores web. De esa forma los encuentros congregarían a todas las profesiones que intervienen en la creación de una tienda online. </p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/entrevista-con-eugen-kuschnir-embajador-de-prestashop/">Entrevista con Eugen Kuschnir, embajador de PrestaShop</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/entrevista-con-eugen-kuschnir-embajador-de-prestashop/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-		<item>
-		<title>Publicando tu tienda y dándole difusión</title>
-		<link>https://www.prestashop.com/blog/es/publicando-tu-tienda-y-dandole-difusion/</link>
-		<comments>https://www.prestashop.com/blog/es/publicando-tu-tienda-y-dandole-difusion/#comments</comments>
-		<pubDate>Fri, 15 Jan 2016 15:10:19 +0000</pubDate>
-		<dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
-				<category><![CDATA[Actualidad PrestaShop]]></category>
-		<category><![CDATA[Asociados PrestaShop]]></category>
-		<category><![CDATA[Difundir]]></category>
-		<category><![CDATA[Publicar]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/entrevista-con-eugen-kuschnir-embajador-de-prestashop/feed/</wfw:commentRss>
+            <slash:comments>0</slash:comments>
+        </item>
+        <item>
+            <title>Publicando tu tienda y dándole difusión</title>
+            <link>https://www.prestashop.com/blog/es/publicando-tu-tienda-y-dandole-difusion/</link>
+            <comments>https://www.prestashop.com/blog/es/publicando-tu-tienda-y-dandole-difusion/#comments</comments>
+            <pubDate>Fri, 15 Jan 2016 15:10:19 +0000</pubDate>
+            <dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
+            <category><![CDATA[Actualidad PrestaShop]]></category>
+            <category><![CDATA[Asociados PrestaShop]]></category>
+            <category><![CDATA[Difundir]]></category>
+            <category><![CDATA[Publicar]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13765</guid>
-		<description><![CDATA[<p>Capítulo final de la serie de 4 posts donde explicaba cómo comenzar a plantear una tienda online, buscar proveedores y desarrollar tu tienda en Prestashop. Llegados a la fase donde ya lo tenemos todo online bien alojado en Prestashop Cloud o en nuestro propio servidor (te recomiendo loading.es, partner oficial de hosting de Prestashop), ¿qué [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13765</guid>
+            <description><![CDATA[<p>Capítulo final de la serie de 4 posts donde explicaba cómo comenzar a plantear una tienda online, buscar proveedores y desarrollar tu tienda en Prestashop. Llegados a la fase donde ya lo tenemos todo online bien alojado en Prestashop Cloud o en nuestro propio servidor (te recomiendo loading.es, partner oficial de hosting de Prestashop), ¿qué [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/publicando-tu-tienda-y-dandole-difusion/">Publicando tu tienda y dándole difusión</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>Capítulo final de la serie de 4 posts donde explicaba cómo comenzar a <a href="https://www.prestashop.com/blog/es/empezando-plantear-el-proyecto-el-estudio-de-mercado/">plantear una tienda online</a>, <a href="https://www.prestashop.com/blog/es/proveedores-temas-legales-y-plataformas-de-pago/">buscar proveedores</a> y <a href="https://www.prestashop.com/blog/es/desarrollando-la-tienda-sobre-prestashop/">desarrollar tu tienda en Prestashop</a>. Llegados a la fase donde ya lo tenemos todo online bien alojado en <a href="https://www.prestashop.com/es/descarga">Prestashop Cloud</a> o en nuestro propio servidor (te recomiendo <a href="http://jordiob.com/2015/10/hosting-prestashop-loading-es-una-de-las-mejores-alternativas/" target="_blank">loading.es, partner oficial de hosting de Prestashop</a>), ¿qué puedes hacer para atraer tráfico?</p>
+            <content:encoded><![CDATA[<p>Capítulo final de la serie de 4 posts donde explicaba cómo comenzar a <a href="https://www.prestashop.com/blog/es/empezando-plantear-el-proyecto-el-estudio-de-mercado/">plantear una tienda online</a>, <a href="https://www.prestashop.com/blog/es/proveedores-temas-legales-y-plataformas-de-pago/">buscar proveedores</a> y <a href="https://www.prestashop.com/blog/es/desarrollando-la-tienda-sobre-prestashop/">desarrollar tu tienda en Prestashop</a>. Llegados a la fase donde ya lo tenemos todo online bien alojado en <a href="https://www.prestashop.com/es/descarga">Prestashop Cloud</a> o en nuestro propio servidor (te recomiendo <a href="http://jordiob.com/2015/10/hosting-prestashop-loading-es-una-de-las-mejores-alternativas/" target="_blank">loading.es, partner oficial de hosting de Prestashop</a>), ¿qué puedes hacer para atraer tráfico?</p>
 <p>Básicamente, tienes <b>dos métodos</b>: el corto plazo y el medio-largo plazo.<span id="more-13765"></span></p>
 <h2><b>¿Quieres tráfico a corto plazo? </b></h2>
 <p>La mejor alternativa que tienes es utilizar el CPC o PPC (Coste Por Clic o Pay Per Click). Las redes que puedes utilizar son, por ejemplo, <a href="https://www.facebook.com/business/products/ads">Facebook Ads</a>, <a href="https://secure.bingads.microsoft.com/">Bing Ads</a> o el archiconocido <a href="https://www.google.es/adwords/">Adwords</a> de Google. El pago por clic te garantiza tráfico rápido y cualificado (siempre que elijas bien las palabras clave y segmentación de las campañas).</p>
@@ -143,22 +143,22 @@
 <p>&nbsp;</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/publicando-tu-tienda-y-dandole-difusion/">Publicando tu tienda y dándole difusión</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/publicando-tu-tienda-y-dandole-difusion/feed/</wfw:commentRss>
-		<slash:comments>1</slash:comments>
-		</item>
-		<item>
-		<title>Da salida al stock de las fiestas y aumenta las ventas con las cajas misteriosas</title>
-		<link>https://www.prestashop.com/blog/es/da-salida-al-stock-de-las-fiestas-y-aumenta-las-ventas-con-las-cajas-misteriosas/</link>
-		<comments>https://www.prestashop.com/blog/es/da-salida-al-stock-de-las-fiestas-y-aumenta-las-ventas-con-las-cajas-misteriosas/#comments</comments>
-		<pubDate>Fri, 15 Jan 2016 13:49:45 +0000</pubDate>
-		<dc:creator><![CDATA[Julie Liu]]></dc:creator>
-				<category><![CDATA[Consejos E-commerce]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/publicando-tu-tienda-y-dandole-difusion/feed/</wfw:commentRss>
+            <slash:comments>1</slash:comments>
+        </item>
+        <item>
+            <title>Da salida al stock de las fiestas y aumenta las ventas con las cajas misteriosas</title>
+            <link>https://www.prestashop.com/blog/es/da-salida-al-stock-de-las-fiestas-y-aumenta-las-ventas-con-las-cajas-misteriosas/</link>
+            <comments>https://www.prestashop.com/blog/es/da-salida-al-stock-de-las-fiestas-y-aumenta-las-ventas-con-las-cajas-misteriosas/#comments</comments>
+            <pubDate>Fri, 15 Jan 2016 13:49:45 +0000</pubDate>
+            <dc:creator><![CDATA[Julie Liu]]></dc:creator>
+            <category><![CDATA[Consejos E-commerce]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13800</guid>
-		<description><![CDATA[<p>Con la temporada de rebajas a la vuelta de la esquina, todos los vendedores buscan formas de dar salida al stock restante de las fiestas. Hoy os presentamos una nueva técnica que tomamos prestada de una tradición japonesa llamada Fukubukuro, que, a grandes rasgos, puede traducirse como cajas misteriosas o de la suerte. Vamos a [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13800</guid>
+            <description><![CDATA[<p>Con la temporada de rebajas a la vuelta de la esquina, todos los vendedores buscan formas de dar salida al stock restante de las fiestas. Hoy os presentamos una nueva técnica que tomamos prestada de una tradición japonesa llamada Fukubukuro, que, a grandes rasgos, puede traducirse como cajas misteriosas o de la suerte. Vamos a [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/da-salida-al-stock-de-las-fiestas-y-aumenta-las-ventas-con-las-cajas-misteriosas/">Da salida al stock de las fiestas y aumenta las ventas con las cajas misteriosas</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>Con la temporada de rebajas a la vuelta de la esquina, todos los vendedores buscan formas de dar salida al stock restante de las fiestas. Hoy os presentamos una nueva técnica que tomamos prestada de una tradición japonesa llamada <a href="https://en.wikipedia.org/wiki/Fukubukuro" target="_blank">Fukubukuro</a>, que, a grandes rasgos, puede traducirse como cajas misteriosas o de la suerte. Vamos a contarte cómo puedes utilizar las cajas misteriosas para aumentar las ventas, ayudarte a recuperarte de la cuesta posvacacional, dar salida al stock de las fiestas y aumentar las ganancias. </p>
+            <content:encoded><![CDATA[<p>Con la temporada de rebajas a la vuelta de la esquina, todos los vendedores buscan formas de dar salida al stock restante de las fiestas. Hoy os presentamos una nueva técnica que tomamos prestada de una tradición japonesa llamada <a href="https://en.wikipedia.org/wiki/Fukubukuro" target="_blank">Fukubukuro</a>, que, a grandes rasgos, puede traducirse como cajas misteriosas o de la suerte. Vamos a contarte cómo puedes utilizar las cajas misteriosas para aumentar las ventas, ayudarte a recuperarte de la cuesta posvacacional, dar salida al stock de las fiestas y aumentar las ganancias. </p>
 <p><span id="more-13800"></span> </p>
 <h2 style="color:#e07950">¿Qué son las cajas misteriosas?</h2>
 <p>Las cajas misteriosas consisten en una variedad de productos seleccionados aleatoriamente de la tienda online, por las cuales los clientes pagan un precio fijo. ¿Por qué motivo los clientes van a comprar un producto que no saben lo que es? El placer de la sorpresa es un motivo, pero el descuento que reciben (¡de hasta un 70 %!) es un factor incluso más estimulante. Pero, como vendedor, ¿por qué querrías ofrecer este gran descuento en tus productos? Pues, porque es una oportunidad perfecta para dar salida al stock restante, que además te permitirá hacer sitio en el almacén para los productos de la siguiente temporada.</p>
@@ -186,22 +186,22 @@
 </ol>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/da-salida-al-stock-de-las-fiestas-y-aumenta-las-ventas-con-las-cajas-misteriosas/">Da salida al stock de las fiestas y aumenta las ventas con las cajas misteriosas</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/da-salida-al-stock-de-las-fiestas-y-aumenta-las-ventas-con-las-cajas-misteriosas/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-		<item>
-		<title>Las claves para desarrollar tu actividad más allá de tus fronteras: descubre los hábitos de pago de tus clientes potenciales y lleva a cabo una implantación satisfactoria en Europa.</title>
-		<link>https://www.prestashop.com/blog/es/claves-para-desarrollar-actividad-mas-alla-fronteras/</link>
-		<comments>https://www.prestashop.com/blog/es/claves-para-desarrollar-actividad-mas-alla-fronteras/#comments</comments>
-		<pubDate>Thu, 14 Jan 2016 08:30:28 +0000</pubDate>
-		<dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
-				<category><![CDATA[Asociados PrestaShop]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/da-salida-al-stock-de-las-fiestas-y-aumenta-las-ventas-con-las-cajas-misteriosas/feed/</wfw:commentRss>
+            <slash:comments>0</slash:comments>
+        </item>
+        <item>
+            <title>Las claves para desarrollar tu actividad más allá de tus fronteras: descubre los hábitos de pago de tus clientes potenciales y lleva a cabo una implantación satisfactoria en Europa.</title>
+            <link>https://www.prestashop.com/blog/es/claves-para-desarrollar-actividad-mas-alla-fronteras/</link>
+            <comments>https://www.prestashop.com/blog/es/claves-para-desarrollar-actividad-mas-alla-fronteras/#comments</comments>
+            <pubDate>Thu, 14 Jan 2016 08:30:28 +0000</pubDate>
+            <dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
+            <category><![CDATA[Asociados PrestaShop]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13667</guid>
-		<description><![CDATA[<p>Cada país tiene sus particularidades en cuanto a hábitos de compra. Los franceses prefieren comprar on-line mientras que, en el Reino Unido, cada vez se recurre más el comercio móvil. Los compradores on-line de algunos países prefieren la entrega a domicilio, frente a otros que priorizan la recogida en tienda&#8230; Estas generalidades también son aplicables [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13667</guid>
+            <description><![CDATA[<p>Cada país tiene sus particularidades en cuanto a hábitos de compra. Los franceses prefieren comprar on-line mientras que, en el Reino Unido, cada vez se recurre más el comercio móvil. Los compradores on-line de algunos países prefieren la entrega a domicilio, frente a otros que priorizan la recogida en tienda&#8230; Estas generalidades también son aplicables [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/claves-para-desarrollar-actividad-mas-alla-fronteras/">Las claves para desarrollar tu actividad más allá de tus fronteras: descubre los hábitos de pago de tus clientes potenciales y lleva a cabo una implantación satisfactoria en Europa.</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>Cada país tiene sus particularidades en cuanto a hábitos de compra. Los franceses prefieren comprar on-line mientras que, en el Reino Unido, cada vez se recurre más el comercio móvil. Los compradores on-line de algunos países prefieren la entrega a domicilio, frente a otros que priorizan la recogida en tienda&#8230; </p>
+            <content:encoded><![CDATA[<p>Cada país tiene sus particularidades en cuanto a hábitos de compra. Los franceses prefieren comprar on-line mientras que, en el Reino Unido, cada vez se recurre más el comercio móvil. Los compradores on-line de algunos países prefieren la entrega a domicilio, frente a otros que priorizan la recogida en tienda&#8230; </p>
 <p>Estas generalidades también son aplicables a las soluciones de pago. Por tanto, los vendedores on-line han de diversificar las soluciones de pago internacionales que ofrecen a sus clientes.</p>
 <p><span id="more-13667"></span><br />
 <strong>Bélgica y Alemania: soluciones de pago locales</strong><br />
@@ -218,22 +218,22 @@ Estos medios de pago permiten llegar a la población joven que aún no es usuari
 <p>El módulo asociado <a href="http://addons.prestashop.com/es/pagos-prestashop-modulos/1746-hipay.html?utm_source=prestashop.com&amp;utm_medium=blog&amp;utm_campaign=internal-linking&amp;utm_content=hipay" target="_blank">HiPay</a>, disponible de forma gratuita en PrestaShop, te permite ofrecer a tus clientes todas tus soluciones de pago locales preferidas a través de un solo módulo, además de beneficiarse de tarifas competitivas, sin contrato de compraventa a distancia (VAD).</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/claves-para-desarrollar-actividad-mas-alla-fronteras/">Las claves para desarrollar tu actividad más allá de tus fronteras: descubre los hábitos de pago de tus clientes potenciales y lleva a cabo una implantación satisfactoria en Europa.</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/claves-para-desarrollar-actividad-mas-alla-fronteras/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-		<item>
-		<title>Caso de éxito: Buylevard, moda y tendencias en un solo click</title>
-		<link>https://www.prestashop.com/blog/es/caso-de-exito-buylevard-moda-y-tendencias-en-un-solo-click/</link>
-		<comments>https://www.prestashop.com/blog/es/caso-de-exito-buylevard-moda-y-tendencias-en-un-solo-click/#comments</comments>
-		<pubDate>Wed, 13 Jan 2016 15:00:12 +0000</pubDate>
-		<dc:creator><![CDATA[Jhon Suarez Pardo]]></dc:creator>
-				<category><![CDATA[Caso de éxito]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/claves-para-desarrollar-actividad-mas-alla-fronteras/feed/</wfw:commentRss>
+            <slash:comments>0</slash:comments>
+        </item>
+        <item>
+            <title>Caso de éxito: Buylevard, moda y tendencias en un solo click</title>
+            <link>https://www.prestashop.com/blog/es/caso-de-exito-buylevard-moda-y-tendencias-en-un-solo-click/</link>
+            <comments>https://www.prestashop.com/blog/es/caso-de-exito-buylevard-moda-y-tendencias-en-un-solo-click/#comments</comments>
+            <pubDate>Wed, 13 Jan 2016 15:00:12 +0000</pubDate>
+            <dc:creator><![CDATA[Jhon Suarez Pardo]]></dc:creator>
+            <category><![CDATA[Caso de éxito]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13594</guid>
-		<description><![CDATA[<p>Hoy estamos con Alba Serentill, SEO &#38; Analista Web de Buylevard, portal de moda en internet, que comercializa colecciones de ropa, calzado y complementos. Alba, cuéntanos un poco sobre Buylevard. Buylevard es un e-commerce de moda multimarca creado en 2011. Es una de las tiendas de moda que cuenta con un amplísimo catálogo de ropa de última tendencia de mujer [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13594</guid>
+            <description><![CDATA[<p>Hoy estamos con Alba Serentill, SEO &#38; Analista Web de Buylevard, portal de moda en internet, que comercializa colecciones de ropa, calzado y complementos. Alba, cuéntanos un poco sobre Buylevard. Buylevard es un e-commerce de moda multimarca creado en 2011. Es una de las tiendas de moda que cuenta con un amplísimo catálogo de ropa de última tendencia de mujer [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/caso-de-exito-buylevard-moda-y-tendencias-en-un-solo-click/">Caso de éxito: Buylevard, moda y tendencias en un solo click</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>Hoy estamos con Alba Serentill, SEO &amp; Analista Web de Buylevard, portal de moda en internet, que comercializa colecciones de ropa, calzado y complementos.</p>
+            <content:encoded><![CDATA[<p>Hoy estamos con Alba Serentill, SEO &amp; Analista Web de Buylevard, portal de moda en internet, que comercializa colecciones de ropa, calzado y complementos.</p>
 <h2><span style="color: #59bbc4">Alba, cuéntanos un poco sobre Buylevard.</span></h2>
 <p>Buylevard es un e-commerce de moda multimarca creado en 2011. Es una de las tiendas de moda que cuenta con un amplísimo catálogo de ropa de última tendencia<strong><span style="color: #993300"> </span></strong>de mujer y hombre de marcas como Only, Vero Moda, Vila Clothes, Ichi, Maison Scotch, Noisy May, Maison Scotch, Morgan de Toi, Blend She, Casual Friday, Only &amp; Sons, Scotch &amp; Soda entre otras.<span id="more-13594"></span>La idea principal de la tienda es<strong> ofrecer al usuario la mejor experiencia de compra</strong> en moda mediante una cuidada selección de las prendas que son tendencia cada temporada. Además, también colaboramos activamente con las blogueras más conocidas del panorama nacional e internacional para la creación de looks que sirvan de inspiración a nuestros clientes a la hora de escoger sus prendas. Blogueras como Lovely Pepa, Trendy Taste, Madame de Rosa, Rocio Osorno, Mi aventura con la Moda, entre otras, forman parte de Buylevard</p>
 <h2><span style="color: #59bbc4">¿Cómo y por qué elegiste PrestaShop?</span></h2>
@@ -249,22 +249,22 @@ Estos medios de pago permiten llegar a la población joven que aún no es usuari
 <p>Visita la web: <strong><span style="color: #993300"><a title="Buylevard" href="http://www.buylevard.com/" target="_blank"><span style="color: #993300">www.buylevard.com</span></a></span></strong></p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/caso-de-exito-buylevard-moda-y-tendencias-en-un-solo-click/">Caso de éxito: Buylevard, moda y tendencias en un solo click</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/caso-de-exito-buylevard-moda-y-tendencias-en-un-solo-click/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-		<item>
-		<title>Lanza una caja por suscripción en tan sólo 5 sencillos pasos</title>
-		<link>https://www.prestashop.com/blog/es/lanza-una-caja-por-suscripcion-en-tan-solo-5-sencillos-pasos/</link>
-		<comments>https://www.prestashop.com/blog/es/lanza-una-caja-por-suscripcion-en-tan-solo-5-sencillos-pasos/#comments</comments>
-		<pubDate>Mon, 11 Jan 2016 08:30:46 +0000</pubDate>
-		<dc:creator><![CDATA[Kate Robinson]]></dc:creator>
-				<category><![CDATA[Consejos E-commerce]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/caso-de-exito-buylevard-moda-y-tendencias-en-un-solo-click/feed/</wfw:commentRss>
+            <slash:comments>0</slash:comments>
+        </item>
+        <item>
+            <title>Lanza una caja por suscripción en tan sólo 5 sencillos pasos</title>
+            <link>https://www.prestashop.com/blog/es/lanza-una-caja-por-suscripcion-en-tan-solo-5-sencillos-pasos/</link>
+            <comments>https://www.prestashop.com/blog/es/lanza-una-caja-por-suscripcion-en-tan-solo-5-sencillos-pasos/#comments</comments>
+            <pubDate>Mon, 11 Jan 2016 08:30:46 +0000</pubDate>
+            <dc:creator><![CDATA[Kate Robinson]]></dc:creator>
+            <category><![CDATA[Consejos E-commerce]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13706</guid>
-		<description><![CDATA[<p>A finales del año 2012, los compradores on-line sucumbieron al encanto de las cajas por suscripción. Hoy en día, el interés que despiertan es máximo, así que nos gustaría darte algunos consejos sobre cómo poner en marcha tu propio programa de cajas por suscripción. Ya estés empezando en el comercio electrónico o gestiones una tienda [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13706</guid>
+            <description><![CDATA[<p>A finales del año 2012, los compradores on-line sucumbieron al encanto de las cajas por suscripción. Hoy en día, el interés que despiertan es máximo, así que nos gustaría darte algunos consejos sobre cómo poner en marcha tu propio programa de cajas por suscripción. Ya estés empezando en el comercio electrónico o gestiones una tienda [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/lanza-una-caja-por-suscripcion-en-tan-solo-5-sencillos-pasos/">Lanza una caja por suscripción en tan sólo 5 sencillos pasos</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>A finales del año 2012, los compradores on-line sucumbieron al encanto de las <a href="https://econsultancy.com/blog/66034-the-pros-and-cons-of-subscription-ecommerce-models/" target="_blank">cajas por suscripción</a>. Hoy en día, el interés que despiertan es máximo, así que nos gustaría darte algunos consejos sobre cómo poner en marcha tu propio programa de cajas por suscripción. Ya estés empezando en el comercio electrónico o gestiones una tienda de éxito, lanzar este tipo de programas puede ser una excelente forma de generar ingresos predecibles y ampliar tu base de clientes a largo plazo.<br />
+            <content:encoded><![CDATA[<p>A finales del año 2012, los compradores on-line sucumbieron al encanto de las <a href="https://econsultancy.com/blog/66034-the-pros-and-cons-of-subscription-ecommerce-models/" target="_blank">cajas por suscripción</a>. Hoy en día, el interés que despiertan es máximo, así que nos gustaría darte algunos consejos sobre cómo poner en marcha tu propio programa de cajas por suscripción. Ya estés empezando en el comercio electrónico o gestiones una tienda de éxito, lanzar este tipo de programas puede ser una excelente forma de generar ingresos predecibles y ampliar tu base de clientes a largo plazo.<br />
 <span id="more-13706"></span></p>
 <p><img src="https://www.prestashop.com/blog/es/files/2016/01/subscriptio-boxes.png" alt="subscriptio-boxes" width="864" height="463" class="aligncenter size-full wp-image-21033" /></p>
 <h2 style="color:#43367e">¿Por qué deberías plantearte lanzar una caja por suscripción?</h2>
@@ -309,22 +309,22 @@ Estos medios de pago permiten llegar a la población joven que aún no es usuari
 <p>¿Listos para empezar 2016? Lanza tu propio negocio on-line hoy. ¿Ya gestionas un negocio por suscripción? Déjanos un comentario con los trucos que te han funcionado. </p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/lanza-una-caja-por-suscripcion-en-tan-solo-5-sencillos-pasos/">Lanza una caja por suscripción en tan sólo 5 sencillos pasos</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/lanza-una-caja-por-suscripcion-en-tan-solo-5-sencillos-pasos/feed/</wfw:commentRss>
-		<slash:comments>2</slash:comments>
-		</item>
-		<item>
-		<title>Métricas clave del marketing de contenido para eCommerce</title>
-		<link>https://www.prestashop.com/blog/es/metricas-clave-del-marketing-de-contenido-para-ecommerce/</link>
-		<comments>https://www.prestashop.com/blog/es/metricas-clave-del-marketing-de-contenido-para-ecommerce/#comments</comments>
-		<pubDate>Fri, 08 Jan 2016 09:00:26 +0000</pubDate>
-		<dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
-				<category><![CDATA[Consejos E-commerce]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/lanza-una-caja-por-suscripcion-en-tan-solo-5-sencillos-pasos/feed/</wfw:commentRss>
+            <slash:comments>2</slash:comments>
+        </item>
+        <item>
+            <title>Métricas clave del marketing de contenido para eCommerce</title>
+            <link>https://www.prestashop.com/blog/es/metricas-clave-del-marketing-de-contenido-para-ecommerce/</link>
+            <comments>https://www.prestashop.com/blog/es/metricas-clave-del-marketing-de-contenido-para-ecommerce/#comments</comments>
+            <pubDate>Fri, 08 Jan 2016 09:00:26 +0000</pubDate>
+            <dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
+            <category><![CDATA[Consejos E-commerce]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13369</guid>
-		<description><![CDATA[<p>Hoy, nuestro colaborador Marcelo Arnone, cofundador y socio de Mixtropy. nos hablará de Marketing de contenidos. Resulta que el marketing de contenido es un campo de estrategia digital que se ha convertido en imprescindible. Pero, ¿cómo hacer para medir su eficacia en un eCommerce? Hay más opciones de las que creemos. Según el Content Marketing [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13369</guid>
+            <description><![CDATA[<p>Hoy, nuestro colaborador Marcelo Arnone, cofundador y socio de Mixtropy. nos hablará de Marketing de contenidos. Resulta que el marketing de contenido es un campo de estrategia digital que se ha convertido en imprescindible. Pero, ¿cómo hacer para medir su eficacia en un eCommerce? Hay más opciones de las que creemos. Según el Content Marketing [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/metricas-clave-del-marketing-de-contenido-para-ecommerce/">Métricas clave del marketing de contenido para eCommerce</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>Hoy, nuestro colaborador Marcelo Arnone, cofundador y socio de Mixtropy. nos hablará de Marketing de contenidos.</p>
+            <content:encoded><![CDATA[<p>Hoy, nuestro colaborador Marcelo Arnone, cofundador y socio de Mixtropy. nos hablará de Marketing de contenidos.</p>
 <p>Resulta que el <b>marketing de contenido</b> es un campo de estrategia digital que se ha convertido en imprescindible. Pero, <b>¿cómo hacer para medir su eficacia en un eCommerce?</b> Hay más opciones de las que creemos.</p>
 <p>Según el Content Marketing Institute, más del 55% de los responsables de marketing (en este caso de negocios B2B) afirma que le es muy complicado comprobar la efectividad de sus estrategias de marketing de contenido. Y, como todos sabemos, al final lo que las empresas quieren son resultados, beneficios tangibles en los que se puedan apoyar para continuar o expandir su inversión.</p>
 <p><span id="more-13369"></span></p>
@@ -362,22 +362,22 @@ Estos medios de pago permiten llegar a la población joven que aún no es usuari
 <p>&nbsp;</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/metricas-clave-del-marketing-de-contenido-para-ecommerce/">Métricas clave del marketing de contenido para eCommerce</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/metricas-clave-del-marketing-de-contenido-para-ecommerce/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-		<item>
-		<title>6 propósitos de año nuevo para 2016, de parte del equipo de PrestaShop</title>
-		<link>https://www.prestashop.com/blog/es/6-propositos-de-ano-nuevo-para-2016-de-parte-del-equipo-de-prestashop/</link>
-		<comments>https://www.prestashop.com/blog/es/6-propositos-de-ano-nuevo-para-2016-de-parte-del-equipo-de-prestashop/#comments</comments>
-		<pubDate>Thu, 07 Jan 2016 17:36:08 +0000</pubDate>
-		<dc:creator><![CDATA[Julie Liu]]></dc:creator>
-				<category><![CDATA[Consejos E-commerce]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/metricas-clave-del-marketing-de-contenido-para-ecommerce/feed/</wfw:commentRss>
+            <slash:comments>0</slash:comments>
+        </item>
+        <item>
+            <title>6 propósitos de año nuevo para 2016, de parte del equipo de PrestaShop</title>
+            <link>https://www.prestashop.com/blog/es/6-propositos-de-ano-nuevo-para-2016-de-parte-del-equipo-de-prestashop/</link>
+            <comments>https://www.prestashop.com/blog/es/6-propositos-de-ano-nuevo-para-2016-de-parte-del-equipo-de-prestashop/#comments</comments>
+            <pubDate>Thu, 07 Jan 2016 17:36:08 +0000</pubDate>
+            <dc:creator><![CDATA[Julie Liu]]></dc:creator>
+            <category><![CDATA[Consejos E-commerce]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13734</guid>
-		<description><![CDATA[<p>Pronto comenzará un nuevo año: un buen momento para adoptar nuevos hábitos que te harán ser&#8230; una mejor versión de ti mismo. Nos hemos dado una vuelta por la oficina para ver qué propósitos de año nuevo se ha marcado el equipo de PrestaShop. Aquí te regalamos 6 ejemplos que todos los vendedores pueden adoptar. [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13734</guid>
+            <description><![CDATA[<p>Pronto comenzará un nuevo año: un buen momento para adoptar nuevos hábitos que te harán ser&#8230; una mejor versión de ti mismo. Nos hemos dado una vuelta por la oficina para ver qué propósitos de año nuevo se ha marcado el equipo de PrestaShop. Aquí te regalamos 6 ejemplos que todos los vendedores pueden adoptar. [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/6-propositos-de-ano-nuevo-para-2016-de-parte-del-equipo-de-prestashop/">6 propósitos de año nuevo para 2016, de parte del equipo de PrestaShop</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>Pronto comenzará un nuevo año: un buen momento para adoptar nuevos hábitos que te harán ser&#8230; una mejor versión de ti mismo. Nos hemos dado una vuelta por la oficina para ver qué propósitos de año nuevo se ha marcado el equipo de PrestaShop. Aquí te regalamos 6 ejemplos que todos los vendedores pueden adoptar. Te prometemos que son más fáciles de seguir que esa dieta nueva que has leído en Buzzfeed.<br />
+            <content:encoded><![CDATA[<p>Pronto comenzará un nuevo año: un buen momento para adoptar nuevos hábitos que te harán ser&#8230; una mejor versión de ti mismo. Nos hemos dado una vuelta por la oficina para ver qué propósitos de año nuevo se ha marcado el equipo de PrestaShop. Aquí te regalamos 6 ejemplos que todos los vendedores pueden adoptar. Te prometemos que son más fáciles de seguir que esa dieta nueva que has leído en Buzzfeed.<br />
 <span id="more-13734"></span></p>
 <h2 style="color: #cf763a;">1) Conoce a gente nueva.</h2>
 <p>Parece que, a medida que nos hacemos mayores, dedicamos menos tiempo a conocer gente nueva. Así que, en 2016, nosotros nos comprometemos a apagar el ordenador, dejar el teléfono guardado, salir y ¡hacer nuevos amigos! Nos vamos a registrar en MeetUp.com, asistiremos a eventos de la comunidad PrestaShop y diremos “sí” a cualquier invitación que recibamos. Es una forma estupenda de practicar nuestras habilidades sociales e incluso podríamos hacer nuevos amigos. ¿Quién sabe? Si tú también te animas, ¡quizás podrías llegar a conocer a tu futuro socio!<br />
@@ -403,22 +403,22 @@ Estos medios de pago permiten llegar a la población joven que aún no es usuari
 <p><strong>¡Feliz 2016 de parte de toda la familia PrestaShop!</strong></p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/6-propositos-de-ano-nuevo-para-2016-de-parte-del-equipo-de-prestashop/">6 propósitos de año nuevo para 2016, de parte del equipo de PrestaShop</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/6-propositos-de-ano-nuevo-para-2016-de-parte-del-equipo-de-prestashop/feed/</wfw:commentRss>
-		<slash:comments>2</slash:comments>
-		</item>
-		<item>
-		<title>Un repaso de 2015</title>
-		<link>https://www.prestashop.com/blog/es/un-repaso-de-2015/</link>
-		<comments>https://www.prestashop.com/blog/es/un-repaso-de-2015/#comments</comments>
-		<pubDate>Thu, 07 Jan 2016 17:06:52 +0000</pubDate>
-		<dc:creator><![CDATA[Julie Liu]]></dc:creator>
-				<category><![CDATA[Actualidad PrestaShop]]></category>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/6-propositos-de-ano-nuevo-para-2016-de-parte-del-equipo-de-prestashop/feed/</wfw:commentRss>
+            <slash:comments>2</slash:comments>
+        </item>
+        <item>
+            <title>Un repaso de 2015</title>
+            <link>https://www.prestashop.com/blog/es/un-repaso-de-2015/</link>
+            <comments>https://www.prestashop.com/blog/es/un-repaso-de-2015/#comments</comments>
+            <pubDate>Thu, 07 Jan 2016 17:06:52 +0000</pubDate>
+            <dc:creator><![CDATA[Julie Liu]]></dc:creator>
+            <category><![CDATA[Actualidad PrestaShop]]></category>
 
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13717</guid>
-		<description><![CDATA[<p>El 2015 ha sido un año increíble para todos los que formamos parte de PrestaShop. Hagamos el balance juntos de este último año y preparémonos para un 2016 con más eventos, más internacional y más rentable. 5.000.000 de descargas de PrestaShop. ¡No habríamos alcanzado esta cifra sin vosotros: nuestra comunidad! Desde PrestaShop te damos las [...]</p>
+            <guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13717</guid>
+            <description><![CDATA[<p>El 2015 ha sido un año increíble para todos los que formamos parte de PrestaShop. Hagamos el balance juntos de este último año y preparémonos para un 2016 con más eventos, más internacional y más rentable. 5.000.000 de descargas de PrestaShop. ¡No habríamos alcanzado esta cifra sin vosotros: nuestra comunidad! Desde PrestaShop te damos las [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/un-repaso-de-2015/">Un repaso de 2015</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
-				<content:encoded><![CDATA[<p>El 2015 ha sido un año increíble para todos los que formamos parte de PrestaShop. Hagamos el balance juntos de este último año y preparémonos para un 2016 con más eventos, más internacional y más rentable.<br />
+            <content:encoded><![CDATA[<p>El 2015 ha sido un año increíble para todos los que formamos parte de PrestaShop. Hagamos el balance juntos de este último año y preparémonos para un 2016 con más eventos, más internacional y más rentable.<br />
 <span id="more-13717"></span></p>
 <hr />
 </p>
@@ -466,8 +466,8 @@ Estos medios de pago permiten llegar a la población joven que aún no es usuari
 <p>Dejando el 2015 atrás, comparte tus mejores recuerdos con el comercio electrónico de este último año y tus metas para el siguiente en el apartado de comentarios que encontrarás más abajo.</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/un-repaso-de-2015/">Un repaso de 2015</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/un-repaso-de-2015/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-	</channel>
+            <wfw:commentRss>https://www.prestashop.com/blog/es/un-repaso-de-2015/feed/</wfw:commentRss>
+            <slash:comments>0</slash:comments>
+        </item>
+    </channel>
 </rss>

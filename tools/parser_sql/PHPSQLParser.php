@@ -38,7 +38,6 @@
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
  * @version   SVN: $Id: PHPSQLParser.php 757 2013-12-16 09:54:05Z phosco@gmx.de $
  */
-
 require_once dirname(__FILE__) . '/positions/PositionCalculator.php';
 require_once dirname(__FILE__) . '/processors/DefaultProcessor.php';
 
@@ -94,5 +93,7 @@ class PHPSQLParser {
         $this->parsed = $queries;
         return $this->parsed;
     }
+
 }
+
 ?>

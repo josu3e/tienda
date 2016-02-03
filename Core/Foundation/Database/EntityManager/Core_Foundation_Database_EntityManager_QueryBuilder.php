@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,18 +24,15 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class Core_Foundation_Database_EntityManager_QueryBuilder {
 
-class Core_Foundation_Database_EntityManager_QueryBuilder
-{
     private $db;
 
-    public function __construct(Core_Foundation_Database_DatabaseInterface $db)
-    {
+    public function __construct(Core_Foundation_Database_DatabaseInterface $db) {
         $this->db = $db;
     }
 
-    public function quote($value)
-    {
+    public function quote($value) {
         $escaped = $this->db->escape($value);
 
         if (is_string($value)) {
@@ -44,8 +42,7 @@ class Core_Foundation_Database_EntityManager_QueryBuilder
         }
     }
 
-    public function buildWhereConditions($andOrOr, array $conditions)
-    {
+    public function buildWhereConditions($andOrOr, array $conditions) {
         $operator = strtoupper($andOrOr);
 
         if ($operator !== 'AND' && $operator !== 'OR') {
@@ -68,4 +65,5 @@ class Core_Foundation_Database_EntityManager_QueryBuilder
 
         return implode(" $operator ", $parts);
     }
+
 }

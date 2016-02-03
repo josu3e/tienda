@@ -1,4 +1,5 @@
 <?php
+
 /**
  * IndexTypeBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: IndexTypeBuilder.php 910 2014-01-08 10:46:12Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ColumnListBuilder.php';
@@ -79,5 +79,7 @@ class IndexTypeBuilder {
         }
         return substr($sql, 0, -1);
     }
+
 }
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,8 +24,7 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+interface Core_Business_ConfigurationInterface {
 
-interface Core_Business_ConfigurationInterface
-{
     public function get($key);
 }

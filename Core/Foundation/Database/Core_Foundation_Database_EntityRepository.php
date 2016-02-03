@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2015 PrestaShop
  *
@@ -23,9 +24,8 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
+class Core_Foundation_Database_EntityRepository {
 
-class Core_Foundation_Database_EntityRepository
-{
     protected $entityManager;
     protected $db;
     protected $tablesPrefix;
@@ -33,9 +33,7 @@ class Core_Foundation_Database_EntityRepository
     protected $queryBuilder;
 
     public function __construct(
-        Core_Foundation_Database_EntityManager $entityManager,
-        $tablesPrefix,
-        Core_Foundation_Database_EntityMetaData $entityMetaData
+    Core_Foundation_Database_EntityManager $entityManager, $tablesPrefix, Core_Foundation_Database_EntityMetaData $entityMetaData
     ) {
         $this->entityManager = $entityManager;
         $this->db = $this->entityManager->getDatabase();
@@ -44,14 +42,13 @@ class Core_Foundation_Database_EntityRepository
         $this->queryBuilder = new Core_Foundation_Database_EntityManager_QueryBuilder($this->db);
     }
 
-    public function __call($method, $arguments)
-    {
+    public function __call($method, $arguments) {
         if (0 === strpos($method, 'findOneBy')) {
             $one = true;
-            $by  = substr($method, 9);
+            $by = substr($method, 9);
         } elseif (0 === strpos($method, 'findBy')) {
             $one = false;
-            $by  = substr($method, 6);
+            $by = substr($method, 6);
         } else {
             throw new Core_Foundation_Database_Exception(sprintf('Undefind method %s.', $method));
         }
@@ -77,8 +74,7 @@ class Core_Foundation_Database_EntityRepository
      * @param $camel_case_field_name
      * @return string
      */
-    private function convertToDbFieldName($camel_case_field_name)
-    {
+    private function convertToDbFieldName($camel_case_field_name) {
         return strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $camel_case_field_name));
     }
 
@@ -87,23 +83,20 @@ class Core_Foundation_Database_EntityRepository
      * @return mixed
      * @throws Core_Foundation_Database_Exception
      */
-    protected function getIdFieldName()
-    {
+    protected function getIdFieldName() {
         $primary = $this->entityMetaData->getPrimaryKeyFieldnames();
 
         if (count($primary) === 0) {
             throw new Core_Foundation_Database_Exception(
-                sprintf(
-                    'No primary key defined in entity `%s`.',
-                    $this->entityMetaData->getEntityClassName()
-                )
+            sprintf(
+                    'No primary key defined in entity `%s`.', $this->entityMetaData->getEntityClassName()
+            )
             );
         } elseif (count($primary) > 1) {
             throw new Core_Foundation_Database_Exception(
-                sprintf(
-                    'Entity `%s` has a composite primary key, which is not supported by entity repositories.',
-                    $this->entityMetaData->getEntityClassName()
-                )
+            sprintf(
+                    'Entity `%s` has a composite primary key, which is not supported by entity repositories.', $this->entityMetaData->getEntityClassName()
+            )
             );
         }
 
@@ -114,8 +107,7 @@ class Core_Foundation_Database_EntityRepository
      * Returns escaped+prefixed current table name
      * @return mixed
      */
-    protected function getTableNameWithPrefix()
-    {
+    protected function getTableNameWithPrefix() {
         return $this->db->escape($this->tablesPrefix . $this->entityMetaData->getTableName());
     }
 
@@ -123,8 +115,7 @@ class Core_Foundation_Database_EntityRepository
      * Returns escaped DB table prefix
      * @return mixed
      */
-    protected function getPrefix()
-    {
+    protected function getPrefix() {
         return $this->db->escape($this->tablesPrefix);
     }
 
@@ -132,8 +123,7 @@ class Core_Foundation_Database_EntityRepository
      * Return a new empty Entity depending on current Repository selected
      * @return mixed
      */
-    public function getNewEntity()
-    {
+    public function getNewEntity() {
         $entityClassName = $this->entityMetaData->getEntityClassName();
         return new $entityClassName;
     }
@@ -147,22 +137,20 @@ class Core_Foundation_Database_EntityRepository
      *
      * @param array $rows Database rows
      */
-    protected function hydrateOne(array $rows)
-    {
+    protected function hydrateOne(array $rows) {
         if (count($rows) === 0) {
             return null;
         } elseif (count($rows) > 1) {
             throw new Core_Foundation_Database_Exception('Too many rows returned.');
         } else {
             $data = $rows[0];
-            $entity = $this-> getNewEntity();
+            $entity = $this->getNewEntity();
             $entity->hydrate($data);
             return $entity;
         }
     }
 
-    protected function hydrateMany(array $rows)
-    {
+    protected function hydrateMany(array $rows) {
         $entities = array();
         foreach ($rows as $row) {
             $entity = $this->getNewEntity();
@@ -179,8 +167,7 @@ class Core_Foundation_Database_EntityRepository
      * @return array|mixed|null
      * @throws Core_Foundation_Database_Exception
      */
-    private function doFind($one, array $cumulativeConditions)
-    {
+    private function doFind($one, array $cumulativeConditions) {
         $whereClause = $this->queryBuilder->buildWhereConditions('AND', $cumulativeConditions);
 
         $sql = 'SELECT * FROM ' . $this->getTableNameWithPrefix() . ' WHERE ' . $whereClause;
@@ -200,8 +187,7 @@ class Core_Foundation_Database_EntityRepository
      * @return array|mixed|null
      * @throws Core_Foundation_Database_Exception
      */
-    public function findOne($id)
-    {
+    public function findOne($id) {
         $conditions = array();
         $conditions[$this->getIdFieldName()] = $id;
 
@@ -212,9 +198,9 @@ class Core_Foundation_Database_EntityRepository
      * Find all entities in DB
      * @return array
      */
-    public function findAll()
-    {
+    public function findAll() {
         $sql = 'SELECT * FROM ' . $this->getTableNameWithPrefix();
         return $this->hydrateMany($this->db->select($sql));
     }
+
 }

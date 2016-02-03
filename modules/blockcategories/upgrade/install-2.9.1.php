@@ -4,9 +4,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-function upgrade_module_2_9_1($object)
-{
-    $id_tab = (int)Tab::getIdFromClassName('AdminBlockCategories');
+function upgrade_module_2_9_1($object) {
+    $id_tab = (int) Tab::getIdFromClassName('AdminBlockCategories');
 
     if (!$id_tab) {
         $tab = new Tab();

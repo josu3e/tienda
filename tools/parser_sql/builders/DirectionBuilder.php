@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DirectionBuilder.php
  *
@@ -55,5 +56,7 @@ class DirectionBuilder {
         }
         return (" " . $parsed['direction']);
     }
+
 }
+
 ?>

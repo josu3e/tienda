@@ -1,4 +1,5 @@
 <?php
+
 /**
  * HavingProcessor.php
  *
@@ -29,7 +30,6 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
-
 require_once(dirname(__FILE__) . '/ExpressionListProcessor.php');
 
 /**
@@ -40,6 +40,7 @@ require_once(dirname(__FILE__) . '/ExpressionListProcessor.php');
  * 
  */
 class HavingProcessor extends ExpressionListProcessor {
-
+    
 }
+
 ?>

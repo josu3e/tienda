@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FunctionBuilder.php
  *
@@ -38,7 +39,6 @@
  * @version   SVN: $Id: FunctionBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
-
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/AliasBuilder.php';
@@ -64,7 +64,7 @@ class FunctionBuilder {
         $builder = new DirectionBuilder();
         return $builder->build($parsed);
     }
-    
+
     protected function buildAlias($parsed) {
         $builder = new AliasBuilder();
         return $builder->build($parsed);
@@ -89,7 +89,7 @@ class FunctionBuilder {
         $builder = new ReservedBuilder();
         return $builder->isReserved($parsed);
     }
-    
+
     protected function buildSelectExpression($parsed) {
         $builder = new SelectExpressionBuilder();
         return $builder->build($parsed);
@@ -101,8 +101,7 @@ class FunctionBuilder {
     }
 
     public function build($parsed) {
-        if (($parsed['expr_type'] !== ExpressionType::AGGREGATE_FUNCTION)
-            && ($parsed['expr_type'] !== ExpressionType::SIMPLE_FUNCTION)) {
+        if (($parsed['expr_type'] !== ExpressionType::AGGREGATE_FUNCTION) && ($parsed['expr_type'] !== ExpressionType::SIMPLE_FUNCTION)) {
             return "";
         }
 
@@ -130,4 +129,5 @@ class FunctionBuilder {
     }
 
 }
+
 ?>

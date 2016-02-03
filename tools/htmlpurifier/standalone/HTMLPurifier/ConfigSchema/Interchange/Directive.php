@@ -3,8 +3,7 @@
 /**
  * Interchange component class describing configuration directives.
  */
-class HTMLPurifier_ConfigSchema_Interchange_Directive
-{
+class HTMLPurifier_ConfigSchema_Interchange_Directive {
 
     /**
      * ID of directive.
@@ -84,6 +83,7 @@ class HTMLPurifier_ConfigSchema_Interchange_Directive
      * @type array
      */
     public $external = array();
+
 }
 
 // vim: et sw=4 sts=4

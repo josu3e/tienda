@@ -1,9 +1,8 @@
 <?php
 
 if (!defined('_PS_VERSION_'))
-	exit;
+    exit;
 
-function upgrade_module_1_2($object)
-{
-	return ($object->registerHook('displayNav'));
+function upgrade_module_1_2($object) {
+    return ($object->registerHook('displayNav'));
 }
