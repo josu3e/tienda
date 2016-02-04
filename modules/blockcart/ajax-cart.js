@@ -187,8 +187,7 @@ var ajaxCart = {
         {
             $('#add_to_cart input').attr('disabled', true).removeClass('exclusive').addClass('exclusive_disabled');
             $('.filled').removeClass('filled');
-        }
-        else
+        } else
             $(callerElement).attr('disabled', true);
 
         if ($('#cart_block_list').hasClass('collapsed'))
@@ -254,8 +253,7 @@ var ajaxCart = {
                                 ajaxCart.updateCartInformation(jsonData, addedFromProductPage);
                                 $(this).remove();
                             });
-                }
-                else
+                } else
                     ajaxCart.updateCartInformation(jsonData, addedFromProductPage);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown)
@@ -499,8 +497,7 @@ var ajaxCart = {
                                     $('#cart_block_combination_of_' + domIdProduct).append(customizationFormatedDatas);
                                 else
                                     $('#cart_block dl.products').append(customizationFormatedDatas);
-                            }
-                            else
+                            } else
                             {
                                 $('#customization_' + domIdProductAttribute).html('');
                                 $('#customization_' + domIdProductAttribute).append(customizationFormatedDatas);
@@ -587,8 +584,7 @@ var ajaxCart = {
                 if (error != 'indexOf')
                     errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
             alert(errors);
-        }
-        else
+        } else
         {
             ajaxCart.updateCartEverywhere(jsonData);
             ajaxCart.hideOldProducts(jsonData);
@@ -635,8 +631,7 @@ var ajaxCart = {
                 $('.ajax_cart_product_txt_s').each(function () {
                     $(this).show();
                 });
-            }
-            else
+            } else
             {
                 $('.ajax_cart_product_txt').each(function () {
                     $(this).show();
@@ -646,8 +641,7 @@ var ajaxCart = {
                     $(this).hide();
                 });
             }
-        }
-        else
+        } else
         {
             $('.ajax_cart_quantity, .ajax_cart_product_txt_s, .ajax_cart_product_txt, .ajax_cart_total').each(function () {
                 $(this).hide();

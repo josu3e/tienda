@@ -93,14 +93,12 @@
                                     return tryToCloseInstantSearch();
                                 });
                                 return false;
-                            }
-                            else
+                            } else
                                 tryToCloseInstantSearch();
                         }
                     });
                     instantSearchQueries.push(instantSearchQuery);
-                }
-                else
+                } else
                     tryToCloseInstantSearch();
             });
         });

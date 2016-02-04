@@ -34,7 +34,7 @@ function getProductCriterionForm()
 function getProductCriterion(path, id_product, id_lang)
 {
     $.get(path + 'productcommentscriterion.php', {id_product: id_product, id_lang: id_lang},
-    function (data) {
-        document.getElementById('product_criterions').innerHTML = data;
-    });
+            function (data) {
+                document.getElementById('product_criterions').innerHTML = data;
+            });
 }

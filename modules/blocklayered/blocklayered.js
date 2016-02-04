@@ -117,8 +117,7 @@ $(document).ready(function ()
         if (typeof (layered_hidden_list[$(this).parent().find('ul').attr('id')]) == 'undefined' || layered_hidden_list[$(this).parent().find('ul').attr('id')] == false)
         {
             layered_hidden_list[$(this).parent().find('ul').attr('id')] = true;
-        }
-        else
+        } else
         {
             layered_hidden_list[$(this).parent().find('ul').attr('id')] = false;
         }
@@ -187,8 +186,7 @@ function hideFilterValueAction(it)
         $(it).parent().find('.hiddable').hide();
         $(it).parent().find('.hide-action.less').hide();
         $(it).parent().find('.hide-action.more').show();
-    }
-    else
+    } else
     {
         $(it).parent().find('.hiddable').show();
         $(it).parent().find('.hide-action.less').show();
@@ -284,20 +282,17 @@ function cancelFilter()
                 $('#' + $(this).data('rel')).slider('values', 0, $('#' + $(this).data('rel')).slider('option', 'min'));
                 $('#' + $(this).data('rel')).slider('values', 1, $('#' + $(this).data('rel')).slider('option', 'max'));
                 $('#' + $(this).data('rel')).slider('option', 'slide')(0, {values: [$('#' + $(this).data('rel')).slider('option', 'min'), $('#' + $(this).data('rel')).slider('option', 'max')]});
-            }
-            else if ($('#' + $(this).data('rel').replace(/_slider$/, '_range_min')).length)
+            } else if ($('#' + $(this).data('rel').replace(/_slider$/, '_range_min')).length)
             {
                 $('#' + $(this).data('rel').replace(/_slider$/, '_range_min')).val($('#' + $(this).data('rel').replace(/_slider$/, '_range_min')).attr('limitValue'));
                 $('#' + $(this).data('rel').replace(/_slider$/, '_range_max')).val($('#' + $(this).data('rel').replace(/_slider$/, '_range_max')).attr('limitValue'));
             }
-        }
-        else
+        } else
         {
             if ($('option#' + $(this).data('rel')).length)
             {
                 $('#' + $(this).data('rel')).parent().val('');
-            }
-            else
+            } else
             {
                 $('#' + $(this).data('rel')).attr('checked', false);
                 $('.' + $(this).data('rel')).attr('checked', false);
@@ -318,8 +313,7 @@ function openCloseFilter()
             $('#' + $(this).data('rel')).show();
             $(this).html('v');
             $(this).parent().removeClass('closed');
-        }
-        else
+        } else
         {
             $('#' + $(this).data('rel')).hide();
             $(this).html('&lt;');
@@ -383,8 +377,7 @@ function reloadContent(params_plus)
                 $('.selectProductSort').val().match(/orderby=(\w*)/)[1],
                 $('.selectProductSort').val().match(/orderway=(\w*)/)[1]
             ];
-        }
-        else
+        } else
         {
             // New working for default theme 1.4 and theme 1.5
             var splitData = $('.selectProductSort').val().split(':');
@@ -439,21 +432,18 @@ function reloadContent(params_plus)
                             $('ul.pagination').each(function () {
                                 $(this).replaceWith($(result.pagination).find('ul.pagination'));
                             });
-                        }
-                        else if (!$('ul.pagination').length)
+                        } else if (!$('ul.pagination').length)
                         {
                             $('div#pagination').show();
                             $('div#pagination').each(function () {
                                 $(this).html($(result.pagination));
                             });
-                        }
-                        else
+                        } else
                         {
                             $('ul.pagination').html('');
                             $('div#pagination').hide();
                         }
-                    }
-                    else
+                    } else
                     {
                         $('ul.pagination').html('');
                         $('div#pagination').hide();
@@ -498,8 +488,7 @@ function reloadContent(params_plus)
                                         || $('#layered_' + sliderType + '_slider').slider('values', 1) != $('#layered_' + sliderType + '_slider').slider('option', 'max'))
                                     current_friendly_url += '/' + sliderType + '-' + $('#layered_' + sliderType + '_slider').slider('values', 0) + '-' + $('#layered_' + sliderType + '_slider').slider('values', 1)
                             }
-                        }
-                        else if ($('#layered_' + sliderType + '_range_min').length)
+                        } else if ($('#layered_' + sliderType + '_range_min').length)
                         {
                             if ($('#layered_' + sliderType + '_range_min').attr('limitValue') != $('#layered_' + sliderType + '_range_min').val()
                                     || $('#layered_' + sliderType + '_range_max').attr('limitValue') != $('#layered_' + sliderType + '_range_max').val())
@@ -536,8 +525,7 @@ function initLocationChange(func, time)
 
             lockLocationChecking = true;
             reloadContent('&selected_filters=' + getUrlParams().replace(/^#/, ''));
-        }
-        else {
+        } else {
             lockLocationChecking = false;
             current_friendly_url = getUrlParams();
         }
@@ -578,14 +566,12 @@ function utf8_decode(utfstr) {
         {
             res += String.fromCharCode(c);
             i++;
-        }
-        else if ((c > 191) && (c < 224))
+        } else if ((c > 191) && (c < 224))
         {
             var c1 = utfstr.charCodeAt(i + 1);
             res += String.fromCharCode(((c & 31) << 6) | (c1 & 63));
             i += 2;
-        }
-        else
+        } else
         {
             var c1 = utfstr.charCodeAt(i + 1);
             var c2 = utfstr.charCodeAt(i + 2);

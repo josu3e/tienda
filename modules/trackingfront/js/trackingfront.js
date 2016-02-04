@@ -41,14 +41,14 @@ $(function () {
 
 function updateValues() {
     $.getJSON("stats.php", {ajaxProductFilter: 1, id_referrer: referrer_id, token: token, id_product: 0},
-    function (j) {
-        $.each(display_tab, function (index, value) {
-            if (value == 'reg_rate' || value == 'order_rate')
-                $("#" + value).html(parseFloat(j[0][value] * 100).toFixed(2) + ' %');
-            else
-                $("#" + value).html(j[0][value]);
-        });
-    }
+            function (j) {
+                $.each(display_tab, function (index, value) {
+                    if (value == 'reg_rate' || value == 'order_rate')
+                        $("#" + value).html(parseFloat(j[0][value] * 100).toFixed(2) + ' %');
+                    else
+                        $("#" + value).html(j[0][value]);
+                });
+            }
     )
 }
 
@@ -56,12 +56,12 @@ function showProductLines() {
     var irow = 0;
     for (var i = 0; i < product_ids.length; ++i)
         $.getJSON("stats.php", {ajaxProductFilter: 1, token: token, id_referrer: referrer_id, id_product: product_ids[i]},
-        function (result) {
-            if (result) {
-                var newLine = newProductLine(referrer_id, result[0], (irow++ % 2 ? 204 : 238));
-                $(newLine).hide().insertBefore($('#trid_dummy')).fadeIn();
-            }
-        }
+                function (result) {
+                    if (result) {
+                        var newLine = newProductLine(referrer_id, result[0], (irow++ % 2 ? 204 : 238));
+                        $(newLine).hide().insertBefore($('#trid_dummy')).fadeIn();
+                    }
+                }
         );
 }
 

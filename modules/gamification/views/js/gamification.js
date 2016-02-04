@@ -53,8 +53,7 @@ function initHeaderNotification(html)
         if ($('#gamification_notif_wrapper').css('display') == 'block')
         {
             $('#gamification_notif_wrapper').hide();
-        }
-        else
+        } else
         {
             disabledGamificationNotification();
             $('.notifs_wrapper').hide();

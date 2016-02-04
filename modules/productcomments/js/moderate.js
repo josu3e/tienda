@@ -113,8 +113,7 @@ $(document).ready(function () {
             // PS 1.5
             $('#categories-treeview').closest('div.margin-form').show();
             $('#categories-treeview').closest('div.margin-form').prev().show();
-        }
-        else if (this.value == 3)
+        } else if (this.value == 3)
         {
             $('#ids_product').closest('div.form-group').show();
             // PS 1.5

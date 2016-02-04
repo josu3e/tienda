@@ -74,8 +74,7 @@ $(function () {
                     var buttons = {};
                     buttons[productcomment_ok] = "productcommentRefreshPage";
                     fancyChooseBox(moderation_active ? productcomment_added_moderation : productcomment_added, productcomment_title, buttons);
-                }
-                else
+                } else
                 {
                     $('#new_comment_form_error ul').html('');
                     $.each(data.errors, function (index, value) {

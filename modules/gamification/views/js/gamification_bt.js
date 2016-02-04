@@ -66,8 +66,7 @@ function gamificationTasks()
                         e.preventDefault();
                         if ($(this).data('advice') == 'cancel') {
                             $adviceContainer.find('.gamification-close-confirmation').addClass('hide');
-                        }
-                        else if ($(this).data('advice') == 'delete') {
+                        } else if ($(this).data('advice') == 'delete') {
                             adviceCloseClick($btn.attr('id'));
                         }
                     });

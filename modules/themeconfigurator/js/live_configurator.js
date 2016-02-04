@@ -77,8 +77,7 @@ $(document).ready(
                             $('#tool_customization').animate({left: '-215px'}, 500);
                             $(this).animate({left: '0px'}, 500);
                             $.totalStorage('live_configurator_visibility', 0);
-                        }
-                        else
+                        } else
                         {
                             $('#tool_customization').animate({left: '0px'}, 500);
                             $(this).animate({left: '215px'}, 500);
@@ -94,8 +93,7 @@ $(document).ready(
                         {
                             $(this).children('i').removeClass('icon-caret-down').addClass('icon-caret-up');
                             $('#font-box').slideUp();
-                        }
-                        else
+                        } else
                         {
                             $(this).children('i').removeClass('icon-caret-up').addClass('icon-caret-down');
                             $('#font-box').slideDown();
@@ -110,8 +108,7 @@ $(document).ready(
                         {
                             $(this).children('i').removeClass('icon-caret-down').addClass('icon-caret-up');
                             $('#color-box').slideUp();
-                        }
-                        else
+                        } else
                         {
                             $(this).children('i').removeClass('icon-caret-up').addClass('icon-caret-down');
                             $('#color-box').slideDown();
@@ -123,8 +120,7 @@ $(document).ready(
             {
                 $('#tool_customization').animate({left: '0px'}, 200);
                 $('#gear-right').animate({left: '215px'}, 200);
-            }
-            else
+            } else
             {
                 $('#tool_customization').animate({left: '-215px'}, 200);
                 $('#gear-right').animate({left: '0px'}, 200);
