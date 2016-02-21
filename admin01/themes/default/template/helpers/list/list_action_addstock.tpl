@@ -23,5 +23,5 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <a href="{$href|escape:'html':'UTF-8'}" class="edit btn btn-default" title="{$action}">
-    <i class="icon-circle-arrow-up"></i> {$action}
+	<i class="icon-circle-arrow-up"></i> {$action}
 </a>

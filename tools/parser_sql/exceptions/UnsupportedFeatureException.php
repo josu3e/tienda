@@ -1,5 +1,4 @@
 <?php
-
 /**
  * UnsupportedFeatureException.php
  *
@@ -53,7 +52,6 @@ class UnsupportedFeatureException extends Exception {
     public function getKey() {
         return $this->key;
     }
-
 }
 
 ?>

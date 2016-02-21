@@ -1,5 +1,4 @@
 <?php
-
 define('lang_Select', 'Välj'); // Select
 define('lang_Erase', 'Radera'); // Erase
 define('lang_Open', 'Öppna'); // Open

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty plugin
  *
@@ -28,7 +27,8 @@
  * @return string |void
  * @uses   smarty_make_timestamp()
  */
-function smarty_modifier_date_format($string, $format = null, $default_date = '', $formatter = 'auto') {
+function smarty_modifier_date_format($string, $format = null, $default_date = '', $formatter = 'auto')
+{
     if ($format === null) {
         $format = Smarty::$_DATE_FORMAT;
     }

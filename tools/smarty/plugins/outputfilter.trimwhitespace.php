@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty plugin
  *
@@ -18,7 +17,8 @@
  * @return string filtered output
  * @todo     substr_replace() is not overloaded by mbstring.func_overload - so this function might fail!
  */
-function smarty_outputfilter_trimwhitespace($source) {
+function smarty_outputfilter_trimwhitespace($source)
+{
     $store = array();
     $_store = 0;
     $_offset = 0;
@@ -60,13 +60,13 @@ function smarty_outputfilter_trimwhitespace($source) {
     $expressions = array(
         // replace multiple spaces between tags by a single space
         // can't remove them entirely, becaue that might break poorly implemented CSS display:inline-block elements
-        '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s' => '\1 \2',
+        '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s'                            => '\1 \2',
         // remove spaces between attributes (but not in attribute values!)
         '#(([a-z0-9]\s*=\s*(["\'])[^\3]*?\3)|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \4',
         // note: for some very weird reason trim() seems to remove spaces inside attributes.
         // maybe a \0 byte or something is interfering?
-        '#^\s+<#Ss' => '<',
-        '#>\s+$#Ss' => '>',
+        '#^\s+<#Ss'                                                       => '<',
+        '#>\s+$#Ss'                                                       => '>',
     );
 
     $source = preg_replace(array_keys($expressions), array_values($expressions), $source);

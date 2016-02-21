@@ -15,8 +15,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for modifier execution
      *
@@ -26,7 +26,8 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter) {
+    public function compile($args, $compiler, $parameter)
+    {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         $output = $parameter['value'];
@@ -135,5 +136,4 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
 
         return $output;
     }
-
 }

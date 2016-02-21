@@ -1,38 +1,36 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author Prestashop SA <contact@prestashop.com>
- *  @copyright  2007-2010 Prestashop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author Prestashop SA <contact@prestashop.com>
+*  @copyright  2007-2010 Prestashop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
-class WebserviceRequestCore {
-
+class WebserviceRequestCore
+{
     const HTTP_GET = 1;
     const HTTP_POST = 2;
     const HTTP_PUT = 4;
 
     protected $_available_languages = null;
-
     /**
      * Errors triggered at execution
      * @var array
@@ -183,13 +181,18 @@ class WebserviceRequestCore {
      * @var string
      */
     public static $ws_current_classname;
+
+
     public static $shopIDs;
 
-    public function getOutputEnabled() {
+
+    public function getOutputEnabled()
+    {
         return $this->_outputEnabled;
     }
 
-    public function setOutputEnabled($bool) {
+    public function setOutputEnabled($bool)
+    {
         if (Validate::isBool($bool)) {
             $this->_outputEnabled = $bool;
         }
@@ -201,7 +204,8 @@ class WebserviceRequestCore {
      *
      * @return object WebserviceRequest instance
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (!isset(self::$_instance)) {
             self::$_instance = new WebserviceRequest::$ws_current_classname();
         }
@@ -209,20 +213,20 @@ class WebserviceRequestCore {
     }
 
     /*
-      protected function getOutputObject($type)
-      {
-      switch ($type)
-      {
-      case 'XML' :
-      default :
-      $obj_render = new WebserviceOutputXML();
-      break;
-      }
-      return $obj_render;
-      }
-     */
-
-    protected function getOutputObject($type) {
+    protected function getOutputObject($type)
+    {
+        switch ($type)
+        {
+            case 'XML' :
+            default :
+                $obj_render = new WebserviceOutputXML();
+                break;
+        }
+        return $obj_render;
+    }
+    */
+    protected function getOutputObject($type)
+    {
         // set header param in header or as get param
         $headers = self::getallheaders();
         if (isset($headers['Io-Format'])) {
@@ -237,61 +241,62 @@ class WebserviceRequestCore {
         $this->outputFormat = $type;
         switch ($type) {
             case 'JSON' :
-                require_once dirname(__FILE__) . '/WebserviceOutputJSON.php';
+                require_once dirname(__FILE__).'/WebserviceOutputJSON.php';
                 $obj_render = new WebserviceOutputJSON();
                 break;
             case 'XML' :
             default :
                 $obj_render = new WebserviceOutputXML();
-                break;
+            break;
         }
         return $obj_render;
     }
 
-    public static function getResources() {
+    public static function getResources()
+    {
         $resources = array(
-            'addresses' => array('description' => 'The Customer, Manufacturer and Customer addresses', 'class' => 'Address'),
-            'carriers' => array('description' => 'The Carriers', 'class' => 'Carrier'),
+            'addresses' => array('description' => 'The Customer, Manufacturer and Customer addresses','class' => 'Address'),
+            'carriers' => array('description' => 'The Carriers','class' => 'Carrier'),
             'carts' => array('description' => 'Customer\'s carts', 'class' => 'Cart'),
             'cart_rules' => array('description' => 'Cart rules management', 'class' => 'CartRule'),
-            'categories' => array('description' => 'The product categories', 'class' => 'Category'),
-            'combinations' => array('description' => 'The product combinations', 'class' => 'Combination'),
+            'categories' => array('description' => 'The product categories','class' => 'Category'),
+            'combinations' => array('description' => 'The product combinations','class' => 'Combination'),
             'configurations' => array('description' => 'Shop configuration', 'class' => 'Configuration'),
-            'contacts' => array('description' => 'Shop contacts', 'class' => 'Contact'),
-            'countries' => array('description' => 'The countries', 'class' => 'Country'),
+            'contacts' => array('description' => 'Shop contacts','class' => 'Contact'),
+            'countries' => array('description' => 'The countries','class' => 'Country'),
             'currencies' => array('description' => 'The currencies', 'class' => 'Currency'),
-            'customers' => array('description' => 'The e-shop\'s customers', 'class' => 'Customer'),
-            'customer_threads' => array('description' => 'Customer services threads', 'class' => 'CustomerThread'),
-            'customer_messages' => array('description' => 'Customer services messages', 'class' => 'CustomerMessage'),
+            'customers' => array('description' => 'The e-shop\'s customers','class' => 'Customer'),
+            'customer_threads' => array('description' => 'Customer services threads','class' => 'CustomerThread'),
+            'customer_messages' => array('description' => 'Customer services messages','class' => 'CustomerMessage'),
             'deliveries' => array('description' => 'Product delivery', 'class' => 'Delivery'),
-            'groups' => array('description' => 'The customer\'s groups', 'class' => 'Group'),
+            'groups' => array('description' => 'The customer\'s groups','class' => 'Group'),
             'guests' => array('description' => 'The guests', 'class' => 'Guest'),
             'images' => array('description' => 'The images', 'specific_management' => true),
             'image_types' => array('description' => 'The image types', 'class' => 'ImageType'),
             'languages' => array('description' => 'Shop languages', 'class' => 'Language'),
-            'manufacturers' => array('description' => 'The product manufacturers', 'class' => 'Manufacturer'),
-            'order_carriers' => array('description' => 'The Order carriers', 'class' => 'OrderCarrier'),
+            'manufacturers' => array('description' => 'The product manufacturers','class' => 'Manufacturer'),
+            'order_carriers' => array('description' => 'The Order carriers','class' => 'OrderCarrier'),
             'order_details' => array('description' => 'Details of an order', 'class' => 'OrderDetail'),
             'order_discounts' => array('description' => 'Discounts of an order', 'class' => 'OrderDiscount'),
-            'order_histories' => array('description' => 'The Order histories', 'class' => 'OrderHistory'),
-            'order_invoices' => array('description' => 'The Order invoices', 'class' => 'OrderInvoice'),
-            'orders' => array('description' => 'The Customers orders', 'class' => 'Order'),
-            'order_payments' => array('description' => 'The Order payments', 'class' => 'OrderPayment'),
-            'order_states' => array('description' => 'The Order statuses', 'class' => 'OrderState'),
+            'order_histories' => array('description' => 'The Order histories','class' => 'OrderHistory'),
+            'order_invoices' => array('description' => 'The Order invoices','class' => 'OrderInvoice'),
+            'orders' => array('description' => 'The Customers orders','class' => 'Order'),
+            'order_payments' => array('description' => 'The Order payments','class' => 'OrderPayment'),
+            'order_states' => array('description' => 'The Order statuses','class' => 'OrderState'),
             'order_slip' => array('description' => 'The Order slips', 'class' => 'OrderSlip'),
             'price_ranges' => array('description' => 'Price ranges', 'class' => 'RangePrice'),
-            'product_features' => array('description' => 'The product features', 'class' => 'Feature'),
-            'product_feature_values' => array('description' => 'The product feature values', 'class' => 'FeatureValue'),
-            'product_options' => array('description' => 'The product options', 'class' => 'AttributeGroup'),
-            'product_option_values' => array('description' => 'The product options value', 'class' => 'Attribute'),
-            'products' => array('description' => 'The products', 'class' => 'Product'),
-            'states' => array('description' => 'The available states of countries', 'class' => 'State'),
+            'product_features' => array('description' => 'The product features','class' => 'Feature'),
+            'product_feature_values' => array('description' => 'The product feature values','class' => 'FeatureValue'),
+            'product_options' => array('description' => 'The product options','class' => 'AttributeGroup'),
+            'product_option_values' => array('description' => 'The product options value','class' => 'Attribute'),
+            'products' => array('description' => 'The products','class' => 'Product'),
+            'states' => array('description' => 'The available states of countries','class' => 'State'),
             'stores' => array('description' => 'The stores', 'class' => 'Store'),
-            'suppliers' => array('description' => 'The product suppliers', 'class' => 'Supplier'),
-            'tags' => array('description' => 'The Products tags', 'class' => 'Tag'),
+            'suppliers' => array('description' => 'The product suppliers','class' => 'Supplier'),
+            'tags' => array('description' => 'The Products tags','class' => 'Tag'),
             'translated_configurations' => array('description' => 'Shop configuration', 'class' => 'TranslatedConfiguration'),
             'weight_ranges' => array('description' => 'Weight ranges', 'class' => 'RangeWeight'),
-            'zones' => array('description' => 'The Countries zones', 'class' => 'Zone'),
+            'zones' => array('description' => 'The Countries zones','class' => 'Zone'),
             'employees' => array('description' => 'The Employees', 'class' => 'Employee'),
             'search' => array('description' => 'Search', 'specific_management' => true, 'forbidden_method' => array('PUT', 'POST', 'DELETE')),
             'content_management_system' => array('description' => 'Content management system', 'class' => 'CMS'),
@@ -324,7 +329,6 @@ class WebserviceRequestCore {
 
     /* @todo Check how get parameters */
     /* @todo : set this method out */
-
     /**
      * This method is used for calculate the price for products on the output details
      *
@@ -333,16 +337,16 @@ class WebserviceRequestCore {
      * @param $ws_params
      * @return array field parameters.
      */
-    public function getPriceForProduct($field, $entity_object, $ws_params) {
+    public function getPriceForProduct($field, $entity_object, $ws_params)
+    {
         if (is_int($entity_object->id)) {
-            $arr_return = $this->specificPriceForProduct($entity_object, array('default_price' => ''));
+            $arr_return = $this->specificPriceForProduct($entity_object, array('default_price'=>''));
             $field['value'] = $arr_return['default_price']['value'];
         }
         return $field;
     }
 
     /* @todo : set this method out */
-
     /**
      * This method is used for calculate the price for products on a virtual fields
      *
@@ -350,7 +354,8 @@ class WebserviceRequestCore {
      * @param array $parameters
      * @return array
      */
-    public function specificPriceForProduct($entity_object, $parameters) {
+    public function specificPriceForProduct($entity_object, $parameters)
+    {
         foreach (array_keys($parameters) as $name) {
             $parameters[$name]['object_id'] = $entity_object->id;
         }
@@ -358,31 +363,31 @@ class WebserviceRequestCore {
         return $arr_return;
     }
 
-    public function specificPriceCalculation($parameters) {
+    public function specificPriceCalculation($parameters)
+    {
         $arr_return = array();
         foreach ($parameters as $name => $value) {
-            $id_shop = (int) Context::getContext()->shop->id;
-            $id_country = (int) (isset($value['country']) ? $value['country'] : (Configuration::get('PS_COUNTRY_DEFAULT')));
-            $id_state = (int) (isset($value['state']) ? $value['state'] : 0);
-            $id_currency = (int) (isset($value['currency']) ? $value['currency'] : Configuration::get('PS_CURRENCY_DEFAULT'));
-            $id_group = (int) (isset($value['group']) ? $value['group'] : (int) Configuration::get('PS_CUSTOMER_GROUP'));
-            $quantity = (int) (isset($value['quantity']) ? $value['quantity'] : 1);
-            $use_tax = (int) (isset($value['use_tax']) ? $value['use_tax'] : Configuration::get('PS_TAX'));
-            $decimals = (int) (isset($value['decimals']) ? $value['decimals'] : Configuration::get('PS_PRICE_ROUND_MODE'));
-            $id_product_attribute = (int) (isset($value['product_attribute']) ? $value['product_attribute'] : null);
-            $only_reduc = (int) (isset($value['only_reduction']) ? $value['only_reduction'] : false);
-            $use_reduc = (int) (isset($value['use_reduction']) ? $value['use_reduction'] : true);
-            $use_ecotax = (int) (isset($value['use_ecotax']) ? $value['use_ecotax'] : Configuration::get('PS_USE_ECOTAX'));
+            $id_shop = (int)Context::getContext()->shop->id;
+            $id_country = (int)(isset($value['country']) ? $value['country'] : (Configuration::get('PS_COUNTRY_DEFAULT')));
+            $id_state = (int)(isset($value['state']) ? $value['state'] : 0);
+            $id_currency = (int)(isset($value['currency']) ? $value['currency'] : Configuration::get('PS_CURRENCY_DEFAULT'));
+            $id_group = (int)(isset($value['group']) ? $value['group'] : (int)Configuration::get('PS_CUSTOMER_GROUP'));
+            $quantity = (int)(isset($value['quantity']) ? $value['quantity'] : 1);
+            $use_tax = (int)(isset($value['use_tax']) ? $value['use_tax'] : Configuration::get('PS_TAX'));
+            $decimals = (int)(isset($value['decimals']) ? $value['decimals'] : Configuration::get('PS_PRICE_ROUND_MODE'));
+            $id_product_attribute = (int)(isset($value['product_attribute']) ? $value['product_attribute'] : null);
+            $only_reduc = (int)(isset($value['only_reduction']) ? $value['only_reduction'] : false);
+            $use_reduc = (int)(isset($value['use_reduction']) ? $value['use_reduction'] : true);
+            $use_ecotax = (int)(isset($value['use_ecotax']) ? $value['use_ecotax'] : Configuration::get('PS_USE_ECOTAX'));
             $specific_price_output = null;
-            $id_county = (int) (isset($value['county']) ? $value['county'] : 0);
-            $return_value = Product::priceCalculation($id_shop, $value['object_id'], $id_product_attribute, $id_country, $id_state, $id_county, $id_currency, $id_group, $quantity, $use_tax, $decimals, $only_reduc, $use_reduc, $use_ecotax, $specific_price_output, null);
-            $arr_return[$name] = array('sqlId' => strtolower($name), 'value' => sprintf('%f', $return_value));
+            $id_county = (int)(isset($value['county']) ? $value['county'] : 0);
+            $return_value = Product::priceCalculation($id_shop, $value['object_id'], $id_product_attribute, $id_country, $id_state, $id_county, $id_currency, $id_group, $quantity,
+                                    $use_tax, $decimals, $only_reduc, $use_reduc, $use_ecotax, $specific_price_output, null);
+            $arr_return[$name] = array('sqlId'=>strtolower($name), 'value'=>sprintf('%f', $return_value));
         }
         return $arr_return;
     }
-
     /* @todo : set this method out */
-
     /**
      * This method is used for calculate the price for products on a virtual fields
      *
@@ -390,7 +395,8 @@ class WebserviceRequestCore {
      * @param array $parameters
      * @return array
      */
-    public function specificPriceForCombination($entity_object, $parameters) {
+    public function specificPriceForCombination($entity_object, $parameters)
+    {
         foreach (array_keys($parameters) as $name) {
             $parameters[$name]['object_id'] = $entity_object->id_product;
             $parameters[$name]['product_attribute'] = $entity_object->id;
@@ -416,7 +422,8 @@ class WebserviceRequestCore {
      *
      * @return array Returns an array of results (headers, content, type of resource...)
      */
-    public function fetch($key, $method, $url, $params, $bad_class_name, $inputXml = null) {
+    public function fetch($key, $method, $url, $params, $bad_class_name, $inputXml = null)
+    {
         // Time logger
         $this->_startTime = microtime(true);
         $this->objects = array();
@@ -430,7 +437,7 @@ class WebserviceRequestCore {
         $webservice_call = true;
         $display_errors = strtolower(ini_get('display_errors')) != 'off';
         // __PS_BASE_URI__ is from Shop::$current_base_uri
-        $this->wsUrl = Tools::getHttpHost(true) . __PS_BASE_URI__ . 'api/';
+        $this->wsUrl = Tools::getHttpHost(true).__PS_BASE_URI__.'api/';
         // set the output object which manage the content and header structure and informations
         $this->objOutput = new WebserviceOutputBuilder($this->wsUrl);
 
@@ -443,14 +450,14 @@ class WebserviceRequestCore {
         // Check webservice activation and request authentication
         if ($this->webserviceChecks()) {
             if ($bad_class_name) {
-                $this->setError(500, 'Class "' . htmlspecialchars($bad_class_name) . '" not found. Please update the class_name field in the webservice_account table.', 126);
+                $this->setError(500, 'Class "'.htmlspecialchars($bad_class_name).'" not found. Please update the class_name field in the webservice_account table.', 126);
             }
             // parse request url
             $this->method = $method;
             $this->urlSegment = explode('/', $url);
             $this->urlFragments = $params;
             $this->_inputXml = $inputXml;
-            $this->depth = isset($this->urlFragments['depth']) ? (int) $this->urlFragments['depth'] : $this->depth;
+            $this->depth = isset($this->urlFragments['depth']) ? (int)$this->urlFragments['depth'] : $this->depth;
 
             try {
                 // Method below set a particular fonction to use on the price field for products entity
@@ -529,13 +536,13 @@ class WebserviceRequestCore {
                 }
                 // if the management is specific
                 else {
-                    $specificObjectName = 'WebserviceSpecificManagement' . ucfirst(Tools::toCamelCase($this->urlSegment[0]));
+                    $specificObjectName = 'WebserviceSpecificManagement'.ucfirst(Tools::toCamelCase($this->urlSegment[0]));
                     if (!class_exists($specificObjectName)) {
                         $this->setError(501, sprintf('The specific management class is not implemented for the "%s" entity.', $this->urlSegment[0]), 124);
                     } else {
                         $this->objectSpecificManagement = new $specificObjectName();
                         $this->objectSpecificManagement->setObjectOutput($this->objOutput)
-                                ->setWsObject($this);
+                                                       ->setWsObject($this);
 
                         try {
                             $this->objectSpecificManagement->manage();
@@ -556,7 +563,8 @@ class WebserviceRequestCore {
         return $return;
     }
 
-    protected function webserviceChecks() {
+    protected function webserviceChecks()
+    {
         return ($this->isActivated() && $this->authenticate() && $this->groupShopExists($this->params) && $this->shopExists($this->params) && $this->shopHasRight($this->_key));
     }
 
@@ -568,7 +576,8 @@ class WebserviceRequestCore {
      * @param int $code
      * @return void
      */
-    public function setError($status, $label, $code) {
+    public function setError($status, $label, $code)
+    {
         global $display_errors;
         if (!isset($display_errors)) {
             $display_errors = strtolower(ini_get('display_errors')) != 'off';
@@ -589,8 +598,9 @@ class WebserviceRequestCore {
      * @param int $code
      * @return void
      */
-    public function setErrorDidYouMean($num, $label, $value, $available_values, $code) {
-        $this->setError($num, $label . '. Did you mean: "' . $this->getClosest($value, $available_values) . '"?' . (count($available_values) > 1 ? ' The full list is: "' . implode('", "', $available_values) . '"' : ''), $code);
+    public function setErrorDidYouMean($num, $label, $value, $available_values, $code)
+    {
+        $this->setError($num, $label.'. Did you mean: "'.$this->getClosest($value, $available_values).'"?'.(count($available_values) > 1 ? ' The full list is: "'.implode('", "', $available_values).'"' : ''), $code);
     }
 
     /**
@@ -600,7 +610,8 @@ class WebserviceRequestCore {
      * @param array $words
      * @return string
      */
-    protected function getClosest($input, $words) {
+    protected function getClosest($input, $words)
+    {
         $shortest = -1;
         foreach ($words as $word) {
             $lev = levenshtein($input, $word);
@@ -626,72 +637,73 @@ class WebserviceRequestCore {
      * @param array $errline errline, which contains the line number the error was raised at, as an integer
      * @return bool Always return true to avoid the default PHP error handler
      */
-    public function webserviceErrorHandler($errno, $errstr, $errfile, $errline) {
+    public function webserviceErrorHandler($errno, $errstr, $errfile, $errline)
+    {
         $display_errors = strtolower(ini_get('display_errors')) != 'off';
         if (!(error_reporting() & $errno) || $display_errors) {
             return;
         }
 
         $errortype = array(
-            E_ERROR => 'Error',
-            E_WARNING => 'Warning',
-            E_PARSE => 'Parse',
-            E_NOTICE => 'Notice',
-            E_CORE_ERROR => 'Core Error',
-            E_CORE_WARNING => 'Core Warning',
-            E_COMPILE_ERROR => 'Compile Error',
-            E_COMPILE_WARNING => 'Compile Warning',
-            E_USER_ERROR => 'Error',
-            E_USER_WARNING => 'User warning',
-            E_USER_NOTICE => 'User notice',
-            E_STRICT => 'Runtime Notice',
-            E_RECOVERABLE_ERROR => 'Recoverable error'
+            E_ERROR                => 'Error',
+            E_WARNING            => 'Warning',
+            E_PARSE                => 'Parse',
+            E_NOTICE            => 'Notice',
+            E_CORE_ERROR        => 'Core Error',
+            E_CORE_WARNING        => 'Core Warning',
+            E_COMPILE_ERROR        => 'Compile Error',
+            E_COMPILE_WARNING    => 'Compile Warning',
+            E_USER_ERROR        => 'Error',
+            E_USER_WARNING        => 'User warning',
+            E_USER_NOTICE        => 'User notice',
+            E_STRICT            => 'Runtime Notice',
+            E_RECOVERABLE_ERROR    => 'Recoverable error'
         );
         $type = (isset($errortype[$errno]) ? $errortype[$errno] : 'Unknown error');
-        Tools::error_log('[PHP ' . $type . ' #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')');
+        Tools::error_log('[PHP '.$type.' #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')');
 
         switch ($errno) {
             case E_ERROR:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Error #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 2);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Error #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 2);
                 break;
             case E_WARNING:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Warning #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 3);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Warning #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 3);
                 break;
             case E_PARSE:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Parse #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 4);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Parse #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 4);
                 break;
             case E_NOTICE:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Notice #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 5);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Notice #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 5);
                 break;
             case E_CORE_ERROR:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Core #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 6);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Core #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 6);
                 break;
             case E_CORE_WARNING:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Core warning #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 7);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Core warning #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 7);
                 break;
             case E_COMPILE_ERROR:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Compile #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 8);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Compile #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 8);
                 break;
             case E_COMPILE_WARNING:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Compile warning #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 9);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Compile warning #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 9);
                 break;
             case E_USER_ERROR:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Error #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 10);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Error #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 10);
                 break;
             case E_USER_WARNING:
-                WebserviceRequest::getInstance()->setError(500, '[PHP User warning #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 11);
+                WebserviceRequest::getInstance()->setError(500, '[PHP User warning #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 11);
                 break;
             case E_USER_NOTICE:
-                WebserviceRequest::getInstance()->setError(500, '[PHP User notice #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 12);
+                WebserviceRequest::getInstance()->setError(500, '[PHP User notice #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 12);
                 break;
             case E_STRICT:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Strict #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 13);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Strict #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 13);
                 break;
             case E_RECOVERABLE_ERROR:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Recoverable error #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 14);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Recoverable error #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 14);
                 break;
             default:
-                WebserviceRequest::getInstance()->setError(500, '[PHP Unknown error #' . $errno . '] ' . $errstr . ' (' . $errfile . ', line ' . $errline . ')', 15);
+                WebserviceRequest::getInstance()->setError(500, '[PHP Unknown error #'.$errno.'] '.$errstr.' ('.$errfile.', line '.$errline.')', 15);
         }
         return true;
     }
@@ -701,8 +713,9 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    protected function hasErrors() {
-        return (bool) $this->errors;
+    protected function hasErrors()
+    {
+        return (bool)$this->errors;
     }
 
     /**
@@ -710,7 +723,8 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    protected function authenticate() {
+    protected function authenticate()
+    {
         if (!$this->hasErrors()) {
             if (is_null($this->_key)) {
                 $this->setError(401, 'Please enter the authentication key as the login. No password required', 16);
@@ -748,7 +762,8 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    protected function isActivated() {
+    protected function isActivated()
+    {
         if (!Configuration::get('PS_WEBSERVICE')) {
             $this->setError(503, 'The PrestaShop webservice is disabled. Please activate it in the PrestaShop Back Office', 22);
             return false;
@@ -756,15 +771,16 @@ class WebserviceRequestCore {
         return true;
     }
 
-    protected function shopHasRight($key) {
+    protected function shopHasRight($key)
+    {
         $sql = 'SELECT 1
-				FROM ' . _DB_PREFIX_ . 'webservice_account wsa LEFT JOIN ' . _DB_PREFIX_ . 'webservice_account_shop wsas ON (wsa.id_webservice_account = wsas.id_webservice_account)
-				WHERE wsa.key = \'' . pSQL($key) . '\'';
+				FROM '._DB_PREFIX_.'webservice_account wsa LEFT JOIN '._DB_PREFIX_.'webservice_account_shop wsas ON (wsa.id_webservice_account = wsas.id_webservice_account)
+				WHERE wsa.key = \''.pSQL($key).'\'';
 
         foreach (self::$shopIDs as $id_shop) {
-            $OR[] = ' wsas.id_shop = ' . (int) $id_shop . ' ';
+            $OR[] = ' wsas.id_shop = '.(int)$id_shop.' ';
         }
-        $sql .= ' AND (' . implode('OR', $OR) . ') ';
+        $sql .= ' AND ('.implode('OR', $OR).') ';
         if (!Db::getInstance()->getValue($sql)) {
             $this->setError(403, 'No permission for this key on this shop', 132);
             return false;
@@ -772,15 +788,16 @@ class WebserviceRequestCore {
         return true;
     }
 
-    protected function shopExists($params) {
+    protected function shopExists($params)
+    {
         if (count(self::$shopIDs)) {
             return true;
         }
 
         if (isset($params['id_shop'])) {
             if ($params['id_shop'] != 'all' && is_numeric($params['id_shop'])) {
-                Shop::setContext(Shop::CONTEXT_SHOP, (int) $params['id_shop']);
-                self::$shopIDs[] = (int) $params['id_shop'];
+                Shop::setContext(Shop::CONTEXT_SHOP, (int)$params['id_shop']);
+                self::$shopIDs[] = (int)$params['id_shop'];
                 return true;
             } elseif ($params['id_shop'] == 'all') {
                 Shop::setContext(Shop::CONTEXT_ALL);
@@ -795,10 +812,11 @@ class WebserviceRequestCore {
         return false;
     }
 
-    protected function groupShopExists($params) {
+    protected function groupShopExists($params)
+    {
         if (isset($params['id_group_shop']) && is_numeric($params['id_group_shop'])) {
-            Shop::setContext(Shop::CONTEXT_GROUP, (int) $params['id_group_shop']);
-            self::$shopIDs = Shop::getShops(true, (int) $params['id_group_shop'], true);
+            Shop::setContext(Shop::CONTEXT_GROUP, (int)$params['id_group_shop']);
+            self::$shopIDs = Shop::getShops(true, (int)$params['id_group_shop'], true);
             if (count(self::$shopIDs) == 0) {
                 // @FIXME Set ErrorCode !
                 $this->setError(500, 'This group shop doesn\'t have shops', 999);
@@ -814,13 +832,14 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    protected function checkHTTPMethod() {
+    protected function checkHTTPMethod()
+    {
         if (!in_array($this->method, array('GET', 'POST', 'PUT', 'DELETE', 'HEAD'))) {
-            $this->setError(405, 'Method ' . $this->method . ' is not valid', 23);
+            $this->setError(405, 'Method '.$this->method.' is not valid', 23);
         } elseif (isset($this->urlSegment[0]) && isset($this->resourceList[$this->urlSegment[0]]['forbidden_method']) && in_array($this->method, $this->resourceList[$this->urlSegment[0]]['forbidden_method'])) {
-            $this->setError(405, 'Method ' . $this->method . ' is not allowed for the resource ' . $this->urlSegment[0], 101);
+            $this->setError(405, 'Method '.$this->method.' is not allowed for the resource '.$this->urlSegment[0], 101);
         } elseif ($this->urlSegment[0] && !in_array($this->method, $this->keyPermissions[$this->urlSegment[0]])) {
-            $this->setError(405, 'Method ' . $this->method . ' is not allowed for the resource ' . $this->urlSegment[0] . ' with this authentication key', 25);
+            $this->setError(405, 'Method '.$this->method.' is not allowed for the resource '.$this->urlSegment[0].' with this authentication key', 25);
         } else {
             return true;
         }
@@ -832,24 +851,27 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    protected function checkResource() {
+    protected function checkResource()
+    {
         $this->resourceList = $this->getResources();
         $resourceNames = array_keys($this->resourceList);
         if ($this->urlSegment[0] == '') {
             $this->resourceConfiguration['objectsNodeName'] = 'resources';
         } elseif (in_array($this->urlSegment[0], $resourceNames)) {
             if (!in_array($this->urlSegment[0], array_keys($this->keyPermissions))) {
-                $this->setError(401, 'Resource of type "' . $this->urlSegment[0] . '" is not allowed with this authentication key', 26);
+                $this->setError(401, 'Resource of type "'.$this->urlSegment[0].'" is not allowed with this authentication key', 26);
                 return false;
             }
         } else {
-            $this->setErrorDidYouMean(400, 'Resource of type "' . $this->urlSegment[0] . '" does not exists', $this->urlSegment[0], $resourceNames, 27);
+            $this->setErrorDidYouMean(400, 'Resource of type "'.$this->urlSegment[0].'" does not exists', $this->urlSegment[0], $resourceNames, 27);
             return false;
         }
         return true;
     }
 
-    protected function setObjects() {
+
+    protected function setObjects()
+    {
         $objects = array();
         $arr_avoid_id = array();
         $ids = array();
@@ -859,11 +881,11 @@ class WebserviceRequestCore {
                 $ids = explode(',', $matches[1]);
             }
         } else {
-            $ids[] = (int) $this->urlSegment[1];
+            $ids[] = (int)$this->urlSegment[1];
         }
         if (!empty($ids)) {
             foreach ($ids as $id) {
-                $object = new $this->resourceConfiguration['retrieveData']['className']((int) $id);
+                $object = new $this->resourceConfiguration['retrieveData']['className']((int)$id);
                 if (!$object->id) {
                     $arr_avoid_id[] = $id;
                 } else {
@@ -873,12 +895,13 @@ class WebserviceRequestCore {
         }
 
         if (!empty($arr_avoid_id) || empty($ids)) {
-            $this->setError(404, 'Id(s) not exists: ' . implode(', ', $arr_avoid_id), 87);
+            $this->setError(404, 'Id(s) not exists: '.implode(', ', $arr_avoid_id), 87);
             $this->_outputEnabled = true;
         }
     }
 
-    protected function parseDisplayFields($str) {
+    protected function parseDisplayFields($str)
+    {
         $bracket_level = 0;
         $part = array();
         $tmp = '';
@@ -920,7 +943,8 @@ class WebserviceRequestCore {
         return $fields;
     }
 
-    public function setFieldsToDisplay() {
+    public function setFieldsToDisplay()
+    {
         // set the fields to display in the list : "full", "minimum", "field_1", "field_1,field_2,field_3"
         if (isset($this->urlFragments['display'])) {
             $this->fieldsToDisplay = $this->urlFragments['display'];
@@ -948,13 +972,13 @@ class WebserviceRequestCore {
                             }
                         }
                         if ($error) {
-                            $this->setError(400, 'Unable to display this field "' . $field_name . (is_array($part) ? ' (details : ' . var_export($part, true) . ')' : '') . '". However, these are available: ' . implode(', ', array_keys($this->resourceConfiguration['fields'])), 35);
+                            $this->setError(400, 'Unable to display this field "'.$field_name.(is_array($part) ? ' (details : '.var_export($part, true).')' : '').'". However, these are available: '.implode(', ', array_keys($this->resourceConfiguration['fields'])), 35);
                             return false;
                         }
                     }
                     $this->fieldsToDisplay = $fieldsToTest;
                 } else {
-                    $this->setError(400, 'The \'display\' syntax is wrong. You can set \'full\' or \'[field_1,field_2,field_3,...]\'. These are available: ' . implode(', ', array_keys($this->resourceConfiguration['fields'])), 36);
+                    $this->setError(400, 'The \'display\' syntax is wrong. You can set \'full\' or \'[field_1,field_2,field_3,...]\'. These are available: '.implode(', ', array_keys($this->resourceConfiguration['fields'])), 36);
                     return false;
                 }
             }
@@ -962,16 +986,17 @@ class WebserviceRequestCore {
         return true;
     }
 
-    protected function manageFilters() {
+    protected function manageFilters()
+    {
         // filtered fields which can not use filters : hidden_fields
         $available_filters = array();
         // filtered i18n fields which can use filters
         $i18n_available_filters = array();
         foreach ($this->resourceConfiguration['fields'] as $fieldName => $field) {
             if ((!isset($this->resourceConfiguration['hidden_fields']) ||
-                    (isset($this->resourceConfiguration['hidden_fields']) && !in_array($fieldName, $this->resourceConfiguration['hidden_fields'])))) {
+                (isset($this->resourceConfiguration['hidden_fields']) && !in_array($fieldName, $this->resourceConfiguration['hidden_fields'])))) {
                 if ((!isset($field['i18n']) ||
-                        (isset($field['i18n']) && !$field['i18n']))) {
+                (isset($field['i18n']) && !$field['i18n']))) {
                     $available_filters[] = $fieldName;
                 } else {
                     $i18n_available_filters[] = $fieldName;
@@ -1024,13 +1049,13 @@ class WebserviceRequestCore {
                                 // if there are linked tables
                                 if (isset($this->resourceConfiguration['linked_tables']) && isset($this->resourceConfiguration['linked_tables'][$field])) {
                                     // contruct SQL join for linked tables
-                                    $sql_join .= 'LEFT JOIN `' . bqSQL(_DB_PREFIX_ . $this->resourceConfiguration['linked_tables'][$field]['table']) . '` ' . bqSQL($field) . ' ON (main.`' . bqSQL($this->resourceConfiguration['fields']['id']['sqlId']) . '` = ' . bqSQL($field) . '.`' . bqSQL($this->resourceConfiguration['fields']['id']['sqlId']) . '`)' . "\n";
+                                    $sql_join .= 'LEFT JOIN `'.bqSQL(_DB_PREFIX_.$this->resourceConfiguration['linked_tables'][$field]['table']).'` '.bqSQL($field).' ON (main.`'.bqSQL($this->resourceConfiguration['fields']['id']['sqlId']).'` = '.bqSQL($field).'.`'.bqSQL($this->resourceConfiguration['fields']['id']['sqlId']).'`)'."\n";
 
                                     // construct SQL filter for linked tables
                                     foreach ($url_param as $field2 => $value) {
                                         if (isset($this->resourceConfiguration['linked_tables'][$field]['fields'][$field2])) {
                                             $linked_field = $this->resourceConfiguration['linked_tables'][$field]['fields'][$field2];
-                                            $sql_filter .= $this->getSQLRetrieveFilter($linked_field['sqlId'], $value, $field . '.');
+                                            $sql_filter .= $this->getSQLRetrieveFilter($linked_field['sqlId'], $value, $field.'.');
                                         } else {
                                             $list = array_keys($this->resourceConfiguration['linked_tables'][$field]['fields']);
                                             $this->setErrorDidYouMean(400, 'This filter does not exist for this linked table', $field2, $list, 29);
@@ -1041,11 +1066,11 @@ class WebserviceRequestCore {
                                     if (!is_array($url_param)) {
                                         $url_param = array($url_param);
                                     }
-                                    $sql_join .= 'LEFT JOIN `' . bqSQL(_DB_PREFIX_ . $this->resourceConfiguration['retrieveData']['table']) . '_lang` AS main_i18n ON (main.`' . pSQL($this->resourceConfiguration['fields']['id']['sqlId']) . '` = main_i18n.`' . bqSQL($this->resourceConfiguration['fields']['id']['sqlId']) . '`)' . "\n";
+                                    $sql_join .= 'LEFT JOIN `'.bqSQL(_DB_PREFIX_.$this->resourceConfiguration['retrieveData']['table']).'_lang` AS main_i18n ON (main.`'.pSQL($this->resourceConfiguration['fields']['id']['sqlId']).'` = main_i18n.`'.bqSQL($this->resourceConfiguration['fields']['id']['sqlId']).'`)'."\n";
                                     foreach ($url_param as $field2 => $value) {
                                         $linked_field = $this->resourceConfiguration['fields'][$field];
                                         $sql_filter .= $this->getSQLRetrieveFilter($linked_field['sqlId'], $value, 'main_i18n.');
-                                        $language_filter = '[' . implode('|', $this->_available_languages) . ']';
+                                        $language_filter = '['.implode('|', $this->_available_languages).']';
                                         $sql_filter .= $this->getSQLRetrieveFilter('id_lang', $language_filter, 'main_i18n.');
                                     }
                                 }
@@ -1062,15 +1087,15 @@ class WebserviceRequestCore {
                                     return false;
                                 }
                             } elseif ($url_param == '') {
-                                $this->setError(400, 'The filter "' . $field . '" is malformed.', 33);
+                                $this->setError(400, 'The filter "'.$field.'" is malformed.', 33);
                                 return false;
                             } else {
                                 if (isset($this->resourceConfiguration['fields'][$field]['getter'])) {
-                                    $this->setError(400, 'The field "' . $field . '" is dynamic. It is not possible to filter GET query with this field.', 34);
+                                    $this->setError(400, 'The field "'.$field.'" is dynamic. It is not possible to filter GET query with this field.', 34);
                                     return false;
                                 } else {
                                     if (isset($this->resourceConfiguration['retrieveData']['tableAlias'])) {
-                                        $sql_filter .= $this->getSQLRetrieveFilter($this->resourceConfiguration['fields'][$field]['sqlId'], $url_param, $this->resourceConfiguration['retrieveData']['tableAlias'] . '.');
+                                        $sql_filter .= $this->getSQLRetrieveFilter($this->resourceConfiguration['fields'][$field]['sqlId'], $url_param, $this->resourceConfiguration['retrieveData']['tableAlias'].'.');
                                     } else {
                                         $sql_filter .= $this->getSQLRetrieveFilter($this->resourceConfiguration['fields'][$field]['sqlId'], $url_param);
                                     }
@@ -1107,28 +1132,28 @@ class WebserviceRequestCore {
                     $this->setError(400, 'The "sort" value has to be formed as this example: "field_ASC" or \'[field_1_DESC,field_2_ASC,field_3_ASC,...]\' ("field" has to be an available field)', 37);
                     return false;
                 } elseif (!in_array($fieldName, $available_filters) && !in_array($fieldName, $i18n_available_filters)) {
-                    $this->setError(400, 'Unable to filter by this field. However, these are available: ' . implode(', ', $available_filters) . ', for i18n fields:' . implode(', ', $i18n_available_filters), 38);
+                    $this->setError(400, 'Unable to filter by this field. However, these are available: '.implode(', ', $available_filters).', for i18n fields:'.implode(', ', $i18n_available_filters), 38);
                     return false;
                 }
                 // for sort on i18n field
                 elseif (in_array($fieldName, $i18n_available_filters)) {
                     if (!preg_match('#main_i18n#', $sql_join)) {
-                        $sql_join .= 'LEFT JOIN `' . _DB_PREFIX_ . pSQL($this->resourceConfiguration['retrieveData']['table']) . '_lang` AS main_i18n ON (main.`' . pSQL($this->resourceConfiguration['fields']['id']['sqlId']) . '` = main_i18n.`' . pSQL($this->resourceConfiguration['fields']['id']['sqlId']) . '`)' . "\n";
+                        $sql_join .= 'LEFT JOIN `'._DB_PREFIX_.pSQL($this->resourceConfiguration['retrieveData']['table']).'_lang` AS main_i18n ON (main.`'.pSQL($this->resourceConfiguration['fields']['id']['sqlId']).'` = main_i18n.`'.pSQL($this->resourceConfiguration['fields']['id']['sqlId']).'`)'."\n";
                     }
-                    $sql_sort .= 'main_i18n.`' . pSQL($this->resourceConfiguration['fields'][$fieldName]['sqlId']) . '` ' . $direction . ', '; // ORDER BY main_i18n.`field` ASC|DESC
+                    $sql_sort .= 'main_i18n.`'.pSQL($this->resourceConfiguration['fields'][$fieldName]['sqlId']).'` '.$direction.', ';// ORDER BY main_i18n.`field` ASC|DESC
                 } else {
                     /** @var ObjectModel $object */
                     $object = new $this->resourceConfiguration['retrieveData']['className']();
                     $assoc = Shop::getAssoTable($this->resourceConfiguration['retrieveData']['table']);
                     if ($assoc !== false && $assoc['type'] == 'shop' && ($object->isMultiShopField($this->resourceConfiguration['fields'][$fieldName]['sqlId']) || $fieldName == 'id')) {
-                        $table_alias = 'multi_shop_' . $this->resourceConfiguration['retrieveData']['table'];
+                        $table_alias = 'multi_shop_'.$this->resourceConfiguration['retrieveData']['table'];
                     } else {
                         $table_alias = '';
                     }
-                    $sql_sort .= (isset($this->resourceConfiguration['retrieveData']['tableAlias']) ? '`' . bqSQL($this->resourceConfiguration['retrieveData']['tableAlias']) . '`.' : '`' . bqSQL($table_alias) . '`.') . '`' . pSQL($this->resourceConfiguration['fields'][$fieldName]['sqlId']) . '` ' . $direction . ', '; // ORDER BY `field` ASC|DESC
+                    $sql_sort .= (isset($this->resourceConfiguration['retrieveData']['tableAlias']) ? '`'.bqSQL($this->resourceConfiguration['retrieveData']['tableAlias']).'`.' : '`'.bqSQL($table_alias).'`.').'`'.pSQL($this->resourceConfiguration['fields'][$fieldName]['sqlId']).'` '.$direction.', ';// ORDER BY `field` ASC|DESC
                 }
             }
-            $sql_sort = rtrim($sql_sort, ', ') . "\n";
+            $sql_sort = rtrim($sql_sort, ', ')."\n";
         }
 
         //construct SQL Limit
@@ -1139,7 +1164,7 @@ class WebserviceRequestCore {
                 $this->setError(400, 'The "limit" value has to be formed as this example: "5,25" or "10"', 39);
                 return false;
             } else {
-                $sql_limit .= ' LIMIT ' . (int) ($limitArgs[0]) . (isset($limitArgs[1]) ? ', ' . (int) ($limitArgs[1]) : '') . "\n"; // LIMIT X|X, Y
+                $sql_limit .= ' LIMIT '.(int)($limitArgs[0]).(isset($limitArgs[1]) ? ', '.(int)($limitArgs[1]) : '')."\n";// LIMIT X|X, Y
             }
         }
         $filters['sql_join'] = $sql_join;
@@ -1150,7 +1175,8 @@ class WebserviceRequestCore {
         return $filters;
     }
 
-    public function getFilteredObjectList() {
+    public function getFilteredObjectList()
+    {
         $objects = array();
         $filters = $this->manageFilters();
 
@@ -1171,24 +1197,25 @@ class WebserviceRequestCore {
             foreach ($sqlObjects as $sqlObject) {
                 if ($this->fieldsToDisplay == 'minimum') {
                     $obj = new $this->resourceConfiguration['retrieveData']['className']();
-                    $obj->id = (int) $sqlObject[$this->resourceConfiguration['fields']['id']['sqlId']];
+                    $obj->id = (int)$sqlObject[$this->resourceConfiguration['fields']['id']['sqlId']];
                     $objects[] = $obj;
                 } else {
-                    $objects[] = new $this->resourceConfiguration['retrieveData']['className']((int) $sqlObject[$this->resourceConfiguration['fields']['id']['sqlId']]);
+                    $objects[] = new $this->resourceConfiguration['retrieveData']['className']((int)$sqlObject[$this->resourceConfiguration['fields']['id']['sqlId']]);
                 }
             }
             return $objects;
         }
     }
 
-    public function getFilteredObjectDetails() {
+    public function getFilteredObjectDetails()
+    {
         $objects = array();
         if (!isset($this->urlFragments['display'])) {
             $this->fieldsToDisplay = 'full';
         }
 
         //get entity details
-        $object = new $this->resourceConfiguration['retrieveData']['className']((int) $this->urlSegment[1]);
+        $object = new $this->resourceConfiguration['retrieveData']['className']((int)$this->urlSegment[1]);
         if ($object->id) {
             $objects[] = $object;
             // Check if Object is accessible for this/those id_shop
@@ -1197,9 +1224,9 @@ class WebserviceRequestCore {
                 $check_shop_group = false;
 
                 $sql = 'SELECT 1
-	 						FROM `' . bqSQL(_DB_PREFIX_ . $this->resourceConfiguration['retrieveData']['table']);
+	 						FROM `'.bqSQL(_DB_PREFIX_.$this->resourceConfiguration['retrieveData']['table']);
                 if ($assoc['type'] != 'fk_shop') {
-                    $sql .= '_' . $assoc['type'];
+                    $sql .= '_'.$assoc['type'];
                 } else {
                     $def = ObjectModel::getDefinition($this->resourceConfiguration['retrieveData']['className']);
                     if (isset($def['fields']) && isset($def['fields']['id_shop_group'])) {
@@ -1209,12 +1236,12 @@ class WebserviceRequestCore {
                 $sql .= '`';
 
                 foreach (self::$shopIDs as $id_shop) {
-                    $OR[] = ' (id_shop = ' . (int) $id_shop . ($check_shop_group ? ' OR (id_shop = 0 AND id_shop_group=' . (int) Shop::getGroupFromShop((int) $id_shop) . ')' : '') . ') ';
+                    $OR[] = ' (id_shop = '.(int)$id_shop.($check_shop_group ? ' OR (id_shop = 0 AND id_shop_group='.(int)Shop::getGroupFromShop((int)$id_shop).')' : '').') ';
                 }
 
-                $check = ' WHERE (' . implode('OR', $OR) . ') AND `' . bqSQL($this->resourceConfiguration['fields']['id']['sqlId']) . '` = ' . (int) $this->urlSegment[1];
-                if (!Db::getInstance()->getValue($sql . $check)) {
-                    $this->setError(404, 'This ' . $this->resourceConfiguration['retrieveData']['className'] . ' (' . (int) $this->urlSegment[1] . ') does not exists on this shop', 131);
+                $check = ' WHERE ('.implode('OR', $OR).') AND `'.bqSQL($this->resourceConfiguration['fields']['id']['sqlId']).'` = '.(int)$this->urlSegment[1];
+                if (!Db::getInstance()->getValue($sql.$check)) {
+                    $this->setError(404, 'This '.$this->resourceConfiguration['retrieveData']['className'].' ('.(int)$this->urlSegment[1].') does not exists on this shop', 131);
                 }
             }
             return $objects;
@@ -1236,7 +1263,8 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    public function executeEntityGetAndHead() {
+    public function executeEntityGetAndHead()
+    {
         if ($this->resourceConfiguration['objectsNodeName'] != 'resources') {
             if (!isset($this->urlSegment[1]) || !strlen($this->urlSegment[1])) {
                 $return = $this->getFilteredObjectList();
@@ -1258,7 +1286,8 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    protected function executeEntityPost() {
+    protected function executeEntityPost()
+    {
         return $this->saveEntityFromXml(201);
     }
 
@@ -1267,7 +1296,8 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    protected function executeEntityPut() {
+    protected function executeEntityPut()
+    {
         return $this->saveEntityFromXml(200);
     }
 
@@ -1276,7 +1306,8 @@ class WebserviceRequestCore {
      *
      * @return bool
      */
-    protected function executeEntityDelete() {
+    protected function executeEntityDelete()
+    {
         $objects = array();
         $arr_avoid_id = array();
         $ids = array();
@@ -1286,11 +1317,11 @@ class WebserviceRequestCore {
                 $ids = explode(',', $matches[1]);
             }
         } else {
-            $ids[] = (int) $this->urlSegment[1];
+            $ids[] = (int)$this->urlSegment[1];
         }
         if (!empty($ids)) {
             foreach ($ids as $id) {
-                $object = new $this->resourceConfiguration['retrieveData']['className']((int) $id);
+                $object = new $this->resourceConfiguration['retrieveData']['className']((int)$id);
                 if (!$object->id) {
                     $arr_avoid_id[] = $id;
                 } else {
@@ -1300,7 +1331,7 @@ class WebserviceRequestCore {
         }
 
         if (!empty($arr_avoid_id) || empty($ids)) {
-            $this->setError(404, 'Id(s) not exists: ' . implode(', ', $arr_avoid_id), 87);
+            $this->setError(404, 'Id(s) not exists: '.implode(', ', $arr_avoid_id), 87);
             $this->_outputEnabled = true;
         } else {
             foreach ($objects as $object) {
@@ -1316,7 +1347,7 @@ class WebserviceRequestCore {
                 }
             }
             if (!empty($arr_avoid_id)) {
-                $this->setError(500, 'Id(s) wasn\'t deleted: ' . implode(', ', $arr_avoid_id), 88);
+                $this->setError(500, 'Id(s) wasn\'t deleted: '.implode(', ', $arr_avoid_id), 88);
                 $this->_outputEnabled = true;
             } else {
                 $this->_outputEnabled = false;
@@ -1330,11 +1361,12 @@ class WebserviceRequestCore {
      * @param int $successReturnCode
      * @return bool
      */
-    protected function saveEntityFromXml($successReturnCode) {
+    protected function saveEntityFromXml($successReturnCode)
+    {
         try {
             $xml = new SimpleXMLElement($this->_inputXml);
         } catch (Exception $error) {
-            $this->setError(500, 'XML error : ' . $error->getMessage() . "\n" . 'XML length : ' . strlen($this->_inputXml) . "\n" . 'Original XML : ' . $this->_inputXml, 127);
+            $this->setError(500, 'XML error : '.$error->getMessage()."\n".'XML length : '.strlen($this->_inputXml)."\n".'Original XML : '.$this->_inputXml, 127);
             return;
         }
 
@@ -1345,8 +1377,8 @@ class WebserviceRequestCore {
         $ids = array();
         foreach ($xmlEntities as $entity) {
             // To cast in string allow to check null values
-            if ((string) $entity->id != '') {
-                $ids[] = (int) $entity->id;
+            if ((string)$entity->id != '') {
+                $ids[] = (int)$entity->id;
             }
         }
         if ($this->method == 'PUT') {
@@ -1373,7 +1405,7 @@ class WebserviceRequestCore {
             if ($this->method == 'POST') {
                 $object = new $this->resourceConfiguration['retrieveData']['className']();
             } elseif ($this->method == 'PUT') {
-                $object = new $this->resourceConfiguration['retrieveData']['className']((int) $attributes->id);
+                $object = new $this->resourceConfiguration['retrieveData']['className']((int)$attributes->id);
                 if (!$object->id) {
                     $this->setError(404, 'Invalid ID', 92);
                     return false;
@@ -1393,18 +1425,18 @@ class WebserviceRequestCore {
                         // if we have to use a specific setter
                         if (!$fieldProperties['setter']) {
                             // if it's forbidden to set this field
-                            $this->setError(400, 'parameter "' . $fieldName . '" not writable. Please remove this attribute of this XML', 93);
+                            $this->setError(400, 'parameter "'.$fieldName.'" not writable. Please remove this attribute of this XML', 93);
                             return false;
                         } else {
-                            $object->$fieldProperties['setter']((string) $attributes->$fieldName);
+                            $object->$fieldProperties['setter']((string)$attributes->$fieldName);
                         }
                     } elseif (property_exists($object, $sqlId)) {
-                        $object->$sqlId = (string) $attributes->$fieldName;
+                        $object->$sqlId = (string)$attributes->$fieldName;
                     } else {
-                        $this->setError(400, 'Parameter "' . $fieldName . '" can\'t be set to the object "' . $this->resourceConfiguration['retrieveData']['className'] . '"', 123);
+                        $this->setError(400, 'Parameter "'.$fieldName.'" can\'t be set to the object "'.$this->resourceConfiguration['retrieveData']['className'].'"', 123);
                     }
                 } elseif (isset($fieldProperties['required']) && $fieldProperties['required'] && !$fieldProperties['i18n']) {
-                    $this->setError(400, 'parameter "' . $fieldName . '" required', 41);
+                    $this->setError(400, 'parameter "'.$fieldName.'" required', 41);
                     return false;
                 } elseif ((!isset($fieldProperties['required']) || !$fieldProperties['required']) && property_exists($object, $sqlId)) {
                     $object->$sqlId = null;
@@ -1414,27 +1446,27 @@ class WebserviceRequestCore {
                     if (isset($attributes->$fieldName, $attributes->$fieldName->language)) {
                         foreach ($attributes->$fieldName->language as $lang) {
                             /** @var SimpleXMLElement $lang */
-                            $object->{$fieldName}[(int) $lang->attributes()->id] = (string) $lang;
+                            $object->{$fieldName}[(int)$lang->attributes()->id] = (string)$lang;
                         }
                     } else {
-                        $object->{$fieldName} = (string) $attributes->$fieldName;
+                        $object->{$fieldName} = (string)$attributes->$fieldName;
                     }
                 }
             }
 
             // Apply the modifiers if they exist
             foreach ($this->resourceConfiguration['fields'] as $fieldName => $fieldProperties) {
-                if (isset($fieldProperties['modifier']) && isset($fieldProperties['modifier']['modifier']) && $fieldProperties['modifier']['http_method'] & constant('WebserviceRequest::HTTP_' . $this->method)) {
+                if (isset($fieldProperties['modifier']) && isset($fieldProperties['modifier']['modifier']) && $fieldProperties['modifier']['http_method'] & constant('WebserviceRequest::HTTP_'.$this->method)) {
                     $object->{$fieldProperties['modifier']['modifier']}();
                 }
             }
 
             if (!$this->hasErrors()) {
                 if ($i18n && ($retValidateFieldsLang = $object->validateFieldsLang(false, true)) !== true) {
-                    $this->setError(400, 'Validation error: "' . $retValidateFieldsLang . '"', 84);
+                    $this->setError(400, 'Validation error: "'.$retValidateFieldsLang.'"', 84);
                     return false;
                 } elseif (($retValidateFields = $object->validateFields(false, true)) !== true) {
-                    $this->setError(400, 'Validation error: "' . $retValidateFields . '"', 85);
+                    $this->setError(400, 'Validation error: "'.$retValidateFields.'"', 85);
                     return false;
                 } else {
                     // Call alternative method for add/update
@@ -1456,17 +1488,17 @@ class WebserviceRequestCore {
                                         $fields = $assocItem->children();
                                         $entry = array();
                                         foreach ($fields as $fieldName => $fieldValue) {
-                                            $entry[$fieldName] = (string) $fieldValue;
+                                            $entry[$fieldName] = (string)$fieldValue;
                                         }
                                         $values[] = $entry;
                                     }
                                     $setter = $this->resourceConfiguration['associations'][$association->getName()]['setter'];
                                     if (!is_null($setter) && $setter && method_exists($object, $setter) && !$object->$setter($values)) {
-                                        $this->setError(500, 'Error occurred while setting the ' . $association->getName() . ' value', 85);
+                                        $this->setError(500, 'Error occurred while setting the '.$association->getName().' value', 85);
                                         return false;
                                     }
                                 } elseif ($association->getName() != 'i18n') {
-                                    $this->setError(400, 'The association "' . $association->getName() . '" does not exists', 86);
+                                    $this->setError(400, 'The association "'.$association->getName().'" does not exists', 86);
                                     return false;
                                 }
                             }
@@ -1474,9 +1506,9 @@ class WebserviceRequestCore {
                         $assoc = Shop::getAssoTable($this->resourceConfiguration['retrieveData']['table']);
                         if ($assoc !== false && $assoc['type'] != 'fk_shop') {
                             // PUT nor POST is destructive, no deletion
-                            $sql = 'INSERT IGNORE INTO `' . bqSQL(_DB_PREFIX_ . $this->resourceConfiguration['retrieveData']['table'] . '_' . $assoc['type']) . '` (id_shop, ' . pSQL($this->resourceConfiguration['fields']['id']['sqlId']) . ') VALUES ';
+                            $sql = 'INSERT IGNORE INTO `'.bqSQL(_DB_PREFIX_.$this->resourceConfiguration['retrieveData']['table'].'_'.$assoc['type']).'` (id_shop, '.pSQL($this->resourceConfiguration['fields']['id']['sqlId']).') VALUES ';
                             foreach (self::$shopIDs as $id) {
-                                $sql .= '(' . (int) $id . ',' . (int) $object->id . ')';
+                                $sql .= '('.(int)$id.','.(int)$object->id.')';
                                 if ($id != end(self::$shopIDs)) {
                                     $sql .= ', ';
                                 }
@@ -1503,57 +1535,60 @@ class WebserviceRequestCore {
      * @param string $tableAlias = 'main.'
      * @return string
      */
-    protected function getSQLRetrieveFilter($sqlId, $filterValue, $tableAlias = 'main.') {
+    protected function getSQLRetrieveFilter($sqlId, $filterValue, $tableAlias = 'main.')
+    {
         $ret = '';
         preg_match('/^(.*)\[(.*)\](.*)$/', $filterValue, $matches);
         if (count($matches) > 1) {
             if ($matches[1] == '%' || $matches[3] == '%') {
-                $ret .= ' AND ' . bqSQL($tableAlias) . '`' . bqSQL($sqlId) . '` LIKE "' . pSQL($matches[1] . $matches[2] . $matches[3]) . "\"\n";
+                $ret .= ' AND '.bqSQL($tableAlias).'`'.bqSQL($sqlId).'` LIKE "'.pSQL($matches[1].$matches[2].$matches[3])."\"\n";
             } elseif ($matches[1] == '' && $matches[3] == '') {
                 if (strpos($matches[2], '|') > 0) {
                     $values = explode('|', $matches[2]);
                     $ret .= ' AND (';
                     $temp = '';
                     foreach ($values as $value) {
-                        $temp .= bqSQL($tableAlias) . '`' . bqSQL($sqlId) . '` = "' . bqSQL($value) . '" OR ';
+                        $temp .= bqSQL($tableAlias).'`'.bqSQL($sqlId).'` = "'.bqSQL($value).'" OR ';
                     }
-                    $ret .= rtrim($temp, 'OR ') . ')' . "\n";
+                    $ret .= rtrim($temp, 'OR ').')'."\n";
                 } elseif (preg_match('/^([\d\.:\-\s]+),([\d\.:\-\s]+)$/', $matches[2], $matches3)) {
                     unset($matches3[0]);
                     if (count($matches3) > 0) {
                         sort($matches3);
-                        $ret .= ' AND ' . $tableAlias . '`' . bqSQL($sqlId) . '` BETWEEN "' . pSQL($matches3[0]) . '" AND "' . pSQL($matches3[1]) . "\"\n";
+                        $ret .= ' AND '.$tableAlias.'`'.bqSQL($sqlId).'` BETWEEN "'.pSQL($matches3[0]).'" AND "'.pSQL($matches3[1])."\"\n";
                     }
                 } else {
-                    $ret .= ' AND ' . $tableAlias . '`' . bqSQL($sqlId) . '`="' . pSQL($matches[2]) . '"' . "\n";
+                    $ret .= ' AND '.$tableAlias.'`'.bqSQL($sqlId).'`="'.pSQL($matches[2]).'"'."\n";
                 }
             } elseif ($matches[1] == '>') {
-                $ret .= ' AND ' . $tableAlias . '`' . bqSQL($sqlId) . '` > "' . pSQL($matches[2]) . "\"\n";
+                $ret .= ' AND '.$tableAlias.'`'.bqSQL($sqlId).'` > "'.pSQL($matches[2])."\"\n";
             } elseif ($matches[1] == '<') {
-                $ret .= ' AND ' . $tableAlias . '`' . bqSQL($sqlId) . '` < "' . pSQL($matches[2]) . "\"\n";
+                $ret .= ' AND '.$tableAlias.'`'.bqSQL($sqlId).'` < "'.pSQL($matches[2])."\"\n";
             } elseif ($matches[1] == '!') {
                 $multiple_values = explode('|', $matches[2]);
                 foreach ($multiple_values as $value) {
-                    $ret .= ' AND ' . $tableAlias . '`' . bqSQL($sqlId) . '` != "' . pSQL($value) . "\"\n";
+                    $ret .= ' AND '.$tableAlias.'`'.bqSQL($sqlId).'` != "'.pSQL($value)."\"\n";
                 }
             }
         } else {
-            $ret .= ' AND ' . $tableAlias . '`' . bqSQL($sqlId) . '` ' . (Validate::isFloat(pSQL($filterValue)) ? 'LIKE' : '=') . ' "' . pSQL($filterValue) . "\"\n";
+            $ret .= ' AND '.$tableAlias.'`'.bqSQL($sqlId).'` '.(Validate::isFloat(pSQL($filterValue)) ? 'LIKE' : '=').' "'.pSQL($filterValue)."\"\n";
         }
         return $ret;
     }
 
-    public function filterLanguage() {
+    public function filterLanguage()
+    {
         $arr_languages = array();
         $length_values = strlen($this->urlFragments['language']);
         // if just one language is asked
         if (is_numeric($this->urlFragments['language'])) {
-            $arr_languages[] = (int) $this->urlFragments['language'];
+            $arr_languages[] = (int)$this->urlFragments['language'];
         }
         // if a range or a list is asked
-        elseif (strpos($this->urlFragments['language'], '[') === 0 && strpos($this->urlFragments['language'], ']') === $length_values - 1) {
+        elseif (strpos($this->urlFragments['language'], '[') === 0
+            && strpos($this->urlFragments['language'], ']') === $length_values - 1) {
             if (strpos($this->urlFragments['language'], '|') !== false
-                    xor strpos($this->urlFragments['language'], ',') !== false) {
+                xor strpos($this->urlFragments['language'], ',') !== false) {
                 $params_values = str_replace(array(']', '['), '', $this->urlFragments['language']);
                 // it's a list
                 if (strpos($params_values, '|') !== false) {
@@ -1601,14 +1636,15 @@ class WebserviceRequestCore {
      *
      * @return array with displaying informations (used in the dispatcher).
      */
-    protected function returnOutput() {
+    protected function returnOutput()
+    {
         $return = array();
 
         // write headers
         $this->objOutput->setHeaderParams('Access-Time', time())
-                ->setHeaderParams('X-Powered-By', 'PrestaShop Webservice')
-                ->setHeaderParams('PSWS-Version', _PS_VERSION_)
-                ->setHeaderParams('Execution-Time', round(microtime(true) - $this->_startTime, 3));
+                        ->setHeaderParams('X-Powered-By', 'PrestaShop Webservice')
+                        ->setHeaderParams('PSWS-Version', _PS_VERSION_)
+                        ->setHeaderParams('Execution-Time', round(microtime(true) - $this->_startTime, 3));
 
         $return['type'] = strtolower($this->outputFormat);
 
@@ -1697,7 +1733,8 @@ class WebserviceRequestCore {
         return $return;
     }
 
-    public static function getallheaders() {
+    public static function getallheaders()
+    {
         $retarr = array();
         $headers = array();
 
@@ -1724,5 +1761,4 @@ class WebserviceRequestCore {
         ksort($retarr);
         return $retarr;
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,8 +23,9 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Adapter_HookManager {
 
+class Adapter_HookManager
+{
     /**
      * Execute modules for specified hook
      *
@@ -41,8 +41,14 @@ class Adapter_HookManager {
      *
      * @return string/array modules output
      */
-    public function exec($hook_name, $hook_args = array(), $id_module = null, $array_return = false, $check_exceptions = true, $use_push = false, $id_shop = null) {
+    public function exec($hook_name,
+        $hook_args = array(),
+        $id_module = null,
+        $array_return = false,
+        $check_exceptions = true,
+        $use_push = false,
+        $id_shop = null)
+    {
         return Hook::exec($hook_name, $hook_args, $id_module, $array_return, $check_exceptions, $use_push, $id_shop);
     }
-
 }

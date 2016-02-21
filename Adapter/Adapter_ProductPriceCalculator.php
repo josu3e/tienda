@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,14 +23,46 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Adapter_ProductPriceCalculator {
 
+class Adapter_ProductPriceCalculator
+{
     public function getProductPrice(
-    $id_product, $usetax = true, $id_product_attribute = null, $decimals = 6, $divisor = null, $only_reduc = false, $usereduc = true, $quantity = 1, $force_associated_tax = false, $id_customer = null, $id_cart = null, $id_address = null, &$specific_price_output = null, $with_ecotax = true, $use_group_reduction = true, Context $context = null, $use_customer_price = true
+        $id_product,
+        $usetax = true,
+        $id_product_attribute = null,
+        $decimals = 6,
+        $divisor = null,
+        $only_reduc = false,
+        $usereduc = true,
+        $quantity = 1,
+        $force_associated_tax = false,
+        $id_customer = null,
+        $id_cart = null,
+        $id_address = null,
+        &$specific_price_output = null,
+        $with_ecotax = true,
+        $use_group_reduction = true,
+        Context $context = null,
+        $use_customer_price = true
     ) {
         return Product::getPriceStatic(
-                        $id_product, $usetax, $id_product_attribute, $decimals, $divisor, $only_reduc, $usereduc, $quantity, $force_associated_tax, $id_customer, $id_cart, $id_address, $specific_price_output, $with_ecotax, $use_group_reduction, $context, $use_customer_price
+            $id_product,
+            $usetax,
+            $id_product_attribute,
+            $decimals,
+            $divisor,
+            $only_reduc,
+            $usereduc,
+            $quantity,
+            $force_associated_tax,
+            $id_customer,
+            $id_cart,
+            $id_address,
+            $specific_price_output,
+            $with_ecotax,
+            $use_group_reduction,
+            $context,
+            $use_customer_price
         );
     }
-
 }

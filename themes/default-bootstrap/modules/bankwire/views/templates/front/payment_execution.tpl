@@ -25,7 +25,7 @@
 
 {capture name=path}
     <a href="{$link->getPageLink('order', true, NULL, "step=3")|escape:'html':'UTF-8'}" title="{l s='Go back to the Checkout' mod='bankwire'}">{l s='Checkout' mod='bankwire'}</a><span class="navigation-pipe">{$navigationPipe}</span>{l s='Bank-wire payment' mod='bankwire'}
-    {/capture}
+{/capture}
 
 <h1 class="page-heading">
     {l s='Order summary' mod='bankwire'}
@@ -60,20 +60,20 @@
                 -
                 {if $currencies|@count > 1}
                     {l s='We allow several currencies to be sent via bank wire.' mod='bankwire'}
-                <div class="form-group">
-                    <label>{l s='Choose one of the following:' mod='bankwire'}</label>
-                    <select id="currency_payment" class="form-control" name="currency_payment">
-                        {foreach from=$currencies item=currency}
-                            <option value="{$currency.id_currency}" {if $currency.id_currency == $cust_currency}selected="selected"{/if}>
-                                {$currency.name}
-                            </option>
-                        {/foreach}
-                    </select>
-                </div>
-            {else}
-                {l s='We allow the following currency to be sent via bank wire:' mod='bankwire'}&nbsp;<b>{$currencies.0.name}</b>
-                <input type="hidden" name="currency_payment" value="{$currencies.0.id_currency}" />
-            {/if}
+                    <div class="form-group">
+                        <label>{l s='Choose one of the following:' mod='bankwire'}</label>
+                        <select id="currency_payment" class="form-control" name="currency_payment">
+                            {foreach from=$currencies item=currency}
+                                <option value="{$currency.id_currency}" {if $currency.id_currency == $cust_currency}selected="selected"{/if}>
+                                    {$currency.name}
+                                </option>
+                            {/foreach}
+                        </select>
+                    </div>
+                {else}
+                    {l s='We allow the following currency to be sent via bank wire:' mod='bankwire'}&nbsp;<b>{$currencies.0.name}</b>
+                    <input type="hidden" name="currency_payment" value="{$currencies.0.id_currency}" />
+                {/if}
             </p>
             <p>
                 - {l s='Bank wire account information will be displayed on the next page.' mod='bankwire'}

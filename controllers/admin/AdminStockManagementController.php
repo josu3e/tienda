@@ -1,37 +1,37 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
 /**
  * @since 1.5.0
  * @property Product $object
  */
-class AdminStockManagementControllerCore extends AdminController {
-
-    public function __construct() {
+class AdminStockManagementControllerCore extends AdminController
+{
+    public function __construct()
+    {
         $this->bootstrap = true;
         $this->context = Context::getContext();
         $this->table = 'product';
@@ -77,7 +77,8 @@ class AdminStockManagementControllerCore extends AdminController {
         );
     }
 
-    public function initPageHeaderToolbar() {
+    public function initPageHeaderToolbar()
+    {
         if ($this->display == 'details') {
             $this->page_header_toolbar_btn['back_to_list'] = array(
                 'href' => Context::getContext()->link->getAdminLink('AdminStockManagement'),
@@ -93,7 +94,8 @@ class AdminStockManagementControllerCore extends AdminController {
      * AdminController::renderList() override
      * @see AdminController::renderList()
      */
-    public function renderList() {
+    public function renderList()
+    {
         // sets actions
         $this->addRowAction('details');
         $this->addRowAction('addstock');
@@ -111,15 +113,15 @@ class AdminStockManagementControllerCore extends AdminController {
 
         // overrides query
         $this->_select = 'a.id_product as id, COUNT(pa.id_product_attribute) as variations';
-        $this->_join = 'LEFT JOIN `' . _DB_PREFIX_ . 'product_attribute` pa ON (pa.id_product = a.id_product)' . Shop::addSqlAssociation('product_attribute', 'pa', false);
+        $this->_join = 'LEFT JOIN `'._DB_PREFIX_.'product_attribute` pa ON (pa.id_product = a.id_product)'.Shop::addSqlAssociation('product_attribute', 'pa', false);
         $this->_where = 'AND a.is_virtual = 0';
         $this->_group = 'GROUP BY a.id_product';
 
         // displays informations
-        $this->displayInformation($this->l('This interface allows you to manage product stock and their variations.') . '<br />');
+        $this->displayInformation($this->l('This interface allows you to manage product stock and their variations.').'<br />');
         $this->displayInformation($this->l('Through this interface, you can increase and decrease product stock for an given warehouse.'));
-        $this->displayInformation($this->l('Furthermore, you can move product quantities between warehouses, or within one warehouse.') . '<br />');
-        $this->displayInformation($this->l('If you want to increase quantities of multiple products at once, you can use the "Supply orders" page under the "Stock" menu.') . '<br />');
+        $this->displayInformation($this->l('Furthermore, you can move product quantities between warehouses, or within one warehouse.').'<br />');
+        $this->displayInformation($this->l('If you want to increase quantities of multiple products at once, you can use the "Supply orders" page under the "Stock" menu.').'<br />');
         $this->displayInformation($this->l('Finally, you need to provide the quantity that you\'ll be adding: "Usable for sale" means that this quantity will be available in your shop(s), otherwise it will be considered reserved (i.e. for other purposes).'));
 
         return parent::renderList();
@@ -129,10 +131,11 @@ class AdminStockManagementControllerCore extends AdminController {
      * AdminController::renderForm() override
      * @see AdminController::renderForm()
      */
-    public function renderForm() {
+    public function renderForm()
+    {
         // gets the product
-        $id_product = (int) Tools::getValue('id_product');
-        $id_product_attribute = (int) Tools::getValue('id_product_attribute');
+        $id_product = (int)Tools::getValue('id_product');
+        $id_product_attribute = (int)Tools::getValue('id_product_attribute');
 
         // gets warehouses
         $warehouses_add = $warehouses_remove = Warehouse::getWarehousesByProductId($id_product, $id_product_attribute);
@@ -161,11 +164,11 @@ class AdminStockManagementControllerCore extends AdminController {
 
                 // if there is a stock mvt
                 if ($last_sm != false) {
-                    $last_sm_currency = new Currency((int) $last_sm['id_currency']);
-                    $last_sm_quantity = (int) $last_sm['physical_quantity'];
-                    $last_sm_quantity_is_usable = (int) $last_sm['is_usable'];
+                    $last_sm_currency = new Currency((int)$last_sm['id_currency']);
+                    $last_sm_quantity = (int)$last_sm['physical_quantity'];
+                    $last_sm_quantity_is_usable = (int)$last_sm['is_usable'];
                     if (Validate::isLoadedObject($last_sm_currency)) {
-                        $last_sm_unit_price_te = Tools::displayPrice((float) $last_sm['price_te'], $last_sm_currency);
+                        $last_sm_unit_price_te = Tools::displayPrice((float)$last_sm['price_te'], $last_sm_currency);
                     }
                 }
 
@@ -224,10 +227,10 @@ class AdminStockManagementControllerCore extends AdminController {
                             'maxlength' => 6,
                             'required' => true,
                             'hint' => array(
-                                $this->l('Indicate the physical quantity of this product that you want to add.'),
-                                $this->l('Last physical quantity added: %s items (usable for sale: %s).'),
-                                ($last_sm_quantity > 0 ? $last_sm_quantity : $this->l('N/A')),
-                                ($last_sm_quantity > 0 ? ($last_sm_quantity_is_usable >= 0 ? $this->l('Yes') : $this->l('No')) : $this->l('N/A'))),
+                                        $this->l('Indicate the physical quantity of this product that you want to add.'),
+                                        $this->l('Last physical quantity added: %s items (usable for sale: %s).'),
+                                        ($last_sm_quantity > 0 ? $last_sm_quantity : $this->l('N/A')),
+                                        ($last_sm_quantity > 0 ? ($last_sm_quantity_is_usable >= 0 ? $this->l('Yes') : $this->l('No')) : $this->l('N/A'))),
                         ),
                         array(
                             'type' => 'switch',
@@ -291,7 +294,9 @@ class AdminStockManagementControllerCore extends AdminController {
                             'name' => 'id_stock_mvt_reason',
                             'required' => true,
                             'options' => array(
-                                'query' => StockMvtReason::getStockMvtReasonsWithFilter($this->context->language->id, array(Configuration::get('PS_STOCK_MVT_TRANSFER_TO')), 1),
+                                'query' => StockMvtReason::getStockMvtReasonsWithFilter($this->context->language->id,
+                                                                                        array(Configuration::get('PS_STOCK_MVT_TRANSFER_TO')),
+                                                                                        1),
                                 'id' => 'id_stock_mvt_reason',
                                 'name' => 'name'
                             ),
@@ -303,7 +308,7 @@ class AdminStockManagementControllerCore extends AdminController {
                     )
                 );
                 $this->fields_value['usable'] = 1;
-                break;
+            break;
 
             case 'removestock' :
                 $this->fields_form[]['form'] = array(
@@ -392,7 +397,9 @@ class AdminStockManagementControllerCore extends AdminController {
                             'name' => 'id_stock_mvt_reason',
                             'required' => true,
                             'options' => array(
-                                'query' => StockMvtReason::getStockMvtReasonsWithFilter($this->context->language->id, array(Configuration::get('PS_STOCK_MVT_TRANSFER_FROM')), -1),
+                                'query' => StockMvtReason::getStockMvtReasonsWithFilter($this->context->language->id,
+                                                                                        array(Configuration::get('PS_STOCK_MVT_TRANSFER_FROM')),
+                                                                                        -1),
                                 'id' => 'id_stock_mvt_reason',
                                 'name' => 'name'
                             ),
@@ -403,7 +410,7 @@ class AdminStockManagementControllerCore extends AdminController {
                         'title' => $this->l('Remove from stock')
                     )
                 );
-                break;
+            break;
 
             case 'transferstock' :
                 $this->fields_form[]['form'] = array(
@@ -524,7 +531,7 @@ class AdminStockManagementControllerCore extends AdminController {
                         'title' => $this->l('Transfer')
                     )
                 );
-                break;
+            break;
         }
 
         $this->initToolbar();
@@ -534,7 +541,8 @@ class AdminStockManagementControllerCore extends AdminController {
      * AdminController::postProcess() override
      * @see AdminController::postProcess()
      */
-    public function postProcess() {
+    public function postProcess()
+    {
         parent::postProcess();
 
         // Checks access
@@ -555,17 +563,17 @@ class AdminStockManagementControllerCore extends AdminController {
         // Global checks when add / remove / transfer product
         if ((Tools::isSubmit('addstock') || Tools::isSubmit('removestock') || Tools::isSubmit('transferstock')) && Tools::isSubmit('is_post')) {
             // get product ID
-            $id_product = (int) Tools::getValue('id_product', 0);
+            $id_product = (int)Tools::getValue('id_product', 0);
             if ($id_product <= 0) {
                 $this->errors[] = Tools::displayError('The selected product is not valid.');
             }
 
             // get product_attribute ID
-            $id_product_attribute = (int) Tools::getValue('id_product_attribute', 0);
+            $id_product_attribute = (int)Tools::getValue('id_product_attribute', 0);
 
             // check the product hash
             $check = Tools::getValue('check', '');
-            $check_valid = md5(_COOKIE_KEY_ . $id_product . $id_product_attribute);
+            $check_valid = md5(_COOKIE_KEY_.$id_product.$id_product_attribute);
             if ($check != $check_valid) {
                 $this->errors[] = Tools::displayError('The selected product is not valid.');
             }
@@ -573,25 +581,25 @@ class AdminStockManagementControllerCore extends AdminController {
             // get quantity and check that the post value is really an integer
             // If it's not, we have nothing to do
             $quantity = Tools::getValue('quantity', 0);
-            if (!is_numeric($quantity) || (int) $quantity <= 0) {
+            if (!is_numeric($quantity) || (int)$quantity <= 0) {
                 $this->errors[] = Tools::displayError('The quantity value is not valid.');
             }
-            $quantity = (int) $quantity;
+            $quantity = (int)$quantity;
 
             $token = Tools::getValue('token') ? Tools::getValue('token') : $this->token;
-            $redirect = self::$currentIndex . '&token=' . $token;
+            $redirect = self::$currentIndex.'&token='.$token;
         }
 
         // Global checks when add / remove product
         if ((Tools::isSubmit('addstock') || Tools::isSubmit('removestock')) && Tools::isSubmit('is_post')) {
             // get warehouse id
-            $id_warehouse = (int) Tools::getValue('id_warehouse', 0);
+            $id_warehouse = (int)Tools::getValue('id_warehouse', 0);
             if ($id_warehouse <= 0 || !Warehouse::exists($id_warehouse)) {
                 $this->errors[] = Tools::displayError('The selected warehouse is not valid.');
             }
 
             // get stock movement reason id
-            $id_stock_mvt_reason = (int) Tools::getValue('id_stock_mvt_reason', 0);
+            $id_stock_mvt_reason = (int)Tools::getValue('id_stock_mvt_reason', 0);
             if ($id_stock_mvt_reason <= 0 || !StockMvtReason::exists($id_stock_mvt_reason)) {
                 $this->errors[] = Tools::displayError('The reason is not valid.');
             }
@@ -601,7 +609,7 @@ class AdminStockManagementControllerCore extends AdminController {
             if (is_null($usable)) {
                 $this->errors[] = Tools::displayError('You have to specify whether the product quantity is usable for sale on shops or not.');
             }
-            $usable = (bool) $usable;
+            $usable = (bool)$usable;
         }
 
         if (Tools::isSubmit('addstock') && Tools::isSubmit('is_post')) {
@@ -613,7 +621,7 @@ class AdminStockManagementControllerCore extends AdminController {
             $price = round(floatval($price), 6);
 
             // get product unit price currency id
-            $id_currency = (int) Tools::getValue('id_currency', 0);
+            $id_currency = (int)Tools::getValue('id_currency', 0);
             if ($id_currency <= 0 || (!($result = Currency::getCurrency($id_currency)) || empty($result))) {
                 $this->errors[] = Tools::displayError('The selected currency is not valid.');
             }
@@ -636,25 +644,25 @@ class AdminStockManagementControllerCore extends AdminController {
 
                 if ($stock_manager->addProduct($id_product, $id_product_attribute, $warehouse, $quantity, $id_stock_mvt_reason, $price, $usable)) {
                     // Create warehouse_product_location entry if we add stock to a new warehouse
-                    $id_wpl = (int) WarehouseProductLocation::getIdByProductAndWarehouse($id_product, $id_product_attribute, $id_warehouse);
+                    $id_wpl = (int)WarehouseProductLocation::getIdByProductAndWarehouse($id_product, $id_product_attribute, $id_warehouse);
                     if (!$id_wpl) {
                         $wpl = new WarehouseProductLocation();
-                        $wpl->id_product = (int) $id_product;
-                        $wpl->id_product_attribute = (int) $id_product_attribute;
-                        $wpl->id_warehouse = (int) $id_warehouse;
+                        $wpl->id_product = (int)$id_product;
+                        $wpl->id_product_attribute = (int)$id_product_attribute;
+                        $wpl->id_warehouse = (int)$id_warehouse;
                         $wpl->save();
                     }
 
                     StockAvailable::synchronize($id_product);
 
                     if (Tools::isSubmit('addstockAndStay')) {
-                        $redirect = self::$currentIndex . '&id_product=' . (int) $id_product;
+                        $redirect = self::$currentIndex.'&id_product='.(int)$id_product;
                         if ($id_product_attribute) {
-                            $redirect .= '&id_product_attribute=' . (int) $id_product_attribute;
+                            $redirect .= '&id_product_attribute='.(int)$id_product_attribute;
                         }
-                        $redirect .= '&addstock&token=' . $token;
+                        $redirect .= '&addstock&token='.$token;
                     }
-                    Tools::redirectAdmin($redirect . '&conf=1');
+                    Tools::redirectAdmin($redirect.'&conf=1');
                 } else {
                     $this->errors[] = Tools::displayError('An error occurred. No stock was added.');
                 }
@@ -672,15 +680,15 @@ class AdminStockManagementControllerCore extends AdminController {
 
                 if (count($removed_products) > 0) {
                     StockAvailable::synchronize($id_product);
-                    Tools::redirectAdmin($redirect . '&conf=2');
+                    Tools::redirectAdmin($redirect.'&conf=2');
                 } else {
-                    $physical_quantity_in_stock = (int) $stock_manager->getProductPhysicalQuantities($id_product, $id_product_attribute, array($warehouse->id), false);
-                    $usable_quantity_in_stock = (int) $stock_manager->getProductPhysicalQuantities($id_product, $id_product_attribute, array($warehouse->id), true);
+                    $physical_quantity_in_stock = (int)$stock_manager->getProductPhysicalQuantities($id_product, $id_product_attribute, array($warehouse->id), false);
+                    $usable_quantity_in_stock = (int)$stock_manager->getProductPhysicalQuantities($id_product, $id_product_attribute, array($warehouse->id), true);
                     $not_usable_quantity = ($physical_quantity_in_stock - $usable_quantity_in_stock);
                     if ($usable_quantity_in_stock < $quantity) {
-                        $this->errors[] = sprintf(Tools::displayError('You don\'t have enough usable quantity. Cannot remove %d items out of %d.'), (int) $quantity, (int) $usable_quantity_in_stock);
+                        $this->errors[] = sprintf(Tools::displayError('You don\'t have enough usable quantity. Cannot remove %d items out of %d.'), (int)$quantity, (int)$usable_quantity_in_stock);
                     } elseif ($not_usable_quantity < $quantity) {
-                        $this->errors[] = sprintf(Tools::displayError('You don\'t have enough usable quantity. Cannot remove %d items out of %d.'), (int) $quantity, (int) $not_usable_quantity);
+                        $this->errors[] = sprintf(Tools::displayError('You don\'t have enough usable quantity. Cannot remove %d items out of %d.'), (int)$quantity, (int)$not_usable_quantity);
                     } else {
                         $this->errors[] = Tools::displayError('It is not possible to remove the specified quantity. Therefore no stock was removed.');
                     }
@@ -690,13 +698,13 @@ class AdminStockManagementControllerCore extends AdminController {
 
         if (Tools::isSubmit('transferstock') && Tools::isSubmit('is_post')) {
             // get source warehouse id
-            $id_warehouse_from = (int) Tools::getValue('id_warehouse_from', 0);
+            $id_warehouse_from = (int)Tools::getValue('id_warehouse_from', 0);
             if ($id_warehouse_from <= 0 || !Warehouse::exists($id_warehouse_from)) {
                 $this->errors[] = Tools::displayError('The source warehouse is not valid.');
             }
 
             // get destination warehouse id
-            $id_warehouse_to = (int) Tools::getValue('id_warehouse_to', 0);
+            $id_warehouse_to = (int)Tools::getValue('id_warehouse_to', 0);
             if ($id_warehouse_to <= 0 || !Warehouse::exists($id_warehouse_to)) {
                 $this->errors[] = Tools::displayError('The destination warehouse is not valid.');
             }
@@ -706,14 +714,14 @@ class AdminStockManagementControllerCore extends AdminController {
             if (is_null($usable_from)) {
                 $this->errors[] = Tools::displayError('You have to specify whether the product quantity in your source warehouse(s) is ready for sale or not.');
             }
-            $usable_from = (bool) $usable_from;
+            $usable_from = (bool)$usable_from;
 
             // get usable flag for destination warehouse
             $usable_to = Tools::getValue('usable_to', null);
             if (is_null($usable_to)) {
                 $this->errors[] = Tools::displayError('You have to specify whether the product quantity in your destination warehouse(s) is ready for sale or not.');
             }
-            $usable_to = (bool) $usable_to;
+            $usable_to = (bool)$usable_to;
 
             // if we can process stock transfers
             if (count($this->errors) == 0) {
@@ -721,11 +729,17 @@ class AdminStockManagementControllerCore extends AdminController {
                 $stock_manager = StockManagerFactory::getManager();
 
                 $is_transfer = $stock_manager->transferBetweenWarehouses(
-                        $id_product, $id_product_attribute, $quantity, $id_warehouse_from, $id_warehouse_to, $usable_from, $usable_to
+                    $id_product,
+                    $id_product_attribute,
+                    $quantity,
+                    $id_warehouse_from,
+                    $id_warehouse_to,
+                    $usable_from,
+                    $usable_to
                 );
                 StockAvailable::synchronize($id_product);
                 if ($is_transfer) {
-                    Tools::redirectAdmin($redirect . '&conf=3');
+                    Tools::redirectAdmin($redirect.'&conf=3');
                 } else {
                     $this->errors[] = Tools::displayError('It is not possible to transfer the specified quantity. No stock was transferred.');
                 }
@@ -738,14 +752,15 @@ class AdminStockManagementControllerCore extends AdminController {
      * uses override to specifically add, modify or remove items
      *
      */
-    public function initToolbar() {
+    public function initToolbar()
+    {
         switch ($this->display) {
             case 'addstock':
                 $this->toolbar_btn['save-and-stay'] = array(
-                    'short' => 'SaveAndStay',
-                    'href' => '#',
-                    'desc' => $this->l('Save and stay'),
-                );
+                        'short' => 'SaveAndStay',
+                        'href' => '#',
+                        'desc' => $this->l('Save and stay'),
+                    );
             case 'removestock':
             case 'transferstock':
                 $this->toolbar_btn['save'] = array(
@@ -756,14 +771,14 @@ class AdminStockManagementControllerCore extends AdminController {
                 // Default cancel button - like old back link
                 $back = Tools::safeOutput(Tools::getValue('back', ''));
                 if (empty($back)) {
-                    $back = self::$currentIndex . '&token=' . $this->token;
+                    $back = self::$currentIndex.'&token='.$this->token;
                 }
 
                 $this->toolbar_btn['cancel'] = array(
                     'href' => $back,
                     'desc' => $this->l('Cancel')
                 );
-                break;
+            break;
 
             default:
                 parent::initToolbar();
@@ -774,7 +789,8 @@ class AdminStockManagementControllerCore extends AdminController {
      * AdminController::init() override
      * @see AdminController::init()
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
 
         if (Tools::isSubmit('addstock')) {
@@ -793,7 +809,8 @@ class AdminStockManagementControllerCore extends AdminController {
         }
     }
 
-    public function renderDetails() {
+    public function renderDetails()
+    {
         if (Tools::isSubmit('id_product')) {
             // override attributes
             $this->identifier = 'id_product_attribute';
@@ -814,16 +831,16 @@ class AdminStockManagementControllerCore extends AdminController {
             $this->toolbar_btn = array();
 
             // get current lang id
-            $lang_id = (int) $this->context->language->id;
+            $lang_id = (int)$this->context->language->id;
 
             // Get product id
-            $product_id = (int) Tools::getValue('id_product');
+            $product_id = (int)Tools::getValue('id_product');
 
             // Load product attributes with sql override
             $this->table = 'product_attribute';
             $this->list_id = 'product_attribute';
             $this->_select = 'a.id_product_attribute as id, a.id_product, a.reference, a.ean13, a.upc';
-            $this->_where = 'AND a.id_product = ' . $product_id;
+            $this->_where = 'AND a.id_product = '.$product_id;
             $this->_group = 'GROUP BY a.id_product_attribute';
 
             $this->fields_list = array(
@@ -856,7 +873,7 @@ class AdminStockManagementControllerCore extends AdminController {
                 ),
             );
 
-            self::$currentIndex = self::$currentIndex . '&id_product=' . (int) $product_id . '&detailsproduct';
+            self::$currentIndex = self::$currentIndex.'&id_product='.(int)$product_id.'&detailsproduct';
             $this->processFilter();
             return parent::renderList();
         }
@@ -875,7 +892,8 @@ class AdminStockManagementControllerCore extends AdminController {
      *
      * @throws PrestaShopException
      */
-    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false) {
+    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false)
+    {
         parent::getList($id_lang, $order_by, $order_way, $start, $limit, $id_lang_shop);
 
         // Check each row to see if there are combinations and get the correct action in consequence
@@ -894,7 +912,7 @@ class AdminStockManagementControllerCore extends AdminController {
                 $this->skipActionByStock($item, true);
             }
             // If current product has variations
-            elseif (array_key_exists('variations', $item) && (int) $item['variations'] > 0) {
+            elseif (array_key_exists('variations', $item) && (int)$item['variations'] > 0) {
                 // we have to desactivate stock actions on current row
                 $this->addRowActionSkipList('addstock', array($item['id']));
                 $this->addRowActionSkipList('removestock', array($item['id']));
@@ -931,7 +949,8 @@ class AdminStockManagementControllerCore extends AdminController {
      * @param array $item                 Reference to the current item
      * @param bool  $is_product_variation Specify if it's a product or a product variation
      */
-    protected function skipActionByStock(&$item, $is_product_variation = false) {
+    protected function skipActionByStock(&$item, $is_product_variation = false)
+    {
         $stock_manager = StockManagerFactory::getManager();
 
         //get stocks for this product
@@ -955,7 +974,8 @@ class AdminStockManagementControllerCore extends AdminController {
      * AdminController::initContent() override
      * @see AdminController::initContent()
      */
-    public function initContent() {
+    public function initContent()
+    {
         if (!Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
             $this->warnings[md5('PS_ADVANCED_STOCK_MANAGEMENT')] = $this->l('You need to activate the Advanced Stock Management feature prior to using this feature.');
             return false;
@@ -965,8 +985,8 @@ class AdminStockManagementControllerCore extends AdminController {
         if ($this->display == 'addstock' || $this->display == 'removestock' || $this->display == 'transferstock') {
             if (Tools::isSubmit('id_product') || Tools::isSubmit('id_product_attribute')) {
                 // get id product and product attribute if possible
-                $id_product = (int) Tools::getValue('id_product', 0);
-                $id_product_attribute = (int) Tools::getValue('id_product_attribute', 0);
+                $id_product = (int)Tools::getValue('id_product', 0);
+                $id_product_attribute = (int)Tools::getValue('id_product_attribute', 0);
 
                 $product_is_valid = false;
                 $is_pack = false;
@@ -991,13 +1011,13 @@ class AdminStockManagementControllerCore extends AdminController {
 
                         $query->select('IFNULL(CONCAT(pl.`name`, \' : \', GROUP_CONCAT(agl.`name`, \' - \', al.`name` SEPARATOR \', \')),pl.`name`) as name');
                         $query->from('product_attribute', 'a');
-                        $query->join('INNER JOIN ' . _DB_PREFIX_ . 'product_lang pl ON (pl.`id_product` = a.`id_product` AND pl.`id_lang` = ' . (int) $lang_id . ')
-							LEFT JOIN ' . _DB_PREFIX_ . 'product_attribute_combination pac ON (pac.`id_product_attribute` = a.`id_product_attribute`)
-							LEFT JOIN ' . _DB_PREFIX_ . 'attribute atr ON (atr.`id_attribute` = pac.`id_attribute`)
-							LEFT JOIN ' . _DB_PREFIX_ . 'attribute_lang al ON (al.`id_attribute` = atr.`id_attribute` AND al.`id_lang` = ' . (int) $lang_id . ')
-							LEFT JOIN ' . _DB_PREFIX_ . 'attribute_group_lang agl ON (agl.`id_attribute_group` = atr.`id_attribute_group` AND agl.`id_lang` = ' . (int) $lang_id . ')'
+                        $query->join('INNER JOIN '._DB_PREFIX_.'product_lang pl ON (pl.`id_product` = a.`id_product` AND pl.`id_lang` = '.(int)$lang_id.')
+							LEFT JOIN '._DB_PREFIX_.'product_attribute_combination pac ON (pac.`id_product_attribute` = a.`id_product_attribute`)
+							LEFT JOIN '._DB_PREFIX_.'attribute atr ON (atr.`id_attribute` = pac.`id_attribute`)
+							LEFT JOIN '._DB_PREFIX_.'attribute_lang al ON (al.`id_attribute` = atr.`id_attribute` AND al.`id_lang` = '.(int)$lang_id.')
+							LEFT JOIN '._DB_PREFIX_.'attribute_group_lang agl ON (agl.`id_attribute_group` = atr.`id_attribute_group` AND agl.`id_lang` = '.(int)$lang_id.')'
                         );
-                        $query->where('a.`id_product_attribute` = ' . $id_product_attribute);
+                        $query->where('a.`id_product_attribute` = '.$id_product_attribute);
                         $name = Db::getInstance()->getValue($query);
                         $p = new Product($id_product, false, $lang_id);
                         $default_wholesale_price = $combination->wholesale_price > 0 ? $combination->wholesale_price : $p->wholesale_price;
@@ -1029,8 +1049,8 @@ class AdminStockManagementControllerCore extends AdminController {
                     $this->initPageHeaderToolbar();
 
                     // Check if form template has been overriden
-                    if (file_exists($this->context->smarty->getTemplateDir(0) . '/' . $this->tpl_folder . 'form.tpl')) {
-                        $helper->tpl = $this->tpl_folder . 'form.tpl';
+                    if (file_exists($this->context->smarty->getTemplateDir(0).'/'.$this->tpl_folder.'form.tpl')) {
+                        $helper->tpl = $this->tpl_folder.'form.tpl';
                     }
 
                     $this->setHelperDisplay($helper);
@@ -1050,18 +1070,18 @@ class AdminStockManagementControllerCore extends AdminController {
                         'name' => $name,
                         'ean13' => $ean13,
                         'upc' => $upc,
-                        'check' => md5(_COOKIE_KEY_ . $id_product . $id_product_attribute),
+                        'check' => md5(_COOKIE_KEY_.$id_product.$id_product_attribute),
                         'quantity' => Tools::getValue('quantity', ''),
                         'id_warehouse' => Tools::getValue('id_warehouse', ''),
                         'usable' => $this->fields_value['usable'] ? $this->fields_value['usable'] : Tools::getValue('usable', 1),
-                        'price' => Tools::getValue('price', (float) Tools::convertPrice($default_wholesale_price, null)),
+                        'price' => Tools::getValue('price', (float)Tools::convertPrice($default_wholesale_price, null)),
                         'id_currency' => Tools::getValue('id_currency', ''),
                         'id_stock_mvt_reason' => Tools::getValue('id_stock_mvt_reason', ''),
                         'is_post' => 1,
                     );
 
                     if ($this->display == 'addstock') {
-                        $_POST['id_product'] = (int) $id_product;
+                        $_POST['id_product'] = (int)$id_product;
                     }
 
                     if ($this->display == 'transferstock') {
@@ -1088,21 +1108,22 @@ class AdminStockManagementControllerCore extends AdminController {
         }
     }
 
-    /**
+     /**
      * Display addstock action link
      * @param string $token the token to add to the link
      * @param int $id the identifier to add to the link
      * @return string
      */
-    public function displayAddstockLink($token = null, $id) {
+    public function displayAddstockLink($token = null, $id)
+    {
         if (!array_key_exists('AddStock', self::$cache_lang)) {
             self::$cache_lang['AddStock'] = $this->l('Add stock');
         }
 
         $this->context->smarty->assign(array(
-            'href' => self::$currentIndex .
-            '&' . $this->identifier . '=' . $id .
-            '&addstock&token=' . ($token != null ? $token : $this->token),
+            'href' => self::$currentIndex.
+                '&'.$this->identifier.'='.$id.
+                '&addstock&token='.($token != null ? $token : $this->token),
             'action' => self::$cache_lang['AddStock'],
         ));
 
@@ -1115,15 +1136,16 @@ class AdminStockManagementControllerCore extends AdminController {
      * @param int $id the identifier to add to the link
      * @return string
      */
-    public function displayRemovestockLink($token = null, $id) {
+    public function displayRemovestockLink($token = null, $id)
+    {
         if (!array_key_exists('RemoveStock', self::$cache_lang)) {
             self::$cache_lang['RemoveStock'] = $this->l('Remove stock');
         }
 
         $this->context->smarty->assign(array(
-            'href' => self::$currentIndex .
-            '&' . $this->identifier . '=' . $id .
-            '&removestock&token=' . ($token != null ? $token : $this->token),
+            'href' => self::$currentIndex.
+                '&'.$this->identifier.'='.$id.
+                '&removestock&token='.($token != null ? $token : $this->token),
             'action' => self::$cache_lang['RemoveStock'],
         ));
 
@@ -1136,22 +1158,24 @@ class AdminStockManagementControllerCore extends AdminController {
      * @param int $id the identifier to add to the link
      * @return string
      */
-    public function displayTransferstockLink($token = null, $id) {
+    public function displayTransferstockLink($token = null, $id)
+    {
         if (!array_key_exists('TransferStock', self::$cache_lang)) {
             self::$cache_lang['TransferStock'] = $this->l('Transfer stock');
         }
 
         $this->context->smarty->assign(array(
-            'href' => self::$currentIndex .
-            '&' . $this->identifier . '=' . $id .
-            '&transferstock&token=' . ($token != null ? $token : $this->token),
+            'href' => self::$currentIndex.
+                '&'.$this->identifier.'='.$id.
+                '&transferstock&token='.($token != null ? $token : $this->token),
             'action' => self::$cache_lang['TransferStock'],
         ));
 
         return $this->context->smarty->fetch('helpers/list/list_action_transferstock.tpl');
     }
 
-    public function initProcess() {
+    public function initProcess()
+    {
         if (!Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
             $this->warnings[md5('PS_ADVANCED_STOCK_MANAGEMENT')] = $this->l('You need to activate advanced stock management prior to using this feature.');
             return false;
@@ -1160,7 +1184,7 @@ class AdminStockManagementControllerCore extends AdminController {
         if (Tools::getIsset('detailsproduct')) {
             $this->list_id = 'product_attribute';
 
-            if (isset($_POST['submitReset' . $this->list_id])) {
+            if (isset($_POST['submitReset'.$this->list_id])) {
                 $this->processResetFilters();
             }
         } else {
@@ -1169,5 +1193,4 @@ class AdminStockManagementControllerCore extends AdminController {
 
         parent::initProcess();
     }
-
 }

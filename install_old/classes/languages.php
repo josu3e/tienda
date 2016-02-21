@@ -1,34 +1,32 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
-class InstallLanguages {
-
+class InstallLanguages
+{
     const DEFAULT_ISO = 'en';
-
     /**
      * @var array List of available languages
      */
@@ -43,18 +41,21 @@ class InstallLanguages {
      * @var InstallLanguage Default language (english)
      */
     protected $default;
+
     protected static $_instance;
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (!self::$_instance) {
             self::$_instance = new self();
         }
         return self::$_instance;
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         // English language is required
-        if (!file_exists(_PS_INSTALL_LANGS_PATH_ . 'en/language.xml')) {
+        if (!file_exists(_PS_INSTALL_LANGS_PATH_.'en/language.xml')) {
             throw new PrestashopInstallerException('English language is missing');
         }
 
@@ -64,7 +65,7 @@ class InstallLanguages {
 
         // Load other languages
         foreach (scandir(_PS_INSTALL_LANGS_PATH_) as $lang) {
-            if ($lang[0] != '.' && is_dir(_PS_INSTALL_LANGS_PATH_ . $lang) && $lang != self::DEFAULT_ISO && file_exists(_PS_INSTALL_LANGS_PATH_ . $lang . '/install.php')) {
+            if ($lang[0] != '.' && is_dir(_PS_INSTALL_LANGS_PATH_.$lang) && $lang != self::DEFAULT_ISO && file_exists(_PS_INSTALL_LANGS_PATH_.$lang.'/install.php')) {
                 $this->languages[$lang] = new InstallLanguage($lang);
             }
         }
@@ -76,9 +77,10 @@ class InstallLanguages {
      *
      * @param string $iso Language iso
      */
-    public function setLanguage($iso) {
+    public function setLanguage($iso)
+    {
         if (!in_array($iso, $this->getIsoList())) {
-            throw new PrestashopInstallerException('Language ' . $iso . ' not found');
+            throw new PrestashopInstallerException('Language '.$iso.' not found');
         }
         $this->language = $iso;
     }
@@ -88,7 +90,8 @@ class InstallLanguages {
      *
      * @return string
      */
-    public function getLanguageIso() {
+    public function getLanguageIso()
+    {
         return $this->language;
     }
 
@@ -97,14 +100,16 @@ class InstallLanguages {
      *
      * @return InstallLanguage
      */
-    public function getLanguage($iso = null) {
+    public function getLanguage($iso = null)
+    {
         if (!$iso) {
             $iso = $this->language;
         }
         return $this->languages[$iso];
     }
 
-    public function getIsoList() {
+    public function getIsoList()
+    {
         return array_keys($this->languages);
     }
 
@@ -113,7 +118,8 @@ class InstallLanguages {
      *
      * @return array
      */
-    public function getLanguages() {
+    public function getLanguages()
+    {
         return $this->languages;
     }
 
@@ -124,7 +130,8 @@ class InstallLanguages {
      * @param ... All other params will be used with sprintf
      * @return string
      */
-    public function l($str) {
+    public function l($str)
+    {
         $args = func_get_args();
         $translation = $this->getLanguage()->getTranslation($args[0]);
         if (is_null($translation)) {
@@ -147,7 +154,8 @@ class InstallLanguages {
      *
      * @param string $key Information identifier
      */
-    public function getInformation($key, $with_default = true) {
+    public function getInformation($key, $with_default = true)
+    {
         $information = $this->getLanguage()->getTranslation($key, 'informations');
         if (is_null($information) && $with_default) {
             return $this->getLanguage(self::DEFAULT_ISO)->getTranslation($key, 'informations');
@@ -160,17 +168,18 @@ class InstallLanguages {
      *
      * @return array
      */
-    public function getCountries() {
+    public function getCountries()
+    {
         static $countries = null;
 
         if (is_null($countries)) {
             $countries = array();
             $countries_lang = $this->getLanguage()->getCountries();
             $countries_default = $this->getLanguage(self::DEFAULT_ISO)->getCountries();
-            $xml = @simplexml_load_file(_PS_INSTALL_DATA_PATH_ . 'xml/country.xml');
+            $xml = @simplexml_load_file(_PS_INSTALL_DATA_PATH_.'xml/country.xml');
             if ($xml) {
                 foreach ($xml->entities->country as $country) {
-                    $iso = strtolower((string) $country['iso_code']);
+                    $iso = strtolower((string)$country['iso_code']);
                     $countries[$iso] = isset($countries_lang[$iso]) ? $countries_lang[$iso] : $countries_default[$iso];
                 }
             }
@@ -185,7 +194,8 @@ class InstallLanguages {
      *
      * @return bool|array
      */
-    public function detectLanguage() {
+    public function detectLanguage()
+    {
         // This code is from a php.net comment : http://www.php.net/manual/fr/reserved.variables.server.php#94237
         $split_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         if (!is_array($split_languages)) {
@@ -193,9 +203,9 @@ class InstallLanguages {
         }
 
         foreach ($split_languages as $lang) {
-            $pattern = '/^(?P<primarytag>[a-zA-Z]{2,8})' .
-                    '(?:-(?P<subtag>[a-zA-Z]{2,8}))?(?:(?:;q=)' .
-                    '(?P<quantifier>\d\.\d))?$/';
+            $pattern = '/^(?P<primarytag>[a-zA-Z]{2,8})'.
+                '(?:-(?P<subtag>[a-zA-Z]{2,8}))?(?:(?:;q=)'.
+                '(?P<quantifier>\d\.\d))?$/';
             if (preg_match($pattern, $lang, $m)) {
                 if (in_array($m['primarytag'], $this->getIsoList())) {
                     return $m;
@@ -204,10 +214,10 @@ class InstallLanguages {
         }
         return false;
     }
-
 }
 
-function ps_usort_languages($a, $b) {
+function ps_usort_languages($a, $b)
+{
     $aname = $a->getMetaInformation('name');
     $bname = $b->getMetaInformation('name');
     if ($aname == $bname) {

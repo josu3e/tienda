@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OrderByAliasBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: OrderByAliasBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/DirectionBuilder.php';
 
@@ -63,7 +63,5 @@ class OrderByAliasBuilder {
         }
         return $parsed['base_expr'] . $this->buildDirection($parsed);
     }
-
 }
-
 ?>

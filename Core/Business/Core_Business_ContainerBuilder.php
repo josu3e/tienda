@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,14 +23,16 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Core_Business_ContainerBuilder {
 
+class Core_Business_ContainerBuilder
+{
     /**
      * Construct PrestaShop Core Service container
      * @return Core_Foundation_IoC_Container
      * @throws Core_Foundation_IoC_Exception
      */
-    public function build() {
+    public function build()
+    {
         $container = new Core_Foundation_IoC_Container;
 
         $container->bind('Core_Business_ConfigurationInterface', 'Adapter_Configuration', true);
@@ -39,5 +40,4 @@ class Core_Business_ContainerBuilder {
 
         return $container;
     }
-
 }

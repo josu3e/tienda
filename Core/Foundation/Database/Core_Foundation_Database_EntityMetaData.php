@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,36 +23,42 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Core_Foundation_Database_EntityMetaData {
 
+class Core_Foundation_Database_EntityMetaData
+{
     private $tableName;
     private $primaryKeyFieldnames;
 
-    public function setTableName($name) {
+    public function setTableName($name)
+    {
         $this->tableName = $name;
         return $this;
     }
 
-    public function getTableName() {
+    public function getTableName()
+    {
         return $this->tableName;
     }
 
-    public function setPrimaryKeyFieldNames(array $primaryKeyFieldnames) {
+    public function setPrimaryKeyFieldNames(array $primaryKeyFieldnames)
+    {
         $this->primaryKeyFieldnames = $primaryKeyFieldnames;
         return $this;
     }
 
-    public function getPrimaryKeyFieldnames() {
+    public function getPrimaryKeyFieldnames()
+    {
         return $this->primaryKeyFieldnames;
     }
 
-    public function setEntityClassName($entityClassName) {
+    public function setEntityClassName($entityClassName)
+    {
         $this->entityClassName = $entityClassName;
         return $this;
     }
 
-    public function getEntityClassName() {
+    public function getEntityClassName()
+    {
         return $this->entityClassName;
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 //============================================================+
 // File name   : heb.php
 // Begin       : 2004-03-03
@@ -28,6 +27,7 @@
  * @author Nicola Asuni
  * @since 2004-03-03
  */
+
 // Hebrew
 
 global $l;

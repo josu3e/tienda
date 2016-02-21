@@ -1,36 +1,35 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
 /**
  * @TODO Move undeclared variables and methods to this (base) class: $errors, $layout, checkLiveEditAccess, etc.
  * @since 1.5.0
  */
-abstract class ControllerCore {
-
+abstract class ControllerCore
+{
     /** @var Context */
     protected $context;
 
@@ -92,7 +91,8 @@ abstract class ControllerCore {
     /**
      * Initialize the page
      */
-    public function init() {
+    public function init()
+    {
         if (_PS_MODE_DEV_ && $this->controller_type == 'admin') {
             set_error_handler(array(__CLASS__, 'myErrorHandler'));
         }
@@ -129,11 +129,13 @@ abstract class ControllerCore {
      * @param bool $ssl
      * @return Controller
      */
-    public static function getController($class_name, $auth = false, $ssl = false) {
+    public static function getController($class_name, $auth = false, $ssl = false)
+    {
         return new $class_name($auth, $ssl);
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         if (is_null($this->display_header)) {
             $this->display_header = true;
         }
@@ -152,7 +154,10 @@ abstract class ControllerCore {
         // Usage of ajax parameter is deprecated
         $this->ajax = Tools::getValue('ajax') || Tools::isSubmit('ajax');
 
-        if (!headers_sent() && isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== false)) {
+        if (!headers_sent()
+            && isset($_SERVER['HTTP_USER_AGENT'])
+            && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false
+            || strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== false)) {
             header('X-UA-Compatible: IE=edge,chrome=1');
         }
     }
@@ -160,7 +165,8 @@ abstract class ControllerCore {
     /**
      * Starts the controller process (this method should not be overridden!)
      */
-    public function run() {
+    public function run()
+    {
         $this->init();
         if ($this->checkAccess()) {
             // setMedia MUST be called before postProcess
@@ -194,8 +200,8 @@ abstract class ControllerCore {
             if ($this->ajax) {
                 $action = Tools::toCamelCase(Tools::getValue('action'), true);
 
-                if (!empty($action) && method_exists($this, 'displayAjax' . $action)) {
-                    $this->{'displayAjax' . $action}();
+                if (!empty($action) && method_exists($this, 'displayAjax'.$action)) {
+                    $this->{'displayAjax'.$action}();
                 } elseif (method_exists($this, 'displayAjax')) {
                     $this->displayAjax();
                 }
@@ -213,7 +219,8 @@ abstract class ControllerCore {
      *
      * @param bool $display
      */
-    public function displayHeader($display = true) {
+    public function displayHeader($display = true)
+    {
         $this->display_header = $display;
     }
 
@@ -222,7 +229,8 @@ abstract class ControllerCore {
      *
      * @param bool $display
      */
-    public function displayHeaderJavaScript($display = true) {
+    public function displayHeaderJavaScript($display = true)
+    {
         $this->display_header_javascript = $display;
     }
 
@@ -231,7 +239,8 @@ abstract class ControllerCore {
      *
      * @param bool $display
      */
-    public function displayFooter($display = true) {
+    public function displayFooter($display = true)
+    {
         $this->display_footer = $display;
     }
 
@@ -240,7 +249,8 @@ abstract class ControllerCore {
      *
      * @param string $template
      */
-    public function setTemplate($template) {
+    public function setTemplate($template)
+    {
         $this->template = $template;
     }
 
@@ -272,7 +282,8 @@ abstract class ControllerCore {
     /**
      * Set $this->redirect_after that will be used by redirect() after the process
      */
-    public function setRedirectAfter($url) {
+    public function setRedirectAfter($url)
+    {
         $this->redirect_after = $url;
     }
 
@@ -285,7 +296,8 @@ abstract class ControllerCore {
      * @param bool $check_path
      * @return true
      */
-    public function addCSS($css_uri, $css_media_type = 'all', $offset = null, $check_path = true) {
+    public function addCSS($css_uri, $css_media_type = 'all', $offset = null, $check_path = true)
+    {
         if (!is_array($css_uri)) {
             $css_uri = array($css_uri);
         }
@@ -324,7 +336,8 @@ abstract class ControllerCore {
      * @param string $css_media_type
      * @param bool $check_path
      */
-    public function removeCSS($css_uri, $css_media_type = 'all', $check_path = true) {
+    public function removeCSS($css_uri, $css_media_type = 'all', $check_path = true)
+    {
         if (!is_array($css_uri)) {
             $css_uri = array($css_uri);
         }
@@ -357,7 +370,8 @@ abstract class ControllerCore {
      * @param bool $check_path
      * @return void
      */
-    public function addJS($js_uri, $check_path = true) {
+    public function addJS($js_uri, $check_path = true)
+    {
         if (is_array($js_uri)) {
             foreach ($js_uri as $js_file) {
                 $js_file = explode('?', $js_file);
@@ -372,7 +386,7 @@ abstract class ControllerCore {
 
                 // $key = is_array($js_path) ? key($js_path) : $js_path;
                 if ($js_path && !in_array($js_path, $this->js_files)) {
-                    $this->js_files[] = $js_path . ($version ? '?' . $version : '');
+                    $this->js_files[] = $js_path.($version ? '?'.$version : '');
                 }
             }
         } else {
@@ -387,7 +401,7 @@ abstract class ControllerCore {
             }
 
             if ($js_path && !in_array($js_path, $this->js_files)) {
-                $this->js_files[] = $js_path . ($version ? '?' . $version : '');
+                $this->js_files[] = $js_path.($version ? '?'.$version : '');
             }
         }
     }
@@ -398,7 +412,8 @@ abstract class ControllerCore {
      * @param string|array $js_uri Path to JS file or an array like: array(uri, ...)
      * @param bool $check_path
      */
-    public function removeJS($js_uri, $check_path = true) {
+    public function removeJS($js_uri, $check_path = true)
+    {
         if (is_array($js_uri)) {
             foreach ($js_uri as $js_file) {
                 $js_path = $js_file;
@@ -429,7 +444,8 @@ abstract class ControllerCore {
      * @param string|null $folder jQuery file folder
      * @param bool $minifier If set tot true, a minified version will be included.
      */
-    public function addJquery($version = null, $folder = null, $minifier = true) {
+    public function addJquery($version = null, $folder = null, $minifier = true)
+    {
         $this->addJS(Media::getJqueryPath($version, $folder, $minifier), false);
     }
 
@@ -440,7 +456,8 @@ abstract class ControllerCore {
      * @param string $theme
      * @param bool $check_dependencies
      */
-    public function addJqueryUI($component, $theme = 'base', $check_dependencies = true) {
+    public function addJqueryUI($component, $theme = 'base', $check_dependencies = true)
+    {
         if (!is_array($component)) {
             $component = array($component);
         }
@@ -459,7 +476,8 @@ abstract class ControllerCore {
      * @param string null $folder
      * @param bool $css
      */
-    public function addJqueryPlugin($name, $folder = null, $css = true) {
+    public function addJqueryPlugin($name, $folder = null, $css = true)
+    {
         if (!is_array($name)) {
             $name = array($name);
         }
@@ -483,7 +501,8 @@ abstract class ControllerCore {
      * @since 1.5
      * @return bool
      */
-    public function isXmlHttpRequest() {
+    public function isXmlHttpRequest()
+    {
         return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
     }
 
@@ -494,7 +513,8 @@ abstract class ControllerCore {
      * @throws Exception
      * @throws SmartyException
      */
-    protected function smartyOutputContent($content) {
+    protected function smartyOutputContent($content)
+    {
         $this->context->cookie->write();
 
         $html = '';
@@ -518,27 +538,27 @@ abstract class ControllerCore {
             }
 
             $dom_available = extension_loaded('dom') ? true : false;
-            $defer = (bool) Configuration::get('PS_JS_DEFER');
+            $defer = (bool)Configuration::get('PS_JS_DEFER');
 
             if ($defer && $dom_available) {
                 $html = Media::deferInlineScripts($html);
             }
-            $html = trim(str_replace(array('</body>', '</html>'), '', $html)) . "\n";
+            $html = trim(str_replace(array('</body>', '</html>'), '', $html))."\n";
 
             $this->context->smarty->assign(array(
                 $js_tag => Media::getJsDef(),
-                'js_files' => $defer ? array_unique($this->js_files) : array(),
+                'js_files' =>  $defer ? array_unique($this->js_files) : array(),
                 'js_inline' => ($defer && $dom_available) ? Media::getInlineScript() : array()
             ));
 
-            $javascript = $this->context->smarty->fetch(_PS_ALL_THEMES_DIR_ . 'javascript.tpl');
+            $javascript = $this->context->smarty->fetch(_PS_ALL_THEMES_DIR_.'javascript.tpl');
 
-            if ($defer && (!isset($this->ajax) || !$this->ajax)) {
-                echo $html . $javascript;
+            if ($defer && (!isset($this->ajax) || ! $this->ajax)) {
+                echo $html.$javascript;
             } else {
-                echo preg_replace('/(?<!\$)' . $js_tag . '/', $javascript, $html);
+                echo preg_replace('/(?<!\$)'.$js_tag.'/', $javascript, $html);
             }
-            echo $live_edit_content . ((!isset($this->ajax) || !$this->ajax) ? '</body></html>' : '');
+            echo $live_edit_content.((!isset($this->ajax) || ! $this->ajax) ? '</body></html>' : '');
         } else {
             echo $html;
         }
@@ -552,7 +572,8 @@ abstract class ControllerCore {
      * @param string|null $compile_id
      * @return bool
      */
-    protected function isCached($template, $cache_id = null, $compile_id = null) {
+    protected function isCached($template, $cache_id = null, $compile_id = null)
+    {
         Tools::enableCache();
         $res = $this->context->smarty->isCached($template, $cache_id, $compile_id);
         Tools::restoreCacheSettings();
@@ -569,7 +590,8 @@ abstract class ControllerCore {
      * @param int $errline
      * @return bool
      */
-    public static function myErrorHandler($errno, $errstr, $errfile, $errline) {
+    public static function myErrorHandler($errno, $errstr, $errfile, $errline)
+    {
         if (error_reporting() === 0) {
             return false;
         }
@@ -577,27 +599,27 @@ abstract class ControllerCore {
         switch ($errno) {
             case E_USER_ERROR:
             case E_ERROR:
-                die('Fatal error: ' . $errstr . ' in ' . $errfile . ' on line ' . $errline);
-                break;
+                die('Fatal error: '.$errstr.' in '.$errfile.' on line '.$errline);
+            break;
             case E_USER_WARNING:
             case E_WARNING:
                 $type = 'Warning';
-                break;
+            break;
             case E_USER_NOTICE:
             case E_NOTICE:
                 $type = 'Notice';
-                break;
+            break;
             default:
                 $type = 'Unknown error';
-                break;
+            break;
         }
 
         Controller::$php_errors[] = array(
-            'type' => $type,
-            'errline' => (int) $errline,
+            'type'    => $type,
+            'errline' => (int)$errline,
             'errfile' => str_replace('\\', '\\\\', $errfile), // Hack for Windows paths
-            'errno' => (int) $errno,
-            'errstr' => $errstr
+            'errno'   => (int)$errno,
+            'errstr'  => $errstr
         );
         Context::getContext()->smarty->assign('php_errors', Controller::$php_errors);
 
@@ -611,7 +633,8 @@ abstract class ControllerCore {
      * @param string|null $controller
      * @param string|null $method
      */
-    protected function ajaxDie($value = null, $controller = null, $method = null) {
+    protected function ajaxDie($value = null, $controller = null, $method = null)
+    {
         if ($controller === null) {
             $controller = get_class($this);
         }
@@ -622,9 +645,8 @@ abstract class ControllerCore {
         }
 
         Hook::exec('actionBeforeAjaxDie', array('controller' => $controller, 'method' => $method, 'value' => $value));
-        Hook::exec('actionBeforeAjaxDie' . $controller . $method, array('value' => $value));
+        Hook::exec('actionBeforeAjaxDie'.$controller.$method, array('value' => $value));
 
         die($value);
     }
-
 }

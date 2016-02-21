@@ -26,12 +26,12 @@
 {extends file="helpers/list/list_footer.tpl"}
 
 {block name="after"}
-    <div class="alert alert-info" style="display:block">
-        <ul>
-            <li>{l s='The blue row indicates the default combination.'}</li>
-            <li>{l s='Each product that has combinations must have one default combination.'}</li>
-        </ul>
-    </div>
+	<div class="alert alert-info" style="display:block">
+		<ul>
+			<li>{l s='The blue row indicates the default combination.'}</li>
+			<li>{l s='Each product that has combinations must have one default combination.'}</li>
+		</ul>
+	</div>
 {/block}
 
 {block name="endForm"}

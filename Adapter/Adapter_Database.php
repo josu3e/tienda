@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,15 +23,17 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Adapter_Database implements Core_Foundation_Database_DatabaseInterface {
 
+class Adapter_Database implements Core_Foundation_Database_DatabaseInterface
+{
     /**
      * Perform a SELECT sql statement
      * @param $sqlString
      * @return array|false
      * @throws PrestaShopDatabaseException
      */
-    public function select($sqlString) {
+    public function select($sqlString)
+    {
         return Db::getInstance()->executeS($sqlString);
     }
 
@@ -41,11 +42,11 @@ class Adapter_Database implements Core_Foundation_Database_DatabaseInterface {
      * @param $unsafeData
      * @return string
      */
-    public function escape($unsafeData) {
+    public function escape($unsafeData)
+    {
         // Prepare required params
         $html_ok = true;
         $bq_sql = true;
         return Db::getInstance()->escape($unsafeData, $html_ok, $bq_sql);
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OrderByBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: OrderByBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/OrderByAliasBuilder.php';
 require_once dirname(__FILE__) . '/ColumnReferenceBuilder.php';
@@ -57,7 +57,7 @@ class OrderByBuilder {
         $builder = new FunctionBuilder();
         return $builder->build($parsed);
     }
-
+    
     protected function buildColRef($parsed) {
         $builder = new ColumnReferenceBuilder();
         return $builder->build($parsed);
@@ -85,7 +85,5 @@ class OrderByBuilder {
         $sql = substr($sql, 0, -2);
         return "ORDER BY " . $sql;
     }
-
 }
-
 ?>

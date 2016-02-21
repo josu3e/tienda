@@ -1,5 +1,4 @@
 <?php
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -21,6 +20,7 @@
  * @version    CVS: $Id: RSS11Element.php 6844 2011-06-03 14:46:51Z dMetzger $
  * @link       http://pear.php.net/package/XML_Feed_Parser/
  */
+
 /*
  * This class provides support for RSS 1.1 entries. It will usually be called by
  * XML_Feed_Parser_RSS11 with which it shares many methods.
@@ -29,8 +29,8 @@
  * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
-class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11 {
-
+class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11
+{
     /**
      * This will be a reference to the parent object for when we want
      * to use a 'fallback' rule 
@@ -54,7 +54,7 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11 {
         'contributor' => array('Text'), # dc:contributor
         'date' => array('Date'), # dc:date
         'content' => array('Content')
-    );
+        );
 
     /**
      * Here we map some elements to their atom equivalents. This is going to be
@@ -78,7 +78,8 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11 {
      * @param   DOMElement  $element - this item as a DOM element
      * @param   XML_Feed_Parser_RSS1 $parent - the feed of which this is a member
      */
-    function __construct(DOMElement $element, $parent, $xmlBase = '') {
+    function __construct(DOMElement $element, $parent, $xmlBase = '')
+    {
         $this->model = $element;
         $this->parent = $parent;
     }
@@ -92,7 +93,8 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11 {
      *
      * @return  string|false
      */
-    function getId() {
+    function getId()
+    {
         if ($this->model->attributes->getNamedItem('about')) {
             return $this->model->attributes->getNamedItem('about')->nodeValue;
         }
@@ -108,7 +110,8 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11 {
      *
      * @return  string|false
      */
-    function getContent() {
+    function getContent()
+    {
         $options = array('encoded', 'description');
         foreach ($options as $element) {
             $test = $this->model->getElementsByTagName($element);
@@ -132,17 +135,17 @@ class XML_Feed_Parser_RSS11Element extends XML_Feed_Parser_RSS11 {
         }
         return false;
     }
-
+    
     /**
      * How RSS1.1 should support for enclosures is not clear. For now we will return
      * false.
      *
      * @return  false
      */
-    function getEnclosure() {
+    function getEnclosure()
+    {
         return false;
     }
-
 }
 
 ?>

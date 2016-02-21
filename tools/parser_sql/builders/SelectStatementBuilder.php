@@ -1,5 +1,4 @@
 <?php
-
 /**
  * SelectStatement.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: SelectStatementBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/LimitBuilder.php';
 require_once dirname(__FILE__) . '/SelectBuilder.php';
 require_once dirname(__FILE__) . '/FromBuilder.php';
@@ -107,5 +107,4 @@ class SelectStatementBuilder {
     }
 
 }
-
 ?>

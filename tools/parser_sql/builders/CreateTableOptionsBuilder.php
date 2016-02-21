@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CreateTableOptionsBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: CreateTableOptionsBuilder.php 923 2014-01-08 12:20:30Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/SelectExpressionBuilder.php';
 require_once dirname(__FILE__) . '/CharacterSetBuilder.php';
@@ -58,17 +58,17 @@ class CreateTableOptionsBuilder {
         $builder = new SelectExpressionBuilder();
         return $builder->build($parsed);
     }
-
+	
     protected function buildCharacterSet($parsed) {
         $builder = new CharacterSetBuilder();
         return $builder->build($parsed);
     }
-
+    
     protected function buildCollation($parsed) {
         $builder = new CollationBuilder();
         return $builder->build($parsed);
     }
-
+    
     /**
      * Returns a well-formatted delimiter string. If you don't need nice SQL,
      * you could simply return $parsed['delim'].
@@ -79,7 +79,7 @@ class CreateTableOptionsBuilder {
     protected function getDelimiter($parsed) {
         return ($parsed['delim'] === false ? '' : (trim($parsed['delim']) . ' '));
     }
-
+     
     public function build($parsed) {
         if (!isset($parsed['options']) || $parsed['options'] === false) {
             return "";
@@ -100,7 +100,5 @@ class CreateTableOptionsBuilder {
         }
         return " " . substr($sql, 0, -1);
     }
-
 }
-
 ?>

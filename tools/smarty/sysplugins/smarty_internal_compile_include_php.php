@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile Include PHP
  * Compiles the {include_php} tag
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -24,7 +23,6 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('file');
-
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -32,7 +30,6 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('file');
-
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -50,7 +47,8 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
      * @throws SmartyException
      * @return string compiled code
      */
-    public function compile($args, $compiler) {
+    public function compile($args, $compiler)
+    {
         if (!($compiler->smarty instanceof SmartyBC)) {
             throw new SmartyException("{include_php} is deprecated, use SmartyBC class to enable");
         }
@@ -106,5 +104,4 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
             return "<?php include{$_once} ('{$_filepath}');?>\n";
         }
     }
-
 }

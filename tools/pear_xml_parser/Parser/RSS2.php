@@ -1,5 +1,4 @@
 <?php
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -29,8 +28,8 @@
  * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
-class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
-
+class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type
+{
     /**
      * The URI of the RelaxNG schema used to (optionally) validate the feed
      * @var string
@@ -52,9 +51,9 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
     /**
      * The class used to represent individual items
      * @var string
-     */
+     */     
     protected $itemClass = 'XML_Feed_Parser_RSS2Element';
-
+    
     /**
      * The element containing entries 
      * @var string
@@ -101,6 +100,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
         'subtitle' => array('description'),
         'date' => array('pubDate'),
         'author' => array('managingEditor'));
+
     protected $namespaces = array(
         'dc' => 'http://purl.org/rss/1.0/modules/dc/',
         'content' => 'http://purl.org/rss/1.0/modules/content/');
@@ -111,11 +111,12 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      * @param    DOMDocument    $xml    A DOM object representing the feed
      * @param    bool (optional) $string    Whether or not to validate this feed
      */
-    function __construct(DOMDocument $model, $strict = false) {
+    function __construct(DOMDocument $model, $strict = false)
+    {
         $this->model = $model;
 
         if ($strict) {
-            if (!$this->relaxNGValidate()) {
+            if (! $this->relaxNGValidate()) {
                 throw new XML_Feed_Parser_Exception('Failed required validation');
             }
         }
@@ -140,7 +141,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      * @param    string    $id    any valid ID.
      * @return    XML_Feed_Parser_RSS2Element
      */
-    function getEntryById($id) {
+    function getEntryById($id)
+    {
         if (isset($this->idMappings[$id])) {
             return $this->entries[$this->idMappings[$id]];
         }
@@ -154,7 +156,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
             }
             $this->idMappings[$id] = $entry;
             return $entry;
-        }
+        }        
     }
 
     /**
@@ -167,7 +169,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      * @param   array $arguments - arg 0 is the offset, arg 1 is whether to return as array
      * @return  string|array|false
      */
-    function getCategory($call, $arguments = array()) {
+    function getCategory($call, $arguments = array())
+    {
         $categories = $this->model->getElementsByTagName('category');
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $array = empty($arguments[1]) ? false : true;
@@ -189,15 +192,16 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      *
      * @return  array|false an array simply containing the child elements
      */
-    protected function getImage() {
+    protected function getImage()
+    {
         $images = $this->xpath->query("//image");
         if ($images->length > 0) {
             $image = $images->item(0);
             $desc = $image->getElementsByTagName('description');
             $description = $desc->length ? $desc->item(0)->nodeValue : false;
-            $heigh = $image->getElementsByTagName('height');
+            $heigh = $image->getElementsByTagName('height'); 
             $height = $heigh->length ? $heigh->item(0)->nodeValue : false;
-            $widt = $image->getElementsByTagName('width');
+            $widt = $image->getElementsByTagName('width'); 
             $width = $widt->length ? $widt->item(0)->nodeValue : false;
             return array(
                 'title' => $image->getElementsByTagName('title')->item(0)->nodeValue,
@@ -216,14 +220,15 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      *
      * @return  array|false
      */
-    function getTextInput() {
+    function getTextInput()
+    {
         $inputs = $this->model->getElementsByTagName('input');
         if ($inputs->length > 0) {
             $input = $inputs->item(0);
             return array(
                 'title' => $input->getElementsByTagName('title')->item(0)->value,
-                'description' =>
-                $input->getElementsByTagName('description')->item(0)->value,
+                'description' => 
+                    $input->getElementsByTagName('description')->item(0)->value,
                 'name' => $input->getElementsByTagName('name')->item(0)->value,
                 'link' => $input->getElementsByTagName('link')->item(0)->value);
         }
@@ -239,13 +244,14 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      * @param   string      $tagName    The tag name (getSkipDays or getSkipHours)
      * @return  array|false
      */
-    protected function getSkips($tagName) {
+    protected function getSkips($tagName)
+    {
         $hours = $this->model->getElementsByTagName($tagName);
         if ($hours->length == 0) {
             return false;
         }
         $skipHours = array();
-        foreach ($hours->item(0)->childNodes as $hour) {
+        foreach($hours->item(0)->childNodes as $hour) {
             if ($hour instanceof DOMElement) {
                 array_push($skipHours, $hour->nodeValue);
             }
@@ -260,8 +266,9 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      * not be checked. We return an array of those hours (integers, 24 hour clock)
      *
      * @return  array
-     */
-    function getSkipHours() {
+     */    
+    function getSkipHours()
+    {
         return $this->getSkips('skipHours');
     }
 
@@ -273,7 +280,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      *
      * @return  array
      */
-    function getSkipDays() {
+    function getSkipDays()
+    {
         return $this->getSkips('skipDays');
     }
 
@@ -285,7 +293,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      *
      * @return  array   an array of the attributes of the element
      */
-    function getCloud() {
+    function getCloud()
+    {
         $cloud = $this->model->getElementsByTagName('cloud');
         if ($cloud->length == 0) {
             return false;
@@ -296,7 +305,7 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
         }
         return $cloudData;
     }
-
+    
     /**
      * Get link URL
      *
@@ -310,7 +319,8 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
      * @param   array   $params An array of other parameters. Not used.
      * @return  string
      */
-    function getLink($offset, $attribute = 'href', $params = array()) {
+    function getLink($offset, $attribute = 'href', $params = array())
+    {
         $links = $this->model->getElementsByTagName('link');
 
         if ($links->length <= $offset) {
@@ -319,7 +329,6 @@ class XML_Feed_Parser_RSS2 extends XML_Feed_Parser_Type {
         $link = $links->item($offset);
         return $this->addBase($link->nodeValue, $link);
     }
-
 }
 
 ?>

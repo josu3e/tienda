@@ -3,134 +3,134 @@
 $products = array(
     'Fur_Coat' => array(
         'Color' => array('Grey'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Textured_Trench_Coat' => array(
         'Color' => array('Taupe'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Slim_Cut_Coat' => array(
         'Color' => array('Grey'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Quilted_Jacket' => array(
         'Color' => array('Beige'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Suit_Blazer' => array(
         'Color' => array('Blue'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Short_Blazer' => array(
         'Color' => array('White'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Puffer_Jacket' => array(
         'Color' => array('Red'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Leather_Jacket_1' => array(
         'Color' => array('Black'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Leather_Jacket_2' => array(
         'Color' => array('Camel'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Leather_Jacket_3' => array(
         'Color' => array('Black'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Short_Sleeve_T-shirts' => array(
         'Color' => array('Green'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Faded_Short_Sleeve_T-shirts' => array(
-        'Color' => array('Orange', 'Blue'),
-        'Size' => array('S', 'M', 'L')
+        'Color' => array('Orange','Blue'),
+        'Size' => array('S','M','L')
     ),
     'Cami_Tank_Top' => array(
         'Color' => array('Green'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Blouse' => array(
-        'Color' => array('Black', 'White'),
-        'Size' => array('S', 'M', 'L')
+        'Color' => array('Black','White'),
+        'Size' => array('S','M','L')
     ),
     'Leapoard_Printed_Blouse' => array(
         'Color' => array('White'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Faded_Jeans' => array(
         'Color' => array('Blue'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     '5_Pocket_Jean_1' => array(
         'Color' => array('Blue'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     '5_Pocket_Jean_2' => array(
         'Color' => array('Blue'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Dress_Gathered_At_The_Waist' => array(
         'Color' => array('Brown'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Printed_Dress' => array(
         'Color' => array('Orange'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Floral_Dress' => array(
         'Color' => array('White'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Strapless_Dress_1' => array(
         'Color' => array('Black'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Long_Evening_Dress' => array(
         'Color' => array('Red'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Short_Evening_Dress' => array(
         'Color' => array('Black'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Strapless_Dress_2' => array(
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Dress_with_Sleeves' => array(
         'Color' => array('Black'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Printed_Dress_2' => array(
         'Color' => array('Beige'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Printed_Summer_Dress_1' => array(
-        'Color' => array('Yellow', 'Blue', 'Orange', 'Black'),
-        'Size' => array('S', 'M', 'L')
+        'Color' => array('Yellow','Blue','Orange','Black'),
+        'Size' => array('S','M','L')
     ),
     'Long_Printed_Dress' => array(
         'Color' => array('Grey'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Printed_Summer_Dress_2' => array(
         'Color' => array('Yellow'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Printed_Chiffon_Dress' => array(
         'Color' => array('Yellow'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Studded_Leather_Belt' => array(
         'Color' => array('Brown'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Braided_Belt' => array(
         'Color' => array('Black'),
-        'Size' => array('S', 'M', 'L')
+        'Size' => array('S','M','L')
     ),
     'Bucket_Hat' => array(
         'Color' => array('Grey'),
@@ -166,7 +166,7 @@ $products = array(
     ),
     'Wedge_Shoe' => array(
         'Color' => array('Taupe'),
-        'Shoes_Size' => array('35', '36', '37', '38', '39', '40')
+        'Shoes_Size' => array('35','36','37','38','39','40')
     )
 );
 
@@ -182,10 +182,10 @@ foreach ($products as $product => $attribute_groups) {
     $pac_id = 1;
     foreach ($combinations as $attributes) {
         foreach ($attributes as $attribute_value) {
-            $content_product_attribute_combination .= '<product_attribute_combination id="pac_' . $pac_id . '" id_attribute="' . $attribute_value . '" id_product_attribute="pa_' . $product . '_' . $pa_id . '"/>' . "\n";
+            $content_product_attribute_combination .= '<product_attribute_combination id="pac_'.$pac_id.'" id_attribute="'.$attribute_value.'" id_product_attribute="pa_'.$product.'_'.$pa_id.'"/>'."\n";
             ++$pac_id;
         }
-        $content_product_attribute .= '<product_attribute id="pa_' . $product . '_' . $pa_id . '" id_product="' . $product . '" reference="" supplier_reference="" ean13="" upc="" wholesale_price="0.000000" price="0.000000" ecotax="0.000000" quantity="100" weight="0" unit_price_impact="0.00" default_on="' . (string) $default_on . '" minimal_quantity="1" available_date="0000-00-00"><location/></product_attribute>' . "\n";
+        $content_product_attribute .= '<product_attribute id="pa_'.$product.'_'.$pa_id.'" id_product="'.$product.'" reference="" supplier_reference="" ean13="" upc="" wholesale_price="0.000000" price="0.000000" ecotax="0.000000" quantity="100" weight="0" unit_price_impact="0.00" default_on="'.(string)$default_on.'" minimal_quantity="1" available_date="0000-00-00"><location/></product_attribute>'."\n";
         $default_on = 0;
 
         ++$pa_id;
@@ -197,7 +197,8 @@ echo $content_product_attribute;
 echo "\n\n";
 echo $content_product_attribute_combination;
 
-function createCombinations($list) {
+function createCombinations($list)
+{
     if (count($list) <= 1) {
         return count($list) ? array_map(create_function('$v', 'return (array($v));'), array_shift($list)) : $list;
     }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ForeignRefBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: ForeignRefBuilder.php 927 2014-01-08 13:01:17Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/TableBuilder.php';
@@ -90,7 +90,5 @@ class ForeignRefBuilder {
         }
         return substr($sql, 0, -1);
     }
-
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Filter Handler
  * Smarty filter handler class
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  */
-class Smarty_Internal_Filter_Handler {
-
+class Smarty_Internal_Filter_Handler
+{
     /**
      * Run filters over content
      * The filters will be lazy loaded if required
@@ -31,7 +30,8 @@ class Smarty_Internal_Filter_Handler {
      * @throws SmartyException
      * @return string                   the filtered content
      */
-    public static function runFilter($type, $content, Smarty_Internal_Template $template) {
+    public static function runFilter($type, $content, Smarty_Internal_Template $template)
+    {
         $output = $content;
         // loop over autoload filters of specified type
         if (!empty($template->smarty->autoload_filters[$type])) {
@@ -64,5 +64,4 @@ class Smarty_Internal_Filter_Handler {
         // return filtered output
         return $output;
     }
-
 }

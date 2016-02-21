@@ -84,14 +84,14 @@
                                     {if (!$addedli)}
                                         {$addedli = true}
                                         <li><span class="{if isset($addresses_style[$key_str])}{$addresses_style[$key_str]}{/if}">
-                                            {/if}
-                                            {$address.formated[$key_str]|escape:'html':'UTF-8'}
-                                        {/if}
-                                        {if ($smarty.foreach.foo.last && $addedli)}
-                                        </span></li>
                                     {/if}
-                                {/foreach}
+                                    {$address.formated[$key_str]|escape:'html':'UTF-8'}
+                                {/if}
+                                {if ($smarty.foreach.foo.last && $addedli)}
+                                    </span></li>
+                                {/if}
                             {/foreach}
+                        {/foreach}
                     </ul>
                 </div>
             {/foreach}

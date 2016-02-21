@@ -1,8 +1,9 @@
 <?php
 
 if (!defined('_PS_VERSION_'))
-    exit;
+	exit;
 
-function upgrade_module_1_3_7($module) {
-    return true;
+function upgrade_module_1_3_7($module)
+{
+	return true;
 }

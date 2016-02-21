@@ -24,5 +24,5 @@
 *}
 
 {if isset($content)}
-    {$content}
+	{$content}
 {/if}

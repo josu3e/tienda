@@ -3,7 +3,8 @@
 // OUT OF DATE, NEEDS UPDATING!
 // USE XMLWRITER!
 
-class HTMLPurifier_Printer {
+class HTMLPurifier_Printer
+{
 
     /**
      * For HTML generation convenience funcs.
@@ -20,15 +21,16 @@ class HTMLPurifier_Printer {
     /**
      * Initialize $generator.
      */
-    public function __construct() {
-        
+    public function __construct()
+    {
     }
 
     /**
      * Give generator necessary configuration if possible
      * @param HTMLPurifier_Config $config
      */
-    public function prepareGenerator($config) {
+    public function prepareGenerator($config)
+    {
         $all = $config->getAll();
         $context = new HTMLPurifier_Context();
         $this->generator = new HTMLPurifier_Generator($config, $context);
@@ -46,9 +48,10 @@ class HTMLPurifier_Printer {
      * @param array $attr Attribute array
      * @return string
      */
-    protected function start($tag, $attr = array()) {
+    protected function start($tag, $attr = array())
+    {
         return $this->generator->generateFromToken(
-                        new HTMLPurifier_Token_Start($tag, $attr ? $attr : array())
+            new HTMLPurifier_Token_Start($tag, $attr ? $attr : array())
         );
     }
 
@@ -57,9 +60,10 @@ class HTMLPurifier_Printer {
      * @param string $tag Tag name
      * @return string
      */
-    protected function end($tag) {
+    protected function end($tag)
+    {
         return $this->generator->generateFromToken(
-                        new HTMLPurifier_Token_End($tag)
+            new HTMLPurifier_Token_End($tag)
         );
     }
 
@@ -71,10 +75,11 @@ class HTMLPurifier_Printer {
      * @param bool $escape whether or not to escape contents
      * @return string
      */
-    protected function element($tag, $contents, $attr = array(), $escape = true) {
+    protected function element($tag, $contents, $attr = array(), $escape = true)
+    {
         return $this->start($tag, $attr) .
-                ($escape ? $this->escape($contents) : $contents) .
-                $this->end($tag);
+            ($escape ? $this->escape($contents) : $contents) .
+            $this->end($tag);
     }
 
     /**
@@ -82,9 +87,10 @@ class HTMLPurifier_Printer {
      * @param array $attr
      * @return string
      */
-    protected function elementEmpty($tag, $attr = array()) {
+    protected function elementEmpty($tag, $attr = array())
+    {
         return $this->generator->generateFromToken(
-                        new HTMLPurifier_Token_Empty($tag, $attr)
+            new HTMLPurifier_Token_Empty($tag, $attr)
         );
     }
 
@@ -92,9 +98,10 @@ class HTMLPurifier_Printer {
      * @param string $text
      * @return string
      */
-    protected function text($text) {
+    protected function text($text)
+    {
         return $this->generator->generateFromToken(
-                        new HTMLPurifier_Token_Text($text)
+            new HTMLPurifier_Token_Text($text)
         );
     }
 
@@ -104,15 +111,16 @@ class HTMLPurifier_Printer {
      * @param mixed $value Value
      * @return string
      */
-    protected function row($name, $value) {
+    protected function row($name, $value)
+    {
         if (is_bool($value)) {
             $value = $value ? 'On' : 'Off';
         }
         return
-                $this->start('tr') . "\n" .
-                $this->element('th', $name) . "\n" .
-                $this->element('td', $value) . "\n" .
-                $this->end('tr');
+            $this->start('tr') . "\n" .
+            $this->element('th', $name) . "\n" .
+            $this->element('td', $value) . "\n" .
+            $this->end('tr');
     }
 
     /**
@@ -120,7 +128,8 @@ class HTMLPurifier_Printer {
      * @param string $string String to escape
      * @return string
      */
-    protected function escape($string) {
+    protected function escape($string)
+    {
         $string = HTMLPurifier_Encoder::cleanUTF8($string);
         $string = htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
         return $string;
@@ -132,7 +141,8 @@ class HTMLPurifier_Printer {
      * @param bool $polite Bool whether or not to add an end before the last
      * @return string
      */
-    protected function listify($array, $polite = false) {
+    protected function listify($array, $polite = false)
+    {
         if (empty($array)) {
             return 'None';
         }
@@ -157,7 +167,8 @@ class HTMLPurifier_Printer {
      * @param string $sec_prefix Further prefix to remove
      * @return string
      */
-    protected function getClass($obj, $sec_prefix = '') {
+    protected function getClass($obj, $sec_prefix = '')
+    {
         static $five = null;
         if ($five === null) {
             $five = version_compare(PHP_VERSION, '5', '>=');
@@ -202,7 +213,6 @@ class HTMLPurifier_Printer {
         $class .= ')';
         return $class;
     }
-
 }
 
 // vim: et sw=4 sts=4

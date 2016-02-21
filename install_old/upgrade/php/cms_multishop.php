@@ -1,39 +1,39 @@
 <?php
-
 /*
- * 2007-2014 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2014 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2014 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2014 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
-function cms_multishop() {
+function cms_multishop()
+{
     $shops = Db::getInstance()->executeS('
 		SELECT `id_shop`
-		FROM `' . _DB_PREFIX_ . 'shop`
+		FROM `'._DB_PREFIX_.'shop`
 		');
 
     $cms_lang = Db::getInstance()->executeS('
 		SELECT *
-		FROM `' . _DB_PREFIX_ . 'cms_lang`
+		FROM `'._DB_PREFIX_.'cms_lang`
 	');
     foreach ($cms_lang as $value) {
         $data = array();
@@ -45,7 +45,7 @@ function cms_multishop() {
             'meta_title' => pSQL($value['meta_title']),
             'meta_keywords' => pSQL($value['meta_keywords']),
             'meta_description' => pSQL($value['meta_description'])
-        );
+            );
         foreach ($shops as $shop) {
             if ($shop['id_shop'] != 1) {
                 $cms['id_shop'] = $shop['id_shop'];
@@ -57,7 +57,7 @@ function cms_multishop() {
 
     $cms_category_lang = Db::getInstance()->executeS('
 		SELECT *
-		FROM `' . _DB_PREFIX_ . 'cms_category_lang`
+		FROM `'._DB_PREFIX_.'cms_category_lang`
 	');
     foreach ($cms_category_lang as $value) {
         $data = array();
@@ -65,7 +65,7 @@ function cms_multishop() {
 
         $cms_category_shop = array(
             'id_cms_category' => $value['id_cms_category'],
-        );
+            );
         $cms_category = array(
             'id_cms_category' => $value['id_cms_category'],
             'id_lang' => $value['id_lang'],
@@ -75,7 +75,7 @@ function cms_multishop() {
             'meta_title' => pSQL($value['meta_title']),
             'meta_keywords' => pSQL($value['meta_keywords']),
             'meta_description' => pSQL($value['meta_description'])
-        );
+            );
         foreach ($shops as $shop) {
             if ($shop['id_shop'] != 1) {
                 $cms_category['id_shop'] = $shop['id_shop'];

@@ -1,5 +1,4 @@
 <?php
-
 include('config/config.php');
 if ($_SESSION['verify'] != 'RESPONSIVEfilemanager') {
     die('forbiden');
@@ -14,7 +13,7 @@ if (strpos($_POST['name'], '/') !== false || strpos($_POST['name'], '\\') !== fa
     die('wrong path');
 }
 
-$path = $current_path . $_POST['path'];
+$path = $current_path.$_POST['path'];
 $name = $_POST['name'];
 
 $info = pathinfo($name);
@@ -25,8 +24,8 @@ if (!in_array(fix_strtolower($info['extension']), $ext)) {
 header('Pragma: private');
 header('Cache-control: private, must-revalidate');
 header('Content-Type: application/octet-stream');
-header('Content-Length: ' . (string) filesize($path . $name));
-header('Content-Disposition: attachment; filename="' . ($name) . '"');
-readfile($path . $name);
+header('Content-Length: '.(string)filesize($path.$name));
+header('Content-Disposition: attachment; filename="'.($name).'"');
+readfile($path.$name);
 
 exit;

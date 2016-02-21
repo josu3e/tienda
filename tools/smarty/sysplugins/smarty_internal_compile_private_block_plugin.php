@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile Block Plugin
  * Compiles code for the execution of block plugin
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -36,7 +35,8 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter, $tag, $function) {
+    public function compile($args, $compiler, $parameter, $tag, $function)
+    {
         if (!isset($tag[5]) || substr($tag, - 5) != 'close') {
             // opening tag of block plugin
             // check and get attributes
@@ -82,5 +82,4 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
 
         return $output . "\n";
     }
-
 }

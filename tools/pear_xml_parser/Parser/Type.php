@@ -1,5 +1,4 @@
 <?php
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -30,8 +29,8 @@
  * @author  James Stewart <james@jystewart.net>
  * @version Release: @package_version@
  */
-abstract class XML_Feed_Parser_Type {
-
+abstract class XML_Feed_Parser_Type
+{
     /**
      * Where we store our DOM object for this feed 
      * @var DOMDocument
@@ -66,22 +65,23 @@ abstract class XML_Feed_Parser_Type {
      * @param   array   $arguments - arguments to that method
      * @return  mixed
      */
-    function __call($call, $arguments = array()) {
-        if (!is_array($arguments)) {
+    function __call($call, $arguments = array())
+    {
+        if (! is_array($arguments)) {
             $arguments = array();
         }
 
         if (isset($this->compatMap[$call])) {
             $tempMap = $this->compatMap;
             $tempcall = array_pop($tempMap[$call]);
-            if (!empty($tempMap)) {
+            if (! empty($tempMap)) {
                 $arguments = array_merge($arguments, $tempMap[$call]);
             }
             $call = $tempcall;
         }
 
         /* To be helpful, we allow a case-insensitive search for this method */
-        if (!isset($this->map[$call])) {
+        if (! isset($this->map[$call])) {
             foreach (array_keys($this->map) as $key) {
                 if (strtoupper($key) == strtoupper($call)) {
                     $call = $key;
@@ -117,7 +117,8 @@ abstract class XML_Feed_Parser_Type {
      * @param   string  $value - the variable required
      * @return  mixed
      */
-    function __get($value) {
+    function __get($value)
+    {
         return $this->__call($value, array());
     }
 
@@ -133,7 +134,8 @@ abstract class XML_Feed_Parser_Type {
      * @param   string  $base - the base to add the link to
      * @param   string  $link
      */
-    function combineBases($base, $link) {
+    function combineBases($base, $link)
+    {
         if (preg_match('/^[A-Za-z]+:\/\//', $link)) {
             return $link;
         } elseif (preg_match('/^\//', $link)) {
@@ -152,7 +154,7 @@ abstract class XML_Feed_Parser_Type {
             }
             return implode("/", $url) . "/" . $suffix;
         } elseif (preg_match('/^(?!\/$)/', $base)) {
-            $base = preg_replace('/(.*\/).*$/', '$1', $base);
+            $base = preg_replace('/(.*\/).*$/', '$1', $base)  ;
             return $base . $link;
         } else {
             /* Just stick it on the end */
@@ -170,7 +172,8 @@ abstract class XML_Feed_Parser_Type {
      * @param   DOMElement
      * @return  string
      */
-    function addBase($link, $element) {
+    function addBase($link, $element)
+    {
         if (preg_match('/^[A-Za-z]+:\/\//', $link)) {
             return $link;
         }
@@ -188,13 +191,14 @@ abstract class XML_Feed_Parser_Type {
      * @param   int $offset
      * @return  XML_Feed_Parser_RSS1Element
      */
-    function getEntryByOffset($offset) {
-        if (!isset($this->entries[$offset])) {
+    function getEntryByOffset($offset)
+    {
+        if (! isset($this->entries[$offset])) {
             $entries = $this->model->getElementsByTagName($this->itemElement);
             if ($entries->length > $offset) {
                 $xmlBase = $entries->item($offset)->baseURI;
                 $this->entries[$offset] = new $this->itemClass(
-                        $entries->item($offset), $this, $xmlBase);
+                    $entries->item($offset), $this, $xmlBase);
                 if ($id = $this->entries[$offset]->id) {
                     $this->idMappings[$id] = $this->entries[$offset];
                 }
@@ -217,7 +221,8 @@ abstract class XML_Feed_Parser_Type {
      * @param    array     $arguments    Included for compatibility with our __call usage
      * @return    int|false datetime
      */
-    protected function getDate($method, $arguments) {
+    protected function getDate($method, $arguments)
+    {
         $time = $this->model->getElementsByTagName($method);
         if ($time->length == 0 || empty($time->item(0)->nodeValue)) {
             return false;
@@ -232,7 +237,8 @@ abstract class XML_Feed_Parser_Type {
      * @param    array     $arguments    Included for compatibility with our __call usage
      * @return    string
      */
-    protected function getText($method, $arguments = array()) {
+    protected function getText($method, $arguments = array())
+    {
         $tags = $this->model->getElementsByTagName($method);
         if ($tags->length > 0) {
             $value = $tags->item(0)->nodeValue;
@@ -257,7 +263,8 @@ abstract class XML_Feed_Parser_Type {
      * @param   array $arguments - arg 0 is the offset, arg 1 is whether to return as array
      * @return  string|array|false
      */
-    protected function getCategory($call, $arguments) {
+    protected function getCategory($call, $arguments)
+    {
         $categories = $this->model->getElementsByTagName('subject');
         $offset = empty($arguments[0]) ? 0 : $arguments[0];
         $array = empty($arguments[1]) ? false : true;
@@ -283,7 +290,8 @@ abstract class XML_Feed_Parser_Type {
      * @param    string    $type    the element we want to get a count of
      * @return    int
      */
-    protected function count($type) {
+    protected function count($type)
+    {
         if ($tags = $this->model->getElementsByTagName($type)) {
             return $tags->length;
         }
@@ -309,9 +317,9 @@ abstract class XML_Feed_Parser_Type {
             if ($attribute->name == 'base') {
                 continue;
             }
-            $return .= $attribute->name . '="' . htmlentities($attribute->value, null, 'utf-8') . '" ';
+            $return .= $attribute->name . '="' . htmlentities($attribute->value, null, 'utf-8') .'" ';
         }
-        if (!empty($return)) {
+        if (! empty($return)) {
             return ' ' . trim($return);
         }
         return '';
@@ -323,14 +331,15 @@ abstract class XML_Feed_Parser_Type {
      * @param String
      * @return String
      */
-    function processEntitiesForNodeValue($node) {
+    function processEntitiesForNodeValue($node) 
+    {
         if (function_exists('iconv')) {
-            $current_encoding = $node->ownerDocument->encoding;
-            $value = iconv($current_encoding, 'UTF-8', $node->nodeValue);
+          $current_encoding = $node->ownerDocument->encoding;
+          $value = iconv($current_encoding, 'UTF-8', $node->nodeValue);
         } elseif ($current_encoding == 'iso-8859-1') {
-            $value = utf8_encode($node->nodeValue);
+          $value = utf8_encode($node->nodeValue);
         } else {
-            $value = $node->nodeValue;
+          $value = $node->nodeValue;
         }
 
         $decoded = html_entity_decode($value, null, 'UTF-8');
@@ -348,13 +357,14 @@ abstract class XML_Feed_Parser_Type {
      * @param   DOMElement $node    The DOM node we are processing
      * @return   string
      */
-    function traverseNode($node) {
+    function traverseNode($node)
+    {
         $content = '';
 
         /* Add the opening of this node to the content */
         if ($node instanceof DOMElement) {
-            $content .= '<' . $node->tagName .
-                    $this->processXHTMLAttributes($node) . '>';
+            $content .= '<' . $node->tagName . 
+                $this->processXHTMLAttributes($node) . '>';
         }
 
         /* Process children */
@@ -386,7 +396,8 @@ abstract class XML_Feed_Parser_Type {
      *
      * @return  string|false
      */
-    protected function getContent() {
+    protected function getContent()
+    {
         $options = array('encoded', 'description');
         foreach ($options as $element) {
             $test = $this->model->getElementsByTagName($element);
@@ -417,8 +428,9 @@ abstract class XML_Feed_Parser_Type {
      * @param   String
      * @param   Integer
      * @return  bool
-     * */
-    function hasKey($name, $offset = 0) {
+     **/
+    function hasKey($name, $offset = 0)
+    {
         $search = $this->model->getElementsByTagName($name);
         return $search->length > $offset;
     }
@@ -429,12 +441,13 @@ abstract class XML_Feed_Parser_Type {
      * instantiating the object.
      *
      * @return    string    XML serialization of element
-     */
-    function __toString() {
+     */    
+    function __toString()
+    {
         $simple = simplexml_import_dom($this->model);
         return $simple->asXML();
     }
-
+    
     /**
      * Get directory holding RNG schemas. Method is based on that 
      * found in Contact_AddressBook.
@@ -443,7 +456,8 @@ abstract class XML_Feed_Parser_Type {
      * @access public
      * @static
      */
-    static function getSchemaDir() {
+    static function getSchemaDir()
+    {
         require_once 'PEAR/Config.php';
         $config = new PEAR_Config;
         return $config->get('data_dir') . '/XML_Feed_Parser/schemas';
@@ -455,8 +469,7 @@ abstract class XML_Feed_Parser_Type {
         $path = $dir . '/' . $this->relax;
 
         return $this->model->relaxNGValidate($path);
-    }
-
+}
 }
 
 ?>

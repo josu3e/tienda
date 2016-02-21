@@ -1,8 +1,9 @@
 <?php
 
 if (!defined('_PS_VERSION_'))
-    exit;
+	exit;
 
-function upgrade_module_1_1($object) {
-    return ($object->registerHook('displayBanner') && $object->unregisterHook('displayTop'));
+function upgrade_module_1_1($object)
+{
+	return ($object->registerHook('displayBanner') && $object->unregisterHook('displayTop'));
 }

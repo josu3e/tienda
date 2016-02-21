@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PositionBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: PositionBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 
 /**
@@ -57,7 +57,5 @@ class PositionBuilder {
         }
         return $parsed['base_expr'];
     }
-
 }
-
 ?>

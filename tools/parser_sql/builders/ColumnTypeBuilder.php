@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ColumnTypeBuilder.php
  *
@@ -39,12 +38,12 @@
  * @version   SVN: $Id: ColumnTypeBuilder.php 935 2014-01-08 13:58:11Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ReservedBuilder.php';
 require_once dirname(__FILE__) . '/ColumnTypeBracketExpressionBuilder.php';
 require_once dirname(__FILE__) . '/DataTypeBuilder.php';
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
-
 /**
  * This class implements the builder for the column type statement part of CREATE TABLE. 
  * You can overwrite all functions to achieve another handling.
@@ -69,7 +68,7 @@ class ColumnTypeBuilder {
         $builder = new DataTypeBuilder();
         return $builder->build($parsed);
     }
-
+    
     public function build($parsed) {
         if ($parsed['expr_type'] !== ExpressionType::COLUMN_TYPE) {
             return "";
@@ -80,17 +79,16 @@ class ColumnTypeBuilder {
             $sql .= $this->buildDataType($v);
             $sql .= $this->buildColumnTypeBracketExpression($v);
             $sql .= $this->buildReserved($v);
-
+            
             if ($len == strlen($sql)) {
                 throw new UnableToCreateSQLException('CREATE TABLE column-type subtree', $k, $v, 'expr_type');
             }
-
+    
             $sql .= " ";
         }
-
+    
         return substr($sql, 0, -1);
     }
-
+    
 }
-
 ?>

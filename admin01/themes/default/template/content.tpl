@@ -28,9 +28,9 @@
 
 
 <div class="row">
-    <div class="col-lg-12">
-        {if isset($content)}
-            {$content}
-        {/if}
-    </div>
+	<div class="col-lg-12">
+		{if isset($content)}
+			{$content}
+		{/if}
+	</div>
 </div>

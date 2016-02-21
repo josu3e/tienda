@@ -1,5 +1,4 @@
 <?php
-
 /**
  * UserVariableBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: UserVariableBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 
 /**
@@ -57,7 +57,5 @@ class UserVariableBuilder {
         }
         return $parsed['base_expr'];
     }
-
 }
-
 ?>

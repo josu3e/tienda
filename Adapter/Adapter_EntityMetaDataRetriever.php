@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,9 +23,11 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Adapter_EntityMetaDataRetriever {
 
-    public function getEntityMetaData($className) {
+class Adapter_EntityMetaDataRetriever
+{
+    public function getEntityMetaData($className)
+    {
         $metaData = new Core_Foundation_Database_EntityMetaData;
 
         $metaData->setEntityClassName($className);
@@ -38,13 +39,13 @@ class Adapter_EntityMetaDataRetriever {
             $metaData->setPrimaryKeyFieldNames(array($classVars['definition']['primary']));
         } else {
             throw new Adapter_Exception(
-            sprintf(
-                    'Cannot get metadata for entity `%s`.', $className
-            )
+                sprintf(
+                    'Cannot get metadata for entity `%s`.',
+                    $className
+                )
             );
         }
 
         return $metaData;
     }
-
 }

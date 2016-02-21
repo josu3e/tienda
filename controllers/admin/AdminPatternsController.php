@@ -1,35 +1,35 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
-class AdminPatternsControllerCore extends AdminController {
-
+class AdminPatternsControllerCore extends AdminController
+{
     public $name = "patterns";
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->bootstrap = true;
         $this->show_toolbar = false;
         $this->context = Context::getContext();
@@ -37,11 +37,13 @@ class AdminPatternsControllerCore extends AdminController {
         parent::__construct();
     }
 
-    public function viewAccess() {
+    public function viewAccess()
+    {
         return true;
     }
 
-    public function renderForm() {
+    public function renderForm()
+    {
         $this->fields_value = array(
             'type_text' => 'with value',
             'type_text_readonly' => 'with value that you can\'t edit',
@@ -253,7 +255,7 @@ class AdminPatternsControllerCore extends AdminController {
                     'name' => 'type_select_chosen',
                     'class' => 'chosen',
                     'options' => array(
-                        'query' => Country::getCountries((int) Context::getContext()->cookie->id_lang),
+                        'query' => Country::getCountries((int)Context::getContext()->cookie->id_lang),
                         'id' => 'id_zone',
                         'name' => 'name'
                     ),
@@ -265,7 +267,7 @@ class AdminPatternsControllerCore extends AdminController {
                     'class' => 'chosen',
                     'multiple' => true,
                     'options' => array(
-                        'query' => Country::getCountries((int) Context::getContext()->cookie->id_lang),
+                        'query' => Country::getCountries((int)Context::getContext()->cookie->id_lang),
                         'id' => 'id_zone',
                         'name' => 'name'
                     ),
@@ -406,7 +408,7 @@ class AdminPatternsControllerCore extends AdminController {
                     'label' => 'input free',
                     'name' => 'type_free'
                 ),
-            //...
+                //...
             ),
             'submit' => array(
                 'title' => 'Save',
@@ -417,13 +419,15 @@ class AdminPatternsControllerCore extends AdminController {
         return parent::renderForm();
     }
 
-    public function setMedia() {
+    public function setMedia()
+    {
         parent::setMedia();
         $this->addjQueryPlugin('tagify', null, false);
     }
 
-    public function renderList() {
-        $return = '';
+    public function renderList()
+    {
+        $return  = '';
 
         $return .= $this->renderListSimpleHeader();
         $return .= $this->renderListSmallColumns();
@@ -432,7 +436,8 @@ class AdminPatternsControllerCore extends AdminController {
         return $return;
     }
 
-    public function renderListSimpleHeader() {
+    public function renderListSimpleHeader()
+    {
         $content = array(
             array(
                 "id_carrier" => 5,
@@ -491,12 +496,13 @@ class AdminPatternsControllerCore extends AdminController {
         $helper->title = 'This list use a simple Header with no toolbar';
         $helper->table = $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->currentIndex = AdminController::$currentIndex . '&configure=' . $this->name;
+        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
 
         return $helper->generateList($content, $fields_list);
     }
 
-    public function renderListSmallColumns() {
+    public function renderListSmallColumns()
+    {
         $content = array(
             array(
                 'id' => 5,
@@ -575,6 +581,7 @@ class AdminPatternsControllerCore extends AdminController {
             'activeVisu_field' => array(
                 'title' => "ActiveVisu",
                 'activeVisu' => true,
+
             ),
             'editable_text' => array(
                 'title' => "edit this !",
@@ -594,12 +601,13 @@ class AdminPatternsControllerCore extends AdminController {
         $helper->title = 'This list shows a lot of small columns';
         $helper->table = $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->currentIndex = AdminController::$currentIndex . '&configure=' . $this->name;
+        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
 
         return $helper->generateList($content, $fields_list);
     }
 
-    public function renderListModel() {
+    public function renderListModel()
+    {
         $content = array();
 
         $fields_list = array();
@@ -615,12 +623,13 @@ class AdminPatternsControllerCore extends AdminController {
         $helper->title = 'Moderate Comments';
         $helper->table = $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->currentIndex = AdminController::$currentIndex . '&configure=' . $this->name;
+        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
 
         return $helper->generateList($content, $fields_list);
     }
 
-    public function renderListWithParentClass() {
+    public function renderListWithParentClass()
+    {
         $this->bulk_actions = array(
             'delete' => array(
                 'text' => 'Delete selected',
@@ -650,19 +659,21 @@ class AdminPatternsControllerCore extends AdminController {
         return parent::renderList();
     }
 
-    public function renderOptions() {
+    public function renderOptions()
+    {
         $this->fields_options = array(
             'general' => array(
-                'title' => 'General',
-                'icon' => 'icon-cogs',
-                'fields' => array(),
+                'title' =>    'General',
+                'icon' =>    'icon-cogs',
+                'fields' =>    array(),
                 'submit' => array('title' => 'Save')
             )
         );
         return parent::renderOptions();
     }
 
-    public function initContent() {
+    public function initContent()
+    {
         $this->display = 'view';
         $this->page_header_toolbar_title = $this->toolbar_title = 'Patterns design sample';
 
@@ -674,5 +685,4 @@ class AdminPatternsControllerCore extends AdminController {
 
         $this->context->smarty->assign(array('content' => $this->content));
     }
-
 }

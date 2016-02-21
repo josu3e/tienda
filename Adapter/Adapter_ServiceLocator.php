@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,15 +23,17 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Adapter_ServiceLocator {
 
+class Adapter_ServiceLocator
+{
     /**
      * Set a service container Instance
      * @var Core_Foundation_IoC_Container
      */
     private static $service_container;
 
-    public static function setServiceContainerInstance(Core_Foundation_IoC_Container $container) {
+    public static function setServiceContainerInstance(Core_Foundation_IoC_Container $container)
+    {
         self::$service_container = $container;
     }
 
@@ -42,12 +43,12 @@ class Adapter_ServiceLocator {
      * @return mixed|object
      * @throws Adapter_Exception
      */
-    public static function get($serviceName) {
+    public static function get($serviceName)
+    {
         if (empty(self::$service_container) || is_null(self::$service_container)) {
             throw new Adapter_Exception('Service container is not set.');
         }
 
         return self::$service_container->make($serviceName);
     }
-
 }

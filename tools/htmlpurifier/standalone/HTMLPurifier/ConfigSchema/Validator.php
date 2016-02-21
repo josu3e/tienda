@@ -8,7 +8,8 @@
  *       ever being necessary. We have them anyway, however, for
  *       redundancy.
  */
-class HTMLPurifier_ConfigSchema_Validator {
+class HTMLPurifier_ConfigSchema_Validator
+{
 
     /**
      * @type HTMLPurifier_ConfigSchema_Interchange
@@ -32,7 +33,8 @@ class HTMLPurifier_ConfigSchema_Validator {
      */
     protected $parser;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->parser = new HTMLPurifier_VarParser();
     }
 
@@ -41,7 +43,8 @@ class HTMLPurifier_ConfigSchema_Validator {
      * @param HTMLPurifier_ConfigSchema_Interchange $interchange
      * @return bool
      */
-    public function validate($interchange) {
+    public function validate($interchange)
+    {
         $this->interchange = $interchange;
         $this->aliases = array();
         // PHP is a bit lax with integer <=> string conversions in
@@ -60,7 +63,8 @@ class HTMLPurifier_ConfigSchema_Validator {
      * Validates a HTMLPurifier_ConfigSchema_Interchange_Id object.
      * @param HTMLPurifier_ConfigSchema_Interchange_Id $id
      */
-    public function validateId($id) {
+    public function validateId($id)
+    {
         $id_string = $id->toString();
         $this->context[] = "id '$id_string'";
         if (!$id instanceof HTMLPurifier_ConfigSchema_Interchange_Id) {
@@ -70,8 +74,8 @@ class HTMLPurifier_ConfigSchema_Validator {
         // keys are now unconstrained (we might want to narrow down to A-Za-z0-9.)
         // we probably should check that it has at least one namespace
         $this->with($id, 'key')
-                ->assertNotEmpty()
-                ->assertIsString(); // implicit assertIsString handled by InterchangeBuilder
+            ->assertNotEmpty()
+            ->assertIsString(); // implicit assertIsString handled by InterchangeBuilder
         array_pop($this->context);
     }
 
@@ -79,19 +83,20 @@ class HTMLPurifier_ConfigSchema_Validator {
      * Validates a HTMLPurifier_ConfigSchema_Interchange_Directive object.
      * @param HTMLPurifier_ConfigSchema_Interchange_Directive $d
      */
-    public function validateDirective($d) {
+    public function validateDirective($d)
+    {
         $id = $d->id->toString();
         $this->context[] = "directive '$id'";
         $this->validateId($d->id);
 
         $this->with($d, 'description')
-                ->assertNotEmpty();
+            ->assertNotEmpty();
 
         // BEGIN - handled by InterchangeBuilder
         $this->with($d, 'type')
-                ->assertNotEmpty();
+            ->assertNotEmpty();
         $this->with($d, 'typeAllowsNull')
-                ->assertIsBool();
+            ->assertIsBool();
         try {
             // This also tests validity of $d->type
             $this->parser->parse($d->default, $d->type, $d->typeAllowsNull);
@@ -121,13 +126,14 @@ class HTMLPurifier_ConfigSchema_Validator {
      * HTMLPurifier_ConfigSchema_Interchange_Directive is defined.
      * @param HTMLPurifier_ConfigSchema_Interchange_Directive $d
      */
-    public function validateDirectiveAllowed($d) {
+    public function validateDirectiveAllowed($d)
+    {
         if (is_null($d->allowed)) {
             return;
         }
         $this->with($d, 'allowed')
-                ->assertNotEmpty()
-                ->assertIsLookup(); // handled by InterchangeBuilder
+            ->assertNotEmpty()
+            ->assertIsLookup(); // handled by InterchangeBuilder
         if (is_string($d->default) && !isset($d->allowed[$d->default])) {
             $this->error('default', 'must be an allowed value');
         }
@@ -145,12 +151,13 @@ class HTMLPurifier_ConfigSchema_Validator {
      * HTMLPurifier_ConfigSchema_Interchange_Directive is defined.
      * @param HTMLPurifier_ConfigSchema_Interchange_Directive $d
      */
-    public function validateDirectiveValueAliases($d) {
+    public function validateDirectiveValueAliases($d)
+    {
         if (is_null($d->valueAliases)) {
             return;
         }
         $this->with($d, 'valueAliases')
-                ->assertIsArray(); // handled by InterchangeBuilder
+            ->assertIsArray(); // handled by InterchangeBuilder
         $this->context[] = 'valueAliases';
         foreach ($d->valueAliases as $alias => $real) {
             if (!is_string($alias)) {
@@ -180,9 +187,10 @@ class HTMLPurifier_ConfigSchema_Validator {
      * HTMLPurifier_ConfigSchema_Interchange_Directive is defined.
      * @param HTMLPurifier_ConfigSchema_Interchange_Directive $d
      */
-    public function validateDirectiveAliases($d) {
+    public function validateDirectiveAliases($d)
+    {
         $this->with($d, 'aliases')
-                ->assertIsArray(); // handled by InterchangeBuilder
+            ->assertIsArray(); // handled by InterchangeBuilder
         $this->context[] = 'aliases';
         foreach ($d->aliases as $alias) {
             $this->validateId($alias);
@@ -208,7 +216,8 @@ class HTMLPurifier_ConfigSchema_Validator {
      * @param $member
      * @return HTMLPurifier_ConfigSchema_ValidatorAtom
      */
-    protected function with($obj, $member) {
+    protected function with($obj, $member)
+    {
         return new HTMLPurifier_ConfigSchema_ValidatorAtom($this->getFormattedContext(), $obj, $member);
     }
 
@@ -216,7 +225,8 @@ class HTMLPurifier_ConfigSchema_Validator {
      * Emits an error, providing helpful context.
      * @throws HTMLPurifier_ConfigSchema_Exception
      */
-    protected function error($target, $msg) {
+    protected function error($target, $msg)
+    {
         if ($target !== false) {
             $prefix = ucfirst($target) . ' in ' . $this->getFormattedContext();
         } else {
@@ -229,10 +239,10 @@ class HTMLPurifier_ConfigSchema_Validator {
      * Returns a formatted context string.
      * @return string
      */
-    protected function getFormattedContext() {
+    protected function getFormattedContext()
+    {
         return implode(' in ', array_reverse($this->context));
     }
-
 }
 
 // vim: et sw=4 sts=4

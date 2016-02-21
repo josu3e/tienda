@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ValuesProcessor.php
  *
@@ -30,6 +29,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+
 require_once(dirname(__FILE__) . '/../utils/ExpressionType.php');
 require_once(dirname(__FILE__) . '/RecordProcessor.php');
 require_once(dirname(__FILE__) . '/AbstractProcessor.php');
@@ -67,7 +67,7 @@ class ValuesProcessor extends AbstractProcessor {
             } else {
                 $processor = new RecordProcessor();
                 $values[$k] = array('expr_type' => ExpressionType::RECORD, 'base_expr' => $v,
-                    'data' => $this->recordProcessor->process($v));
+                                    'data' => $this->recordProcessor->process($v));
             }
         }
 
@@ -76,5 +76,4 @@ class ValuesProcessor extends AbstractProcessor {
     }
 
 }
-
 ?>

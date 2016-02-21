@@ -1,5 +1,4 @@
 <?php
-
 /**
  * IndexSizeBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: IndexSizeBuilder.php 918 2014-01-08 11:48:30Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ColumnListBuilder.php';
@@ -66,7 +66,7 @@ class IndexSizeBuilder {
         $builder = new ConstantBuilder();
         return $builder->build($parsed);
     }
-
+    
     public function build($parsed) {
         if ($parsed['expr_type'] !== ExpressionType::INDEX_SIZE) {
             return "";
@@ -85,7 +85,5 @@ class IndexSizeBuilder {
         }
         return substr($sql, 0, -1);
     }
-
 }
-
 ?>

@@ -5,7 +5,7 @@
  * Website: presta-shop.ir
  * License: MIT
  * Find it here: https://github.com/Danoosh/DM-Auto-RTL
- */
+*/
 $(document).ready(function () {
     $('[style]').each(function (index) {
         var styles_old = $(this).attr('style');

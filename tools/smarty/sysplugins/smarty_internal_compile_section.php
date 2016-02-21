@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile Section
  * Compiles the {section} {sectionelse} {/section} tags
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -24,7 +23,6 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('name', 'loop');
-
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -32,7 +30,6 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('name', 'loop');
-
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -49,7 +46,8 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler) {
+    public function compile($args, $compiler)
+    {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -141,7 +139,6 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
 
         return $output;
     }
-
 }
 
 /**
@@ -150,8 +147,8 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {sectionelse} tag
      *
@@ -160,7 +157,8 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler) {
+    public function compile($args, $compiler)
+    {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -169,7 +167,6 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
 
         return "<?php endfor; else: ?>";
     }
-
 }
 
 /**
@@ -178,8 +175,8 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {/section} tag
      *
@@ -188,7 +185,8 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase {
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler) {
+    public function compile($args, $compiler)
+    {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -205,5 +203,4 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase {
             return "<?php endfor; endif; ?>";
         }
     }
-
 }

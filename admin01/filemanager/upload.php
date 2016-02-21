@@ -1,13 +1,12 @@
 <?php
-
 include('config/config.php');
 if ($_SESSION['verify'] != 'RESPONSIVEfilemanager') {
     die('forbiden');
 }
 include('include/utils.php');
 
-$_POST['path'] = $current_path . str_replace('\0', '', $_POST['path']);
-$_POST['path_thumb'] = $thumbs_base_path . str_replace("\0", '', $_POST['path_thumb']);
+$_POST['path'] = $current_path.str_replace('\0', '', $_POST['path']);
+$_POST['path_thumb'] = $thumbs_base_path.str_replace("\0", '', $_POST['path_thumb']);
 
 $storeFolder = $_POST['path'];
 $storeFolderThumb = $_POST['path_thumb'];
@@ -15,7 +14,9 @@ $storeFolderThumb = $_POST['path_thumb'];
 $path_pos = strpos($storeFolder, $current_path);
 $thumb_pos = strpos($_POST['path_thumb'], $thumbs_base_path);
 
-if ($path_pos === false || $thumb_pos === false || preg_match('/\.{1,2}[\/|\\\]/', $_POST['path_thumb']) !== 0 || preg_match('/\.{1,2}[\/|\\\]/', $_POST['path']) !== 0) {
+if ($path_pos === false || $thumb_pos === false
+    || preg_match('/\.{1,2}[\/|\\\]/', $_POST['path_thumb']) !== 0
+    || preg_match('/\.{1,2}[\/|\\\]/', $_POST['path']) !== 0) {
     die('wrong path');
 }
 
@@ -28,11 +29,11 @@ while ($cycle && $i < $max_cycles) {
     if ($path == $current_path) {
         $cycle = false;
     }
-    if (file_exists($path . 'config.php')) {
-        require_once($path . 'config.php');
+    if (file_exists($path.'config.php')) {
+        require_once($path.'config.php');
         $cycle = false;
     }
-    $path = fix_dirname($path) . '/';
+    $path = fix_dirname($path).'/';
 }
 
 if (!empty($_FILES)) {
@@ -46,18 +47,18 @@ if (!empty($_FILES)) {
 
         $file_name_splitted = explode('.', $_FILES['file']['name']);
         array_pop($file_name_splitted);
-        $_FILES['file']['name'] = implode('-', $file_name_splitted) . '.' . $info['extension'];
+        $_FILES['file']['name'] = implode('-', $file_name_splitted).'.'.$info['extension'];
 
-        if (file_exists($targetPath . $_FILES['file']['name'])) {
+        if (file_exists($targetPath.$_FILES['file']['name'])) {
             $i = 1;
             $info = pathinfo($_FILES['file']['name']);
-            while (file_exists($targetPath . $info['filename'] . '_' . $i . '.' . $info['extension'])) {
+            while (file_exists($targetPath.$info['filename'].'_'.$i.'.'.$info['extension'])) {
                 $i++;
             }
-            $_FILES['file']['name'] = $info['filename'] . '_' . $i . '.' . $info['extension'];
+            $_FILES['file']['name'] = $info['filename'].'_'.$i.'.'.$info['extension'];
         }
-        $targetFile = $targetPath . $_FILES['file']['name'];
-        $targetFileThumb = $targetPathThumb . $_FILES['file']['name'];
+        $targetFile = $targetPath.$_FILES['file']['name'];
+        $targetFileThumb = $targetPathThumb.$_FILES['file']['name'];
 
         if (in_array(fix_strtolower($info['extension']), $ext_img) && @getimagesize($tempFile) != false) {
             $is_img = true;
@@ -132,13 +133,13 @@ if (!empty($_FILES)) {
 }
 if (isset($_POST['submit'])) {
     $query = http_build_query(
-            array(
-                'type' => $_POST['type'],
-                'lang' => $_POST['lang'],
-                'popup' => $_POST['popup'],
-                'field_id' => $_POST['field_id'],
-                'fldr' => $_POST['fldr'],
-            )
+        array(
+            'type' => $_POST['type'],
+            'lang' => $_POST['lang'],
+            'popup' => $_POST['popup'],
+            'field_id' => $_POST['field_id'],
+            'fldr' => $_POST['fldr'],
+        )
     );
-    header('location: dialog.php?' . $query);
+    header('location: dialog.php?'.$query);
 }

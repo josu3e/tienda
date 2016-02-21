@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Config File Compiler
  * This is the config file compiler class. It calls the lexer and parser to
@@ -16,8 +15,8 @@
  * @package    Smarty
  * @subpackage Config
  */
-class Smarty_Internal_Config_File_Compiler {
-
+class Smarty_Internal_Config_File_Compiler
+{
     /**
      * Lexer object
      *
@@ -58,7 +57,8 @@ class Smarty_Internal_Config_File_Compiler {
      *
      * @param Smarty $smarty base instance
      */
-    public function __construct($smarty) {
+    public function __construct($smarty)
+    {
         $this->smarty = $smarty;
         $this->config_data['sections'] = array();
         $this->config_data['vars'] = array();
@@ -71,7 +71,8 @@ class Smarty_Internal_Config_File_Compiler {
      *
      * @return bool                   true if compiling succeeded, false if it failed
      */
-    public function compileSource(Smarty_Internal_Config $config) {
+    public function compileSource(Smarty_Internal_Config $config)
+    {
         /* here is where the compiling takes place. Smarty
           tags in the templates are replaces with PHP code,
           then written to compiled files. */
@@ -124,7 +125,8 @@ class Smarty_Internal_Config_File_Compiler {
      *
      * @throws SmartyCompilerException
      */
-    public function trigger_config_file_error($args = null) {
+    public function trigger_config_file_error($args = null)
+    {
         $this->lex = Smarty_Internal_Configfilelexer::instance();
         $this->parser = Smarty_Internal_Configfileparser::instance();
         // get template source line which has error
@@ -154,5 +156,4 @@ class Smarty_Internal_Config_File_Compiler {
         }
         throw new SmartyCompilerException($error_text);
     }
-
 }

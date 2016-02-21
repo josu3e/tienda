@@ -1,5 +1,4 @@
 <?php
-
 define('lang_Select', 'Odaberi');
 define('lang_Erase', 'Obriši');
 define('lang_Open', 'Otvori');

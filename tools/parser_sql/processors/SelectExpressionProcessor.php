@@ -1,5 +1,4 @@
 <?php
-
 /**
  * SelectExpressionProcessor.php
  *
@@ -30,6 +29,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+
 require_once(dirname(__FILE__) . '/AbstractProcessor.php');
 require_once(dirname(__FILE__) . '/ExpressionListProcessor.php');
 require_once(dirname(__FILE__) . '/../utils/ExpressionType.php');
@@ -105,20 +105,24 @@ class SelectExpressionProcessor extends AbstractProcessor {
         $stripped = $this->expressionListProcessor->process($stripped);
 
         // TODO: the last part can also be a comment, don't use array_pop
+
         // we remove the last token, if it is a colref,
         // it can be an alias without an AS
         $last = array_pop($stripped);
         if (!$alias && $this->isColumnReference($last)) {
 
             // TODO: it can be a comment, don't use array_pop
+
             // check the token before the colref
             $prev = array_pop($stripped);
 
-            if ($this->isReserved($prev) || $this->isConstant($prev) || $this->isAggregateFunction($prev) || $this->isFunction($prev) || $this->isExpression($prev) || $this->isSubQuery($prev) || $this->isColumnReference($prev) || $this->isBracketExpression($prev)) {
+            if ($this->isReserved($prev) || $this->isConstant($prev) || $this->isAggregateFunction($prev)
+                    || $this->isFunction($prev) || $this->isExpression($prev) || $this->isSubQuery($prev)
+                    || $this->isColumnReference($prev) || $this->isBracketExpression($prev)) {
 
                 $alias = array('as' => false, 'name' => trim($last['base_expr']),
-                    'no_quotes' => $this->revokeQuotation($last['base_expr']),
-                    'base_expr' => trim($last['base_expr']));
+                               'no_quotes' => $this->revokeQuotation($last['base_expr']),
+                               'base_expr' => trim($last['base_expr']));
                 // remove the last token
                 array_pop($tokens);
                 $base_expr = join("", $tokens);
@@ -163,5 +167,4 @@ class SelectExpressionProcessor extends AbstractProcessor {
     }
 
 }
-
 ?>

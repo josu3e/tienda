@@ -1,5 +1,4 @@
 <?php
-
 //============================================================+
 // File name   : jpn.php
 // Begin       : 2011-01-24
@@ -28,6 +27,7 @@
  * @author Nicola Asuni - Translation by redcocker
  * @since 2012-01-24
  */
+
 // Japanese
 
 global $l;

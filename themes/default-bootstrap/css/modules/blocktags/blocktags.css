@@ -1,6 +1,6 @@
 .tags_block .block_content {
-    overflow: hidden; }
-.tags_block .block_content a {
+  overflow: hidden; }
+  .tags_block .block_content a {
     display: inline-block;
     font-size: 13px;
     line-height: 16px;
@@ -9,8 +9,8 @@
     border: 1px solid #d6d4d4;
     float: left;
     margin: 0 3px 3px 0; }
-.tags_block .block_content a:hover {
-    color: #333;
-    background: #f6f6f6; }
+    .tags_block .block_content a:hover {
+      color: #333;
+      background: #f6f6f6; }
 
 /*# sourceMappingURL=blocktags.css.map */

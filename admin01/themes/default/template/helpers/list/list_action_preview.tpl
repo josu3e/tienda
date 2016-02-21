@@ -23,5 +23,5 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <a href="{$href}" title="{$action|escape:'html':'UTF-8'}" target="_blank">
-    <i class="icon-eye"></i> {$action}
+	<i class="icon-eye"></i> {$action}
 </a>

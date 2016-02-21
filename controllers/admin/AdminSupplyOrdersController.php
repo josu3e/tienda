@@ -1,42 +1,42 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
 /**
  * @since 1.5.0
  * @property SupplyOrder $object
  */
-class AdminSupplyOrdersControllerCore extends AdminController {
-
+class AdminSupplyOrdersControllerCore extends AdminController
+{
     /**
      * @var array List of warehouses
      */
     protected $warehouses;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->bootstrap = true;
         $this->context = Context::getContext();
         $this->table = 'supply_order';
@@ -113,7 +113,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * AdminController::init() override
      * @see AdminController::init()
      */
-    public function init() {
+    public function init()
+    {
         if (Tools::isSubmit('submitFilterorders')) {
             $this->list_id = 'orders';
         } elseif (Tools::isSubmit('submitFiltertemplates')) {
@@ -123,8 +124,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         parent::init();
 
         if (Tools::isSubmit('addsupply_order') ||
-                Tools::isSubmit('submitAddsupply_order') ||
-                (Tools::isSubmit('updatesupply_order') && Tools::isSubmit('id_supply_order'))) {
+            Tools::isSubmit('submitAddsupply_order') ||
+            (Tools::isSubmit('updatesupply_order') && Tools::isSubmit('id_supply_order'))) {
             // override table, lang, className and identifier for the current controller
             $this->table = 'supply_order';
             $this->className = 'SupplyOrder';
@@ -152,7 +153,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         }
     }
 
-    public function initPageHeaderToolbar() {
+    public function initPageHeaderToolbar()
+    {
         if ($this->display == 'details') {
             $this->page_header_toolbar_btn['back'] = array(
                 'href' => Context::getContext()->link->getAdminLink('AdminSupplyOrders'),
@@ -161,12 +163,12 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             );
         } elseif (empty($this->display)) {
             $this->page_header_toolbar_btn['new_supply_order'] = array(
-                'href' => self::$currentIndex . '&addsupply_order&token=' . $this->token,
+                'href' => self::$currentIndex.'&addsupply_order&token='.$this->token,
                 'desc' => $this->l('Add new supply order', null, null, false),
                 'icon' => 'process-icon-new'
             );
             $this->page_header_toolbar_btn['new_supply_order_template'] = array(
-                'href' => self::$currentIndex . '&addsupply_order&mod=template&token=' . $this->token,
+                'href' => self::$currentIndex.'&addsupply_order&mod=template&token='.$this->token,
                 'desc' => $this->l('Add new supply order template', null, null, false),
                 'icon' => 'process-icon-new'
             );
@@ -179,12 +181,13 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * AdminController::renderForm() override
      * @see AdminController::renderForm()
      */
-    public function renderForm() {
+    public function renderForm()
+    {
         if (Tools::isSubmit('addsupply_order') ||
-                Tools::isSubmit('updatesupply_order') ||
-                Tools::isSubmit('submitAddsupply_order') ||
-                Tools::isSubmit('submitUpdatesupply_order')) {
-            if (Tools::isSubmit('addsupply_order') || Tools::isSubmit('submitAddsupply_order')) {
+            Tools::isSubmit('updatesupply_order') ||
+            Tools::isSubmit('submitAddsupply_order') ||
+            Tools::isSubmit('submitUpdatesupply_order')) {
+            if (Tools::isSubmit('addsupply_order') ||    Tools::isSubmit('submitAddsupply_order')) {
                 $this->toolbar_title = $this->l('Stock: Create a new supply order');
             }
 
@@ -195,7 +198,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             }
 
             if (Tools::isSubmit('mod') && Tools::getValue('mod') === 'template' || $this->object->is_template) {
-                $this->toolbar_title .= ' (' . $this->l('template') . ')';
+                $this->toolbar_title .= ' ('.$this->l('template').')';
             }
 
             $this->addJqueryUI('ui.datepicker');
@@ -304,15 +307,15 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                 ),
                 'submit' => (!$update ? array('title' => $this->l('Save order')) : array()),
                 'buttons' => (!$update ?
-                        array(
-                    'save-and-stay' => array(
-                        'title' => $this->l('Save order and stay'),
-                        'name' => 'submitAddsupply_orderAndStay',
-                        'type' => 'submit',
-                        'class' => 'btn btn-default pull-right',
-                        'icon' => 'process-icon-save'
-                    )
-                        ) : array())
+                    array(
+                        'save-and-stay' => array(
+                            'title' => $this->l('Save order and stay'),
+                            'name' => 'submitAddsupply_orderAndStay',
+                            'type' => 'submit',
+                            'class' => 'btn btn-default pull-right',
+                            'icon' => 'process-icon-save'
+                        )
+                    ) : array())
             );
 
             if (Tools::isSubmit('mod') && Tools::getValue('mod') === 'template' || $this->object->is_template) {
@@ -350,14 +353,14 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             }
 
             $this->displayInformation(
-                    $this->l('If you wish to order products, they have to be available for the specified supplier/warehouse.')
-                    . ' ' .
-                    $this->l('See Catalog/Products/[Your Product]/Suppliers & Warehouses.')
-                    . '<br />' .
-                    $this->l('Changing the currency or the supplier will reset the order.')
-                    . '<br />'
-                    . '<br />' .
-                    $this->l('Please note that you can only order from one supplier at a time.')
+                $this->l('If you wish to order products, they have to be available for the specified supplier/warehouse.')
+                .' '.
+                $this->l('See Catalog/Products/[Your Product]/Suppliers & Warehouses.')
+                .'<br />'.
+                $this->l('Changing the currency or the supplier will reset the order.')
+                .'<br />'
+                .'<br />'.
+                $this->l('Please note that you can only order from one supplier at a time.')
             );
             return parent::renderForm();
         }
@@ -376,7 +379,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      *
      * @throws PrestaShopException
      */
-    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false) {
+    public function getList($id_lang, $order_by = null, $order_way = null, $start = 0, $limit = null, $id_lang_shop = false)
+    {
         if (Tools::isSubmit('csv_orders') || Tools::isSubmit('csv_orders_details') || Tools::isSubmit('csv_order_details')) {
             $limit = false;
         }
@@ -386,14 +390,14 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             // adds export csv buttons
             $this->toolbar_btn['export-csv-orders'] = array(
                 'short' => 'Export Orders',
-                'href' => $this->context->link->getAdminLink('AdminSupplyOrders') . '&csv_orders&id_warehouse=' . $this->getCurrentWarehouse(),
+                'href' => $this->context->link->getAdminLink('AdminSupplyOrders').'&csv_orders&id_warehouse='.$this->getCurrentWarehouse(),
                 'desc' => $this->l('Export Orders (CSV)'),
                 'class' => 'process-icon-export'
             );
 
             $this->toolbar_btn['export-csv-details'] = array(
                 'short' => 'Export Orders Details',
-                'href' => $this->context->link->getAdminLink('AdminSupplyOrders') . '&csv_orders_details&id_warehouse=' . $this->getCurrentWarehouse(),
+                'href' => $this->context->link->getAdminLink('AdminSupplyOrders').'&csv_orders_details&id_warehouse='.$this->getCurrentWarehouse(),
                 'desc' => $this->l('Export Orders Details (CSV)'),
                 'class' => 'process-icon-export'
             );
@@ -401,7 +405,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             unset($this->toolbar_btn['new']);
             if ($this->tabAccess['add'] === '1') {
                 $this->toolbar_btn['new'] = array(
-                    'href' => self::$currentIndex . '&add' . $this->table . '&token=' . $this->token,
+                    'href' => self::$currentIndex.'&add'.$this->table.'&token='.$this->token,
                     'desc' => $this->l('Add New')
                 );
             }
@@ -445,9 +449,10 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * AdminController::renderList() override
      * @see AdminController::renderList()
      */
-    public function renderList() {
-        $this->displayInformation($this->l('This interface allows you to manage supply orders.') . '<br />');
-        $this->displayInformation($this->l('You can create pre-filled order templates, from which you can build actual orders much quicker.') . '<br />');
+    public function renderList()
+    {
+        $this->displayInformation($this->l('This interface allows you to manage supply orders.').'<br />');
+        $this->displayInformation($this->l('You can create pre-filled order templates, from which you can build actual orders much quicker.').'<br />');
 
         if (count($this->warehouses) <= 1) {
             $this->displayWarning($this->l('You must choose at least one warehouse before creating supply orders. For more information, see Stock/Warehouses.'));
@@ -472,20 +477,20 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 			a.id_supply_order as id_export';
 
         $this->_join = '
-			LEFT JOIN `' . _DB_PREFIX_ . 'supply_order_state_lang` stl ON
+			LEFT JOIN `'._DB_PREFIX_.'supply_order_state_lang` stl ON
 			(
 				a.id_supply_order_state = stl.id_supply_order_state
-				AND stl.id_lang = ' . (int) $this->context->language->id . '
+				AND stl.id_lang = '.(int)$this->context->language->id.'
 			)
-			LEFT JOIN `' . _DB_PREFIX_ . 'supply_order_state` st ON a.id_supply_order_state = st.id_supply_order_state
-			LEFT JOIN `' . _DB_PREFIX_ . 'supplier` s ON a.id_supplier = s.id_supplier
-			LEFT JOIN `' . _DB_PREFIX_ . 'warehouse` w ON (w.id_warehouse = a.id_warehouse)';
+			LEFT JOIN `'._DB_PREFIX_.'supply_order_state` st ON a.id_supply_order_state = st.id_supply_order_state
+			LEFT JOIN `'._DB_PREFIX_.'supplier` s ON a.id_supplier = s.id_supplier
+			LEFT JOIN `'._DB_PREFIX_.'warehouse` w ON (w.id_warehouse = a.id_warehouse)';
 
         $this->_where = ' AND a.is_template = 0';
 
         if ($this->getCurrentWarehouse() != -1) {
-            $this->_where .= ' AND a.id_warehouse = ' . $this->getCurrentWarehouse();
-            self::$currentIndex .= '&id_warehouse=' . (int) $this->getCurrentWarehouse();
+            $this->_where .= ' AND a.id_warehouse = '.$this->getCurrentWarehouse();
+            self::$currentIndex .= '&id_warehouse='.(int)$this->getCurrentWarehouse();
         }
 
         if ($this->getFilterStatus() != 0) {
@@ -496,7 +501,10 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $this->list_id = 'orders';
         $this->_filterHaving = null;
 
-        if (Tools::isSubmit('submitFilter' . $this->list_id) || $this->context->cookie->{'submitFilter' . $this->list_id} !== false || Tools::getValue($this->list_id . 'Orderby') || Tools::getValue($this->list_id . 'Orderway')) {
+        if (Tools::isSubmit('submitFilter'.$this->list_id)
+            || $this->context->cookie->{'submitFilter'.$this->list_id} !== false
+            || Tools::getValue($this->list_id.'Orderby')
+            || Tools::getValue($this->list_id.'Orderway')) {
             $this->filter = true;
             parent::processFilter();
         }
@@ -529,15 +537,20 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $this->addRowAction('createsupplyorder');
         $this->addRowAction('delete');
         // unsets some fields
-        unset($this->fields_list['state'], $this->fields_list['date_upd'], $this->fields_list['id_pdf'], $this->fields_list['date_delivery_expected'], $this->fields_list['id_export']);
+        unset($this->fields_list['state'],
+              $this->fields_list['date_upd'],
+              $this->fields_list['id_pdf'],
+              $this->fields_list['date_delivery_expected'],
+              $this->fields_list['id_export']);
 
         // $this->fields_list['date_add']['align'] = 'left';
+
         // adds filter, to gets only templates
         unset($this->_where);
         $this->_where = ' AND a.is_template = 1';
 
         if ($this->getCurrentWarehouse() != -1) {
-            $this->_where .= ' AND a.id_warehouse = ' . $this->getCurrentWarehouse();
+            $this->_where .= ' AND a.id_warehouse = '.$this->getCurrentWarehouse();
         }
 
         // re-defines toolbar & buttons
@@ -545,7 +558,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $this->initToolbar();
         unset($this->toolbar_btn['new']);
         $this->toolbar_btn['new'] = array(
-            'href' => self::$currentIndex . '&add' . $this->table . '&mod=template&token=' . $this->token,
+            'href' => self::$currentIndex.'&add'.$this->table.'&mod=template&token='.$this->token,
             'desc' => $this->l('Add new template'),
             'imgclass' => 'new_1',
             'class' => 'process-icon-new'
@@ -554,21 +567,25 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $this->list_id = 'templates';
         $this->_filterHaving = null;
 
-        if (Tools::isSubmit('submitFilter' . $this->list_id) || $this->context->cookie->{'submitFilter' . $this->list_id} !== false || Tools::getValue($this->list_id . 'Orderby') || Tools::getValue($this->list_id . 'Orderway')) {
+        if (Tools::isSubmit('submitFilter'.$this->list_id)
+            || $this->context->cookie->{'submitFilter'.$this->list_id} !== false
+            || Tools::getValue($this->list_id.'Orderby')
+            || Tools::getValue($this->list_id.'Orderway')) {
             $this->filter = true;
             parent::processFilter();
         }
         // inits list
         $second_list = parent::renderList();
 
-        return $first_list . $second_list;
+        return $first_list.$second_list;
     }
 
     /**
      * Init the content of change state action
      */
-    public function initChangeStateContent() {
-        $id_supply_order = (int) Tools::getValue('id_supply_order', 0);
+    public function initChangeStateContent()
+    {
+        $id_supply_order = (int)Tools::getValue('id_supply_order', 0);
 
         if ($id_supply_order <= 0) {
             $this->errors[] = Tools::displayError('The specified supply order is not valid');
@@ -651,7 +668,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
         $this->context->smarty->assign(array(
             'content' => $content,
-            'url_post' => self::$currentIndex . '&token=' . $this->token,
+            'url_post' => self::$currentIndex.'&token='.$this->token,
             'show_page_header_toolbar' => $this->show_page_header_toolbar,
             'page_header_toolbar_title' => $this->page_header_toolbar_title,
             'page_header_toolbar_btn' => $this->page_header_toolbar_btn
@@ -661,11 +678,12 @@ class AdminSupplyOrdersControllerCore extends AdminController {
     /**
      * Init the content of change state action
      */
-    public function initUpdateSupplyOrderContent() {
+    public function initUpdateSupplyOrderContent()
+    {
         $this->addJqueryPlugin('autocomplete');
 
         // load supply order
-        $id_supply_order = (int) Tools::getValue('id_supply_order', null);
+        $id_supply_order = (int)Tools::getValue('id_supply_order', null);
 
         if ($id_supply_order != null) {
             $supply_order = new SupplyOrder($id_supply_order);
@@ -693,11 +711,11 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
                 foreach ($products as &$item) {
                     // calculate md5 checksum on each product for use in tpl
-                    $item['checksum'] = md5(_COOKIE_KEY_ . $item['id_product'] . '_' . $item['id_product_attribute']);
+                    $item['checksum'] = md5(_COOKIE_KEY_.$item['id_product'].'_'.$item['id_product_attribute']);
                     $item['unit_price_te'] = Tools::ps_round($item['unit_price_te'], 2);
 
                     // add id to ids list
-                    $product_ids[] = $item['id_product'] . '_' . $item['id_product_attribute'];
+                    $product_ids[] = $item['id_product'].'_'.$item['id_product_attribute'];
                 }
 
                 $this->tpl_form_vars['products_list'] = $products;
@@ -721,8 +739,9 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * Called in initContent()
      * @see AdminSuppliersOrders::initContent()
      */
-    public function initUpdateReceiptContent() {
-        $id_supply_order = (int) Tools::getValue('id_supply_order', null);
+    public function initUpdateReceiptContent()
+    {
+        $id_supply_order = (int)Tools::getValue('id_supply_order', null);
 
         // if there is no order to fetch
         if (null == $id_supply_order) {
@@ -818,7 +837,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $this->toolbar_title = sprintf($this->l('Receipt of products for supply order #%s'), $supply_order->reference);
 
         $this->lang = false;
-        $lang_id = (int) $this->context->language->id; //employee lang
+        $lang_id = (int)$this->context->language->id; //employee lang
+
         // gets values corresponding to fields_list
         $this->_select = '
 			a.id_supply_order_detail as id,
@@ -829,7 +849,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 			IF (a.quantity_expected = a.quantity_received, 1, 0) badge_success,
 			IF (a.quantity_expected > a.quantity_received, 1, 0) badge_danger';
 
-        $this->_where = 'AND a.`id_supply_order` = ' . (int) $id_supply_order;
+        $this->_where = 'AND a.`id_supply_order` = '.(int)$id_supply_order;
 
         $this->_group = 'GROUP BY a.id_supply_order_detail';
 
@@ -837,7 +857,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $this->getList($lang_id, 'quantity_expected', 'DESC', 0, Tools::getValue('supply_order_pagination'), false);
 
         // defines action for POST
-        $action = '&id_supply_order=' . $id_supply_order . '&update_receipt=1';
+        $action = '&id_supply_order='.$id_supply_order.'&update_receipt=1';
 
         // unsets some buttons
         unset($this->toolbar_btn['export-csv-orders']);
@@ -862,12 +882,12 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             'display_product_history' => 1,
         );
 
-        $helper->currentIndex = self::$currentIndex . $action;
+        $helper->currentIndex = self::$currentIndex.$action;
 
         // display these global order informations
-        $this->displayInformation($this->l('This interface allows you to update the quantities of this ongoing order.') . '<br />');
-        $this->displayInformation($this->l('Be careful! Once you update, you cannot go back unless you add new negative stock movements.') . '<br />');
-        $this->displayInformation($this->l('A green line means that you\'ve received exactly the quantity you expected. A red line means that you\'ve received more than expected.') . '<br />');
+        $this->displayInformation($this->l('This interface allows you to update the quantities of this ongoing order.').'<br />');
+        $this->displayInformation($this->l('Be careful! Once you update, you cannot go back unless you add new negative stock movements.').'<br />');
+        $this->displayInformation($this->l('A green line means that you\'ve received exactly the quantity you expected. A red line means that you\'ve received more than expected.').'<br />');
 
         // generates content
         $content = $helper->generateList($this->_list, $this->fields_list);
@@ -885,9 +905,11 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * AdminController::initContent() override
      * @see AdminController::initContent()
      */
-    public function initContent() {
+    public function initContent()
+    {
         if (!Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
-            $this->warnings[md5('PS_ADVANCED_STOCK_MANAGEMENT')] = $this->l('You need to activate the Advanced Stock Management feature prior to using this feature.');
+            $this->warnings[md5('PS_ADVANCED_STOCK_MANAGEMENT')] =
+                $this->l('You need to activate the Advanced Stock Management feature prior to using this feature.');
             return false;
         }
         // Manage the add stock form
@@ -913,9 +935,10 @@ class AdminSupplyOrdersControllerCore extends AdminController {
     /**
      * Ths method manage associated products to the order when updating it
      */
-    public function manageOrderProducts() {
+    public function manageOrderProducts()
+    {
         // load supply order
-        $id_supply_order = (int) Tools::getValue('id_supply_order', null);
+        $id_supply_order = (int)Tools::getValue('id_supply_order', null);
         $products_already_in_order = array();
 
         if ($id_supply_order != null) {
@@ -923,11 +946,11 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
             if (Validate::isLoadedObject($supply_order)) {
                 // tests if the supplier or currency have changed in the supply order
-                $new_supplier_id = (int) Tools::getValue('id_supplier');
-                $new_currency_id = (int) Tools::getValue('id_currency');
+                $new_supplier_id = (int)Tools::getValue('id_supplier');
+                $new_currency_id = (int)Tools::getValue('id_currency');
 
                 if (($new_supplier_id != $supply_order->id_supplier) ||
-                        ($new_currency_id != $supply_order->id_currency)) {
+                    ($new_currency_id != $supply_order->id_currency)) {
                     // resets all products in this order
                     $supply_order->resetProducts();
                 } else {
@@ -945,7 +968,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                         $product_ok = false;
 
                         foreach ($product_ids_to_delete as $id) {
-                            $id_check = $paio['id_product'] . '_' . $paio['id_product_attribute'];
+                            $id_check = $paio['id_product'].'_'.$paio['id_product_attribute'];
                             if ($id_check == $id) {
                                 $product_ok = true;
                             }
@@ -962,8 +985,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                         $errors = array();
 
                         // check if a checksum is available for this product and test it
-                        $check = Tools::getValue('input_check_' . $id, '');
-                        $check_valid = md5(_COOKIE_KEY_ . $id);
+                        $check = Tools::getValue('input_check_'.$id, '');
+                        $check_valid = md5(_COOKIE_KEY_.$id);
 
                         if ($check_valid != $check) {
                             continue;
@@ -976,7 +999,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
                         // Load / Create supply order detail
                         $entry = new SupplyOrderDetail();
-                        $id_supply_order_detail = (int) Tools::getValue('input_id_' . $id, 0);
+                        $id_supply_order_detail = (int)Tools::getValue('input_id_'.$id, 0);
                         if ($id_supply_order_detail > 0) {
                             $existing_entry = new SupplyOrderDetail($id_supply_order_detail);
                             if (Validate::isLoadedObject($supply_order)) {
@@ -987,14 +1010,14 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                         // get product informations
                         $entry->id_product = substr($id, 0, $pos);
                         $entry->id_product_attribute = substr($id, $pos + 1);
-                        $entry->unit_price_te = (float) str_replace(array(' ', ','), array('', '.'), Tools::getValue('input_unit_price_te_' . $id, 0));
-                        $entry->quantity_expected = (int) str_replace(array(' ', ','), array('', '.'), Tools::getValue('input_quantity_expected_' . $id, 0));
-                        $entry->discount_rate = (float) str_replace(array(' ', ','), array('', '.'), Tools::getValue('input_discount_rate_' . $id, 0));
-                        $entry->tax_rate = (float) str_replace(array(' ', ','), array('', '.'), Tools::getValue('input_tax_rate_' . $id, 0));
-                        $entry->reference = Tools::getValue('input_reference_' . $id, '');
-                        $entry->supplier_reference = Tools::getValue('input_supplier_reference_' . $id, '');
-                        $entry->ean13 = Tools::getValue('input_ean13_' . $id, '');
-                        $entry->upc = Tools::getValue('input_upc_' . $id, '');
+                        $entry->unit_price_te = (float)str_replace(array(' ', ','), array('', '.'), Tools::getValue('input_unit_price_te_'.$id, 0));
+                        $entry->quantity_expected = (int)str_replace(array(' ', ','), array('', '.'), Tools::getValue('input_quantity_expected_'.$id, 0));
+                        $entry->discount_rate = (float)str_replace(array(' ', ','), array('', '.'), Tools::getValue('input_discount_rate_'.$id, 0));
+                        $entry->tax_rate = (float)str_replace(array(' ', ','), array('', '.'), Tools::getValue('input_tax_rate_'.$id, 0));
+                        $entry->reference = Tools::getValue('input_reference_'.$id, '');
+                        $entry->supplier_reference = Tools::getValue('input_supplier_reference_'.$id, '');
+                        $entry->ean13 = Tools::getValue('input_ean13_'.$id, '');
+                        $entry->upc = Tools::getValue('input_upc_'.$id, '');
 
                         //get the product name in the order language
                         $entry->name = Product::getProductName($entry->id_product, $entry->id_product_attribute, $supply_order->id_lang);
@@ -1014,17 +1037,17 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                         $errors = $entry->validateController();
 
                         //get the product name displayed in the backoffice according to the employee language
-                        $entry->name_displayed = Tools::getValue('input_name_displayed_' . $id, '');
+                        $entry->name_displayed = Tools::getValue('input_name_displayed_'.$id, '');
 
                         // if there is a problem, handle error for the current product
                         if (count($errors) > 0) {
                             // add the product to error array => display again product line
                             $this->order_products_errors[] = array(
-                                'id_product' => $entry->id_product,
+                                'id_product' =>    $entry->id_product,
                                 'id_product_attribute' => $entry->id_product_attribute,
-                                'unit_price_te' => $entry->unit_price_te,
+                                'unit_price_te' =>    $entry->unit_price_te,
                                 'quantity_expected' => $entry->quantity_expected,
-                                'discount_rate' => $entry->discount_rate,
+                                'discount_rate' =>    $entry->discount_rate,
                                 'tax_rate' => $entry->tax_rate,
                                 'name' => $entry->name,
                                 'name_displayed' => $entry->name_displayed,
@@ -1036,12 +1059,12 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
                             $error_str = '<ul>';
                             foreach ($errors as $e) {
-                                $error_str .= '<li>' . sprintf($this->l('Field: %s'), $e) . '</li>';
+                                $error_str .= '<li>'.sprintf($this->l('Field: %s'), $e).'</li>';
                             }
                             $error_str .= '</ul>';
 
-                            $this->errors[] = sprintf(Tools::displayError('Please verify the product information for "%s":'), $entry->name) . ' '
-                                    . $error_str;
+                            $this->errors[] = sprintf(Tools::displayError('Please verify the product information for "%s":'), $entry->name).' '
+                                .$error_str;
                         } else {
                             $entry->save();
                         }
@@ -1055,7 +1078,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * AdminController::postProcess() override
      * @see AdminController::postProcess()
      */
-    public function postProcess() {
+    public function postProcess()
+    {
         $this->is_editing_order = false;
 
         // Checks access
@@ -1076,11 +1100,11 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             // gets the reference
             $ref = pSQL(Tools::getValue('reference'));
 
-            if (Tools::getValue('id_supply_order') != 0 && SupplyOrder::getReferenceById((int) Tools::getValue('id_supply_order')) != $ref) {
-                if ((int) SupplyOrder::exists($ref) != 0) {
+            if (Tools::getValue('id_supply_order') != 0 && SupplyOrder::getReferenceById((int)Tools::getValue('id_supply_order')) != $ref) {
+                if ((int)SupplyOrder::exists($ref) != 0) {
                     $this->errors[] = Tools::displayError('The reference has to be unique.');
                 }
-            } elseif (Tools::getValue('id_supply_order') == 0 && (int) SupplyOrder::exists($ref) != 0) {
+            } elseif (Tools::getValue('id_supply_order') == 0 && (int)SupplyOrder::exists($ref) != 0) {
                 $this->errors[] = Tools::displayError('The reference has to be unique.');
             }
         }
@@ -1095,19 +1119,19 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             $this->is_editing_order = true;
 
             // get supplier ID
-            $id_supplier = (int) Tools::getValue('id_supplier', 0);
+            $id_supplier = (int)Tools::getValue('id_supplier', 0);
             if ($id_supplier <= 0 || !Supplier::supplierExists($id_supplier)) {
                 $this->errors[] = Tools::displayError('The selected supplier is not valid.');
             }
 
             // get warehouse id
-            $id_warehouse = (int) Tools::getValue('id_warehouse', 0);
+            $id_warehouse = (int)Tools::getValue('id_warehouse', 0);
             if ($id_warehouse <= 0 || !Warehouse::exists($id_warehouse)) {
                 $this->errors[] = Tools::displayError('The selected warehouse is not valid.');
             }
 
             // get currency id
-            $id_currency = (int) Tools::getValue('id_currency', 0);
+            $id_currency = (int)Tools::getValue('id_currency', 0);
             if ($id_currency <= 0 || (!($result = Currency::getCurrency($id_currency)) || empty($result))) {
                 $this->errors[] = Tools::displayError('The selected currency is not valid.');
             }
@@ -1121,7 +1145,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             $quantity_threshold = Tools::getValue('load_products');
 
             if (is_numeric($quantity_threshold)) {
-                $quantity_threshold = (int) $quantity_threshold;
+                $quantity_threshold = (int)$quantity_threshold;
             } else {
                 $quantity_threshold = null;
             }
@@ -1134,6 +1158,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
                 // specify initial state
                 $_POST['id_supply_order_state'] = 1; //defaut creation state
+
                 // specify global reference currency
                 $_POST['id_ref_currency'] = Currency::getDefaultCurrency()->id;
 
@@ -1141,7 +1166,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                 $_POST['supplier_name'] = Supplier::getNameById($id_supplier);
 
                 //specific discount check
-                $_POST['discount_rate'] = (float) str_replace(array(' ', ','), array('', '.'), Tools::getValue('discount_rate', 0));
+                $_POST['discount_rate'] = (float)str_replace(array(' ', ','), array('', '.'), Tools::getValue('discount_rate', 0));
             }
 
             // manage each associated product
@@ -1149,24 +1174,26 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
             // if the threshold is defined and we are saving the order
             if (Tools::isSubmit('submitAddsupply_order') && Validate::isInt($quantity_threshold)) {
-                $this->loadProducts((int) $quantity_threshold);
+                $this->loadProducts((int)$quantity_threshold);
             }
         }
 
         // Manage state change
-        if (Tools::isSubmit('submitChangestate') && Tools::isSubmit('id_supply_order') && Tools::isSubmit('id_supply_order_state')) {
+        if (Tools::isSubmit('submitChangestate')
+            && Tools::isSubmit('id_supply_order')
+            && Tools::isSubmit('id_supply_order_state')) {
             if ($this->tabAccess['edit'] != '1') {
                 $this->errors[] = Tools::displayError('You do not have permission to change the order status.');
             }
 
             // get state ID
-            $id_state = (int) Tools::getValue('id_supply_order_state', 0);
+            $id_state = (int)Tools::getValue('id_supply_order_state', 0);
             if ($id_state <= 0) {
                 $this->errors[] = Tools::displayError('The selected supply order status is not valid.');
             }
 
             // get supply order ID
-            $id_supply_order = (int) Tools::getValue('id_supply_order', 0);
+            $id_supply_order = (int)Tools::getValue('id_supply_order', 0);
             if ($id_supply_order <= 0) {
                 $this->errors[] = Tools::displayError('The supply order ID is not valid.');
             }
@@ -1221,8 +1248,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                                     // or if the order is received completely
                                     // synchronizes StockAvailable
                                     if (($new_state->pending_receipt && !$new_state->receipt_state) ||
-                                            (($old_state->receipt_state || $old_state->pending_receipt) && $new_state->enclosed && !$new_state->receipt_state) ||
-                                            ($new_state->receipt_state && $new_state->enclosed)) {
+                                        (($old_state->receipt_state || $old_state->pending_receipt) && $new_state->enclosed && !$new_state->receipt_state) ||
+                                        ($new_state->receipt_state && $new_state->enclosed)) {
                                         $supply_order_details = $supply_order->getEntries();
                                         $products_done = array();
                                         foreach ($supply_order_details as $supply_order_detail) {
@@ -1234,8 +1261,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                                     }
 
                                     $token = Tools::getValue('token') ? Tools::getValue('token') : $this->token;
-                                    $redirect = self::$currentIndex . '&token=' . $token;
-                                    $this->redirect_after = $redirect . '&conf=5';
+                                    $redirect = self::$currentIndex.'&token='.$token;
+                                    $this->redirect_after = $redirect.'&conf=5';
                                 }
                             }
                         }
@@ -1264,7 +1291,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
     /**
      * Exports CSV
      */
-    protected function renderCSV() {
+    protected function renderCSV()
+    {
         // exports orders
         if (Tools::isSubmit('csv_orders')) {
             $ids = array();
@@ -1294,7 +1322,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             header('Content-type: text/csv');
             header('Content-Type: application/force-download; charset=UTF-8');
             header('Cache-Control: no-store, no-cache');
-            header('Content-disposition: attachment; filename="' . $this->l('supply_orders_details') . '.csv"');
+            header('Content-disposition: attachment; filename="'.$this->l('supply_orders_details').'.csv"');
 
             // echoes details
             $ids = array();
@@ -1308,19 +1336,19 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
             // for each supply order
             $keys = array('id_product', 'id_product_attribute', 'reference', 'supplier_reference', 'ean13', 'upc', 'name',
-                'unit_price_te', 'quantity_expected', 'quantity_received', 'price_te', 'discount_rate', 'discount_value_te',
-                'price_with_discount_te', 'tax_rate', 'tax_value', 'price_ti', 'tax_value_with_order_discount',
-                'price_with_order_discount_te', 'id_supply_order');
+                          'unit_price_te', 'quantity_expected', 'quantity_received', 'price_te', 'discount_rate', 'discount_value_te',
+                          'price_with_discount_te', 'tax_rate', 'tax_value', 'price_ti', 'tax_value_with_order_discount',
+                          'price_with_order_discount_te', 'id_supply_order');
             echo sprintf("%s\n", implode(';', array_map(array('CSVCore', 'wrap'), $keys)));
 
             // overrides keys (in order to add FORMAT calls)
             $keys = array('sod.id_product', 'sod.id_product_attribute', 'sod.reference', 'sod.supplier_reference', 'sod.ean13',
-                'sod.upc', 'sod.name',
-                'FORMAT(sod.unit_price_te, 2)', 'sod.quantity_expected', 'sod.quantity_received', 'FORMAT(sod.price_te, 2)',
-                'FORMAT(sod.discount_rate, 2)', 'FORMAT(sod.discount_value_te, 2)',
-                'FORMAT(sod.price_with_discount_te, 2)', 'FORMAT(sod.tax_rate, 2)', 'FORMAT(sod.tax_value, 2)',
-                'FORMAT(sod.price_ti, 2)', 'FORMAT(sod.tax_value_with_order_discount, 2)',
-                'FORMAT(sod.price_with_order_discount_te, 2)', 'sod.id_supply_order');
+                          'sod.upc', 'sod.name',
+                          'FORMAT(sod.unit_price_te, 2)', 'sod.quantity_expected', 'sod.quantity_received', 'FORMAT(sod.price_te, 2)',
+                          'FORMAT(sod.discount_rate, 2)', 'FORMAT(sod.discount_value_te, 2)',
+                          'FORMAT(sod.price_with_discount_te, 2)', 'FORMAT(sod.tax_rate, 2)', 'FORMAT(sod.tax_value, 2)',
+                          'FORMAT(sod.price_ti, 2)', 'FORMAT(sod.tax_value_with_order_discount, 2)',
+                          'FORMAT(sod.price_with_order_discount_te, 2)', 'sod.id_supply_order');
             foreach ($ids as $id) {
                 $query = new DbQuery();
                 $query->select(implode(', ', $keys));
@@ -1328,9 +1356,9 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                 $query->leftJoin('supply_order', 'so', 'so.id_supply_order = sod.id_supply_order');
                 $id_warehouse = $this->getCurrentWarehouse();
                 if ($id_warehouse != -1) {
-                    $query->where('so.id_warehouse = ' . (int) $id_warehouse);
+                    $query->where('so.id_warehouse = '.(int)$id_warehouse);
                 }
-                $query->where('sod.id_supply_order = ' . (int) $id);
+                $query->where('sod.id_supply_order = '.(int)$id);
                 $query->orderBy('sod.id_supply_order_detail DESC');
                 $resource = Db::getInstance()->query($query);
                 // gets details
@@ -1341,11 +1369,11 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         }
         // exports details for the given order
         elseif (Tools::isSubmit('csv_order_details') && Tools::getValue('id_supply_order')) {
-            $supply_order = new SupplyOrder((int) Tools::getValue('id_supply_order'));
+            $supply_order = new SupplyOrder((int)Tools::getValue('id_supply_order'));
             if (Validate::isLoadedObject($supply_order)) {
                 $details = $supply_order->getEntriesCollection();
                 $details->getAll();
-                $csv = new CSV($details, $this->l('supply_order') . '_' . $supply_order->reference . '_details');
+                $csv = new CSV($details, $this->l('supply_order').'_'.$supply_order->reference.'_details');
                 $csv->export();
             }
         }
@@ -1356,7 +1384,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      *
      * @see AdminSupplyOrdersController::postProcess()
      */
-    protected function postProcessUpdateReceipt() {
+    protected function postProcessUpdateReceipt()
+    {
         // gets all box selected
         $rows = Tools::getValue('supply_order_detailBox');
         if (!$rows) {
@@ -1368,8 +1397,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $to_update = array();
         // gets quantity for each id_order_detail
         foreach ($rows as $row) {
-            if (Tools::getValue('quantity_received_today_' . $row)) {
-                $to_update[$row] = (int) Tools::getValue('quantity_received_today_' . $row);
+            if (Tools::getValue('quantity_received_today_'.$row)) {
+                $to_update[$row] = (int)Tools::getValue('quantity_received_today_'.$row);
             }
         }
 
@@ -1379,7 +1408,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             return;
         }
 
-        $supply_order = new SupplyOrder((int) Tools::getValue('id_supply_order'));
+        $supply_order = new SupplyOrder((int)Tools::getValue('id_supply_order'));
 
         foreach ($to_update as $id_supply_order_detail => $quantity) {
             $supply_order_detail = new SupplyOrderDetail($id_supply_order_detail);
@@ -1388,20 +1417,22 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                 // checks if quantity is valid
                 // It's possible to receive more quantity than expected in case of a shipping error from the supplier
                 if (!Validate::isInt($quantity) || $quantity <= 0) {
-                    $this->errors[] = sprintf(Tools::displayError('Quantity (%d) for product #%d is not valid'), (int) $quantity, (int) $id_supply_order_detail);
+                    $this->errors[] = sprintf(Tools::displayError('Quantity (%d) for product #%d is not valid'),
+                        (int)$quantity, (int)$id_supply_order_detail);
                 } else {
                     // everything is valid :  updates
+
                     // creates the history
                     $supplier_receipt_history = new SupplyOrderReceiptHistory();
-                    $supplier_receipt_history->id_supply_order_detail = (int) $id_supply_order_detail;
-                    $supplier_receipt_history->id_employee = (int) $this->context->employee->id;
+                    $supplier_receipt_history->id_supply_order_detail = (int)$id_supply_order_detail;
+                    $supplier_receipt_history->id_employee = (int)$this->context->employee->id;
                     $supplier_receipt_history->employee_firstname = pSQL($this->context->employee->firstname);
                     $supplier_receipt_history->employee_lastname = pSQL($this->context->employee->lastname);
-                    $supplier_receipt_history->id_supply_order_state = (int) $supply_order->id_supply_order_state;
-                    $supplier_receipt_history->quantity = (int) $quantity;
+                    $supplier_receipt_history->id_supply_order_state = (int)$supply_order->id_supply_order_state;
+                    $supplier_receipt_history->quantity = (int)$quantity;
 
                     // updates quantity received
-                    $supply_order_detail->quantity_received += (int) $quantity;
+                    $supply_order_detail->quantity_received += (int)$quantity;
 
                     // if current state is "Pending receipt", then we sets it to "Order received in part"
                     if (3 == $supply_order->id_supply_order_state) {
@@ -1419,18 +1450,24 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                     // converts the unit price to the warehouse currency if needed
                     if ($supply_order->id_currency != $warehouse->id_currency) {
                         // first, converts the price to the default currency
-                        $price_converted_to_default_currency = Tools::convertPrice($supply_order_detail->unit_price_te, $supply_order->id_currency, false);
+                        $price_converted_to_default_currency = Tools::convertPrice($supply_order_detail->unit_price_te,
+                            $supply_order->id_currency, false);
 
                         // then, converts the newly calculated pri-ce from the default currency to the needed currency
-                        $price = Tools::ps_round(Tools::convertPrice($price_converted_to_default_currency, $warehouse->id_currency, true), 6);
+                        $price = Tools::ps_round(Tools::convertPrice($price_converted_to_default_currency,
+                            $warehouse->id_currency, true), 6);
                     }
 
                     $manager = StockManagerFactory::getManager();
-                    $res = $manager->addProduct($supply_order_detail->id_product, $supply_order_detail->id_product_attribute, $warehouse, (int) $quantity, Configuration::get('PS_STOCK_MVT_SUPPLY_ORDER'), $price, true, $supply_order->id);
+                    $res = $manager->addProduct($supply_order_detail->id_product,
+                        $supply_order_detail->id_product_attribute,    $warehouse, (int)$quantity,
+                        Configuration::get('PS_STOCK_MVT_SUPPLY_ORDER'), $price, true, $supply_order->id);
 
-                    $location = Warehouse::getProductLocation($supply_order_detail->id_product, $supply_order_detail->id_product_attribute, $warehouse->id);
+                    $location = Warehouse::getProductLocation($supply_order_detail->id_product,
+                        $supply_order_detail->id_product_attribute, $warehouse->id);
 
-                    $res = Warehouse::setProductlocation($supply_order_detail->id_product, $supply_order_detail->id_product_attribute, $warehouse->id, $location ? $location : '');
+                    $res = Warehouse::setProductlocation($supply_order_detail->id_product,
+                        $supply_order_detail->id_product_attribute, $warehouse->id, $location ? $location : '');
 
                     if ($res) {
                         $supplier_receipt_history->add();
@@ -1449,8 +1486,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         if (!count($this->errors)) {
             // display confirm message
             $token = Tools::getValue('token') ? Tools::getValue('token') : $this->token;
-            $redirect = self::$currentIndex . '&token=' . $token;
-            $this->redirect_after = $redirect . '&conf=4';
+            $redirect = self::$currentIndex.'&token='.$token;
+            $this->redirect_after = $redirect.'&conf=4';
         }
     }
 
@@ -1460,15 +1497,16 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * @param int $id the identifier to add to the link
      * @return string
      */
-    public function displayUpdateReceiptLink($token = null, $id) {
+    public function displayUpdateReceiptLink($token = null, $id)
+    {
         if (!array_key_exists('Receipt', self::$cache_lang)) {
             self::$cache_lang['Receipt'] = $this->l('Update ongoing receipt of products');
         }
 
         $this->context->smarty->assign(array(
-            'href' => self::$currentIndex .
-            '&' . $this->identifier . '=' . $id .
-            '&update_receipt&token=' . ($token != null ? $token : $this->token),
+            'href' => self::$currentIndex.
+                '&'.$this->identifier.'='.$id.
+                '&update_receipt&token='.($token != null ? $token : $this->token),
             'action' => self::$cache_lang['Receipt'],
         ));
 
@@ -1481,15 +1519,16 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * @param int $id the identifier to add to the link
      * @return string
      */
-    public function displayChangestateLink($token = null, $id) {
+    public function displayChangestateLink($token = null, $id)
+    {
         if (!array_key_exists('State', self::$cache_lang)) {
             self::$cache_lang['State'] = $this->l('Change status');
         }
 
         $this->context->smarty->assign(array(
-            'href' => self::$currentIndex .
-            '&' . $this->identifier . '=' . $id .
-            '&changestate&token=' . ($token != null ? $token : $this->token),
+            'href' => self::$currentIndex.
+                '&'.$this->identifier.'='.$id.
+                '&changestate&token='.($token != null ? $token : $this->token),
             'action' => self::$cache_lang['State'],
         ));
 
@@ -1502,7 +1541,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * @param int $id the identifier to add to the link
      * @return string
      */
-    public function displayCreateSupplyOrderLink($token = null, $id) {
+    public function displayCreateSupplyOrderLink($token = null, $id)
+    {
         if (!array_key_exists('CreateSupplyOrder', self::$cache_lang)) {
             self::$cache_lang['CreateSupplyOrder'] = $this->l('Use this template to create a supply order');
         }
@@ -1512,9 +1552,9 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         }
 
         $this->context->smarty->assign(array(
-            'href' => self::$currentIndex .
-            '&' . $this->identifier . '=' . $id .
-            '&create_supply_order&token=' . ($token != null ? $token : $this->token),
+            'href' => self::$currentIndex.
+                '&'.$this->identifier.'='.$id.
+                '&create_supply_order&token='.($token != null ? $token : $this->token),
             'confirm' => self::$cache_lang['CreateSupplyOrderConfirm'],
             'action' => self::$cache_lang['CreateSupplyOrder'],
         ));
@@ -1522,7 +1562,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         return $this->context->smarty->fetch('helpers/list/list_action_supply_order_create_from_template.tpl');
     }
 
-    public function renderDetails() {
+    public function renderDetails()
+    {
         // tests if an id is submit
         if (Tools::isSubmit('id_supply_order') && !Tools::isSubmit('display_product_history')) {
             // overrides attributes
@@ -1533,9 +1574,9 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             $this->toolbar_btn = array();
             $this->list_simple_header = true;
             // gets current lang id
-            $lang_id = (int) $this->context->language->id;
+            $lang_id = (int)$this->context->language->id;
             // gets supply order id
-            $id_supply_order = (int) Tools::getValue('id_supply_order');
+            $id_supply_order = (int)Tools::getValue('id_supply_order');
 
             // creates new fields_list
             $this->fields_list = array(
@@ -1566,14 +1607,14 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 				sos.`color` as color';
 
             $this->_join = '
-				LEFT JOIN `' . _DB_PREFIX_ . 'supply_order_state` sos ON (a.`id_state` = sos.`id_supply_order_state`)
-				LEFT JOIN `' . _DB_PREFIX_ . 'supply_order_state_lang` sosl ON
+				LEFT JOIN `'._DB_PREFIX_.'supply_order_state` sos ON (a.`id_state` = sos.`id_supply_order_state`)
+				LEFT JOIN `'._DB_PREFIX_.'supply_order_state_lang` sosl ON
 				(
 					a.`id_state` = sosl.`id_supply_order_state`
-					AND sosl.`id_lang` = ' . (int) $lang_id . '
+					AND sosl.`id_lang` = '.(int)$lang_id.'
 				)';
 
-            $this->_where = 'AND a.`id_supply_order` = ' . (int) $id_supply_order;
+            $this->_where = 'AND a.`id_supply_order` = '.(int)$id_supply_order;
             $this->_orderBy = 'a.date_add';
             $this->_orderWay = 'DESC';
 
@@ -1585,8 +1626,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             $this->toolbar_btn = array();
             $this->list_simple_header = true;
             $this->lang = false;
-            $lang_id = (int) $this->context->language->id;
-            $id_supply_order_detail = (int) Tools::getValue('id_supply_order');
+            $lang_id = (int)$this->context->language->id;
+            $id_supply_order_detail = (int)Tools::getValue('id_supply_order');
 
             unset($this->fields_list);
             $this->fields_list = array(
@@ -1611,7 +1652,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             // loads history of the given order
             unset($this->_select, $this->_join, $this->_where, $this->_orderBy, $this->_orderWay, $this->_group, $this->_filterHaving, $this->_filter);
             $this->_select = 'CONCAT(a.`employee_lastname`, \' \', a.`employee_firstname`) as employee';
-            $this->_where = 'AND a.`id_supply_order_detail` = ' . (int) $id_supply_order_detail;
+            $this->_where = 'AND a.`id_supply_order_detail` = '.(int)$id_supply_order_detail;
             $this->_orderBy = 'a.date_add';
             $this->_orderWay = 'DESC';
 
@@ -1623,7 +1664,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * method call when ajax request is made for search product to add to the order
      * @TODO - Update this method to retreive the reference, ean13, upc corresponding to a product attribute
      */
-    public function ajaxProcessSearchProduct() {
+    public function ajaxProcessSearchProduct()
+    {
         // Get the search pattern
         $pattern = pSQL(Tools::getValue('q', false));
 
@@ -1632,13 +1674,13 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         }
 
         // get supplier id
-        $id_supplier = (int) Tools::getValue('id_supplier', false);
+        $id_supplier = (int)Tools::getValue('id_supplier', false);
 
         // gets the currency
-        $id_currency = (int) Tools::getValue('id_currency', false);
+        $id_currency = (int)Tools::getValue('id_currency', false);
 
         // get lang from context
-        $id_lang = (int) Context::getContext()->language->id;
+        $id_lang = (int)Context::getContext()->language->id;
 
         $query = new DbQuery();
         $query->select('
@@ -1647,23 +1689,23 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 			IFNULL(pa.reference, IFNULL(p.reference, \'\')) as reference,
 			IFNULL(pa.ean13, IFNULL(p.ean13, \'\')) as ean13,
 			IFNULL(pa.upc, IFNULL(p.upc, \'\')) as upc,
-			md5(CONCAT(\'' . _COOKIE_KEY_ . '\', p.id_product, \'_\', IFNULL(pa.id_product_attribute, \'0\'))) as checksum,
+			md5(CONCAT(\''._COOKIE_KEY_.'\', p.id_product, \'_\', IFNULL(pa.id_product_attribute, \'0\'))) as checksum,
 			IFNULL(CONCAT(pl.name, \' : \', GROUP_CONCAT(DISTINCT agl.name, \' - \', al.name order by agl.name SEPARATOR \', \')), pl.name) as name
 		');
         $query->from('product', 'p');
-        $query->innerJoin('product_lang', 'pl', 'pl.id_product = p.id_product AND pl.id_lang = ' . $id_lang);
+        $query->innerJoin('product_lang', 'pl', 'pl.id_product = p.id_product AND pl.id_lang = '.$id_lang);
         $query->leftJoin('product_attribute', 'pa', 'pa.id_product = p.id_product');
         $query->leftJoin('product_attribute_combination', 'pac', 'pac.id_product_attribute = pa.id_product_attribute');
         $query->leftJoin('attribute', 'atr', 'atr.id_attribute = pac.id_attribute');
-        $query->leftJoin('attribute_lang', 'al', 'al.id_attribute = atr.id_attribute AND al.id_lang = ' . $id_lang);
-        $query->leftJoin('attribute_group_lang', 'agl', 'agl.id_attribute_group = atr.id_attribute_group AND agl.id_lang = ' . $id_lang);
+        $query->leftJoin('attribute_lang', 'al', 'al.id_attribute = atr.id_attribute AND al.id_lang = '.$id_lang);
+        $query->leftJoin('attribute_group_lang', 'agl', 'agl.id_attribute_group = atr.id_attribute_group AND agl.id_lang = '.$id_lang);
         $query->leftJoin('product_supplier', 'ps', 'ps.id_product = p.id_product AND ps.id_product_attribute = IFNULL(pa.id_product_attribute, 0)');
-        $query->where('(pl.name LIKE \'%' . $pattern . '%\' OR p.reference LIKE \'%' . $pattern . '%\' OR ps.product_supplier_reference LIKE \'%' . $pattern . '%\')');
-        $query->where('NOT EXISTS (SELECT 1 FROM `' . _DB_PREFIX_ . 'product_download` pd WHERE (pd.id_product = p.id_product))');
+        $query->where('(pl.name LIKE \'%'.$pattern.'%\' OR p.reference LIKE \'%'.$pattern.'%\' OR ps.product_supplier_reference LIKE \'%'.$pattern.'%\')');
+        $query->where('NOT EXISTS (SELECT 1 FROM `'._DB_PREFIX_.'product_download` pd WHERE (pd.id_product = p.id_product))');
         $query->where('p.is_virtual = 0 AND p.cache_is_pack = 0');
 
         if ($id_supplier) {
-            $query->where('ps.id_supplier = ' . $id_supplier . ' OR p.id_supplier = ' . $id_supplier);
+            $query->where('ps.id_supplier = '.$id_supplier.' OR p.id_supplier = '.$id_supplier);
         }
 
         $query->groupBy('p.id_product, pa.id_product_attribute');
@@ -1673,7 +1715,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
             $ids = explode('_', $item['id']);
             $prices = ProductSupplier::getProductSupplierPrice($ids[0], $ids[1], $id_supplier, true);
             if (count($prices)) {
-                $item['unit_price_te'] = Tools::convertPriceFull($prices['product_supplier_price_te'], new Currency((int) $prices['id_currency']), new Currency($id_currency)
+                $item['unit_price_te'] = Tools::convertPriceFull($prices['product_supplier_price_te'], new Currency((int)$prices['id_currency']),
+                    new Currency($id_currency)
                 );
             }
         }
@@ -1687,7 +1730,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
     /**
      * @see AdminController::renderView()
      */
-    public function renderView() {
+    public function renderView()
+    {
         $this->show_toolbar = true;
         $this->toolbar_scroll = false;
         $this->table = 'supply_order_detail';
@@ -1699,25 +1743,25 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $this->list_no_link = true;
 
         // gets the id supplier to view
-        $id_supply_order = (int) Tools::getValue('id_supply_order');
+        $id_supply_order = (int)Tools::getValue('id_supply_order');
 
         // gets global order information
-        $supply_order = new SupplyOrder((int) $id_supply_order);
+        $supply_order = new SupplyOrder((int)$id_supply_order);
 
         if (Validate::isLoadedObject($supply_order)) {
             if (!$supply_order->is_template) {
-                $this->displayInformation($this->l('This interface allows you to display detailed information about your order.') . '<br />');
+                $this->displayInformation($this->l('This interface allows you to display detailed information about your order.').'<br />');
             } else {
-                $this->displayInformation($this->l('This interface allows you to display detailed information about your order template.') . '<br />');
+                $this->displayInformation($this->l('This interface allows you to display detailed information about your order template.').'<br />');
             }
 
-            $lang_id = (int) $supply_order->id_lang;
+            $lang_id = (int)$supply_order->id_lang;
 
             // just in case..
             unset($this->_select, $this->_join, $this->_where, $this->_orderBy, $this->_orderWay, $this->_group, $this->_filterHaving, $this->_filter);
 
             // gets all information on the products ordered
-            $this->_where = 'AND a.`id_supply_order` = ' . (int) $id_supply_order;
+            $this->_where = 'AND a.`id_supply_order` = '.(int)$id_supply_order;
 
             // gets the list ordered by price desc, without limit
             $this->getList($lang_id, 'price_te', 'DESC', 0, false, false);
@@ -1899,8 +1943,9 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * @param string $tr
      * @return string $content
      */
-    public function printExportIcons($id_supply_order, $tr) {
-        $supply_order = new SupplyOrder((int) $id_supply_order);
+    public function printExportIcons($id_supply_order, $tr)
+    {
+        $supply_order = new SupplyOrder((int)$id_supply_order);
 
         if (!Validate::isLoadedObject($supply_order)) {
             return;
@@ -1913,13 +1958,13 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
         $content = '';
         if ($supply_order_state->editable == false) {
-            $content .= '<a class="btn btn-default" href="' . $this->context->link->getAdminLink('AdminPdf')
-                    . '&submitAction=generateSupplyOrderFormPDF&id_supply_order=' . (int) $supply_order->id . '" title="' . $this->l('Export as PDF')
-                    . '"><i class="icon-print"></i></a>';
+            $content .= '<a class="btn btn-default" href="'.$this->context->link->getAdminLink('AdminPdf')
+                .'&submitAction=generateSupplyOrderFormPDF&id_supply_order='.(int)$supply_order->id.'" title="'.$this->l('Export as PDF')
+                .'"><i class="icon-print"></i></a>';
         }
         if ($supply_order_state->enclosed == true && $supply_order_state->receipt_state == true) {
-            $content .= '&nbsp;<a href="' . $this->context->link->getAdminLink('AdminSupplyOrders') . '&id_supply_order=' . (int) $supply_order->id . '
-						 &csv_order_details" class="btn btn-default" title=' . $this->l('Export as CSV') . '">
+            $content .= '&nbsp;<a href="'.$this->context->link->getAdminLink('AdminSupplyOrders').'&id_supply_order='.(int)$supply_order->id.'
+						 &csv_order_details" class="btn btn-default" title='.$this->l('Export as CSV').'">
 						 <i class="icon-table"></i></a>';
         }
 
@@ -1932,7 +1977,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * uses override to specifically add, modify or remove items
      * @see AdminSupplier::initToolbar()
      */
-    public function initToolbar() {
+    public function initToolbar()
+    {
         switch ($this->display) {
             case 'update_order_state':
                 $this->toolbar_btn['save'] = array(
@@ -1945,7 +1991,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                 if (!isset($this->no_back) || $this->no_back == false) {
                     $back = Tools::safeOutput(Tools::getValue('back', ''));
                     if (empty($back)) {
-                        $back = self::$currentIndex . '&token=' . $this->token;
+                        $back = self::$currentIndex.'&token='.$this->token;
                     }
 
                     $this->toolbar_btn['cancel'] = array(
@@ -1953,7 +1999,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                         'desc' => $this->l('Cancel')
                     );
                 }
-                break;
+            break;
 
             case 'add':
             case 'edit':
@@ -1972,9 +2018,10 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * @param ObjectModel $object
      * @return bool
      */
-    protected function afterAdd($object) {
+    protected function afterAdd($object)
+    {
         if (is_numeric(Tools::getValue('load_products'))) {
-            $this->loadProducts((int) Tools::getValue('load_products'));
+            $this->loadProducts((int)Tools::getValue('load_products'));
         }
 
         $this->object = $object;
@@ -1985,10 +2032,11 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * Loads products which quantity (hysical quantity) is equal or less than $threshold
      * @param int $threshold
      */
-    protected function loadProducts($threshold) {
+    protected function loadProducts($threshold)
+    {
         // if there is already an order
         if (Tools::getValue('id_supply_order')) {
-            $supply_order = new SupplyOrder((int) Tools::getValue('id_supply_order'));
+            $supply_order = new SupplyOrder((int)Tools::getValue('id_supply_order'));
         } else { // else, we just created a new order
             $supply_order = $this->object;
         }
@@ -2018,14 +2066,14 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         $query->innerJoin('warehouse_product_location', 'wpl', '
 			wpl.id_product = ps.id_product
 			AND wpl.id_product_attribute = ps.id_product_attribute
-			AND wpl.id_warehouse = ' . (int) $supply_order->id_warehouse . '
+			AND wpl.id_warehouse = '.(int)$supply_order->id_warehouse.'
 		');
         $query->leftJoin('product', 'p', 'p.id_product = ps.id_product');
         $query->leftJoin('product_attribute', 'pa', '
 			pa.id_product_attribute = ps.id_product_attribute
 			AND p.id_product = ps.id_product
 		');
-        $query->where('ps.id_supplier = ' . (int) $supply_order->id_supplier);
+        $query->where('ps.id_supplier = '.(int)$supply_order->id_supplier);
 
         // gets items
         $items = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($query);
@@ -2038,11 +2086,12 @@ class AdminSupplyOrdersControllerCore extends AdminController {
 
         $manager = StockManagerFactory::getManager();
         foreach ($items as $item) {
-            $diff = (int) $threshold;
+            $diff = (int)$threshold;
 
             if ($supply_order->is_template != 1) {
-                $real_quantity = (int) $manager->getProductRealQuantities($item['id_product'], $item['id_product_attribute'], $supply_order->id_warehouse, true);
-                $diff = (int) $threshold - (int) $real_quantity;
+                $real_quantity = (int)$manager->getProductRealQuantities($item['id_product'], $item['id_product_attribute'],
+                    $supply_order->id_warehouse, true);
+                $diff = (int)$threshold - (int)$real_quantity;
             }
 
             if ($diff >= 0) {
@@ -2057,7 +2106,7 @@ class AdminSupplyOrdersControllerCore extends AdminController {
                 $supply_order_detail->name = Product::getProductName($item['id_product'], $item['id_product_attribute'], $supply_order->id_lang);
                 $supply_order_detail->ean13 = $item['ean13'];
                 $supply_order_detail->upc = $item['upc'];
-                $supply_order_detail->quantity_expected = ((int) $diff == 0) ? 1 : (int) $diff;
+                $supply_order_detail->quantity_expected = ((int)$diff == 0) ? 1 : (int)$diff;
                 $supply_order_detail->exchange_rate = $order_currency->conversion_rate;
 
                 $product_currency = new Currency($item['id_currency']);
@@ -2083,7 +2132,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      *
      * @return true
      */
-    public function beforeAdd($object) {
+    public function beforeAdd($object)
+    {
         if (Tools::isSubmit('is_template')) {
             $object->is_template = 1;
         }
@@ -2095,9 +2145,10 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      * Helper function for AdminSupplyOrdersController::postProcess()
      * @see AdminSupplyOrdersController::postProcess()
      */
-    protected function postProcessCopyFromTemplate() {
+    protected function postProcessCopyFromTemplate()
+    {
         // gets SupplyOrder and checks if it is valid
-        $id_supply_order = (int) Tools::getValue('id_supply_order');
+        $id_supply_order = (int)Tools::getValue('id_supply_order');
         $supply_order = new SupplyOrder($id_supply_order);
         if (!Validate::isLoadedObject($supply_order)) {
             $this->errors[] = Tools::displayError('This template could not be copied.');
@@ -2109,23 +2160,23 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         // updates SupplyOrder so that it is not a template anymore
         $language = new Language($supply_order->id_lang);
         $ref = $supply_order->reference;
-        $ref .= ' (' . date($language->date_format_full) . ')';
+        $ref .= ' ('.date($language->date_format_full).')';
         $supply_order->reference = $ref;
         $supply_order->is_template = 0;
-        $supply_order->id = (int) 0;
+        $supply_order->id = (int)0;
         $supply_order->save();
 
         // copies SupplyOrderDetail
         foreach ($entries as $entry) {
             $entry->id_supply_order = $supply_order->id;
-            $entry->id = (int) 0;
+            $entry->id = (int)0;
             $entry->save();
         }
 
         // redirect when done
         $token = Tools::getValue('token') ? Tools::getValue('token') : $this->token;
-        $redirect = self::$currentIndex . '&token=' . $token;
-        $this->redirect_after = $redirect . '&conf=19';
+        $redirect = self::$currentIndex.'&token='.$token;
+        $this->redirect_after = $redirect.'&conf=19';
     }
 
     /**
@@ -2133,13 +2184,14 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      *
      * @return int id_warehouse
      */
-    protected function getCurrentWarehouse() {
+    protected function getCurrentWarehouse()
+    {
         static $warehouse = 0;
 
         if ($warehouse == 0) {
             $warehouse = -1; // all warehouses
-            if ((int) Tools::getValue('id_warehouse')) {
-                $warehouse = (int) Tools::getValue('id_warehouse');
+            if ((int)Tools::getValue('id_warehouse')) {
+                $warehouse = (int)Tools::getValue('id_warehouse');
             }
         }
         return $warehouse;
@@ -2150,7 +2202,8 @@ class AdminSupplyOrdersControllerCore extends AdminController {
      *
      * @return int status
      */
-    protected function getFilterStatus() {
+    protected function getFilterStatus()
+    {
         static $status = 0;
 
         $status = 0;
@@ -2161,12 +2214,13 @@ class AdminSupplyOrdersControllerCore extends AdminController {
         return $status;
     }
 
-    public function initProcess() {
+    public function initProcess()
+    {
         if (!Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT')) {
-            $this->warnings[md5('PS_ADVANCED_STOCK_MANAGEMENT')] = $this->l('You need to activate advanced stock management prior to using this feature.');
+            $this->warnings[md5('PS_ADVANCED_STOCK_MANAGEMENT')] =
+                $this->l('You need to activate advanced stock management prior to using this feature.');
             return false;
         }
         parent::initProcess();
     }
-
 }

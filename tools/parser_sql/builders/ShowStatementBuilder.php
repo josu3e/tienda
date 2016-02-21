@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ShowStatementBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: ShowStatementBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/ShowBuilder.php';
 require_once dirname(__FILE__) . '/WhereBuilder.php';
 
@@ -56,20 +56,18 @@ class ShowStatementBuilder {
         $builder = new WhereBuilder();
         return $builder->build($parsed);
     }
-
+    
     protected function buildSHOW($parsed) {
         $builder = new ShowBuilder();
         return $builder->build($parsed);
     }
-
-    public function build($parsed) {
+    
+   public function build($parsed) {
         $sql = $this->buildSHOW($parsed);
         if (isset($parsed['WHERE'])) {
             $sql .= " " . $this->buildWHERE($parsed['WHERE']);
         }
         return $sql;
     }
-
 }
-
 ?>

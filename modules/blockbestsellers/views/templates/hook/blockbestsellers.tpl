@@ -45,15 +45,15 @@
 
                         </a>
                         {if !$PS_CATALOG_MODE}
-                            <p>
-                                <a href="{$product.link|escape:'html'}" title="{$product.legend|escape:'html':'UTF-8'}">
-                                    {$product.name|strip_tags:'UTF-8'|escape:'html':'UTF-8'}<br/>
-                                    {if !$PS_CATALOG_MODE}
-                                        <span class="price">{$product.price}</span>
-                                        {hook h="displayProductPriceBlock" product=$product type="price"}
-                                    {/if}
-                                </a>
-                            </p>
+                        <p>
+                            <a href="{$product.link|escape:'html'}" title="{$product.legend|escape:'html':'UTF-8'}">
+                                {$product.name|strip_tags:'UTF-8'|escape:'html':'UTF-8'}<br/>
+                                {if !$PS_CATALOG_MODE}
+                                    <span class="price">{$product.price}</span>
+                                    {hook h="displayProductPriceBlock" product=$product type="price"}
+                                {/if}
+                            </a>
+                        </p>
                         {/if}
                     </li>
                 {/foreach}
@@ -61,7 +61,7 @@
             <p class="lnk"><a href="{$link->getPageLink('best-sales')|escape:'html'}"
                               title="{l s='All best sellers' mod='blockbestsellers'}"
                               class="button_large">&raquo; {l s='All best sellers' mod='blockbestsellers'}</a></p>
-            {else}
+        {else}
             <p>{l s='No best sellers at this time' mod='blockbestsellers'}</p>
         {/if}
     </div>

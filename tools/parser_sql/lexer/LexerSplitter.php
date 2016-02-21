@@ -1,5 +1,4 @@
 <?php
-
 /**
  * LexerSplitter.php
  *
@@ -53,8 +52,8 @@
 class LexerSplitter {
 
     protected static $splitters = array("<=>", "\r\n", "!=", ">=", "<=", "<>", "<<", ">>", ":=", "\\", "&&", "||", ":=",
-        "/*", "*/", "--", ">", "<", "|", "=", "^", "(", ")", "\t", "\n", "'", "\"", "`",
-        ",", "@", " ", "+", "-", "*", "/", ";");
+                                       "/*", "*/", "--", ">", "<", "|", "=", "^", "(", ")", "\t", "\n", "'", "\"", "`",
+                                       ",", "@", " ", "+", "-", "*", "/", ";");
     protected $tokenSize;
     protected $hashSet;
 
@@ -91,7 +90,6 @@ class LexerSplitter {
     public function isSplitter($token) {
         return isset($this->hashSet[$token]);
     }
-
 }
 
 ?>

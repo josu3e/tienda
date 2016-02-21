@@ -1,5 +1,4 @@
 <?php
-
 /**
  * RecordProcessor.php
  *
@@ -30,6 +29,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+
 require_once(dirname(__FILE__) . '/AbstractProcessor.php');
 require_once(dirname(__FILE__) . '/ExpressionListProcessor.php');
 
@@ -61,5 +61,4 @@ class RecordProcessor extends AbstractProcessor {
     }
 
 }
-
 ?>

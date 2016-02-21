@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty plugin
  *
@@ -48,7 +47,8 @@
  *
  * @return string
  */
-function smarty_function_html_table($params) {
+function smarty_function_html_table($params)
+{
     $table_attr = 'border="1"';
     $tr_attr = '';
     $th_attr = '';
@@ -146,7 +146,7 @@ function smarty_function_html_table($params) {
         for ($c = 0; $c < $cols_count; $c ++) {
             $x = ($hdir == 'right') ? $rx + $c : $rx + $cols_count - 1 - $c;
             if ($inner != 'cols') {
-                /* shuffle x to loop over rows */
+                /* shuffle x to loop over rows*/
                 $x = floor($x / $cols_count) + ($x % $cols_count) * $rows;
             }
 
@@ -164,7 +164,8 @@ function smarty_function_html_table($params) {
     return $output;
 }
 
-function smarty_function_html_table_cycle($name, $var, $no) {
+function smarty_function_html_table_cycle($name, $var, $no)
+{
     if (!is_array($var)) {
         $ret = $var;
     } else {

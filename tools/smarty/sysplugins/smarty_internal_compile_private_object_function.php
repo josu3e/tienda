@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile Object Function
  * Compiles code for registered objects as function
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -36,7 +35,8 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter, $tag, $method) {
+    public function compile($args, $compiler, $parameter, $tag, $method)
+    {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         if ($_attr['nocache'] === true) {
@@ -81,5 +81,4 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
 
         return $output;
     }
-
 }

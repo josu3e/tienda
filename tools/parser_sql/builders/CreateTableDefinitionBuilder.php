@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CreateTableDefinitionBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: CreateTableDefinitionBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/TableBracketExpressionBuilder.php';
 
 /**
@@ -62,7 +62,5 @@ class CreateTableDefinitionBuilder {
         }
         return $this->buildTableBracketExpression($parsed['create-def']);
     }
-
 }
-
 ?>

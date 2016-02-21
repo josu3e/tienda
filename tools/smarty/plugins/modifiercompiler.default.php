@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty plugin
  *
@@ -20,7 +19,8 @@
  *
  * @return string with compiled code
  */
-function smarty_modifiercompiler_default($params) {
+function smarty_modifiercompiler_default($params)
+{
     $output = $params[0];
     if (!isset($params[1])) {
         $params[1] = "''";

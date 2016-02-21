@@ -1,5 +1,4 @@
 <?php
-
 //============================================================+
 // File name   : eus.php
 // Begin       : 2010-10-26
@@ -28,6 +27,7 @@
  * @author Nicola Asuni
  * @since 2010-10-26
  */
+
 // Basque
 
 global $l;

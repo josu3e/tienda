@@ -1,5 +1,4 @@
 <?php
-
 /**
  * RefClauseBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: RefClauseBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ColumnReferenceBuilder.php';
 require_once dirname(__FILE__) . '/OperatorBuilder.php';
@@ -88,7 +88,5 @@ class RefClauseBuilder {
         }
         return "(" . substr($sql, 0, -1) . ")";
     }
-
 }
-
 ?>

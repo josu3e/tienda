@@ -1,5 +1,4 @@
 <?php
-
 /**
  * DatabaseBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: DatabaseBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 
 /**
@@ -57,7 +57,5 @@ class DatabaseBuilder {
         }
         return $parsed['base_expr'];
     }
-
 }
-
 ?>

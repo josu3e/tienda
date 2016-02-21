@@ -1,5 +1,4 @@
 <?php
-
 /**
  * InvalidParameterException.php
  *
@@ -51,7 +50,6 @@ class InvalidParameterException extends InvalidArgumentException {
     public function getArgument() {
         return $this->argument;
     }
-
 }
 
 ?>

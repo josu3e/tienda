@@ -23,11 +23,11 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 {if $infos|@count > 0}
-    <!-- MODULE Block cmsinfo -->
-    <div id="cmsinfo_block">
-        {foreach from=$infos item=info}
-            <div class="col-xs-6">{$info.text}</div>
-        {/foreach}
-    </div>
-    <!-- /MODULE Block cmsinfo -->
+<!-- MODULE Block cmsinfo -->
+<div id="cmsinfo_block">
+		{foreach from=$infos item=info}
+			<div class="col-xs-6">{$info.text}</div>
+		{/foreach}
+</div>
+<!-- /MODULE Block cmsinfo -->
 {/if}

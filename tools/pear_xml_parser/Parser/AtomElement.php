@@ -1,5 +1,4 @@
 <?php
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -30,8 +29,8 @@
  * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
-class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
-
+class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom
+{
     /**
      * This will be a reference to the parent object for when we want
      * to use a 'fallback' rule 
@@ -44,7 +43,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
      * @var string
      */
     private $xpathPrefix = '';
-
+    
     /**
      * xml:base values inherited by the element 
      * @var string
@@ -64,7 +63,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
         'links' => array('link'),
         'tags' => array('category'),
         'contributors' => array('contributor'));
-
+        
     /**
      * Our specific element map 
      * @var array
@@ -89,7 +88,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
      * @param   DOMElement  $element - this item as a DOM element
      * @param   XML_Feed_Parser_Atom    $parent - the feed of which this is a member
      */
-    function __construct(DOMElement $element, $parent, $xmlBase = '') {
+    function __construct(DOMElement $element, $parent, $xmlBase = '')
+    {
         $this->model = $element;
         $this->parent = $parent;
         $this->xmlBase = $xmlBase;
@@ -108,20 +108,21 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
      * @param   array
      * @return  string
      */
-    function getAuthor($arguments) {
+    function getAuthor($arguments)
+    {
         /* Find out which part of the author data we're looking for */
         if (isset($arguments['param'])) {
             $parameter = $arguments['param'];
         } else {
             $parameter = 'name';
         }
-
+        
         $test = $this->model->getElementsByTagName('author');
         if ($test->length > 0) {
             $item = $test->item(0);
             return $item->getElementsByTagName($parameter)->item(0)->nodeValue;
         }
-
+        
         $source = $this->model->getElementsByTagName('source');
         if ($source->length > 0) {
             $test = $this->model->getElementsByTagName('author');
@@ -150,7 +151,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
      *
      * @return  string|false
      */
-    protected function getContent($method, $arguments = array()) {
+    protected function getContent($method, $arguments = array())
+    {
         $attribute = empty($arguments[0]) ? false : $arguments[0];
         $tags = $this->model->getElementsByTagName('content');
 
@@ -160,17 +162,18 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
 
         $content = $tags->item(0);
 
-        if (!$content->hasAttribute('type')) {
+        if (! $content->hasAttribute('type')) {
             $content->setAttribute('type', 'text');
         }
-        if (!empty($attribute)) {
+        if (! empty($attribute)) {
             return $content->getAttribute($attribute);
         }
 
         $type = $content->getAttribute('type');
 
-        if (!empty($attribute)) {
-            if ($content->hasAttribute($attribute)) {
+        if (! empty($attribute)) {
+            if ($content->hasAttribute($attribute))
+            {
                 return $content->getAttribute($attribute);
             }
             return false;
@@ -181,7 +184,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
         }
 
         return $this->parseTextConstruct($content);
-    }
+     }
 
     /**
      * For compatibility, this method provides a mapping to access enclosures.
@@ -193,20 +196,21 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
      * @param   array   $arguments - for compatibility with our __call usage
      * @return  array|false
      */
-    function getEnclosure($method, $arguments = array()) {
+    function getEnclosure($method, $arguments = array())
+    {
         $offset = isset($arguments[0]) ? $arguments[0] : 0;
-        $query = "//atom:entry[atom:id='" . $this->getText('id', false) .
-                "']/atom:link[@rel='enclosure']";
+        $query = "//atom:entry[atom:id='" . $this->getText('id', false) . 
+            "']/atom:link[@rel='enclosure']";
 
         $encs = $this->parent->xpath->query($query);
         if ($encs->length > $offset) {
             try {
-                if (!$encs->item($offset)->hasAttribute('href')) {
+                if (! $encs->item($offset)->hasAttribute('href')) {
                     return false;
                 }
                 $attrs = $encs->item($offset)->attributes;
-                $length = $encs->item($offset)->hasAttribute('length') ?
-                        $encs->item($offset)->getAttribute('length') : false;
+                $length = $encs->item($offset)->hasAttribute('length') ? 
+                    $encs->item($offset)->getAttribute('length') : false;
                 return array(
                     'url' => $attrs->getNamedItem('href')->value,
                     'type' => $attrs->getNamedItem('type')->value,
@@ -217,7 +221,7 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
         }
         return false;
     }
-
+    
     /**
      * Get details of this entry's source, if available/relevant
      *
@@ -229,7 +233,8 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
      *
      * @return  XML_Feed_Parser_Atom|false
      */
-    function getSource() {
+    function getSource()
+    {
         $test = $this->model->getElementsByTagName('source');
         if ($test->length == 0) {
             return false;
@@ -245,12 +250,12 @@ class XML_Feed_Parser_AtomElement extends XML_Feed_Parser_Atom {
      * instantiating the object.
      *
      * @return    string    XML serialization of element
-     */
-    function __toString() {
+     */    
+    function __toString()
+    {
         $simple = simplexml_import_dom($this->model);
         return $simple->asXML();
     }
-
 }
 
 ?>

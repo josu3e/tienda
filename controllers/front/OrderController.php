@@ -1,34 +1,32 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
-class OrderControllerCore extends ParentOrderController {
-
+class OrderControllerCore extends ParentOrderController
+{
     public $step;
-
     const STEP_SUMMARY_EMPTY_CART = -1;
     const STEP_ADDRESSES = 1;
     const STEP_DELIVERY = 2;
@@ -38,21 +36,22 @@ class OrderControllerCore extends ParentOrderController {
      * Initialize order controller
      * @see FrontController::init()
      */
-    public function init() {
+    public function init()
+    {
         global $orderTotal;
 
         parent::init();
 
-        $this->step = (int) Tools::getValue('step');
+        $this->step = (int)Tools::getValue('step');
         if (!$this->nbProducts) {
             $this->step = -1;
         }
 
         $product = $this->context->cart->checkQuantities(true);
 
-        if ((int) $id_product = $this->context->cart->checkProductsAccess()) {
+        if ((int)$id_product = $this->context->cart->checkProductsAccess()) {
             $this->step = 0;
-            $this->errors[] = sprintf(Tools::displayError('An item in your cart is no longer available (%1s). You cannot proceed with your order.'), Product::getProductName((int) $id_product));
+            $this->errors[] = sprintf(Tools::displayError('An item in your cart is no longer available (%1s). You cannot proceed with your order.'), Product::getProductName((int)$id_product));
         }
 
         // If some products have disappear
@@ -62,36 +61,37 @@ class OrderControllerCore extends ParentOrderController {
         }
 
         // Check minimal amount
-        $currency = Currency::getCurrency((int) $this->context->cart->id_currency);
+        $currency = Currency::getCurrency((int)$this->context->cart->id_currency);
 
         $orderTotal = $this->context->cart->getOrderTotal();
-        $minimal_purchase = Tools::convertPrice((float) Configuration::get('PS_PURCHASE_MINIMUM'), $currency);
+        $minimal_purchase = Tools::convertPrice((float)Configuration::get('PS_PURCHASE_MINIMUM'), $currency);
         if ($this->context->cart->getOrderTotal(false, Cart::ONLY_PRODUCTS) < $minimal_purchase && $this->step > 0) {
             $_GET['step'] = $this->step = 0;
             $this->errors[] = sprintf(
-                    Tools::displayError('A minimum purchase total of %1s (tax excl.) is required to validate your order, current purchase total is %2s (tax excl.).'), Tools::displayPrice($minimal_purchase, $currency), Tools::displayPrice($this->context->cart->getOrderTotal(false, Cart::ONLY_PRODUCTS), $currency)
+                Tools::displayError('A minimum purchase total of %1s (tax excl.) is required to validate your order, current purchase total is %2s (tax excl.).'),
+                Tools::displayPrice($minimal_purchase, $currency), Tools::displayPrice($this->context->cart->getOrderTotal(false, Cart::ONLY_PRODUCTS), $currency)
             );
         }
         if (!$this->context->customer->isLogged(true) && in_array($this->step, array(1, 2, 3))) {
             $params = array();
             if ($this->step) {
-                $params['step'] = (int) $this->step;
+                $params['step'] = (int)$this->step;
             }
-            if ($multi = (int) Tools::getValue('multi-shipping')) {
+            if ($multi = (int)Tools::getValue('multi-shipping')) {
                 $params['multi-shipping'] = $multi;
             }
 
-            $back_url = $this->context->link->getPageLink('order', true, (int) $this->context->language->id, $params);
+            $back_url = $this->context->link->getPageLink('order', true, (int)$this->context->language->id, $params);
 
             $params = array('back' => $back_url);
             if ($multi) {
                 $params['multi-shipping'] = $multi;
             }
-            if ($guest = (int) Configuration::get('PS_GUEST_CHECKOUT_ENABLED')) {
+            if ($guest = (int)Configuration::get('PS_GUEST_CHECKOUT_ENABLED')) {
                 $params['display_guest_checkout'] = $guest;
             }
 
-            Tools::redirect($this->context->link->getPageLink('authentication', true, (int) $this->context->language->id, $params));
+            Tools::redirect($this->context->link->getPageLink('authentication', true, (int)$this->context->language->id, $params));
         }
 
         if (Tools::getValue('multi-shipping') == 1) {
@@ -107,7 +107,8 @@ class OrderControllerCore extends ParentOrderController {
         }
     }
 
-    public function postProcess() {
+    public function postProcess()
+    {
         // Update carrier selected on preProccess in order to fix a bug of
         // block cart when it's hooked on leftcolumn
         if ($this->step == 3 && Tools::isSubmit('processCarrier')) {
@@ -119,20 +120,22 @@ class OrderControllerCore extends ParentOrderController {
      * Assign template vars related to page content
      * @see FrontController::initContent()
      */
-    public function initContent() {
+    public function initContent()
+    {
         parent::initContent();
 
         if (Tools::isSubmit('ajax') && Tools::getValue('method') == 'updateExtraCarrier') {
             // Change virtualy the currents delivery options
             $delivery_option = $this->context->cart->getDeliveryOption();
-            $delivery_option[(int) Tools::getValue('id_address')] = Tools::getValue('id_delivery_option');
+            $delivery_option[(int)Tools::getValue('id_address')] = Tools::getValue('id_delivery_option');
             $this->context->cart->setDeliveryOption($delivery_option);
             $this->context->cart->save();
             $return = array(
                 'content' => Hook::exec(
-                        'displayCarrierList', array(
-                    'address' => new Address((int) Tools::getValue('id_address'))
-                        )
+                    'displayCarrierList',
+                    array(
+                        'address' => new Address((int)Tools::getValue('id_address'))
+                    )
                 )
             );
             $this->ajaxDie(Tools::jsonEncode($return));
@@ -147,15 +150,15 @@ class OrderControllerCore extends ParentOrderController {
         }
 
         // Check for alternative payment api
-        $is_advanced_payment_api = (bool) Configuration::get('PS_ADVANCED_PAYMENT_API');
+        $is_advanced_payment_api = (bool)Configuration::get('PS_ADVANCED_PAYMENT_API');
 
         // 4 steps to the order
-        switch ((int) $this->step) {
+        switch ((int)$this->step) {
 
             case OrderController::STEP_SUMMARY_EMPTY_CART:
                 $this->context->smarty->assign('empty', 1);
-                $this->setTemplate(_PS_THEME_DIR_ . 'shopping-cart.tpl');
-                break;
+                $this->setTemplate(_PS_THEME_DIR_.'shopping-cart.tpl');
+            break;
 
             case OrderController::STEP_ADDRESSES:
                 $this->_assignAddress();
@@ -163,11 +166,11 @@ class OrderControllerCore extends ParentOrderController {
                 if (Tools::getValue('multi-shipping') == 1) {
                     $this->_assignSummaryInformations();
                     $this->context->smarty->assign('product_list', $this->context->cart->getProducts());
-                    $this->setTemplate(_PS_THEME_DIR_ . 'order-address-multishipping.tpl');
+                    $this->setTemplate(_PS_THEME_DIR_.'order-address-multishipping.tpl');
                 } else {
-                    $this->setTemplate(_PS_THEME_DIR_ . 'order-address.tpl');
+                    $this->setTemplate(_PS_THEME_DIR_.'order-address.tpl');
                 }
-                break;
+            break;
 
             case OrderController::STEP_DELIVERY:
                 if (Tools::isSubmit('processAddress')) {
@@ -175,14 +178,15 @@ class OrderControllerCore extends ParentOrderController {
                 }
                 $this->autoStep();
                 $this->_assignCarrier();
-                $this->setTemplate(_PS_THEME_DIR_ . 'order-carrier.tpl');
-                break;
+                $this->setTemplate(_PS_THEME_DIR_.'order-carrier.tpl');
+            break;
 
             case OrderController::STEP_PAYMENT:
                 // Check that the conditions (so active) were accepted by the customer
                 $cgv = Tools::getValue('cgv') || $this->context->cookie->check_cgv;
 
-                if ($is_advanced_payment_api === false && Configuration::get('PS_CONDITIONS') && (!Validate::isBool($cgv) || $cgv == false)) {
+                if ($is_advanced_payment_api === false && Configuration::get('PS_CONDITIONS')
+                    && (!Validate::isBool($cgv) || $cgv == false)) {
                     Tools::redirect('index.php?controller=order&step=2');
                 }
 
@@ -213,10 +217,10 @@ class OrderControllerCore extends ParentOrderController {
                 // Bypass payment step if total is 0
                 if (($id_order = $this->_checkFreeOrder()) && $id_order) {
                     if ($this->context->customer->is_guest) {
-                        $order = new Order((int) $id_order);
+                        $order = new Order((int)$id_order);
                         $email = $this->context->customer->email;
                         $this->context->customer->mylogout(); // If guest we clear the cookie for security reason
-                        Tools::redirect('index.php?controller=guest-tracking&id_order=' . urlencode($order->reference) . '&email=' . urlencode($email));
+                        Tools::redirect('index.php?controller=guest-tracking&id_order='.urlencode($order->reference).'&email='.urlencode($email));
                     } else {
                         Tools::redirect('index.php?controller=history');
                     }
@@ -229,19 +233,20 @@ class OrderControllerCore extends ParentOrderController {
 
                 // assign some informations to display cart
                 $this->_assignSummaryInformations();
-                $this->setTemplate(_PS_THEME_DIR_ . 'order-payment.tpl');
-                break;
+                $this->setTemplate(_PS_THEME_DIR_.'order-payment.tpl');
+            break;
 
             default:
                 $this->_assignSummaryInformations();
-                $this->setTemplate(_PS_THEME_DIR_ . 'shopping-cart.tpl');
-                break;
+                $this->setTemplate(_PS_THEME_DIR_.'shopping-cart.tpl');
+            break;
         }
     }
 
-    protected function processAddressFormat() {
-        $addressDelivery = new Address((int) $this->context->cart->id_address_delivery);
-        $addressInvoice = new Address((int) $this->context->cart->id_address_invoice);
+    protected function processAddressFormat()
+    {
+        $addressDelivery = new Address((int)$this->context->cart->id_address_delivery);
+        $addressInvoice = new Address((int)$this->context->cart->id_address_invoice);
 
         $invoiceAddressFields = AddressFormat::getOrderedAddressFields($addressInvoice->id_country, false, true);
         $deliveryAddressFields = AddressFormat::getOrderedAddressFields($addressDelivery->id_country, false, true);
@@ -254,7 +259,8 @@ class OrderControllerCore extends ParentOrderController {
     /**
      * Order process controller
      */
-    public function autoStep() {
+    public function autoStep()
+    {
         if ($this->step >= 2 && (!$this->context->cart->id_address_delivery || !$this->context->cart->id_address_invoice)) {
             Tools::redirect('index.php?controller=order&step=1');
         }
@@ -267,7 +273,7 @@ class OrderControllerCore extends ParentOrderController {
 
             $delivery_option = $this->context->cart->getDeliveryOption();
             if (is_array($delivery_option)) {
-                $carrier = explode(',', $delivery_option[(int) $this->context->cart->id_address_delivery]);
+                $carrier = explode(',', $delivery_option[(int)$this->context->cart->id_address_delivery]);
             }
 
             if (!$redirect && !$this->context->cart->isMultiAddressDelivery()) {
@@ -292,8 +298,8 @@ class OrderControllerCore extends ParentOrderController {
             }
         }
 
-        $delivery = new Address((int) $this->context->cart->id_address_delivery);
-        $invoice = new Address((int) $this->context->cart->id_address_invoice);
+        $delivery = new Address((int)$this->context->cart->id_address_delivery);
+        $invoice = new Address((int)$this->context->cart->id_address_invoice);
 
         if ($delivery->deleted || $invoice->deleted) {
             if ($delivery->deleted) {
@@ -309,17 +315,20 @@ class OrderControllerCore extends ParentOrderController {
     /**
      * Manage address
      */
-    public function processAddress() {
+    public function processAddress()
+    {
         $same = Tools::isSubmit('same');
         if (!Tools::getValue('id_address_invoice', false) && !$same) {
             $same = true;
         }
 
-        if (!Customer::customerHasAddress($this->context->customer->id, (int) Tools::getValue('id_address_delivery')) || (!$same && Tools::getValue('id_address_delivery') != Tools::getValue('id_address_invoice') && !Customer::customerHasAddress($this->context->customer->id, (int) Tools::getValue('id_address_invoice')))) {
+        if (!Customer::customerHasAddress($this->context->customer->id, (int)Tools::getValue('id_address_delivery'))
+            || (!$same && Tools::getValue('id_address_delivery') != Tools::getValue('id_address_invoice')
+                && !Customer::customerHasAddress($this->context->customer->id, (int)Tools::getValue('id_address_invoice')))) {
             $this->errors[] = Tools::displayError('Invalid address', !Tools::getValue('ajax'));
         } else {
-            $this->context->cart->id_address_delivery = (int) Tools::getValue('id_address_delivery');
-            $this->context->cart->id_address_invoice = $same ? $this->context->cart->id_address_delivery : (int) Tools::getValue('id_address_invoice');
+            $this->context->cart->id_address_delivery = (int)Tools::getValue('id_address_delivery');
+            $this->context->cart->id_address_invoice = $same ? $this->context->cart->id_address_delivery : (int)Tools::getValue('id_address_invoice');
 
             CartRule::autoRemoveFromCart($this->context);
             CartRule::autoAddToCart($this->context);
@@ -365,7 +374,7 @@ class OrderControllerCore extends ParentOrderController {
 
         if ($this->errors) {
             if (Tools::getValue('ajax')) {
-                $this->ajaxDie('{"hasError" : true, "errors" : ["' . implode('\',\'', $this->errors) . '"]}');
+                $this->ajaxDie('{"hasError" : true, "errors" : ["'.implode('\',\'', $this->errors).'"]}');
             }
             $this->step = 1;
         }
@@ -378,7 +387,8 @@ class OrderControllerCore extends ParentOrderController {
     /**
      * Carrier step
      */
-    protected function processCarrier() {
+    protected function processCarrier()
+    {
         global $orderTotal;
         parent::_processCarrier();
 
@@ -394,7 +404,8 @@ class OrderControllerCore extends ParentOrderController {
     /**
      * Address step
      */
-    protected function _assignAddress() {
+    protected function _assignAddress()
+    {
         parent::_assignAddress();
 
         if (Tools::getValue('multi-shipping')) {
@@ -407,7 +418,8 @@ class OrderControllerCore extends ParentOrderController {
     /**
      * Carrier step
      */
-    protected function _assignCarrier() {
+    protected function _assignCarrier()
+    {
         if (!isset($this->context->customer->id)) {
             die(Tools::displayError('Fatal error: No customer'));
         }
@@ -417,15 +429,16 @@ class OrderControllerCore extends ParentOrderController {
         $this->_assignWrappingAndTOS();
 
         $this->context->smarty->assign(
-                array(
-                    'is_guest' => (isset($this->context->customer->is_guest) ? $this->context->customer->is_guest : 0)
-        ));
+            array(
+                'is_guest' => (isset($this->context->customer->is_guest) ? $this->context->customer->is_guest : 0)
+            ));
     }
 
     /**
      * Payment step
      */
-    protected function _assignPayment() {
+    protected function _assignPayment()
+    {
         global $orderTotal;
 
         // Redirect instead of displaying payment modules if any module are grefted on
@@ -434,7 +447,7 @@ class OrderControllerCore extends ParentOrderController {
         /* We may need to display an order summary */
         $this->context->smarty->assign($this->context->cart->getSummaryDetails());
 
-        if ((bool) Configuration::get('PS_ADVANCED_PAYMENT_API')) {
+        if ((bool)Configuration::get('PS_ADVANCED_PAYMENT_API')) {
             $this->context->cart->checkedTOS = null;
         } else {
             $this->context->cart->checkedTOS = 1;
@@ -444,11 +457,11 @@ class OrderControllerCore extends ParentOrderController {
         $hook_override_tos_display = Hook::exec('overrideTOSDisplay');
 
         $this->context->smarty->assign(array(
-            'total_price' => (float) $orderTotal,
-            'taxes_enabled' => (int) Configuration::get('PS_TAX'),
-            'cms_id' => (int) Configuration::get('PS_CONDITIONS_CMS_ID'),
-            'conditions' => (int) Configuration::get('PS_CONDITIONS'),
-            'checkedTOS' => (int) $this->context->cart->checkedTOS,
+            'total_price' => (float)$orderTotal,
+            'taxes_enabled' => (int)Configuration::get('PS_TAX'),
+            'cms_id' => (int)Configuration::get('PS_CONDITIONS_CMS_ID'),
+            'conditions' => (int)Configuration::get('PS_CONDITIONS'),
+            'checkedTOS' => (int)$this->context->cart->checkedTOS,
             'override_tos_display' => $hook_override_tos_display
         ));
 
@@ -456,11 +469,11 @@ class OrderControllerCore extends ParentOrderController {
         parent::_assignPayment();
     }
 
-    public function setMedia() {
+    public function setMedia()
+    {
         parent::setMedia();
         if ($this->step == 2) {
-            $this->addJS(_THEME_JS_DIR_ . 'order-carrier.js');
+            $this->addJS(_THEME_JS_DIR_.'order-carrier.js');
         }
     }
-
 }

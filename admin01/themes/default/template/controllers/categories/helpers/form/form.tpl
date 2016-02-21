@@ -25,43 +25,43 @@
 {extends file="helpers/form/form.tpl"}
 
 {block name="script"}
-    var ps_force_friendly_product = false;
+	var ps_force_friendly_product = false;
 {/block}
 
 {block name="input"}
-    {if $input.name == "link_rewrite"}
-        <script type="text/javascript">
-            {if isset($PS_ALLOW_ACCENTED_CHARS_URL) && $PS_ALLOW_ACCENTED_CHARS_URL}
-            var PS_ALLOW_ACCENTED_CHARS_URL = 1;
-            {else}
-            var PS_ALLOW_ACCENTED_CHARS_URL = 0;
-            {/if}
-        </script>
-        {$smarty.block.parent}
-    {else}
-        {$smarty.block.parent}
-    {/if}
-    {if in_array($input.name, ['image', 'thumb'])}
-        <div class="col-lg-6">
-            <div class="help-block">{l s='Recommended dimensions (for the default theme): %1spx x %2spx' sprintf=[$input.format.width, $input.format.height]}
-            </div>
-        </div>
-    {/if}
+	{if $input.name == "link_rewrite"}
+		<script type="text/javascript">
+		{if isset($PS_ALLOW_ACCENTED_CHARS_URL) && $PS_ALLOW_ACCENTED_CHARS_URL}
+			var PS_ALLOW_ACCENTED_CHARS_URL = 1;
+		{else}
+			var PS_ALLOW_ACCENTED_CHARS_URL = 0;
+		{/if}
+		</script>
+		{$smarty.block.parent}
+	{else}
+		{$smarty.block.parent}
+	{/if}
+	{if in_array($input.name, ['image', 'thumb'])}
+		<div class="col-lg-6">
+			<div class="help-block">{l s='Recommended dimensions (for the default theme): %1spx x %2spx' sprintf=[$input.format.width, $input.format.height]}
+			</div>
+		</div>
+	{/if}
 {/block}
 {block name="description"}
-    {$smarty.block.parent}
-    {if ($input.name == 'groupBox')}
-        <div class="alert alert-info">
-            <h4>{$input.info_introduction}</h4>
-            <p>{$input.unidentified}<br />
-                {$input.guest}<br />
-                {$input.customer}</p>
-        </div>
-    {/if}
+	{$smarty.block.parent}
+	{if ($input.name == 'groupBox')}
+		<div class="alert alert-info">
+			<h4>{$input.info_introduction}</h4>
+			<p>{$input.unidentified}<br />
+			{$input.guest}<br />
+			{$input.customer}</p>
+		</div>
+	{/if}
 {/block}
 {block name="input_row"}
-    {$smarty.block.parent}
-    {if ($input.name == 'thumb')}
-        {$displayBackOfficeCategory}
-    {/if}
+	{$smarty.block.parent}
+	{if ($input.name == 'thumb')}
+	{$displayBackOfficeCategory}
+	{/if}
 {/block}

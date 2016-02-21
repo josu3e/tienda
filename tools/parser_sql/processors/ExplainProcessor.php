@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ExplainProcessor.php
  *
@@ -30,6 +29,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+
 require_once(dirname(__FILE__) . '/AbstractProcessor.php');
 require_once(dirname(__FILE__) . '/../utils/ExpressionType.php');
 
@@ -71,39 +71,39 @@ class ExplainProcessor extends AbstractProcessor {
 
                 switch ($upper) {
 
-                    case 'EXTENDED':
-                    case 'PARTITIONS':
-                        return array('expr_type' => ExpressionType::RESERVED, 'base_expr' => $token);
-                        break;
+                case 'EXTENDED':
+                case 'PARTITIONS':
+                    return array('expr_type' => ExpressionType::RESERVED, 'base_expr' => $token);
+                    break;
 
-                    case 'FORMAT':
-                        if ($currCategory === '') {
-                            $currCategory = $upper;
-                            $expr[] = array('expr_type' => ExpressionType::RESERVED, 'base_expr' => $trim);
-                        }
-                        // else?
-                        break;
+                case 'FORMAT':
+                    if ($currCategory === '') {
+                        $currCategory = $upper;
+                        $expr[] = array('expr_type' => ExpressionType::RESERVED, 'base_expr' => $trim);
+                    }
+                    // else?
+                    break;
 
-                    case '=':
-                        if ($currCategory === 'FORMAT') {
-                            $expr[] = array('expr_type' => ExpressionType::OPERATOR, 'base_expr' => $trim);
-                        }
-                        // else?
-                        break;
+                case '=':
+                    if ($currCategory === 'FORMAT') {
+                        $expr[] = array('expr_type' => ExpressionType::OPERATOR, 'base_expr' => $trim);
+                    }
+                    // else?
+                    break;
 
-                    case 'TRADITIONAL':
-                    case 'JSON':
-                        if ($currCategory === 'FORMAT') {
-                            $expr[] = array('expr_type' => ExpressionType::RESERVED, 'base_expr' => $trim);
-                            return array('expr_type' => ExpressionType::EXPRESSION, 'base_expr' => trim($base_expr),
-                                'sub_tree' => $expr);
-                        }
-                        // else?
-                        break;
+                case 'TRADITIONAL':
+                case 'JSON':
+                    if ($currCategory === 'FORMAT') {
+                        $expr[] = array('expr_type' => ExpressionType::RESERVED, 'base_expr' => $trim);
+                        return array('expr_type' => ExpressionType::EXPRESSION, 'base_expr' => trim($base_expr),
+                                     'sub_tree' => $expr);
+                    }
+                    // else?
+                    break;
 
-                    default:
-                        // ignore the other stuff
-                        break;
+                default:
+                // ignore the other stuff
+                    break;
                 }
             }
             return empty($expr) ? null : $expr;
@@ -119,23 +119,21 @@ class ExplainProcessor extends AbstractProcessor {
 
             switch ($currCategory) {
 
-                case 'TABLENAME':
-                    $currCategory = 'WILD';
-                    $expr[] = array('expr_type' => ExpressionType::COLREF, 'base_expr' => $trim);
-                    break;
+            case 'TABLENAME':
+                $currCategory = 'WILD';
+                $expr[] = array('expr_type' => ExpressionType::COLREF, 'base_expr' => $trim);
+                break;
 
-                case '':
-                    $currCategory = 'TABLENAME';
-                    $expr[] = array('expr_type' => ExpressionType::TABLE, 'base_expr' => $trim);
-                    break;
+            case '':
+                $currCategory = 'TABLENAME';
+                $expr[] = array('expr_type' => ExpressionType::TABLE, 'base_expr' => $trim);
+                break;
 
-                default:
-                    break;
+            default:
+                break;
             }
         }
         return empty($expr) ? null : $expr;
     }
-
 }
-
 ?>

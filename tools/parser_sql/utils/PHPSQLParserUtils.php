@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPSQLParserUtils.php
  *
@@ -147,7 +146,5 @@ class PHPSQLParserUtils {
         }
         return (empty($expr) ? false : $expr);
     }
-
 }
-
 ?>

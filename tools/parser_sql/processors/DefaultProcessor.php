@@ -1,5 +1,4 @@
 <?php
-
 /**
  * DefaultProcessor.php
  *
@@ -30,6 +29,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+
 require_once(dirname(__FILE__) . '/AbstractProcessor.php');
 require_once(dirname(__FILE__) . '/UnionProcessor.php');
 require_once(dirname(__FILE__) . '/SQLProcessor.php');
@@ -61,7 +61,5 @@ class DefaultProcessor extends AbstractProcessor {
 
         return $queries;
     }
-
 }
-
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty shared plugin
  *
@@ -17,7 +16,8 @@
  *
  * @return int
  */
-function smarty_make_timestamp($string) {
+function smarty_make_timestamp($string)
+{
     if (empty($string)) {
         // use "now":
         return time();
@@ -25,7 +25,8 @@ function smarty_make_timestamp($string) {
         return $string->getTimestamp();
     } elseif (strlen($string) == 14 && ctype_digit($string)) {
         // it is mysql timestamp format of YYYYMMDDHHMMSS?
-        return mktime(substr($string, 8, 2), substr($string, 10, 2), substr($string, 12, 2), substr($string, 4, 2), substr($string, 6, 2), substr($string, 0, 4));
+        return mktime(substr($string, 8, 2), substr($string, 10, 2), substr($string, 12, 2),
+                      substr($string, 4, 2), substr($string, 6, 2), substr($string, 0, 4));
     } elseif (is_numeric($string)) {
         // it is a numeric string, we handle it as timestamp
         return (int) $string;

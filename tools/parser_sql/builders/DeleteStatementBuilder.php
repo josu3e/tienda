@@ -1,5 +1,4 @@
 <?php
-
 /**
  * DeleteStatementBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: DeleteStatementBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/WhereBuilder.php';
 require_once dirname(__FILE__) . '/FromBuilder.php';
 require_once dirname(__FILE__) . '/DeleteBuilder.php';
@@ -67,7 +67,7 @@ class DeleteStatementBuilder {
         $builder = new DeleteBuilder();
         return $builder->build($parsed);
     }
-
+    
     public function processDeleteStatement($parsed) {
         $sql = $this->buildDELETE($parsed['DELETE']) . " " . $this->processFROM($parsed['FROM']);
         if (isset($parsed['WHERE'])) {
@@ -75,7 +75,6 @@ class DeleteStatementBuilder {
         }
         return $sql;
     }
-
+    
 }
-
 ?>

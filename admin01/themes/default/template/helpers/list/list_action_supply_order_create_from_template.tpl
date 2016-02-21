@@ -23,5 +23,5 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <a href="{$href|escape:'html':'UTF-8'}" onclick="return confirm('{$confirm}');" title="{$action|escape:'html':'UTF-8'}">
-    <i class="icon-copy"></i> {$action}
+	<i class="icon-copy"></i> {$action}
 </a>

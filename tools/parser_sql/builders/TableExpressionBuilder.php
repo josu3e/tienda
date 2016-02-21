@@ -1,5 +1,4 @@
 <?php
-
 /**
  * TableExpressionBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: TableExpressionBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/AliasBuilder.php';
 require_once dirname(__FILE__) . '/JoinBuilder.php';
@@ -60,7 +60,7 @@ class TableExpressionBuilder {
         $builder = new FromBuilder();
         return $builder->build($parsed);
     }
-
+    
     protected function buildAlias($parsed) {
         $builder = new AliasBuilder();
         return $builder->build($parsed);
@@ -70,12 +70,12 @@ class TableExpressionBuilder {
         $builder = new JoinBuilder();
         return $builder->build($parsed);
     }
-
+    
     protected function buildRefType($parsed) {
         $builder = new RefTypeBuilder();
         return $builder->build($parsed);
     }
-
+    
     protected function buildRefClause($parsed) {
         $builder = new RefClauseBuilder();
         return $builder->build($parsed);
@@ -96,7 +96,5 @@ class TableExpressionBuilder {
         }
         return $sql;
     }
-
 }
-
 ?>

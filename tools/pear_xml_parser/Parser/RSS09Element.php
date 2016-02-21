@@ -1,5 +1,4 @@
 <?php
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -21,6 +20,7 @@
  * @version    CVS: $Id: RSS09Element.php 6844 2011-06-03 14:46:51Z dMetzger $
  * @link       http://pear.php.net/package/XML_Feed_Parser/
  */
+
 /*
  * This class provides support for RSS 0.9 entries. It will usually be called by
  * XML_Feed_Parser_RSS09 with which it shares many methods.
@@ -29,8 +29,8 @@
  * @version    Release: @package_version@
  * @package XML_Feed_Parser
  */
-class XML_Feed_Parser_RSS09Element extends XML_Feed_Parser_RSS09 {
-
+class XML_Feed_Parser_RSS09Element extends XML_Feed_Parser_RSS09
+{
     /**
      * This will be a reference to the parent object for when we want
      * to use a 'fallback' rule 
@@ -52,11 +52,11 @@ class XML_Feed_Parser_RSS09Element extends XML_Feed_Parser_RSS09 {
      * @param   DOMElement  $element - this item as a DOM element
      * @param   XML_Feed_Parser_RSS1 $parent - the feed of which this is a member
      */
-    function __construct(DOMElement $element, $parent, $xmlBase = '') {
+    function __construct(DOMElement $element, $parent, $xmlBase = '')
+    {
         $this->model = $element;
         $this->parent = $parent;
     }
-
 }
 
 ?>

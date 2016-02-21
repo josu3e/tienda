@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty plugin
  *
@@ -23,7 +22,8 @@
  * @throws SmartyException
  * @return string|null if the assign parameter is passed, Smarty assigns the result to a template variable
  */
-function smarty_function_fetch($params, $template) {
+function smarty_function_fetch($params, $template)
+{
     if (empty($params['file'])) {
         trigger_error("[plugin] fetch parameter 'file' cannot be empty", E_USER_NOTICE);
 
@@ -65,7 +65,7 @@ function smarty_function_fetch($params, $template) {
             $agent = "Smarty Template Engine " . Smarty::SMARTY_VERSION;
             $referer = "";
             $uri = !empty($uri_parts['path']) ? $uri_parts['path'] : '/';
-            $uri .=!empty($uri_parts['query']) ? '?' . $uri_parts['query'] : '';
+            $uri .= !empty($uri_parts['query']) ? '?' . $uri_parts['query'] : '';
             $_is_proxy = false;
             if (empty($uri_parts['port'])) {
                 $port = 80;

@@ -1,5 +1,4 @@
 <?php
-
 define('lang_Select', 'Velg');
 define('lang_Erase', 'Slett');
 define('lang_Open', 'Åpne');

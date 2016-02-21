@@ -1,5 +1,4 @@
 <?php
-
 //============================================================+
 // File name   : bul.php
 // Begin       : 2004-03-03
@@ -28,6 +27,7 @@
  * @author Nicola Asuni
  * @since 2012-03-22
  */
+ 
 // Bulgarian
 
 global $l;

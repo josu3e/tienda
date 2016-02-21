@@ -1,5 +1,4 @@
 <?php
-
 /*
  * 2007-2015 PrestaShop
  *
@@ -25,14 +24,15 @@
  * International Registered Trademark & Property of PrestaShop SA
  */
 
-function alter_ignore_drop_key($table, $key) {
+function alter_ignore_drop_key($table, $key)
+{
     $indexes = Db::getInstance()->executeS('
-        SHOW INDEX FROM `' . _DB_PREFIX_ . pSQL($table) . '` WHERE Key_name = \'' . pSQL($key) . '\'
+        SHOW INDEX FROM `'._DB_PREFIX_.pSQL($table).'` WHERE Key_name = \''.pSQL($key).'\'
     ');
 
     if (count($indexes) > 0) {
         Db::getInstance()->execute('
-            ALTER TABLE `' . _DB_PREFIX_ . pSQL($table) . '` DROP KEY `' . pSQL($key) . '`
+            ALTER TABLE `'._DB_PREFIX_.pSQL($table).'` DROP KEY `'.pSQL($key).'`
         ');
     }
 }

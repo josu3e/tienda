@@ -23,5 +23,5 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <a href="{$href|escape:'html':'UTF-8'}" title="{$action}" class="btn btn-default">
-    <i class="icon-cloud-upload"></i> {$action}
+	<i class="icon-cloud-upload"></i> {$action}
 </a>

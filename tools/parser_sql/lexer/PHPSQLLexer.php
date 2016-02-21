@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPSQLLexer.php
  *
@@ -40,6 +39,7 @@
  * @version   SVN: $Id: PHPSQLLexer.php 842 2013-12-30 08:57:53Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/LexerSplitter.php';
 require_once dirname(__FILE__) . '/../exceptions/InvalidParameterException.php';
 
@@ -357,7 +357,6 @@ class PHPSQLLexer {
         }
         return array_values($tokens);
     }
-
 }
 
 ?>

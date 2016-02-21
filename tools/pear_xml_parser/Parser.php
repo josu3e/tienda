@@ -1,5 +1,4 @@
 <?php
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -21,17 +20,18 @@
  * @version    CVS: $Id: Parser.php 6844 2011-06-03 14:46:51Z dMetzger $
  * @link       http://pear.php.net/package/XML_Feed_Parser/
  */
+
 /**
  * XML_Feed_Parser_Type is an abstract class required by all of our
  * feed types. It makes sense to load it here to keep the other files
  * clean.
  */
-require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/Type.php');
+require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/Type.php');
 
 /**
  * We will throw exceptions when errors occur.
  */
-require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/Exception.php');
+require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/Exception.php');
 
 /**
  * This is the core of the XML_Feed_Parser package. It identifies feed types 
@@ -42,8 +42,8 @@ require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/Exception.php');
  * @version Release: @package_version@
  * @package XML_Feed_Parser
  */
-class XML_Feed_Parser implements Iterator {
-
+class XML_Feed_Parser implements Iterator
+{
     /**
      * This is where we hold the feed object 
      * @var Object
@@ -55,7 +55,7 @@ class XML_Feed_Parser implements Iterator {
      * @var DOMDocument
      */
     public $model;
-
+    
     /**
      * A map between entry ID and offset
      * @var array
@@ -71,7 +71,6 @@ class XML_Feed_Parser implements Iterator {
             'http://backend.userland.com/rss',
             'http://backend.userland.com/rss2',
             'http://blogs.law.harvard.edu/tech/rss'));
-
     /**
      * Detects feed types and instantiate appropriate objects.
      *
@@ -85,20 +84,23 @@ class XML_Feed_Parser implements Iterator {
      * @param    bool    $suppressWarnings Trigger errors for deprecated feed types?
      * @param    bool    $tidy    Whether or not to try and use the tidy library on input
      */
-    function __construct($feed, $strict = false, $suppressWarnings = false, $tidy = false) {
+    function __construct($feed, $strict = false, $suppressWarnings = false, $tidy = false)
+    {
         $this->model = new DOMDocument;
-        if (!@$this->model->loadXML($feed)) { /* PrestaShop - no error display */
+        if (! @$this->model->loadXML($feed)) { /* PrestaShop - no error display */
             if (extension_loaded('tidy') && $tidy) {
                 $tidy = new tidy;
-                $tidy->parseString($feed, array('input-xml' => true, 'output-xml' => true));
+                $tidy->parseString($feed, 
+                    array('input-xml' => true, 'output-xml' => true));
                 $tidy->cleanRepair();
-                if (!@$this->model->loadXML((string) $tidy)) { /* PrestaShop - no error display */
+                if (! @$this->model->loadXML((string) $tidy)) {	/* PrestaShop - no error display */
                     throw new XML_Feed_Parser_Exception('Invalid input: this is not ' .
-                    'valid XML');
+                        'valid XML');
                 }
             } else {
                 throw new XML_Feed_Parser_Exception('Invalid input: this is not valid XML');
             }
+
         }
 
         /* detect feed type */
@@ -107,61 +109,65 @@ class XML_Feed_Parser implements Iterator {
 
         switch (true) {
             case ($doc_element->namespaceURI == 'http://www.w3.org/2005/Atom'):
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/Atom.php');
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/AtomElement.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/Atom.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/AtomElement.php');
                 $class = 'XML_Feed_Parser_Atom';
                 break;
             case ($doc_element->namespaceURI == 'http://purl.org/atom/ns#'):
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/Atom.php');
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/AtomElement.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/Atom.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/AtomElement.php');
                 $class = 'XML_Feed_Parser_Atom';
                 $error = 'Atom 0.3 deprecated, using 1.0 parser which won\'t provide ' .
-                        'all options';
+                    'all options';
                 break;
-            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' ||
-            ($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1 && $doc_element->childNodes->item(1)->namespaceURI ==
-            'http://purl.org/rss/1.0/')):
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS1.php');
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS1Element.php');
+            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.0/' || 
+                ($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1 
+                && $doc_element->childNodes->item(1)->namespaceURI == 
+                'http://purl.org/rss/1.0/')):
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS1.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS1Element.php');
                 $class = 'XML_Feed_Parser_RSS1';
                 break;
-            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.1/' ||
-            ($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1 && $doc_element->childNodes->item(1)->namespaceURI ==
-            'http://purl.org/rss/1.1/')):
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS11.php');
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS11Element.php');
+            case ($doc_element->namespaceURI == 'http://purl.org/rss/1.1/' || 
+                ($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1 
+                && $doc_element->childNodes->item(1)->namespaceURI == 
+                'http://purl.org/rss/1.1/')):
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS11.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS11Element.php');
                 $class = 'XML_Feed_Parser_RSS11';
                 break;
-            case (($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1 && $doc_element->childNodes->item(1)->namespaceURI ==
-            'http://my.netscape.com/rdf/simple/0.9/') ||
-            $doc_element->namespaceURI == 'http://my.netscape.com/rdf/simple/0.9/'):
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS09.php');
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS09Element.php');
+            case (($doc_element->hasChildNodes() && $doc_element->childNodes->length > 1
+                && $doc_element->childNodes->item(1)->namespaceURI == 
+                'http://my.netscape.com/rdf/simple/0.9/') || 
+                $doc_element->namespaceURI == 'http://my.netscape.com/rdf/simple/0.9/'):
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS09.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS09Element.php');
                 $class = 'XML_Feed_Parser_RSS09';
                 break;
             case ($doc_element->tagName == 'rss' and
-            $doc_element->hasAttribute('version') &&
-            $doc_element->getAttribute('version') == 0.91):
+                $doc_element->hasAttribute('version') && 
+                $doc_element->getAttribute('version') == 0.91):
                 $error = 'RSS 0.91 has been superceded by RSS2.0. Using RSS2.0 parser.';
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS2.php');
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS2Element.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS2.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS2Element.php');
                 $class = 'XML_Feed_Parser_RSS2';
                 break;
             case ($doc_element->tagName == 'rss' and
-            $doc_element->hasAttribute('version') &&
-            $doc_element->getAttribute('version') == 0.92):
+                $doc_element->hasAttribute('version') && 
+                $doc_element->getAttribute('version') == 0.92):
                 $error = 'RSS 0.92 has been superceded by RSS2.0. Using RSS2.0 parser.';
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS2.php');
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS2Element.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS2.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS2Element.php');
                 $class = 'XML_Feed_Parser_RSS2';
                 break;
-            case (in_array($doc_element->namespaceURI, $this->feedNamespaces['rss2']) || $doc_element->tagName == 'rss'):
-                if (!$doc_element->hasAttribute('version') ||
-                        $doc_element->getAttribute('version') != 2) {
+            case (in_array($doc_element->namespaceURI, $this->feedNamespaces['rss2'])
+                || $doc_element->tagName == 'rss'):
+                if (! $doc_element->hasAttribute('version') || 
+                    $doc_element->getAttribute('version') != 2) {
                     $error = 'RSS version not specified. Parsing as RSS2.0';
                 }
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS2.php');
-                require_once(_PS_PEAR_XML_PARSER_PATH_ . 'Parser/RSS2Element.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS2.php');
+                require_once(_PS_PEAR_XML_PARSER_PATH_.'Parser/RSS2Element.php');
                 $class = 'XML_Feed_Parser_RSS2';
                 break;
             default:
@@ -169,7 +175,7 @@ class XML_Feed_Parser implements Iterator {
                 break;
         }
 
-        if (!$suppressWarnings && !empty($error)) {
+        if (! $suppressWarnings && ! empty($error)) {
             trigger_error($error, E_USER_WARNING);
         }
 
@@ -187,7 +193,8 @@ class XML_Feed_Parser implements Iterator {
      * @param   string  $call - the method being called
      * @param   array   $attributes
      */
-    function __call($call, $attributes) {
+    function __call($call, $attributes)
+    {
         $attributes = array_pad($attributes, 5, false);
         list($a, $b, $c, $d, $e) = $attributes;
         return $this->feed->$call($a, $b, $c, $d, $e);
@@ -202,7 +209,8 @@ class XML_Feed_Parser implements Iterator {
      *
      * @param   string  $val - the name of the variable required
      */
-    function __get($val) {
+    function __get($val)
+    {
         return $this->feed->$val;
     }
 
@@ -212,11 +220,12 @@ class XML_Feed_Parser implements Iterator {
      * Of course we must be able to iterate... This function simply increases
      * our internal counter.
      */
-    function next() {
-        if (isset($this->current_item) &&
-                $this->current_item <= $this->feed->numberEntries - 1) {
+    function next()
+    {
+        if (isset($this->current_item) && 
+            $this->current_item <= $this->feed->numberEntries - 1) {
             ++$this->current_item;
-        } elseif (!isset($this->current_item)) {
+        } elseif (! isset($this->current_item)) {
             $this->current_item = 0;
         } else {
             return false;
@@ -228,7 +237,8 @@ class XML_Feed_Parser implements Iterator {
      *
      * @return    XML_Feed_Parser_Type Object
      */
-    function current() {
+    function current()
+    {
         return $this->getEntryByOffset($this->current_item);
     }
 
@@ -236,8 +246,9 @@ class XML_Feed_Parser implements Iterator {
      * For iteration -- returns the key for the current stage in the array.
      *
      * @return    int
-     */
-    function key() {
+     */    
+    function key()
+    {
         return $this->current_item;
     }
 
@@ -247,14 +258,16 @@ class XML_Feed_Parser implements Iterator {
      *
      * @return    bool
      */
-    function valid() {
+    function valid()
+    {
         return $this->current_item < $this->feed->numberEntries;
     }
 
     /**
      * For iteration -- resets the internal counter to the beginning.
      */
-    function rewind() {
+    function rewind()
+    {
         $this->current_item = 0;
     }
 
@@ -269,13 +282,14 @@ class XML_Feed_Parser implements Iterator {
      *
      * @param    string    $id  Valid ID for the given feed format
      * @return    XML_Feed_Parser_Type|false
-     */
-    function getEntryById($id) {
+     */            
+    function getEntryById($id)
+    {
         if (isset($this->idMappings[$id])) {
             return $this->getEntryByOffset($this->idMappings[$id]);
         }
 
-        /*
+        /* 
          * Since we have not yet encountered that ID, let's go through all the
          * remaining entries in order till we find it.
          * This is a fairly slow implementation, but it should work.
@@ -293,7 +307,8 @@ class XML_Feed_Parser implements Iterator {
      * @param    int    $offset The position of the entry within the feed, starting from 0
      * @return    XML_Feed_Parser_Type|false
      */
-    function getEntryByOffset($offset) {
+    function getEntryByOffset($offset)
+    {
         if ($offset < $this->feed->numberEntries) {
             if (isset($this->feed->entries[$offset])) {
                 return $this->feed->entries[$offset];
@@ -318,19 +333,19 @@ class XML_Feed_Parser implements Iterator {
      * @return void
      * @author James Stewart
      */
-    function version() {
+    function version()
+    {
         return $this->feed->version;
     }
-
+    
     /**
      * Returns a string representation of the feed.
      * 
      * @return String
-     * */
-    function __toString() {
+     **/
+    function __toString()
+    {
         return $this->feed->__toString();
     }
-
 }
-
 ?>

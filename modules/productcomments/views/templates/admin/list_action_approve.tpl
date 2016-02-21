@@ -23,5 +23,5 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <a href="{$href}" class="btn btn-success" title="{$action}" >
-    <i class="icon-check"></i> {$action}
+	<i class="icon-check"></i> {$action}
 </a>

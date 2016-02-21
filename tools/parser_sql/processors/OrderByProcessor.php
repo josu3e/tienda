@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OrderByProcessor.php
  *
@@ -30,6 +29,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+
 require_once(dirname(__FILE__) . '/AbstractProcessor.php');
 require_once(dirname(__FILE__) . '/SelectExpressionProcessor.php');
 require_once(dirname(__FILE__) . '/../utils/ExpressionType.php');
@@ -105,28 +105,26 @@ class OrderByProcessor extends AbstractProcessor {
         foreach ($tokens as $token) {
             $upper = strtoupper(trim($token));
             switch ($upper) {
-                case ',':
-                    $out[] = $this->processOrderExpression($parseInfo, $select);
-                    $parseInfo = $this->initParseInfo();
-                    break;
+            case ',':
+                $out[] = $this->processOrderExpression($parseInfo, $select);
+                $parseInfo = $this->initParseInfo();
+                break;
 
-                case 'DESC':
-                    $parseInfo['dir'] = "DESC";
-                    break;
+            case 'DESC':
+                $parseInfo['dir'] = "DESC";
+                break;
 
-                case 'ASC':
-                    $parseInfo['dir'] = "ASC";
-                    break;
+            case 'ASC':
+                $parseInfo['dir'] = "ASC";
+                break;
 
-                default:
-                    $parseInfo['base_expr'] .= $token;
+            default:
+                $parseInfo['base_expr'] .= $token;
             }
         }
 
         $out[] = $this->processOrderExpression($parseInfo, $select);
         return $out;
     }
-
 }
-
 ?>

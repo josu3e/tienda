@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,24 +23,28 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Core_Foundation_IoC_Container {
 
+class Core_Foundation_IoC_Container
+{
     private $bindings = array();
     private $instances = array();
     private $namespaceAliases = array();
 
-    public function knows($serviceName) {
+    public function knows($serviceName)
+    {
         return array_key_exists($serviceName, $this->bindings);
     }
 
-    private function knowsNamespaceAlias($alias) {
+    private function knowsNamespaceAlias($alias)
+    {
         return array_key_exists($alias, $this->namespaceAliases);
     }
 
-    public function bind($serviceName, $constructor, $shared = false) {
+    public function bind($serviceName, $constructor, $shared = false)
+    {
         if ($this->knows($serviceName)) {
             throw new Core_Foundation_IoC_Exception(
-            sprintf('Cannot bind `%s` again. A service name can only be bound once.', $serviceName)
+                sprintf('Cannot bind `%s` again. A service name can only be bound once.', $serviceName)
             );
         }
 
@@ -53,12 +56,14 @@ class Core_Foundation_IoC_Container {
         return $this;
     }
 
-    public function aliasNamespace($alias, $namespacePrefix) {
+    public function aliasNamespace($alias, $namespacePrefix)
+    {
         if ($this->knowsNamespaceAlias($alias)) {
             throw new Core_Foundation_IoC_Exception(
-            sprintf(
-                    'Namespace alias `%1$s` already exists and points to `%2$s`', $alias, $this->namespaceAliases[$alias]
-            )
+                sprintf(
+                    'Namespace alias `%1$s` already exists and points to `%2$s`',
+                    $alias, $this->namespaceAliases[$alias]
+                )
             );
         }
 
@@ -66,7 +71,8 @@ class Core_Foundation_IoC_Container {
         return $this;
     }
 
-    public function resolveClassName($className) {
+    public function resolveClassName($className)
+    {
         $colonPos = strpos($className, ':');
         if (0 !== $colonPos) {
             $alias = substr($className, 0, $colonPos);
@@ -79,7 +85,8 @@ class Core_Foundation_IoC_Container {
         return $className;
     }
 
-    private function makeInstanceFromClassName($className, array $alreadySeen) {
+    private function makeInstanceFromClassName($className, array $alreadySeen)
+    {
         $className = $this->resolveClassName($className);
 
         try {
@@ -118,10 +125,12 @@ class Core_Foundation_IoC_Container {
         }
     }
 
-    private function doMake($serviceName, array $alreadySeen = array()) {
+    private function doMake($serviceName, array $alreadySeen = array())
+    {
         if (array_key_exists($serviceName, $alreadySeen)) {
             throw new Core_Foundation_IoC_Exception(sprintf(
-                    'Cyclic dependency detected while building `%s`.', $serviceName
+                'Cyclic dependency detected while building `%s`.',
+                $serviceName
             ));
         }
 
@@ -156,8 +165,8 @@ class Core_Foundation_IoC_Container {
         }
     }
 
-    public function make($serviceName) {
+    public function make($serviceName)
+    {
         return $this->doMake($serviceName, array());
     }
-
 }

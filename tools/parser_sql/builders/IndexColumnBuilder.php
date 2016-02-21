@@ -1,5 +1,4 @@
 <?php
-
 /**
  * IndexColumnBuilder.php
  *
@@ -39,9 +38,9 @@
  * @version   SVN: $Id: IndexColumnBuilder.php 917 2014-01-08 11:47:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../exceptions/UnsupportedFeatureException.php';
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
-
 /**
  * This class implements the builder for index column entries of the column-list 
  * parts of CREATE TABLE. 
@@ -60,7 +59,7 @@ class IndexColumnBuilder {
     protected function buildDirection($parsed) {
         return ($parsed === false ? '' : (' ' . $parsed));
     }
-
+    
     public function build($parsed) {
         if ($parsed['expr_type'] !== ExpressionType::INDEX_COLUMN) {
             return "";
@@ -72,5 +71,4 @@ class IndexColumnBuilder {
     }
 
 }
-
 ?>

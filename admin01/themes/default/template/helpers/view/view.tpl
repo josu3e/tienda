@@ -29,9 +29,9 @@
 
 {hook h='displayAdminView'}
 {if isset($name_controller)}
-    {capture name=hookName assign=hookName}display{$name_controller|ucfirst}View{/capture}
-    {hook h=$hookName}
+	{capture name=hookName assign=hookName}display{$name_controller|ucfirst}View{/capture}
+	{hook h=$hookName}
 {elseif isset($smarty.get.controller)}
-    {capture name=hookName assign=hookName}display{$smarty.get.controller|ucfirst|htmlentities}View{/capture}
-    {hook h=$hookName}
+	{capture name=hookName assign=hookName}display{$smarty.get.controller|ucfirst|htmlentities}View{/capture}
+	{hook h=$hookName}
 {/if}

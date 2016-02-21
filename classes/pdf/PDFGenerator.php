@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,20 +23,22 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-require_once(_PS_TOOL_DIR_ . 'tcpdf/config/lang/eng.php');
-require_once(_PS_TOOL_DIR_ . 'tcpdf/tcpdf.php');
+
+require_once(_PS_TOOL_DIR_.'tcpdf/config/lang/eng.php');
+require_once(_PS_TOOL_DIR_.'tcpdf/tcpdf.php');
 
 /**
  * @since 1.5
  */
-class PDFGeneratorCore extends TCPDF {
-
+class PDFGeneratorCore extends TCPDF
+{
     const DEFAULT_FONT = 'helvetica';
 
     public $header;
     public $footer;
     public $content;
     public $font;
+
     public $font_by_lang = array(
         'ja' => 'cid0jp',
         'bg' => 'freeserif',
@@ -75,7 +76,8 @@ class PDFGeneratorCore extends TCPDF {
      * @param bool $use_cache
      * @param string $orientation
      */
-    public function __construct($use_cache = false, $orientation = 'P') {
+    public function __construct($use_cache = false, $orientation = 'P')
+    {
         parent::__construct($orientation, 'mm', 'A4', true, 'UTF-8', $use_cache, false);
         $this->setRTL(Context::getContext()->language->is_rtl);
     }
@@ -85,7 +87,8 @@ class PDFGeneratorCore extends TCPDF {
      *
      * @param string $encoding
      */
-    public function setEncoding($encoding) {
+    public function setEncoding($encoding)
+    {
         $this->encoding = $encoding;
     }
 
@@ -95,7 +98,8 @@ class PDFGeneratorCore extends TCPDF {
      *
      * @param string $header HTML
      */
-    public function createHeader($header) {
+    public function createHeader($header)
+    {
         $this->header = $header;
     }
 
@@ -105,7 +109,8 @@ class PDFGeneratorCore extends TCPDF {
      *
      * @param string $footer HTML
      */
-    public function createFooter($footer) {
+    public function createFooter($footer)
+    {
         $this->footer = $footer;
     }
 
@@ -115,7 +120,8 @@ class PDFGeneratorCore extends TCPDF {
      *
      * @param string $content HTML
      */
-    public function createContent($content) {
+    public function createContent($content)
+    {
         $this->content = $content;
     }
 
@@ -124,7 +130,8 @@ class PDFGeneratorCore extends TCPDF {
      *
      * @param string $iso_lang
      */
-    public function setFontForLang($iso_lang) {
+    public function setFontForLang($iso_lang)
+    {
         $this->font = PDFGenerator::DEFAULT_FONT;
         if (array_key_exists($iso_lang, $this->font_by_lang)) {
             $this->font = $this->font_by_lang[$iso_lang];
@@ -139,14 +146,16 @@ class PDFGeneratorCore extends TCPDF {
     /**
      * @see TCPDF::Header()
      */
-    public function Header() {
+    public function Header()
+    {
         $this->writeHTML($this->header);
     }
 
     /**
      * @see TCPDF::Footer()
      */
-    public function Footer() {
+    public function Footer()
+    {
         $this->writeHTML($this->footer);
     }
 
@@ -158,7 +167,8 @@ class PDFGeneratorCore extends TCPDF {
      *
      * @return string HTML rendered
      */
-    public function render($filename, $display = true) {
+    public function render($filename, $display = true)
+    {
         if (empty($filename)) {
             throw new PrestaShopException('Missing filename.');
         }
@@ -185,7 +195,8 @@ class PDFGeneratorCore extends TCPDF {
     /**
      * Write a PDF page
      */
-    public function writePage() {
+    public function writePage()
+    {
         $this->SetHeaderMargin(5);
         $this->SetFooterMargin(18);
         $this->setMargins(10, 40, 10);
@@ -195,8 +206,9 @@ class PDFGeneratorCore extends TCPDF {
 
     /**
      * Override of TCPDF::getRandomSeed() - getmypid() is blocked on several hosting
-     */
-    protected function getRandomSeed($seed = '') {
+    */
+    protected function getRandomSeed($seed = '')
+    {
         $seed .= microtime();
 
         if (function_exists('openssl_random_pseudo_bytes') && (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN')) {
@@ -238,5 +250,4 @@ class PDFGeneratorCore extends TCPDF {
 
         return $seed;
     }
-
 }

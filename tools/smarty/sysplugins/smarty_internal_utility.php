@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        smarty_internal_utility.php
@@ -34,12 +33,13 @@
  * @package    Smarty
  * @subpackage Security
  */
-class Smarty_Internal_Utility {
-
+class Smarty_Internal_Utility
+{
     /**
      * private constructor to prevent calls creation of new instances
      */
-    final private function __construct() {
+    final private function __construct()
+    {
         // intentionally left blank
     }
 
@@ -54,7 +54,8 @@ class Smarty_Internal_Utility {
      *
      * @return integer number of template files compiled
      */
-    public static function compileAllTemplates($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty) {
+    public static function compileAllTemplates($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty)
+    {
         // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);
@@ -93,7 +94,8 @@ class Smarty_Internal_Utility {
                         echo ' is up to date';
                         flush();
                     }
-                } catch (Exception $e) {
+                }
+                catch (Exception $e) {
                     echo 'Error: ', $e->getMessage(), "<br><br>";
                     $_error_count ++;
                 }
@@ -122,7 +124,8 @@ class Smarty_Internal_Utility {
      *
      * @return integer number of config files compiled
      */
-    public static function compileAllConfig($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty) {
+    public static function compileAllConfig($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty)
+    {
         // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);
@@ -161,7 +164,8 @@ class Smarty_Internal_Utility {
                         echo ' is up to date';
                         flush();
                     }
-                } catch (Exception $e) {
+                }
+                catch (Exception $e) {
                     echo 'Error: ', $e->getMessage(), "<br><br>";
                     $_error_count ++;
                 }
@@ -185,7 +189,8 @@ class Smarty_Internal_Utility {
      *
      * @return integer number of template files deleted
      */
-    public static function clearCompiledTemplate($resource_name, $compile_id, $exp_time, Smarty $smarty) {
+    public static function clearCompiledTemplate($resource_name, $compile_id, $exp_time, Smarty $smarty)
+    {
         $_compile_dir = realpath($smarty->getCompileDir()) . '/';
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
@@ -229,12 +234,13 @@ class Smarty_Internal_Utility {
         try {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             // NOTE: UnexpectedValueException thrown for PHP >= 5.3
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return 0;
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
-            if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false || strpos($_file, 'index.php') !== false) {
+			if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false || strpos($_file, 'index.php') !== false) {
                 continue;
             }
 
@@ -247,7 +253,12 @@ class Smarty_Internal_Utility {
                 }
             } else {
                 $unlink = false;
-                if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) && $a = !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length))) && (!isset($resource_name) || (isset($_filepath[$_resource_part_1_length]) && substr_compare($_filepath, $_resource_part_1, - $_resource_part_1_length, $_resource_part_1_length) == 0) || (isset($_filepath[$_resource_part_2_length]) && substr_compare($_filepath, $_resource_part_2, - $_resource_part_2_length, $_resource_part_2_length) == 0))
+                if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) && $a = !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length)))
+                    && (!isset($resource_name)
+                        || (isset($_filepath[$_resource_part_1_length])
+                            && substr_compare($_filepath, $_resource_part_1, - $_resource_part_1_length, $_resource_part_1_length) == 0)
+                        || (isset($_filepath[$_resource_part_2_length])
+                            && substr_compare($_filepath, $_resource_part_2, - $_resource_part_2_length, $_resource_part_2_length) == 0))
                 ) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_filepath) >= $exp_time) {
@@ -279,7 +290,8 @@ class Smarty_Internal_Utility {
      * @throws SmartyException
      * @return array                    of tag/attributes
      */
-    public static function getTags(Smarty_Internal_Template $template) {
+    public static function getTags(Smarty_Internal_Template $template)
+    {
         $template->smarty->get_used_tags = true;
         $template->compileTemplateSource();
 
@@ -295,7 +307,8 @@ class Smarty_Internal_Utility {
      *
      * @return bool   status, true if everything is fine, false else
      */
-    public static function testInstall(Smarty $smarty, &$errors = null) {
+    public static function testInstall(Smarty $smarty, &$errors = null)
+    {
         $status = true;
 
         if ($errors === null) {
@@ -629,75 +642,75 @@ class Smarty_Internal_Utility {
         $source = SMARTY_SYSPLUGINS_DIR;
         if (is_dir($source)) {
             $expected = array(
-                "smarty_cacheresource.php" => true,
-                "smarty_cacheresource_custom.php" => true,
-                "smarty_cacheresource_keyvaluestore.php" => true,
-                "smarty_config_source.php" => true,
-                "smarty_internal_cacheresource_file.php" => true,
-                "smarty_internal_compile_append.php" => true,
-                "smarty_internal_compile_assign.php" => true,
-                "smarty_internal_compile_block.php" => true,
-                "smarty_internal_compile_break.php" => true,
-                "smarty_internal_compile_call.php" => true,
-                "smarty_internal_compile_capture.php" => true,
-                "smarty_internal_compile_config_load.php" => true,
-                "smarty_internal_compile_continue.php" => true,
-                "smarty_internal_compile_debug.php" => true,
-                "smarty_internal_compile_eval.php" => true,
-                "smarty_internal_compile_extends.php" => true,
-                "smarty_internal_compile_for.php" => true,
-                "smarty_internal_compile_foreach.php" => true,
-                "smarty_internal_compile_function.php" => true,
-                "smarty_internal_compile_if.php" => true,
-                "smarty_internal_compile_include.php" => true,
-                "smarty_internal_compile_include_php.php" => true,
-                "smarty_internal_compile_insert.php" => true,
-                "smarty_internal_compile_ldelim.php" => true,
-                "smarty_internal_compile_nocache.php" => true,
-                "smarty_internal_compile_private_block_plugin.php" => true,
-                "smarty_internal_compile_private_function_plugin.php" => true,
-                "smarty_internal_compile_private_modifier.php" => true,
+                "smarty_cacheresource.php"                                  => true,
+                "smarty_cacheresource_custom.php"                           => true,
+                "smarty_cacheresource_keyvaluestore.php"                    => true,
+                "smarty_config_source.php"                                  => true,
+                "smarty_internal_cacheresource_file.php"                    => true,
+                "smarty_internal_compile_append.php"                        => true,
+                "smarty_internal_compile_assign.php"                        => true,
+                "smarty_internal_compile_block.php"                         => true,
+                "smarty_internal_compile_break.php"                         => true,
+                "smarty_internal_compile_call.php"                          => true,
+                "smarty_internal_compile_capture.php"                       => true,
+                "smarty_internal_compile_config_load.php"                   => true,
+                "smarty_internal_compile_continue.php"                      => true,
+                "smarty_internal_compile_debug.php"                         => true,
+                "smarty_internal_compile_eval.php"                          => true,
+                "smarty_internal_compile_extends.php"                       => true,
+                "smarty_internal_compile_for.php"                           => true,
+                "smarty_internal_compile_foreach.php"                       => true,
+                "smarty_internal_compile_function.php"                      => true,
+                "smarty_internal_compile_if.php"                            => true,
+                "smarty_internal_compile_include.php"                       => true,
+                "smarty_internal_compile_include_php.php"                   => true,
+                "smarty_internal_compile_insert.php"                        => true,
+                "smarty_internal_compile_ldelim.php"                        => true,
+                "smarty_internal_compile_nocache.php"                       => true,
+                "smarty_internal_compile_private_block_plugin.php"          => true,
+                "smarty_internal_compile_private_function_plugin.php"       => true,
+                "smarty_internal_compile_private_modifier.php"              => true,
                 "smarty_internal_compile_private_object_block_function.php" => true,
-                "smarty_internal_compile_private_object_function.php" => true,
-                "smarty_internal_compile_private_print_expression.php" => true,
-                "smarty_internal_compile_private_registered_block.php" => true,
-                "smarty_internal_compile_private_registered_function.php" => true,
-                "smarty_internal_compile_private_special_variable.php" => true,
-                "smarty_internal_compile_rdelim.php" => true,
-                "smarty_internal_compile_section.php" => true,
-                "smarty_internal_compile_setfilter.php" => true,
-                "smarty_internal_compile_while.php" => true,
-                "smarty_internal_compilebase.php" => true,
-                "smarty_internal_config.php" => true,
-                "smarty_internal_config_file_compiler.php" => true,
-                "smarty_internal_configfilelexer.php" => true,
-                "smarty_internal_configfileparser.php" => true,
-                "smarty_internal_data.php" => true,
-                "smarty_internal_debug.php" => true,
-                "smarty_internal_filter_handler.php" => true,
-                "smarty_internal_function_call_handler.php" => true,
-                "smarty_internal_get_include_path.php" => true,
-                "smarty_internal_nocache_insert.php" => true,
-                "smarty_internal_parsetree.php" => true,
-                "smarty_internal_resource_eval.php" => true,
-                "smarty_internal_resource_extends.php" => true,
-                "smarty_internal_resource_file.php" => true,
-                "smarty_internal_resource_registered.php" => true,
-                "smarty_internal_resource_stream.php" => true,
-                "smarty_internal_resource_string.php" => true,
-                "smarty_internal_smartytemplatecompiler.php" => true,
-                "smarty_internal_template.php" => true,
-                "smarty_internal_templatebase.php" => true,
-                "smarty_internal_templatecompilerbase.php" => true,
-                "smarty_internal_templatelexer.php" => true,
-                "smarty_internal_templateparser.php" => true,
-                "smarty_internal_utility.php" => true,
-                "smarty_internal_write_file.php" => true,
-                "smarty_resource.php" => true,
-                "smarty_resource_custom.php" => true,
-                "smarty_resource_recompiled.php" => true,
-                "smarty_resource_uncompiled.php" => true,
-                "smarty_security.php" => true,
+                "smarty_internal_compile_private_object_function.php"       => true,
+                "smarty_internal_compile_private_print_expression.php"      => true,
+                "smarty_internal_compile_private_registered_block.php"      => true,
+                "smarty_internal_compile_private_registered_function.php"   => true,
+                "smarty_internal_compile_private_special_variable.php"      => true,
+                "smarty_internal_compile_rdelim.php"                        => true,
+                "smarty_internal_compile_section.php"                       => true,
+                "smarty_internal_compile_setfilter.php"                     => true,
+                "smarty_internal_compile_while.php"                         => true,
+                "smarty_internal_compilebase.php"                           => true,
+                "smarty_internal_config.php"                                => true,
+                "smarty_internal_config_file_compiler.php"                  => true,
+                "smarty_internal_configfilelexer.php"                       => true,
+                "smarty_internal_configfileparser.php"                      => true,
+                "smarty_internal_data.php"                                  => true,
+                "smarty_internal_debug.php"                                 => true,
+                "smarty_internal_filter_handler.php"                        => true,
+                "smarty_internal_function_call_handler.php"                 => true,
+                "smarty_internal_get_include_path.php"                      => true,
+                "smarty_internal_nocache_insert.php"                        => true,
+                "smarty_internal_parsetree.php"                             => true,
+                "smarty_internal_resource_eval.php"                         => true,
+                "smarty_internal_resource_extends.php"                      => true,
+                "smarty_internal_resource_file.php"                         => true,
+                "smarty_internal_resource_registered.php"                   => true,
+                "smarty_internal_resource_stream.php"                       => true,
+                "smarty_internal_resource_string.php"                       => true,
+                "smarty_internal_smartytemplatecompiler.php"                => true,
+                "smarty_internal_template.php"                              => true,
+                "smarty_internal_templatebase.php"                          => true,
+                "smarty_internal_templatecompilerbase.php"                  => true,
+                "smarty_internal_templatelexer.php"                         => true,
+                "smarty_internal_templateparser.php"                        => true,
+                "smarty_internal_utility.php"                               => true,
+                "smarty_internal_write_file.php"                            => true,
+                "smarty_resource.php"                                       => true,
+                "smarty_resource_custom.php"                                => true,
+                "smarty_resource_recompiled.php"                            => true,
+                "smarty_resource_uncompiled.php"                            => true,
+                "smarty_security.php"                                       => true,
             );
             $iterator = new DirectoryIterator($source);
             foreach ($iterator as $file) {
@@ -736,53 +749,53 @@ class Smarty_Internal_Utility {
         $source = SMARTY_PLUGINS_DIR;
         if (is_dir($source)) {
             $expected = array(
-                "block.textformat.php" => true,
-                "function.counter.php" => true,
-                "function.cycle.php" => true,
-                "function.fetch.php" => true,
-                "function.html_checkboxes.php" => true,
-                "function.html_image.php" => true,
-                "function.html_options.php" => true,
-                "function.html_radios.php" => true,
-                "function.html_select_date.php" => true,
-                "function.html_select_time.php" => true,
-                "function.html_table.php" => true,
-                "function.mailto.php" => true,
-                "function.math.php" => true,
-                "modifier.capitalize.php" => true,
-                "modifier.date_format.php" => true,
-                "modifier.debug_print_var.php" => true,
-                "modifier.escape.php" => true,
-                "modifier.regex_replace.php" => true,
-                "modifier.replace.php" => true,
-                "modifier.spacify.php" => true,
-                "modifier.truncate.php" => true,
-                "modifiercompiler.cat.php" => true,
+                "block.textformat.php"                  => true,
+                "function.counter.php"                  => true,
+                "function.cycle.php"                    => true,
+                "function.fetch.php"                    => true,
+                "function.html_checkboxes.php"          => true,
+                "function.html_image.php"               => true,
+                "function.html_options.php"             => true,
+                "function.html_radios.php"              => true,
+                "function.html_select_date.php"         => true,
+                "function.html_select_time.php"         => true,
+                "function.html_table.php"               => true,
+                "function.mailto.php"                   => true,
+                "function.math.php"                     => true,
+                "modifier.capitalize.php"               => true,
+                "modifier.date_format.php"              => true,
+                "modifier.debug_print_var.php"          => true,
+                "modifier.escape.php"                   => true,
+                "modifier.regex_replace.php"            => true,
+                "modifier.replace.php"                  => true,
+                "modifier.spacify.php"                  => true,
+                "modifier.truncate.php"                 => true,
+                "modifiercompiler.cat.php"              => true,
                 "modifiercompiler.count_characters.php" => true,
                 "modifiercompiler.count_paragraphs.php" => true,
-                "modifiercompiler.count_sentences.php" => true,
-                "modifiercompiler.count_words.php" => true,
-                "modifiercompiler.default.php" => true,
-                "modifiercompiler.escape.php" => true,
-                "modifiercompiler.from_charset.php" => true,
-                "modifiercompiler.indent.php" => true,
-                "modifiercompiler.lower.php" => true,
-                "modifiercompiler.noprint.php" => true,
-                "modifiercompiler.string_format.php" => true,
-                "modifiercompiler.strip.php" => true,
-                "modifiercompiler.strip_tags.php" => true,
-                "modifiercompiler.to_charset.php" => true,
-                "modifiercompiler.unescape.php" => true,
-                "modifiercompiler.upper.php" => true,
-                "modifiercompiler.wordwrap.php" => true,
-                "outputfilter.trimwhitespace.php" => true,
-                "shared.escape_special_chars.php" => true,
-                "shared.literal_compiler_param.php" => true,
-                "shared.make_timestamp.php" => true,
-                "shared.mb_str_replace.php" => true,
-                "shared.mb_unicode.php" => true,
-                "shared.mb_wordwrap.php" => true,
-                "variablefilter.htmlspecialchars.php" => true,
+                "modifiercompiler.count_sentences.php"  => true,
+                "modifiercompiler.count_words.php"      => true,
+                "modifiercompiler.default.php"          => true,
+                "modifiercompiler.escape.php"           => true,
+                "modifiercompiler.from_charset.php"     => true,
+                "modifiercompiler.indent.php"           => true,
+                "modifiercompiler.lower.php"            => true,
+                "modifiercompiler.noprint.php"          => true,
+                "modifiercompiler.string_format.php"    => true,
+                "modifiercompiler.strip.php"            => true,
+                "modifiercompiler.strip_tags.php"       => true,
+                "modifiercompiler.to_charset.php"       => true,
+                "modifiercompiler.unescape.php"         => true,
+                "modifiercompiler.upper.php"            => true,
+                "modifiercompiler.wordwrap.php"         => true,
+                "outputfilter.trimwhitespace.php"       => true,
+                "shared.escape_special_chars.php"       => true,
+                "shared.literal_compiler_param.php"     => true,
+                "shared.make_timestamp.php"             => true,
+                "shared.mb_str_replace.php"             => true,
+                "shared.mb_unicode.php"                 => true,
+                "shared.mb_wordwrap.php"                => true,
+                "variablefilter.htmlspecialchars.php"   => true,
             );
             $iterator = new DirectoryIterator($source);
             foreach ($iterator as $file) {
@@ -821,5 +834,4 @@ class Smarty_Internal_Utility {
 
         return $status;
     }
-
 }

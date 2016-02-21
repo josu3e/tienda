@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty plugin
  *
@@ -22,7 +21,8 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Rodney Rehm
  */
-function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = false) {
+function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = false)
+{
     if (Smarty::$_MBSTRING) {
         if ($lc_rest) {
             // uppercase (including hyphenated words)
@@ -61,7 +61,7 @@ function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = fals
     return $upper_string;
 }
 
-/*
+/* 
  *
  * Bug: create_function() use exhausts memory when used in long loops
  * Fix: use declared functions for callbacks instead of using create_function()
@@ -69,19 +69,22 @@ function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = fals
  *
  * @author Kyle Renfrow
  */
-
-function smarty_mod_cap_mbconvert_cb($matches) {
+function smarty_mod_cap_mbconvert_cb($matches)
+{
     return stripslashes($matches[1]) . mb_convert_case(stripslashes($matches[2]), MB_CASE_UPPER, Smarty::$_CHARSET);
 }
 
-function smarty_mod_cap_mbconvert2_cb($matches) {
+function smarty_mod_cap_mbconvert2_cb($matches)
+{
     return stripslashes($matches[1]) . mb_convert_case(stripslashes($matches[3]), MB_CASE_UPPER, Smarty::$_CHARSET);
 }
 
-function smarty_mod_cap_ucfirst_cb($matches) {
+function smarty_mod_cap_ucfirst_cb($matches)
+{
     return stripslashes($matches[1]) . ucfirst(stripslashes($matches[2]));
 }
 
-function smarty_mod_cap_ucfirst2_cb($matches) {
+function smarty_mod_cap_ucfirst2_cb($matches)
+{
     return stripslashes($matches[1]) . ucfirst(stripslashes($matches[3]));
 }

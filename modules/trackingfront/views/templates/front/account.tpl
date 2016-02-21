@@ -45,17 +45,17 @@
                                                       value="{$datepickerTo}"></p>
             <input type="submit" name="submitDatePicker" class="button"/>
         </form>
-        <div>
-            <a href="javascript:void(0)" onclick="showProductLines();" style="display:block;margin-top:20px;color:black">{l s='Show products details' mod='trackingfront'}</a>
-        </div>
+		<div>
+			<a href="javascript:void(0)" onclick="showProductLines();" style="display:block;margin-top:20px;color:black">{l s='Show products details' mod='trackingfront'}</a>
+		</div>
     </div>
     <div style="float:right; margin: 25px 50px 0 0;">
         <fieldset style="width: 415px; padding: 20px; font-size: 12px; border: 1px solid #88B60E;">
             <legend style="color: #88B60E; font-size:20px; font-weight: bold;">{$referrer->name}</legend>
             {foreach from=$displayTab key=data item=label}
                 <div style="float:left; width: 150px; height: 20px; margin-right: 40px;"><span
-                        style="float:left">{$label}</span><span id="{$data}"
-                        style="float: right; font-weight: bold;"></span>
+                            style="float:left">{$label}</span><span id="{$data}"
+                                                                    style="float: right; font-weight: bold;"></span>
                 </div>
             {/foreach}
         </fieldset>

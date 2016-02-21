@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty plugin
  *
@@ -21,7 +20,9 @@
  *
  * @return string with compiled code
  */
-function smarty_modifiercompiler_lower($params) {
+
+function smarty_modifiercompiler_lower($params)
+{
     if (Smarty::$_MBSTRING) {
         return 'mb_strtolower(' . $params[0] . ', \'' . addslashes(Smarty::$_CHARSET) . '\')';
     }

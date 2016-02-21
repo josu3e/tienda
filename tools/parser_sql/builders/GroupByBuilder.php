@@ -1,5 +1,4 @@
 <?php
-
 /**
  * GroupByBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: GroupByBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/PositionBuilder.php';
 require_once dirname(__FILE__) . '/ColumnReferenceBuilder.php';
@@ -68,7 +68,7 @@ class GroupByBuilder {
         $builder = new FunctionBuilder();
         return $builder->build($parsed);
     }
-
+        
     public function build($parsed) {
         $sql = "";
         foreach ($parsed as $k => $v) {
@@ -86,7 +86,6 @@ class GroupByBuilder {
         $sql = substr($sql, 0, -2);
         return "GROUP BY " . $sql;
     }
-
+    
 }
-
 ?>

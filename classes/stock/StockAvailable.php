@@ -1,29 +1,28 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
 /**
  * Represents quantities available
@@ -31,8 +30,8 @@
  *
  * @since 1.5.0
  */
-class StockAvailableCore extends ObjectModel {
-
+class StockAvailableCore extends ObjectModel
+{
     /** @var int identifier of the current product */
     public $id_product;
 
@@ -61,13 +60,13 @@ class StockAvailableCore extends ObjectModel {
         'table' => 'stock_available',
         'primary' => 'id_stock_available',
         'fields' => array(
-            'id_product' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
-            'id_product_attribute' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
-            'id_shop' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
-            'id_shop_group' => array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
-            'quantity' => array('type' => self::TYPE_INT, 'validate' => 'isInt', 'required' => true),
-            'depends_on_stock' => array('type' => self::TYPE_BOOL, 'validate' => 'isBool', 'required' => true),
-            'out_of_stock' => array('type' => self::TYPE_INT, 'validate' => 'isInt', 'required' => true),
+            'id_product' =>            array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
+            'id_product_attribute' =>    array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId', 'required' => true),
+            'id_shop' =>                array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
+            'id_shop_group' =>            array('type' => self::TYPE_INT, 'validate' => 'isUnsignedId'),
+            'quantity' =>                array('type' => self::TYPE_INT, 'validate' => 'isInt', 'required' => true),
+            'depends_on_stock' =>        array('type' => self::TYPE_BOOL, 'validate' => 'isBool', 'required' => true),
+            'out_of_stock' =>            array('type' => self::TYPE_INT, 'validate' => 'isInt', 'required' => true),
         ),
     );
 
@@ -97,14 +96,17 @@ class StockAvailableCore extends ObjectModel {
      * @param int $id_shop Optional
      * @return int
      */
-    public function updateWs() {
+
+    public function updateWs()
+    {
         if ($this->depends_on_stock) {
             return WebserviceRequest::getInstance()->setError(500, Tools::displayError('You cannot update the available stock when it depends on stock.'), 133);
         }
         return $this->update();
     }
 
-    public static function getStockAvailableIdByProductId($id_product, $id_product_attribute = null, $id_shop = null) {
+    public static function getStockAvailableIdByProductId($id_product, $id_product_attribute = null, $id_shop = null)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
@@ -112,14 +114,14 @@ class StockAvailableCore extends ObjectModel {
         $query = new DbQuery();
         $query->select('id_stock_available');
         $query->from('stock_available');
-        $query->where('id_product = ' . (int) $id_product);
+        $query->where('id_product = '.(int)$id_product);
 
         if ($id_product_attribute !== null) {
-            $query->where('id_product_attribute = ' . (int) $id_product_attribute);
+            $query->where('id_product_attribute = '.(int)$id_product_attribute);
         }
 
         $query = StockAvailable::addSqlShopRestriction($query, $id_shop);
-        return (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
+        return (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
     }
 
     /**
@@ -127,16 +129,17 @@ class StockAvailableCore extends ObjectModel {
      *
      * @param int $id_product
      */
-    public static function synchronize($id_product, $order_id_shop = null) {
+    public static function synchronize($id_product, $order_id_shop = null)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
 
         //if product is pack sync recursivly product in pack
         if (Pack::isPack($id_product)) {
-            if (Validate::isLoadedObject($product = new Product((int) $id_product))) {
+            if (Validate::isLoadedObject($product = new Product((int)$id_product))) {
                 if ($product->pack_stock_type == 1 || $product->pack_stock_type == 2 || ($product->pack_stock_type == 3 && Configuration::get('PS_PACK_STOCK_TYPE') > 0)) {
-                    $products_pack = Pack::getItems($id_product, (int) Configuration::get('PS_LANG_DEFAULT'));
+                    $products_pack = Pack::getItems($id_product, (int)Configuration::get('PS_LANG_DEFAULT'));
                     foreach ($products_pack as $product_pack) {
                         StockAvailable::synchronize($product_pack->id, $order_id_shop);
                     }
@@ -150,7 +153,7 @@ class StockAvailableCore extends ObjectModel {
         $ids_warehouse = Warehouse::getWarehousesGroupedByShops();
         if ($order_id_shop !== null) {
             $order_warehouses = array();
-            $wh = Warehouse::getWarehouses(false, (int) $order_id_shop);
+            $wh = Warehouse::getWarehouses(false, (int)$order_id_shop);
             foreach ($wh as $warehouse) {
                 $order_warehouses[] = $warehouse['id_warehouse'];
             }
@@ -175,10 +178,10 @@ class StockAvailableCore extends ObjectModel {
 
                 // if it's a simple product
                 if (empty($ids_product_attribute)) {
-                    $allowed_warehouse_for_product = WareHouse::getProductWarehouseList((int) $id_product, 0, (int) $id_shop);
+                    $allowed_warehouse_for_product = WareHouse::getProductWarehouseList((int)$id_product, 0, (int)$id_shop);
                     $allowed_warehouse_for_product_clean = array();
                     foreach ($allowed_warehouse_for_product as $warehouse) {
-                        $allowed_warehouse_for_product_clean[] = (int) $warehouse['id_warehouse'];
+                        $allowed_warehouse_for_product_clean[] = (int)$warehouse['id_warehouse'];
                     }
                     $allowed_warehouse_for_product_clean = array_intersect($allowed_warehouse_for_product_clean, $warehouses);
                     if ($order_id_shop != null && !count(array_intersect($allowed_warehouse_for_product_clean, $order_warehouses))) {
@@ -187,21 +190,22 @@ class StockAvailableCore extends ObjectModel {
 
                     $product_quantity = $manager->getProductRealQuantities($id_product, null, $allowed_warehouse_for_product_clean, true);
 
-                    Hook::exec('actionUpdateQuantity', array(
-                        'id_product' => $id_product,
-                        'id_product_attribute' => 0,
-                        'quantity' => $product_quantity,
-                        'id_shop' => $id_shop
-                            )
+                    Hook::exec('actionUpdateQuantity',
+                                    array(
+                                        'id_product' => $id_product,
+                                        'id_product_attribute' => 0,
+                                        'quantity' => $product_quantity,
+                                        'id_shop' => $id_shop
+                                        )
                     );
                 }
                 // else this product has attributes, hence loops on $ids_product_attribute
                 else {
                     foreach ($ids_product_attribute as $id_product_attribute) {
-                        $allowed_warehouse_for_combination = WareHouse::getProductWarehouseList((int) $id_product, (int) $id_product_attribute, (int) $id_shop);
+                        $allowed_warehouse_for_combination = WareHouse::getProductWarehouseList((int)$id_product, (int)$id_product_attribute, (int)$id_shop);
                         $allowed_warehouse_for_combination_clean = array();
                         foreach ($allowed_warehouse_for_combination as $warehouse) {
-                            $allowed_warehouse_for_combination_clean[] = (int) $warehouse['id_warehouse'];
+                            $allowed_warehouse_for_combination_clean[] = (int)$warehouse['id_warehouse'];
                         }
                         $allowed_warehouse_for_combination_clean = array_intersect($allowed_warehouse_for_combination_clean, $warehouses);
                         if ($order_id_shop != null && !count(array_intersect($allowed_warehouse_for_combination_clean, $order_warehouses))) {
@@ -213,14 +217,14 @@ class StockAvailableCore extends ObjectModel {
                         $query = new DbQuery();
                         $query->select('COUNT(*)');
                         $query->from('stock_available');
-                        $query->where('id_product = ' . (int) $id_product . ' AND id_product_attribute = ' . (int) $id_product_attribute .
-                                StockAvailable::addSqlShopRestriction(null, $id_shop));
+                        $query->where('id_product = '.(int)$id_product.' AND id_product_attribute = '.(int)$id_product_attribute.
+                            StockAvailable::addSqlShopRestriction(null, $id_shop));
 
-                        if ((int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query)) {
+                        if ((int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query)) {
                             $query = array(
                                 'table' => 'stock_available',
                                 'data' => array('quantity' => $quantity),
-                                'where' => 'id_product = ' . (int) $id_product . ' AND id_product_attribute = ' . (int) $id_product_attribute .
+                                'where' => 'id_product = '.(int)$id_product.' AND id_product_attribute = '.(int)$id_product_attribute.
                                 StockAvailable::addSqlShopRestriction(null, $id_shop)
                             );
                             Db::getInstance()->update($query['table'], $query['data'], $query['where']);
@@ -231,8 +235,8 @@ class StockAvailableCore extends ObjectModel {
                                     'quantity' => $quantity,
                                     'depends_on_stock' => 1,
                                     'out_of_stock' => $out_of_stock,
-                                    'id_product' => (int) $id_product,
-                                    'id_product_attribute' => (int) $id_product_attribute,
+                                    'id_product' => (int)$id_product,
+                                    'id_product_attribute' => (int)$id_product_attribute,
                                 )
                             );
                             StockAvailable::addSqlShopParams($query['data'], $id_shop);
@@ -241,12 +245,13 @@ class StockAvailableCore extends ObjectModel {
 
                         $product_quantity += $quantity;
 
-                        Hook::exec('actionUpdateQuantity', array(
-                            'id_product' => $id_product,
-                            'id_product_attribute' => $id_product_attribute,
-                            'quantity' => $quantity,
-                            'id_shop' => $id_shop
-                                )
+                        Hook::exec('actionUpdateQuantity',
+                                    array(
+                                        'id_product' => $id_product,
+                                        'id_product_attribute' => $id_product_attribute,
+                                        'quantity' => $quantity,
+                                        'id_shop' => $id_shop
+                                    )
                         );
                     }
                 }
@@ -256,7 +261,7 @@ class StockAvailableCore extends ObjectModel {
                     $query = array(
                         'table' => 'stock_available',
                         'data' => array('quantity' => $product_quantity),
-                        'where' => 'id_product = ' . (int) $id_product . ' AND id_product_attribute = 0' .
+                        'where' => 'id_product = '.(int)$id_product.' AND id_product_attribute = 0'.
                         StockAvailable::addSqlShopRestriction(null, $id_shop)
                     );
                     Db::getInstance()->update($query['table'], $query['data'], $query['where']);
@@ -264,11 +269,11 @@ class StockAvailableCore extends ObjectModel {
             }
         }
         // In case there are no warehouses, removes product from StockAvailable
-        if (count($ids_warehouse) == 0 && StockAvailable::dependsOnStock((int) $id_product)) {
-            Db::getInstance()->update('stock_available', array('quantity' => 0), 'id_product = ' . (int) $id_product);
+        if (count($ids_warehouse) == 0 && StockAvailable::dependsOnStock((int)$id_product)) {
+            Db::getInstance()->update('stock_available', array('quantity' => 0 ), 'id_product = '.(int)$id_product);
         }
 
-        Cache::clean('StockAvailable::getQuantityAvailableByProduct_' . (int) $id_product . '*');
+        Cache::clean('StockAvailable::getQuantityAvailableByProduct_'.(int)$id_product.'*');
     }
 
     /**
@@ -278,21 +283,22 @@ class StockAvailableCore extends ObjectModel {
      * @param int $depends_on_stock Optional : true by default
      * @param int $id_shop Optional : gets context by default
      */
-    public static function setProductDependsOnStock($id_product, $depends_on_stock = true, $id_shop = null, $id_product_attribute = 0) {
+    public static function setProductDependsOnStock($id_product, $depends_on_stock = true, $id_shop = null, $id_product_attribute = 0)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
 
-        $existing_id = StockAvailable::getStockAvailableIdByProductId((int) $id_product, (int) $id_product_attribute, $id_shop);
+        $existing_id = StockAvailable::getStockAvailableIdByProductId((int)$id_product, (int)$id_product_attribute, $id_shop);
         if ($existing_id > 0) {
             Db::getInstance()->update('stock_available', array(
-                'depends_on_stock' => (int) $depends_on_stock
-                    ), 'id_stock_available = ' . (int) $existing_id);
+                'depends_on_stock' => (int)$depends_on_stock
+            ), 'id_stock_available = '.(int)$existing_id);
         } else {
             $params = array(
-                'depends_on_stock' => (int) $depends_on_stock,
-                'id_product' => (int) $id_product,
-                'id_product_attribute' => (int) $id_product_attribute
+                'depends_on_stock' => (int)$depends_on_stock,
+                'id_product' => (int)$id_product,
+                'id_product_attribute' => (int)$id_product_attribute
             );
 
             StockAvailable::addSqlShopParams($params, $id_shop);
@@ -313,24 +319,27 @@ class StockAvailableCore extends ObjectModel {
      * @param int $out_of_stock Optional false by default
      * @param int $id_shop Optional gets context by default
      */
-    public static function setProductOutOfStock($id_product, $out_of_stock = false, $id_shop = null, $id_product_attribute = 0) {
+    public static function setProductOutOfStock($id_product, $out_of_stock = false, $id_shop = null, $id_product_attribute = 0)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
 
-        $existing_id = (int) StockAvailable::getStockAvailableIdByProductId((int) $id_product, (int) $id_product_attribute, $id_shop);
+        $existing_id = (int)StockAvailable::getStockAvailableIdByProductId((int)$id_product, (int)$id_product_attribute, $id_shop);
 
         if ($existing_id > 0) {
             Db::getInstance()->update(
-                    'stock_available', array('out_of_stock' => (int) $out_of_stock), 'id_product = ' . (int) $id_product .
-                    (($id_product_attribute) ? ' AND id_product_attribute = ' . (int) $id_product_attribute : '') .
-                    StockAvailable::addSqlShopRestriction(null, $id_shop)
+                'stock_available',
+                array('out_of_stock' => (int)$out_of_stock),
+                'id_product = '.(int)$id_product.
+                (($id_product_attribute) ? ' AND id_product_attribute = '.(int)$id_product_attribute : '').
+                StockAvailable::addSqlShopRestriction(null, $id_shop)
             );
         } else {
             $params = array(
-                'out_of_stock' => (int) $out_of_stock,
-                'id_product' => (int) $id_product,
-                'id_product_attribute' => (int) $id_product_attribute
+                'out_of_stock' => (int)$out_of_stock,
+                'id_product' => (int)$id_product,
+                'id_product_attribute' => (int)$id_product_attribute
             );
 
             StockAvailable::addSqlShopParams($params, $id_shop);
@@ -346,13 +355,14 @@ class StockAvailableCore extends ObjectModel {
      * @param int $id_shop Optional : gets context by default
      * @return int Quantity
      */
-    public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null) {
+    public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null)
+    {
         // if null, it's a product without attributes
         if ($id_product_attribute === null) {
             $id_product_attribute = 0;
         }
 
-        $key = 'StockAvailable::getQuantityAvailableByProduct_' . (int) $id_product . '-' . (int) $id_product_attribute . '-' . (int) $id_shop;
+        $key = 'StockAvailable::getQuantityAvailableByProduct_'.(int)$id_product.'-'.(int)$id_product_attribute.'-'.(int)$id_shop;
         if (!Cache::isStored($key)) {
             $query = new DbQuery();
             $query->select('SUM(quantity)');
@@ -360,12 +370,12 @@ class StockAvailableCore extends ObjectModel {
 
             // if null, it's a product without attributes
             if ($id_product !== null) {
-                $query->where('id_product = ' . (int) $id_product);
+                $query->where('id_product = '.(int)$id_product);
             }
 
-            $query->where('id_product_attribute = ' . (int) $id_product_attribute);
+            $query->where('id_product_attribute = '.(int)$id_product_attribute);
             $query = StockAvailable::addSqlShopRestriction($query, $id_shop);
-            $result = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
+            $result = (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
             Cache::store($key, $result);
             return $result;
         }
@@ -377,7 +387,8 @@ class StockAvailableCore extends ObjectModel {
      * Upgrades total_quantity_available after having saved
      * @see ObjectModel::add()
      */
-    public function add($autodate = true, $null_values = false) {
+    public function add($autodate = true, $null_values = false)
+    {
         if (!$result = parent::add($autodate, $null_values)) {
             return false;
         }
@@ -390,7 +401,8 @@ class StockAvailableCore extends ObjectModel {
      * Upgrades total_quantity_available after having update
      * @see ObjectModel::update()
      */
-    public function update($null_values = false) {
+    public function update($null_values = false)
+    {
         if (!$result = parent::update($null_values)) {
             return false;
         }
@@ -404,7 +416,8 @@ class StockAvailableCore extends ObjectModel {
      * @see StockAvailableCore::update()
      * @see StockAvailableCore::add()
      */
-    public function postSave() {
+    public function postSave()
+    {
         if ($this->id_product_attribute == 0) {
             return true;
         }
@@ -412,11 +425,11 @@ class StockAvailableCore extends ObjectModel {
         $id_shop = (Shop::getContext() != Shop::CONTEXT_GROUP && $this->id_shop ? $this->id_shop : null);
 
         if (!Configuration::get('PS_DISP_UNAVAILABLE_ATTR')) {
-            $combination = new Combination((int) $this->id_product_attribute);
+            $combination = new Combination((int)$this->id_product_attribute);
             if ($colors = $combination->getColorsAttributes()) {
-                $product = new Product((int) $this->id_product);
+                $product = new Product((int)$this->id_product);
                 foreach ($colors as $color) {
-                    if ($product->isColorUnavailable((int) $color['id_attribute'], (int) $this->id_shop)) {
+                    if ($product->isColorUnavailable((int)$color['id_attribute'], (int)$this->id_shop)) {
                         Tools::clearColorListCache($product->id);
                         break;
                     }
@@ -424,12 +437,12 @@ class StockAvailableCore extends ObjectModel {
             }
         }
 
-        $total_quantity = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
+        $total_quantity = (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
 			SELECT SUM(quantity) as quantity
-			FROM ' . _DB_PREFIX_ . 'stock_available
-			WHERE id_product = ' . (int) $this->id_product . '
-			AND id_product_attribute <> 0 ' .
-                        StockAvailable::addSqlShopRestriction(null, $id_shop)
+			FROM '._DB_PREFIX_.'stock_available
+			WHERE id_product = '.(int)$this->id_product.'
+			AND id_product_attribute <> 0 '.
+            StockAvailable::addSqlShopRestriction(null, $id_shop)
         );
         $this->setQuantity($this->id_product, 0, $total_quantity, $id_shop);
 
@@ -445,11 +458,12 @@ class StockAvailableCore extends ObjectModel {
      * @param int $delta_quantity The delta quantity to update
      * @param int $id_shop Optional
      */
-    public static function updateQuantity($id_product, $id_product_attribute, $delta_quantity, $id_shop = null) {
+    public static function updateQuantity($id_product, $id_product_attribute, $delta_quantity, $id_shop = null)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
-        $product = new Product((int) $id_product);
+        $product = new Product((int)$id_product);
         if (!Validate::isLoadedObject($product)) {
             return false;
         }
@@ -467,7 +481,8 @@ class StockAvailableCore extends ObjectModel {
      * @param int $delta_quantity The delta quantity to update
      * @param int $id_shop Optional
      */
-    public static function setQuantity($id_product, $id_product_attribute, $quantity, $id_shop = null) {
+    public static function setQuantity($id_product, $id_product_attribute, $quantity, $id_shop = null)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
@@ -476,52 +491,53 @@ class StockAvailableCore extends ObjectModel {
 
         // if there is no $id_shop, gets the context one
         if ($id_shop === null && Shop::getContext() != Shop::CONTEXT_GROUP) {
-            $id_shop = (int) $context->shop->id;
+            $id_shop = (int)$context->shop->id;
         }
 
         $depends_on_stock = StockAvailable::dependsOnStock($id_product);
 
         //Try to set available quantity if product does not depend on physical stock
         if (!$depends_on_stock) {
-            $id_stock_available = (int) StockAvailable::getStockAvailableIdByProductId($id_product, $id_product_attribute, $id_shop);
+            $id_stock_available = (int)StockAvailable::getStockAvailableIdByProductId($id_product, $id_product_attribute, $id_shop);
             if ($id_stock_available) {
                 $stock_available = new StockAvailable($id_stock_available);
-                $stock_available->quantity = (int) $quantity;
+                $stock_available->quantity = (int)$quantity;
                 $stock_available->update();
             } else {
                 $out_of_stock = StockAvailable::outOfStock($id_product, $id_shop);
                 $stock_available = new StockAvailable();
-                $stock_available->out_of_stock = (int) $out_of_stock;
-                $stock_available->id_product = (int) $id_product;
-                $stock_available->id_product_attribute = (int) $id_product_attribute;
-                $stock_available->quantity = (int) $quantity;
+                $stock_available->out_of_stock = (int)$out_of_stock;
+                $stock_available->id_product = (int)$id_product;
+                $stock_available->id_product_attribute = (int)$id_product_attribute;
+                $stock_available->quantity = (int)$quantity;
 
                 if ($id_shop === null) {
                     $shop_group = Shop::getContextShopGroup();
                 } else {
-                    $shop_group = new ShopGroup((int) Shop::getGroupFromShop((int) $id_shop));
+                    $shop_group = new ShopGroup((int)Shop::getGroupFromShop((int)$id_shop));
                 }
 
                 // if quantities are shared between shops of the group
                 if ($shop_group->share_stock) {
                     $stock_available->id_shop = 0;
-                    $stock_available->id_shop_group = (int) $shop_group->id;
+                    $stock_available->id_shop_group = (int)$shop_group->id;
                 } else {
-                    $stock_available->id_shop = (int) $id_shop;
+                    $stock_available->id_shop = (int)$id_shop;
                     $stock_available->id_shop_group = 0;
                 }
                 $stock_available->add();
             }
 
-            Hook::exec('actionUpdateQuantity', array(
-                'id_product' => $id_product,
-                'id_product_attribute' => $id_product_attribute,
-                'quantity' => $stock_available->quantity
-                    )
+            Hook::exec('actionUpdateQuantity',
+                array(
+                    'id_product' => $id_product,
+                    'id_product_attribute' => $id_product_attribute,
+                    'quantity' => $stock_available->quantity
+                )
             );
         }
 
-        Cache::clean('StockAvailable::getQuantityAvailableByProduct_' . (int) $id_product . '*');
+        Cache::clean('StockAvailable::getQuantityAvailableByProduct_'.(int)$id_product.'*');
     }
 
     /**
@@ -533,7 +549,8 @@ class StockAvailableCore extends ObjectModel {
      *
      * @return bool
      */
-    public static function removeProductFromStockAvailable($id_product, $id_product_attribute = null, $shop = null) {
+    public static function removeProductFromStockAvailable($id_product, $id_product_attribute = null, $shop = null)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
@@ -548,38 +565,38 @@ class StockAvailableCore extends ObjectModel {
                     $id_product_attribute_sql = $id_product;
                 }
 
-                if ((int) Db::getInstance()->getValue('SELECT COUNT(*)
-						FROM ' . _DB_PREFIX_ . 'product' . $pa_sql . '_shop
-						WHERE id_product' . $pa_sql . '=' . (int) $id_product_attribute_sql . '
-							AND id_shop IN (' . implode(',', array_map('intval', Shop::getContextListShopID(SHOP::SHARE_STOCK))) . ')')) {
+                if ((int)Db::getInstance()->getValue('SELECT COUNT(*)
+						FROM '._DB_PREFIX_.'product'.$pa_sql.'_shop
+						WHERE id_product'.$pa_sql.'='.(int)$id_product_attribute_sql.'
+							AND id_shop IN ('.implode(',', array_map('intval', Shop::getContextListShopID(SHOP::SHARE_STOCK))).')')) {
                     return true;
                 }
             }
         }
 
         $res = Db::getInstance()->execute('
-		DELETE FROM ' . _DB_PREFIX_ . 'stock_available
-		WHERE id_product = ' . (int) $id_product .
-                ($id_product_attribute ? ' AND id_product_attribute = ' . (int) $id_product_attribute : '') .
-                StockAvailable::addSqlShopRestriction(null, $shop));
+		DELETE FROM '._DB_PREFIX_.'stock_available
+		WHERE id_product = '.(int)$id_product.
+        ($id_product_attribute ? ' AND id_product_attribute = '.(int)$id_product_attribute : '').
+        StockAvailable::addSqlShopRestriction(null, $shop));
 
         if ($id_product_attribute) {
             if ($shop === null || !Validate::isLoadedObject($shop)) {
                 $shop_datas = array();
                 StockAvailable::addSqlShopParams($shop_datas);
-                $id_shop = (int) $shop_datas['id_shop'];
+                $id_shop = (int)$shop_datas['id_shop'];
             } else {
-                $id_shop = (int) $shop->id;
+                $id_shop = (int)$shop->id;
             }
 
             $stock_available = new StockAvailable();
-            $stock_available->id_product = (int) $id_product;
-            $stock_available->id_product_attribute = (int) $id_product_attribute;
-            $stock_available->id_shop = (int) $id_shop;
+            $stock_available->id_product = (int)$id_product;
+            $stock_available->id_product_attribute = (int)$id_product_attribute;
+            $stock_available->id_shop = (int)$id_shop;
             $stock_available->postSave();
         }
 
-        Cache::clean('StockAvailable::getQuantityAvailableByProduct_' . (int) $id_product . '*');
+        Cache::clean('StockAvailable::getQuantityAvailableByProduct_'.(int)$id_product.'*');
 
         return $res;
     }
@@ -591,16 +608,17 @@ class StockAvailableCore extends ObjectModel {
      *
      * @param ShopGroup $shop_group the ShopGroup object
      */
-    public static function resetProductFromStockAvailableByShopGroup(ShopGroup $shop_group) {
+    public static function resetProductFromStockAvailableByShopGroup(ShopGroup $shop_group)
+    {
         if ($shop_group->share_stock) {
             $shop_list = Shop::getShops(false, $shop_group->id, true);
         }
 
         if (count($shop_list) > 0) {
             $id_shops_list = implode(', ', $shop_list);
-            return Db::getInstance()->update('stock_available', array('quantity' => 0), 'id_shop IN (' . $id_shops_list . ')');
+            return Db::getInstance()->update('stock_available', array('quantity' => 0), 'id_shop IN ('.$id_shops_list.')');
         } else {
-            return Db::getInstance()->update('stock_available', array('quantity' => 0), 'id_shop_group = ' . $shop_group->id);
+            return Db::getInstance()->update('stock_available', array('quantity' => 0), 'id_shop_group = '.$shop_group->id);
         }
     }
 
@@ -611,7 +629,8 @@ class StockAvailableCore extends ObjectModel {
      * @param int $id_shop Optional : gets context if null @see Context::getContext()
      * @return bool : depends on stock @see $depends_on_stock
      */
-    public static function dependsOnStock($id_product, $id_shop = null) {
+    public static function dependsOnStock($id_product, $id_shop = null)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
@@ -619,12 +638,12 @@ class StockAvailableCore extends ObjectModel {
         $query = new DbQuery();
         $query->select('depends_on_stock');
         $query->from('stock_available');
-        $query->where('id_product = ' . (int) $id_product);
+        $query->where('id_product = '.(int)$id_product);
         $query->where('id_product_attribute = 0');
 
         $query = StockAvailable::addSqlShopRestriction($query, $id_shop);
 
-        return (bool) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
+        return (bool)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
     }
 
     /**
@@ -634,7 +653,8 @@ class StockAvailableCore extends ObjectModel {
      * @param int $id_shop Optional : gets context if null @see Context::getContext()
      * @return bool : depends on stock @see $depends_on_stock
      */
-    public static function outOfStock($id_product, $id_shop = null) {
+    public static function outOfStock($id_product, $id_shop = null)
+    {
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }
@@ -642,12 +662,12 @@ class StockAvailableCore extends ObjectModel {
         $query = new DbQuery();
         $query->select('out_of_stock');
         $query->from('stock_available');
-        $query->where('id_product = ' . (int) $id_product);
+        $query->where('id_product = '.(int)$id_product);
         $query->where('id_product_attribute = 0');
 
         $query = StockAvailable::addSqlShopRestriction($query, $id_shop);
 
-        return (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
+        return (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
     }
 
     /**
@@ -659,7 +679,8 @@ class StockAvailableCore extends ObjectModel {
      *
      * @return string|DbQuery DbQuery object or the sql restriction string
      */
-    public static function addSqlShopRestriction($sql = null, $shop = null, $alias = null) {
+    public static function addSqlShopRestriction($sql = null, $shop = null, $alias = null)
+    {
         $context = Context::getContext();
 
         if (!empty($alias)) {
@@ -686,19 +707,19 @@ class StockAvailableCore extends ObjectModel {
         // if quantities are shared between shops of the group
         if ($shop_group->share_stock) {
             if (is_object($sql)) {
-                $sql->where(pSQL($alias) . 'id_shop_group = ' . (int) $shop_group->id);
-                $sql->where(pSQL($alias) . 'id_shop = 0');
+                $sql->where(pSQL($alias).'id_shop_group = '.(int)$shop_group->id);
+                $sql->where(pSQL($alias).'id_shop = 0');
             } else {
-                $sql = ' AND ' . pSQL($alias) . 'id_shop_group = ' . (int) $shop_group->id . ' ';
-                $sql .= ' AND ' . pSQL($alias) . 'id_shop = 0 ';
+                $sql = ' AND '.pSQL($alias).'id_shop_group = '.(int)$shop_group->id.' ';
+                $sql .= ' AND '.pSQL($alias).'id_shop = 0 ';
             }
         } else {
             if (is_object($sql)) {
-                $sql->where(pSQL($alias) . 'id_shop = ' . (int) $shop->id);
-                $sql->where(pSQL($alias) . 'id_shop_group = 0');
+                $sql->where(pSQL($alias).'id_shop = '.(int)$shop->id);
+                $sql->where(pSQL($alias).'id_shop_group = 0');
             } else {
-                $sql = ' AND ' . pSQL($alias) . 'id_shop = ' . (int) $shop->id . ' ';
-                $sql .= ' AND ' . pSQL($alias) . 'id_shop_group = 0 ';
+                $sql = ' AND '.pSQL($alias).'id_shop = '.(int)$shop->id.' ';
+                $sql .= ' AND '.pSQL($alias).'id_shop_group = 0 ';
             }
         }
 
@@ -712,7 +733,8 @@ class StockAvailableCore extends ObjectModel {
      * @param int $id_shop Optional : The shop ID
      *
      */
-    public static function addSqlShopParams(&$params, $id_shop = null) {
+    public static function addSqlShopParams(&$params, $id_shop = null)
+    {
         $context = Context::getContext();
         $group_ok = false;
 
@@ -732,7 +754,7 @@ class StockAvailableCore extends ObjectModel {
 
         // if quantities are shared between shops of the group
         if ($shop_group->share_stock) {
-            $params['id_shop_group'] = (int) $shop_group->id;
+            $params['id_shop_group'] = (int)$shop_group->id;
             $params['id_shop'] = 0;
 
             $group_ok = true;
@@ -742,7 +764,7 @@ class StockAvailableCore extends ObjectModel {
 
         // if no group specific restriction, set simple shop restriction
         if (!$group_ok) {
-            $params['id_shop'] = (int) $id_shop;
+            $params['id_shop'] = (int)$id_shop;
         }
     }
 
@@ -753,13 +775,14 @@ class StockAvailableCore extends ObjectModel {
      * @param int $dst_shop_id
      * @return bool
      */
-    public static function copyStockAvailableFromShopToShop($src_shop_id, $dst_shop_id) {
+    public static function copyStockAvailableFromShopToShop($src_shop_id, $dst_shop_id)
+    {
         if (!$src_shop_id || !$dst_shop_id) {
             return false;
         }
 
         $query = '
-			INSERT INTO ' . _DB_PREFIX_ . 'stock_available
+			INSERT INTO '._DB_PREFIX_.'stock_available
 			(
 				id_product,
 				id_product_attribute,
@@ -770,12 +793,11 @@ class StockAvailableCore extends ObjectModel {
 				out_of_stock
 			)
 			(
-				SELECT id_product, id_product_attribute, ' . (int) $dst_shop_id . ', 0, quantity, depends_on_stock, out_of_stock
-				FROM ' . _DB_PREFIX_ . 'stock_available
-				WHERE id_shop = ' . (int) $src_shop_id .
-                ')';
+				SELECT id_product, id_product_attribute, '.(int)$dst_shop_id.', 0, quantity, depends_on_stock, out_of_stock
+				FROM '._DB_PREFIX_.'stock_available
+				WHERE id_shop = '.(int)$src_shop_id.
+            ')';
 
         return Db::getInstance()->execute($query);
     }
-
 }

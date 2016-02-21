@@ -1,5 +1,4 @@
 <?php
-
 /**
  * SubQueryBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: SubQueryBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/RefClauseBuilder.php';
 require_once dirname(__FILE__) . '/RefTypeBuilder.php';
 require_once dirname(__FILE__) . '/JoinBuilder.php';
@@ -97,7 +97,5 @@ class SubQueryBuilder {
         }
         return $sql;
     }
-
 }
-
 ?>

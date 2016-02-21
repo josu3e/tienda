@@ -1,5 +1,4 @@
 <?php
-
 /**
  * DescribeProcessor.php
  *
@@ -30,6 +29,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+
 require_once(dirname(__FILE__) . '/ExplainProcessor.php');
 
 /**
@@ -44,7 +44,5 @@ class DescribeProcessor extends ExplainProcessor {
     protected function isStatement($keys, $needle = "DESCRIBE") {
         return parent::isStatement($keys, $needle);
     }
-
 }
-
 ?>

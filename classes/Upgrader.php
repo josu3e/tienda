@@ -1,47 +1,44 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
-class UpgraderCore {
-
+class UpgraderCore
+{
     const DEFAULT_CHECK_VERSION_DELAY_HOURS = 24;
-
     public $rss_version_link;
     public $rss_md5file_link_dir;
-
     /**
      * @var bool contains true if last version is not installed
      */
     protected $need_upgrade = false;
     protected $changed_files = array();
     protected $missing_files = array();
+
     public $version_name;
     public $version_num;
     public $version_is_modified = null;
-
     /**
      * @var string contains hte url where to download the file
      */
@@ -53,9 +50,10 @@ class UpgraderCore {
     public $changelog;
     public $md5;
 
-    public function __construct($autoload = false) {
-        $this->rss_version_link = _PS_API_URL_ . '/xml/upgrader.xml';
-        $this->rss_md5file_link_dir = _PS_API_URL_ . '/xml/md5/';
+    public function __construct($autoload = false)
+    {
+        $this->rss_version_link = _PS_API_URL_.'/xml/upgrader.xml';
+        $this->rss_md5file_link_dir = _PS_API_URL_.'/xml/md5/';
 
         if ($autoload) {
             $this->loadFromConfig();
@@ -63,8 +61,8 @@ class UpgraderCore {
             $this->checkPSVersion();
         }
     }
-
-    public function __get($var) {
+    public function __get($var)
+    {
         if ($var == 'need_upgrade') {
             return $this->isLastVersion();
         }
@@ -79,20 +77,21 @@ class UpgraderCore {
      *
      * @TODO ftp if copy is not possible (safe_mode for example)
      */
-    public function downloadLast($dest, $filename = 'prestashop.zip') {
+    public function downloadLast($dest, $filename = 'prestashop.zip')
+    {
         if (empty($this->link)) {
             $this->checkPSVersion();
         }
 
-        $destPath = realpath($dest) . DIRECTORY_SEPARATOR . $filename;
+        $destPath = realpath($dest).DIRECTORY_SEPARATOR.$filename;
         if (@copy($this->link, $destPath)) {
             return true;
         } else {
             return false;
         }
     }
-
-    public function isLastVersion() {
+    public function isLastVersion()
+    {
         if (empty($this->link)) {
             $this->checkPSVersion();
         }
@@ -105,7 +104,8 @@ class UpgraderCore {
      *
      * @return mixed
      */
-    public function checkPSVersion($force = false) {
+    public function checkPSVersion($force = false)
+    {
         if (class_exists('Configuration')) {
             $last_check = Configuration::get('PS_LAST_VERSION_CHECK');
         } else {
@@ -116,16 +116,16 @@ class UpgraderCore {
         if ($force || ($last_check < time() - (3600 * Upgrader::DEFAULT_CHECK_VERSION_DELAY_HOURS))) {
             libxml_set_streams_context(@stream_context_create(array('http' => array('timeout' => 3))));
             if ($feed = @simplexml_load_file($this->rss_version_link)) {
-                $this->version_name = (string) $feed->version->name;
-                $this->version_num = (string) $feed->version->num;
-                $this->link = (string) $feed->download->link;
-                $this->md5 = (string) $feed->download->md5;
-                $this->changelog = (string) $feed->download->changelog;
-                $this->autoupgrade = (int) $feed->autoupgrade;
-                $this->autoupgrade_module = (int) $feed->autoupgrade_module;
-                $this->autoupgrade_last_version = (string) $feed->autoupgrade_last_version;
-                $this->autoupgrade_module_link = (string) $feed->autoupgrade_module_link;
-                $this->desc = (string) $feed->desc;
+                $this->version_name = (string)$feed->version->name;
+                $this->version_num = (string)$feed->version->num;
+                $this->link = (string)$feed->download->link;
+                $this->md5 = (string)$feed->download->md5;
+                $this->changelog = (string)$feed->download->changelog;
+                $this->autoupgrade = (int)$feed->autoupgrade;
+                $this->autoupgrade_module = (int)$feed->autoupgrade_module;
+                $this->autoupgrade_last_version = (string)$feed->autoupgrade_last_version;
+                $this->autoupgrade_module_link = (string)$feed->autoupgrade_module_link;
+                $this->desc = (string)$feed->desc;
                 $config_last_version = array(
                     'name' => $this->version_name,
                     'num' => $this->version_num,
@@ -162,7 +162,8 @@ class UpgraderCore {
      *
      * @return Upgrader
      */
-    public function loadFromConfig() {
+    public function loadFromConfig()
+    {
         $last_version_check = Tools::unSerialize(Configuration::get('PS_LAST_VERSION'));
         if ($last_version_check) {
             if (isset($last_version_check['name'])) {
@@ -204,10 +205,11 @@ class UpgraderCore {
      * that the md5file does not match to the original md5file (provided by $rss_md5file_link_dir )
      * @return array
      */
-    public function getChangedFilesList() {
+    public function getChangedFilesList()
+    {
         if (is_array($this->changed_files) && count($this->changed_files) == 0) {
             libxml_set_streams_context(@stream_context_create(array('http' => array('timeout' => 3))));
-            $checksum = @simplexml_load_file($this->rss_md5file_link_dir . _PS_VERSION_ . '.xml');
+            $checksum = @simplexml_load_file($this->rss_md5file_link_dir._PS_VERSION_.'.xml');
             if ($checksum == false) {
                 $this->changed_files = false;
             } else {
@@ -221,13 +223,19 @@ class UpgraderCore {
      * in sub arrays  mail, translation and core items
      * @param string $path filepath to add, relative to _PS_ROOT_DIR_
      */
-    protected function addChangedFile($path) {
+    protected function addChangedFile($path)
+    {
         $this->version_is_modified = true;
 
         if (strpos($path, 'mails/') !== false) {
             $this->changed_files['mail'][] = $path;
         } elseif (
-                strpos($path, '/en.php') !== false || strpos($path, '/fr.php') !== false || strpos($path, '/es.php') !== false || strpos($path, '/it.php') !== false || strpos($path, '/de.php') !== false || strpos($path, 'translations/') !== false
+            strpos($path, '/en.php') !== false
+            || strpos($path, '/fr.php') !== false
+            || strpos($path, '/es.php') !== false
+            || strpos($path, '/it.php') !== false
+            || strpos($path, '/de.php') !== false
+            || strpos($path, 'translations/') !== false
         ) {
             $this->changed_files['translation'][] = $path;
         } else {
@@ -238,51 +246,54 @@ class UpgraderCore {
     /** populate $this->missing_files with $path
      * @param string $path filepath to add, relative to _PS_ROOT_DIR_
      */
-    protected function addMissingFile($path) {
+    protected function addMissingFile($path)
+    {
         $this->version_is_modified = true;
         $this->missing_files[] = $path;
     }
 
-    protected function browseXmlAndCompare($node, &$current_path = array(), $level = 1) {
+    protected function browseXmlAndCompare($node, &$current_path = array(), $level = 1)
+    {
         foreach ($node as $key => $child) {
             /** @var SimpleXMLElement $child */
             if (is_object($child) && $child->getName() == 'dir') {
-                $current_path[$level] = (string) $child['name'];
+                $current_path[$level] = (string)$child['name'];
                 $this->browseXmlAndCompare($child, $current_path, $level + 1);
             } elseif (is_object($child) && $child->getName() == 'md5file') {
                 // We will store only relative path.
                 // absolute path is only used for file_exists and compare
                 $relative_path = '';
                 for ($i = 1; $i < $level; $i++) {
-                    $relative_path .= $current_path[$i] . '/';
+                    $relative_path .= $current_path[$i].'/';
                 }
-                $relative_path .= (string) $child['name'];
-                $fullpath = _PS_ROOT_DIR_ . DIRECTORY_SEPARATOR . $relative_path;
+                $relative_path .= (string)$child['name'];
+                $fullpath = _PS_ROOT_DIR_.DIRECTORY_SEPARATOR.$relative_path;
 
                 $fullpath = str_replace('ps_root_dir', _PS_ROOT_DIR_, $fullpath);
 
-                // replace default admin dir by current one
-                $fullpath = str_replace(_PS_ROOT_DIR_ . '/admin', _PS_ADMIN_DIR_, $fullpath);
+                    // replace default admin dir by current one
+                $fullpath = str_replace(_PS_ROOT_DIR_.'/admin', _PS_ADMIN_DIR_, $fullpath);
                 if (!file_exists($fullpath)) {
                     $this->addMissingFile($relative_path);
-                } elseif (!$this->compareChecksum($fullpath, (string) $child)) {
+                } elseif (!$this->compareChecksum($fullpath, (string)$child)) {
                     $this->addChangedFile($relative_path);
                 }
-                // else, file is original (and ok)
+                    // else, file is original (and ok)
             }
         }
     }
 
-    protected function compareChecksum($path, $original_sum) {
+    protected function compareChecksum($path, $original_sum)
+    {
         if (md5_file($path) == $original_sum) {
             return true;
         }
         return false;
     }
 
-    public function isAuthenticPrestashopVersion() {
+    public function isAuthenticPrestashopVersion()
+    {
         $this->getChangedFilesList();
         return !$this->version_is_modified;
     }
-
 }

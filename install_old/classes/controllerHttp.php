@@ -1,32 +1,31 @@
 <?php
-
 /*
- * 2007-2015 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- *  @author PrestaShop SA <contact@prestashop.com>
- *  @copyright  2007-2015 PrestaShop SA
- *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
 
-abstract class InstallControllerHttp {
-
+abstract class InstallControllerHttp
+{
     /**
      * @var array List of installer steps
      */
@@ -43,6 +42,7 @@ abstract class InstallControllerHttp {
      * @var array List of errors
      */
     public $errors = array();
+
     public $controller;
 
     /**
@@ -90,9 +90,10 @@ abstract class InstallControllerHttp {
      */
     abstract public function display();
 
-    final public static function execute() {
+    final public static function execute()
+    {
         if (Tools::getValue('compile_templates')) {
-            require_once(_PS_INSTALL_CONTROLLERS_PATH_ . 'http/smarty_compile.php');
+            require_once(_PS_INSTALL_CONTROLLERS_PATH_.'http/smarty_compile.php');
             exit;
         }
 
@@ -103,12 +104,12 @@ abstract class InstallControllerHttp {
 
         // Include all controllers
         foreach (self::$steps as $step) {
-            if (!file_exists(_PS_INSTALL_CONTROLLERS_PATH_ . 'http/' . $step . '.php')) {
+            if (!file_exists(_PS_INSTALL_CONTROLLERS_PATH_.'http/'.$step.'.php')) {
                 throw new PrestashopInstallerException("Controller file 'http/{$step}.php' not found");
             }
 
-            require_once _PS_INSTALL_CONTROLLERS_PATH_ . 'http/' . $step . '.php';
-            $classname = 'InstallControllerHttp' . $step;
+            require_once _PS_INSTALL_CONTROLLERS_PATH_.'http/'.$step.'.php';
+            $classname = 'InstallControllerHttp'.$step;
             self::$instances[$step] = new $classname($step);
         }
 
@@ -173,7 +174,8 @@ abstract class InstallControllerHttp {
         self::$instances[$current_step]->display();
     }
 
-    final public function __construct($step) {
+    final public function __construct($step)
+    {
         $this->step = $step;
         $this->session = InstallSession::getInstance();
 
@@ -194,12 +196,12 @@ abstract class InstallControllerHttp {
         $this->init();
     }
 
-    public function init() {
-        
+    public function init()
+    {
     }
 
-    public function process() {
-        
+    public function process()
+    {
     }
 
     /**
@@ -207,11 +209,13 @@ abstract class InstallControllerHttp {
      *
      * @return array
      */
-    public function getSteps() {
+    public function getSteps()
+    {
         return self::$steps;
     }
 
-    public function getLastStep() {
+    public function getLastStep()
+    {
         return $this->session->last_step;
     }
 
@@ -221,7 +225,8 @@ abstract class InstallControllerHttp {
      * @param string $step Step name
      * @return int
      */
-    public static function getStepOffset($step) {
+    public static function getStepOffset($step)
+    {
         static $flip = null;
 
         if (is_null($flip)) {
@@ -235,8 +240,9 @@ abstract class InstallControllerHttp {
      *
      * @param string $step
      */
-    public function redirect($step) {
-        header('location: index.php?step=' . $step);
+    public function redirect($step)
+    {
+        header('location: index.php?step='.$step);
         exit;
     }
 
@@ -247,7 +253,8 @@ abstract class InstallControllerHttp {
      * @param ... All other params will be used with sprintf
      * @return string
      */
-    public function l($str) {
+    public function l($str)
+    {
         $args = func_get_args();
         return call_user_func_array(array($this->language, 'l'), $args);
     }
@@ -257,7 +264,8 @@ abstract class InstallControllerHttp {
      *
      * @param string $step
      */
-    public function findPreviousStep() {
+    public function findPreviousStep()
+    {
         return (isset(self::$steps[$this->getStepOffset($this->step) - 1])) ? self::$steps[$this->getStepOffset($this->step) - 1] : false;
     }
 
@@ -266,7 +274,8 @@ abstract class InstallControllerHttp {
      *
      * @param string $step
      */
-    public function findNextStep() {
+    public function findNextStep()
+    {
         $nextStep = (isset(self::$steps[$this->getStepOffset($this->step) + 1])) ? self::$steps[$this->getStepOffset($this->step) + 1] : false;
         if ($nextStep == 'system' && self::$instances[$nextStep]->validate()) {
             $nextStep = self::$instances[$nextStep]->findNextStep();
@@ -279,7 +288,8 @@ abstract class InstallControllerHttp {
      *
      * @return bool
      */
-    public function isFirstStep() {
+    public function isFirstStep()
+    {
         return self::getStepOffset($this->step) == 0;
     }
 
@@ -288,7 +298,8 @@ abstract class InstallControllerHttp {
      *
      * @return bool
      */
-    public function isLastStep() {
+    public function isLastStep()
+    {
         return self::getStepOffset($this->step) == (count(self::$steps) - 1);
     }
 
@@ -298,7 +309,8 @@ abstract class InstallControllerHttp {
      * @param string $step
      * @return bool
      */
-    public function isStepFinished($step) {
+    public function isStepFinished($step)
+    {
         return self::getStepOffset($step) < self::getStepOffset($this->getLastStep());
     }
 
@@ -307,13 +319,14 @@ abstract class InstallControllerHttp {
      *
      * @return string
      */
-    public function getPhone() {
+    public function getPhone()
+    {
         if (InstallSession::getInstance()->support_phone != null) {
             return InstallSession::getInstance()->support_phone;
         }
         if ($this->phone === null) {
             $this->phone = $this->language->getInformation('phone', false);
-            if ($iframe = Tools::file_get_contents('http://api.prestashop.com/iframe/install.php?lang=' . $this->language->getLanguageIso(), false, null, 3)) {
+            if ($iframe = Tools::file_get_contents('http://api.prestashop.com/iframe/install.php?lang='.$this->language->getLanguageIso(), false, null, 3)) {
                 if (preg_match('/<img.+alt="([^"]+)".*>/Ui', $iframe, $matches) && isset($matches[1])) {
                     $this->phone = $matches[1];
                 }
@@ -328,7 +341,8 @@ abstract class InstallControllerHttp {
      *
      * Enter description here ...
      */
-    public function getDocumentationLink() {
+    public function getDocumentationLink()
+    {
         return $this->language->getInformation('documentation');
     }
 
@@ -337,7 +351,8 @@ abstract class InstallControllerHttp {
      *
      * Enter description here ...
      */
-    public function getTutorialLink() {
+    public function getTutorialLink()
+    {
         return $this->language->getInformation('tutorial');
     }
 
@@ -346,7 +361,8 @@ abstract class InstallControllerHttp {
      *
      * Enter description here ...
      */
-    public function getTailoredHelp() {
+    public function getTailoredHelp()
+    {
         return $this->language->getInformation('tailored_help');
     }
 
@@ -355,7 +371,8 @@ abstract class InstallControllerHttp {
      *
      * Enter description here ...
      */
-    public function getForumLink() {
+    public function getForumLink()
+    {
         return $this->language->getInformation('forum');
     }
 
@@ -364,7 +381,8 @@ abstract class InstallControllerHttp {
      *
      * Enter description here ...
      */
-    public function getBlogLink() {
+    public function getBlogLink()
+    {
         return $this->language->getInformation('blog');
     }
 
@@ -373,11 +391,13 @@ abstract class InstallControllerHttp {
      *
      * Enter description here ...
      */
-    public function getSupportLink() {
+    public function getSupportLink()
+    {
         return $this->language->getInformation('support');
     }
 
-    public function getDocumentationUpgradeLink() {
+    public function getDocumentationUpgradeLink()
+    {
         return $this->language->getInformation('documentation_upgrade', true);
     }
 
@@ -387,14 +407,15 @@ abstract class InstallControllerHttp {
      * @param bool $success
      * @param string $message
      */
-    public function ajaxJsonAnswer($success, $message = '') {
+    public function ajaxJsonAnswer($success, $message = '')
+    {
         if (!$success && empty($message)) {
             $message = print_r(@error_get_last(), true);
         }
         die(Tools::jsonEncode(array(
-                    'success' => (bool) $success,
-                    'message' => $message,
-                        // 'memory' => round(memory_get_peak_usage()/1024/1024, 2).' Mo',
+            'success' => (bool)$success,
+            'message' => $message,
+            // 'memory' => round(memory_get_peak_usage()/1024/1024, 2).' Mo',
         )));
     }
 
@@ -405,12 +426,13 @@ abstract class InstallControllerHttp {
      * @param bool $get_output Is true, return template html
      * @return string
      */
-    public function displayTemplate($template, $get_output = false, $path = null) {
+    public function displayTemplate($template, $get_output = false, $path = null)
+    {
         if (!$path) {
-            $path = _PS_INSTALL_PATH_ . 'theme/views/';
+            $path = _PS_INSTALL_PATH_.'theme/views/';
         }
 
-        if (!file_exists($path . $template . '.phtml')) {
+        if (!file_exists($path.$template.'.phtml')) {
             throw new PrestashopInstallerException("Template '{$template}.phtml' not found");
         }
 
@@ -418,7 +440,7 @@ abstract class InstallControllerHttp {
             ob_start();
         }
 
-        include($path . $template . '.phtml');
+        include($path.$template.'.phtml');
 
         if ($get_output) {
             $content = ob_get_contents();
@@ -429,7 +451,8 @@ abstract class InstallControllerHttp {
         }
     }
 
-    public function &__get($varname) {
+    public function &__get($varname)
+    {
         if (isset($this->__vars[$varname])) {
             $ref = &$this->__vars[$varname];
         } else {
@@ -439,16 +462,18 @@ abstract class InstallControllerHttp {
         return $ref;
     }
 
-    public function __set($varname, $value) {
+    public function __set($varname, $value)
+    {
         $this->__vars[$varname] = $value;
     }
 
-    public function __isset($varname) {
+    public function __isset($varname)
+    {
         return isset($this->__vars[$varname]);
     }
 
-    public function __unset($varname) {
+    public function __unset($varname)
+    {
         unset($this->__vars[$varname]);
     }
-
 }

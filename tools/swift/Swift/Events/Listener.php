@@ -8,12 +8,10 @@
  * @package Swift_Events
  * @license GNU Lesser General Public License
  */
-
+ 
 /**
  * Used for identity only
  * @package Swift_Events
  * @author Chris Corbyn <chris@w3style.co.uk>
  */
-interface Swift_Events_Listener {
-    
-}
+interface Swift_Events_Listener {}

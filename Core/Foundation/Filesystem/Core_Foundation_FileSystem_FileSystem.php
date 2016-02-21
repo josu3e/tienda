@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2015 PrestaShop
  *
@@ -24,26 +23,31 @@
  *  @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-class Core_Foundation_FileSystem_FileSystem {
 
+class Core_Foundation_FileSystem_FileSystem
+{
     /**
      * Replaces directory separators with the system's native one
      * and trims the trailing separator.
      */
-    public function normalizePath($path) {
+    public function normalizePath($path)
+    {
         return rtrim(
-                str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path), DIRECTORY_SEPARATOR
+            str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path),
+            DIRECTORY_SEPARATOR
         );
     }
 
-    private function joinTwoPaths($a, $b) {
+    private function joinTwoPaths($a, $b)
+    {
         return $this->normalizePath($a) . DIRECTORY_SEPARATOR . $this->normalizePath($b);
     }
 
     /**
      * Joins an arbitrary number of paths, normalizing them along the way.
      */
-    public function joinPaths() {
+    public function joinPaths()
+    {
         if (func_num_args() < 2) {
             throw new Core_Foundation_FileSystem_Exception('joinPaths requires at least 2 arguments.');
         } else if (func_num_args() === 2) {
@@ -56,10 +60,12 @@ class Core_Foundation_FileSystem_FileSystem {
             $arg_0 = func_get_arg(0);
 
             return $this->joinPaths(
-                            $arg_0, call_user_func_array(
-                                    array($this,
-                        'joinPaths'), array_slice($func_args, 1)
-                            )
+                $arg_0,
+                call_user_func_array(
+                    array($this,
+                          'joinPaths'),
+                    array_slice($func_args, 1)
+                )
             );
         }
     }
@@ -71,20 +77,23 @@ class Core_Foundation_FileSystem_FileSystem {
      * and return it in an array.
      * @return an array of SplFileInfo object indexed by file path
      */
-    public function listEntriesRecursively($path) {
+    public function listEntriesRecursively($path)
+    {
         if (!file_exists($path)) {
             throw new Core_Foundation_FileSystem_Exception(
-            sprintf(
-                    'No such file or directory: %s', $path
-            )
+                sprintf(
+                    'No such file or directory: %s',
+                    $path
+                )
             );
         }
 
         if (!is_dir($path)) {
             throw new Core_Foundation_FileSystem_Exception(
-            sprintf(
-                    '%s is not a directory', $path
-            )
+                sprintf(
+                    '%s is not a directory',
+                    $path
+                )
             );
         }
 
@@ -102,7 +111,8 @@ class Core_Foundation_FileSystem_FileSystem {
 
             if ($info->isDir()) {
                 $entries = array_merge(
-                        $entries, $this->listEntriesRecursively($newPath)
+                    $entries,
+                    $this->listEntriesRecursively($newPath)
                 );
             }
         }
@@ -113,17 +123,19 @@ class Core_Foundation_FileSystem_FileSystem {
     /**
      * Filter used by listFilesRecursively.
      */
-    private function matchOnlyFiles(SplFileInfo $info) {
+    private function matchOnlyFiles(SplFileInfo $info)
+    {
         return $info->isFile();
     }
 
     /**
      * Same as listEntriesRecursively but returns only files.
      */
-    public function listFilesRecursively($path) {
+    public function listFilesRecursively($path)
+    {
         return array_filter(
-                $this->listEntriesRecursively($path), array($this, 'matchOnlyFiles')
+            $this->listEntriesRecursively($path),
+            array($this, 'matchOnlyFiles')
         );
     }
-
 }

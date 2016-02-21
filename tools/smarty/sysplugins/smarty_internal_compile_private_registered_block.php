@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile Registered Block
  * Compiles code for the execution of a registered block function
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -35,7 +34,8 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter, $tag) {
+    public function compile($args, $compiler, $parameter, $tag)
+    {
         if (!isset($tag[5]) || substr($tag, - 5) != 'close') {
             // opening tag of block plugin
             // check and get attributes
@@ -108,5 +108,4 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
 
         return $output . "\n";
     }
-
 }

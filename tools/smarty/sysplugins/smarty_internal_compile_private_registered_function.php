@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile Registered Function
  * Compiles code for the execution of a registered function
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -35,7 +34,8 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter, $tag) {
+    public function compile($args, $compiler, $parameter, $tag)
+    {
         // This tag does create output
         $compiler->has_output = true;
         // check and get attributes
@@ -76,5 +76,4 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
 
         return $output;
     }
-
 }

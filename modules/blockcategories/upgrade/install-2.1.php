@@ -1,8 +1,9 @@
 <?php
 
 if (!defined('_PS_VERSION_'))
-    exit;
+	exit;
 
-function upgrade_module_2_1($object) {
-    return $object->registerHook('displayBackOfficeCategory');
+function upgrade_module_2_1($object)
+{
+	return $object->registerHook('displayBackOfficeCategory');
 }

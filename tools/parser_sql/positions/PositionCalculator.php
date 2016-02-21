@@ -1,5 +1,4 @@
 <?php
-
 /**
  * position-calculator.php
  *
@@ -31,6 +30,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
  * DAMAGE.
  */
+
 require_once dirname(__FILE__) . '/../utils/PHPSQLParserConstants.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCalculatePositionException.php';
 
@@ -45,7 +45,7 @@ class PositionCalculator {
 
     private static $_allowedOnOperator = array("\t", "\n", "\r", " ", ",", "(", ")", "_", "'", "\"");
     private static $_allowedOnOther = array("\t", "\n", "\r", " ", ",", "(", ")", "<", ">", "*", "+", "-", "/", "|",
-        "&", "=", "!", ";");
+                                            "&", "=", "!", ";");
 
     private function _printPos($text, $sql, $charPos, $key, $parsed, $backtracking) {
         if (!isset($_ENV['DEBUG'])) {
@@ -61,7 +61,7 @@ class PositionCalculator {
         }
         $holdem = substr($sql, 0, $charPos) . "^" . substr($sql, $charPos);
         echo $spaces . $text . " key:" . $key . "  parsed:" . $parsed . " back:" . serialize($backtracking) . " "
-        . $holdem . "\n";
+            . $holdem . "\n";
     }
 
     public function setPositionsWithinSQL($sql, $parsed) {
@@ -98,8 +98,12 @@ class PositionCalculator {
 
             if ($expr_type === 'operator') {
 
-                $ok = ($before === "" || in_array($before, self::$_allowedOnOperator, true)) || (strtolower($before) >= 'a' && strtolower($before) <= 'z') || ($before >= '0' && $before <= '9');
-                $ok = $ok && ($after === "" || in_array($after, self::$_allowedOnOperator, true) || (strtolower($after) >= 'a' && strtolower($after) <= 'z') || ($after >= '0' && $after <= '9') || ($after === '?') || ($after === '@'));
+                $ok = ($before === "" || in_array($before, self::$_allowedOnOperator, true))
+                    || (strtolower($before) >= 'a' && strtolower($before) <= 'z') || ($before >= '0' && $before <= '9');
+                $ok = $ok
+                    && ($after === "" || in_array($after, self::$_allowedOnOperator, true)
+                        || (strtolower($after) >= 'a' && strtolower($after) <= 'z') || ($after >= '0' && $after <= '9')
+                        || ($after === '?') || ($after === '@'));
 
                 if (!$ok) {
                     $offset = $pos + 1;
@@ -127,11 +131,31 @@ class PositionCalculator {
 
     private function lookForBaseExpression($sql, &$charPos, &$parsed, $key, &$backtracking) {
         if (!is_numeric($key)) {
-            if (($key === 'UNION' || $key === 'UNION ALL') || ($key === 'expr_type' && $parsed === ExpressionType::EXPRESSION) || ($key === 'expr_type' && $parsed === ExpressionType::SUBQUERY) || ($key === 'expr_type' && $parsed === ExpressionType::BRACKET_EXPRESSION) || ($key === 'expr_type' && $parsed === ExpressionType::TABLE_EXPRESSION) || ($key === 'expr_type' && $parsed === ExpressionType::RECORD) || ($key === 'expr_type' && $parsed === ExpressionType::IN_LIST) || ($key === 'expr_type' && $parsed === ExpressionType::MATCH_ARGUMENTS) || ($key === 'expr_type' && $parsed === ExpressionType::TABLE) || ($key === 'expr_type' && $parsed === ExpressionType::TEMPORARY_TABLE) || ($key === 'expr_type' && $parsed === ExpressionType::COLUMN_TYPE) || ($key === 'expr_type' && $parsed === ExpressionType::COLDEF) || ($key === 'expr_type' && $parsed === ExpressionType::PRIMARY_KEY) || ($key === 'expr_type' && $parsed === ExpressionType::CONSTRAINT) || ($key === 'expr_type' && $parsed === ExpressionType::COLUMN_LIST) || ($key === 'expr_type' && $parsed === ExpressionType::CHECK) || ($key === 'expr_type' && $parsed === ExpressionType::COLLATE) || ($key === 'expr_type' && $parsed === ExpressionType::LIKE) || ($key === 'expr_type' && $parsed === ExpressionType::INDEX) || ($key === 'select-option' && $parsed !== false) || ($key === 'alias' && $parsed !== false)) {
+            if (($key === 'UNION' || $key === 'UNION ALL')
+                || ($key === 'expr_type' && $parsed === ExpressionType::EXPRESSION)
+                || ($key === 'expr_type' && $parsed === ExpressionType::SUBQUERY)
+                || ($key === 'expr_type' && $parsed === ExpressionType::BRACKET_EXPRESSION)
+                || ($key === 'expr_type' && $parsed === ExpressionType::TABLE_EXPRESSION)
+                || ($key === 'expr_type' && $parsed === ExpressionType::RECORD)
+                || ($key === 'expr_type' && $parsed === ExpressionType::IN_LIST)
+                || ($key === 'expr_type' && $parsed === ExpressionType::MATCH_ARGUMENTS)
+                || ($key === 'expr_type' && $parsed === ExpressionType::TABLE)
+                || ($key === 'expr_type' && $parsed === ExpressionType::TEMPORARY_TABLE)
+                || ($key === 'expr_type' && $parsed === ExpressionType::COLUMN_TYPE)
+                || ($key === 'expr_type' && $parsed === ExpressionType::COLDEF)
+                || ($key === 'expr_type' && $parsed === ExpressionType::PRIMARY_KEY)
+                || ($key === 'expr_type' && $parsed === ExpressionType::CONSTRAINT)
+                || ($key === 'expr_type' && $parsed === ExpressionType::COLUMN_LIST)
+                || ($key === 'expr_type' && $parsed === ExpressionType::CHECK)
+                || ($key === 'expr_type' && $parsed === ExpressionType::COLLATE)
+                || ($key === 'expr_type' && $parsed === ExpressionType::LIKE)
+                || ($key === 'expr_type' && $parsed === ExpressionType::INDEX)
+                || ($key === 'select-option' && $parsed !== false) || ($key === 'alias' && $parsed !== false)) {
                 // we hold the current position and come back after the next base_expr
                 // we do this, because the next base_expr contains the complete expression/subquery/record
                 // and we have to look into it too
                 $backtracking[] = $charPos;
+
             } elseif (($key === 'ref_clause' || $key === 'columns') && $parsed !== false) {
                 // we hold the current position and come back after n base_expr(s)
                 // there is an array of sub-elements before (!) the base_expr clause of the current element
@@ -169,7 +193,8 @@ class PositionCalculator {
                 //$this->_printPos("0", $sql, $charPos, $key, $value, $backtracking);
 
                 $subject = substr($sql, $charPos);
-                $pos = $this->findPositionWithinString($subject, $value, isset($parsed['expr_type']) ? $parsed['expr_type'] : 'alias');
+                $pos = $this->findPositionWithinString($subject, $value,
+                    isset($parsed['expr_type']) ? $parsed['expr_type'] : 'alias');
                 if ($pos === false) {
                     throw new UnableToCalculatePositionException($value, $subject);
                 }
@@ -185,12 +210,12 @@ class PositionCalculator {
                 }
 
                 //$this->_printPos("2", $sql, $charPos, $key, $value, $backtracking);
+
             } else {
                 $this->lookForBaseExpression($sql, $charPos, $parsed[$key], $key, $backtracking);
             }
         }
     }
-
 }
 
 ?>

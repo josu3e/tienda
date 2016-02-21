@@ -1,5 +1,4 @@
 <?php
-
 /**
  * WhereBracketExpressionBuilder.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: WhereBracketExpressionBuilder.php 830 2013-12-18 09:35:42Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/../utils/ExpressionType.php';
 require_once dirname(__FILE__) . '/../exceptions/UnableToCreateSQLException.php';
 require_once dirname(__FILE__) . '/ColumnReferenceBuilder.php';
@@ -123,5 +123,4 @@ class WhereBracketExpressionBuilder {
     }
 
 }
-
 ?>

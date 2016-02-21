@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CreateStatement.php
  *
@@ -39,6 +38,7 @@
  * @version   SVN: $Id: CreateStatementBuilder.php 930 2014-01-08 13:07:55Z phosco@gmx.de $
  * 
  */
+
 require_once dirname(__FILE__) . '/LikeBuilder.php';
 require_once dirname(__FILE__) . '/SelectStatementBuilder.php';
 require_once dirname(__FILE__) . '/CreateBuilder.php';
@@ -67,7 +67,7 @@ class CreateStatementBuilder {
         $builder = new CreateBuilder();
         return $builder->build($parsed);
     }
-
+    
     public function build($parsed) {
         $sql = $this->buildCREATE($parsed);
         if (isset($parsed['LIKE'])) {
@@ -78,7 +78,5 @@ class CreateStatementBuilder {
         }
         return $sql;
     }
-
 }
-
 ?>

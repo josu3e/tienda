@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile Config Load
  * Compiles the {config load} tag
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -24,7 +23,6 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('file');
-
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -32,7 +30,6 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('file', 'section');
-
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -49,7 +46,8 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler) {
+    public function compile($args, $compiler)
+    {
         static $_is_legal_scope = array('local' => true, 'parent' => true, 'root' => true, 'global' => true);
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -81,5 +79,4 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
 
         return $_output;
     }
-
 }

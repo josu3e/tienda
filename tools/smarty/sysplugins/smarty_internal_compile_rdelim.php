@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile Rdelim
  * Compiles the {rdelim} tag
@@ -15,8 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {rdelim} tag
      * This tag does output the right delimiter.
@@ -26,7 +25,8 @@ class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_CompileBase {
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler) {
+    public function compile($args, $compiler)
+    {
         $_attr = $this->getAttributes($compiler, $args);
         if ($_attr['nocache'] === true) {
             $compiler->trigger_template_error('nocache option not allowed', $compiler->lex->taglineno);
@@ -36,5 +36,4 @@ class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_CompileBase {
 
         return $compiler->smarty->right_delimiter;
     }
-
 }

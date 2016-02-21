@@ -23,5 +23,5 @@
 *}
 
 <div id="{$privacy_id}">
-    <p>{$privacy_message}</p>
+	<p>{$privacy_message}</p>
 </div>
