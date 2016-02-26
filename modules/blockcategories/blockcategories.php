@@ -197,7 +197,7 @@ class BlockCategories extends Module
 				$category = new Category($category->id_parent, $this->context->language->id);
 		}
 		else
-			$category = new Category((int)Configuration::get('PS_HOME_CATEGORY'), $this->context->language->id);
+			$category = new Category((int)Configuration::get('PS_HOME_CATEGORY_LEFT'), $this->context->language->id);
 
 		$cacheId = $this->getCacheId($category ? $category->id : null);
 
