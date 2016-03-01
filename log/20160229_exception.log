@@ -1,0 +1,36 @@
+*ERROR* 	2016/02/29 - 19:58:10: Got error 28 from storage engine<br /><br /><pre>
+				SELECT cr.*, crl.`id_lang`, crl.`name`, cd.`id_cart`
+				FROM `ps_cart_cart_rule` cd
+				LEFT JOIN `ps_cart_rule` cr ON cd.`id_cart_rule` = cr.`id_cart_rule`
+				LEFT JOIN `ps_cart_rule_lang` crl ON (
+					cd.`id_cart_rule` = crl.`id_cart_rule`
+					AND crl.id_lang = 1
+				)
+				WHERE `id_cart` = 9
+				
+				
+				 ORDER by cr.priority ASC</pre> at line 791 in file classes/db/Db.php
+*ERROR* 	2016/02/29 - 19:58:18: Got error 28 from storage engine<br /><br /><pre>
+				SELECT cr.*, crl.`id_lang`, crl.`name`, cd.`id_cart`
+				FROM `ps_cart_cart_rule` cd
+				LEFT JOIN `ps_cart_rule` cr ON cd.`id_cart_rule` = cr.`id_cart_rule`
+				LEFT JOIN `ps_cart_rule_lang` crl ON (
+					cd.`id_cart_rule` = crl.`id_cart_rule`
+					AND crl.id_lang = 1
+				)
+				WHERE `id_cart` = 9
+				
+				
+				 ORDER by cr.priority ASC</pre> at line 791 in file classes/db/Db.php
+*ERROR* 	2016/02/29 - 19:58:20: Got error 28 from storage engine<br /><br /><pre>
+				SELECT cr.*, crl.`id_lang`, crl.`name`, cd.`id_cart`
+				FROM `ps_cart_cart_rule` cd
+				LEFT JOIN `ps_cart_rule` cr ON cd.`id_cart_rule` = cr.`id_cart_rule`
+				LEFT JOIN `ps_cart_rule_lang` crl ON (
+					cd.`id_cart_rule` = crl.`id_cart_rule`
+					AND crl.id_lang = 1
+				)
+				WHERE `id_cart` = 9
+				
+				
+				 ORDER by cr.priority ASC</pre> at line 791 in file classes/db/Db.php
