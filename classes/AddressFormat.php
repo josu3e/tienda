@@ -52,9 +52,10 @@ class AddressFormatCore extends ObjectModel
     public static $requireFormFieldsList = array(
         'firstname',
         'lastname',
-        'address1',
-        'city',
-        'Country:name');
+//        'address1',
+//        'city',
+//        'Country:name'
+        );
 
     public static $forbiddenPropertyList = array(
         'deleted',

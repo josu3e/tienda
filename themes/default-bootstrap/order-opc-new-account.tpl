@@ -85,6 +85,7 @@
 						<label for="lastname">{l s='Last name'} <sup>*</sup></label>
 						<input type="text" class="form-control validate" id="customer_lastname" name="customer_lastname" onblur="$('#lastname').val($(this).val());" data-validate="isName" value="{if isset($guestInformations) && isset($guestInformations.customer_lastname) && $guestInformations.customer_lastname}{$guestInformations.customer_lastname}{/if}" />
 					</div>
+                                        {*
 					<div class="select form-group date-select">
 						<label>{l s='Date of Birth'}</label>
 						<div class="row">
@@ -108,7 +109,7 @@
 								{l s='October'}
 								{l s='November'}
 								{l s='December'}
-								*}
+								* }
 							</div>
 							<div class="col-xs-4">
 								<select id="months" name="months" class="form-control">
@@ -128,6 +129,7 @@
 							</div>
 						</div>
 					</div>
+                                                                *}
 					{if isset($newsletter) && $newsletter}
 					<div class="checkbox">
 						<label for="newsletter">
@@ -148,6 +150,7 @@
 						{/if}
 					</div>
 					{/if}
+                                        {*
 					<h3 class="page-subheading top-indent">{l s='Delivery address'}</h3>
 					{$stateExist = false}
 					{$postCodeExist = false}
@@ -381,6 +384,7 @@
 						</div>
 						<input type="hidden" name="alias_invoice" id="alias_invoice" value="{l s='My Invoice address'}" />
 					</div>
+                                        *}
 					{$HOOK_CREATE_ACCOUNT_FORM}
 					<div class="submit opc-add-save clearfix">
 						<p class="required opc-required pull-right">
