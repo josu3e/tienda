@@ -18,6 +18,3 @@ $_MODULE['<{socialsharing}default-bootstrap>socialsharing_3746d4aa96f19672260a42
 $_MODULE['<{socialsharing}default-bootstrap>socialsharing_5a95a425f74314a96f13a2f136992178'] = 'Compartir';
 $_MODULE['<{socialsharing}default-bootstrap>socialsharing_5b2c8bfd1bc974966209b7be1cb51a72'] = 'Google+';
 $_MODULE['<{socialsharing}default-bootstrap>socialsharing_86709a608bd914b28221164e6680ebf7'] = 'Pinterest';
-
-
-return $_MODULE;
