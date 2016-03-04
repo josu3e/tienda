@@ -293,7 +293,7 @@ class ThemeConfigurator extends Module
 	{
 		$this->context->smarty->assign(array(
 			'htmlitems' => $this->getItemsFromHook('home'),
-			'hook' => 'home'
+			'hook' => 'top'
 		));
 
 		return $this->display(__FILE__, 'hook.tpl');

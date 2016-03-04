@@ -41,7 +41,7 @@ $(document).ready(function(){
 	});
 
 	if ($('#htmlcontent_top').length > 0)
-		$('#homepage-slider').addClass('col-xs-8');
+		$('#homepage-slider').addClass('col-xs-9');
 	else
 		$('#homepage-slider').addClass('col-xs-12');
 

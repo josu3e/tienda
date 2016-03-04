@@ -13,12 +13,400 @@
 	<atom:link href="http://www.prestashop.com/blog/es/feed/" rel="self" type="application/rss+xml" />
 	<link>https://www.prestashop.com/blog/es</link>
 	<description></description>
-	<lastBuildDate>Wed, 24 Feb 2016 15:00:42 +0000</lastBuildDate>
+	<lastBuildDate>Thu, 03 Mar 2016 16:09:36 +0000</lastBuildDate>
 	<language>es-ES</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
 		<sy:updateFrequency>1</sy:updateFrequency>
 	<generator>http://wordpress.org/?v=3.8.1</generator>
 	<item>
+		<title>4 puntos importantes para una auditoría de SEO on page</title>
+		<link>https://www.prestashop.com/blog/es/4-puntos-importantes-para-una-auditoria-de-seo-page/</link>
+		<comments>https://www.prestashop.com/blog/es/4-puntos-importantes-para-una-auditoria-de-seo-page/#comments</comments>
+		<pubDate>Thu, 03 Mar 2016 15:04:14 +0000</pubDate>
+		<dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
+				<category><![CDATA[Consejos E-commerce]]></category>
+		<category><![CDATA[Tendencias E-commerce]]></category>
+
+		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=14100</guid>
+		<description><![CDATA[<p>Si estás buscando mejorar el SEO en página de tu tienda Prestashop, este es tu post. Para realizar dicha auditoría, necesitarás herramientas, en concreto Screaming Frog (puedes crawlear hasta 500 URLs gratuitamente), Google Page Speed, GTMetrix y Google Search Console, herramienta gratuita de Google que puedes conectar fácilmente con tu dominio para que extraiga datos. [...]</p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/4-puntos-importantes-para-una-auditoria-de-seo-page/">4 puntos importantes para una auditoría de SEO on page</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Si estás buscando mejorar el SEO en página de tu tienda Prestashop, este es tu post. Para realizar dicha auditoría, necesitarás herramientas, en concreto <a href="http://www.screamingfrog.co.uk/seo-spider/#download">Screaming Frog</a> (puedes crawlear hasta 500 URLs gratuitamente), <a href="https://developers.google.com/speed/pagespeed/">Google Page Speed</a>, <a href="https://gtmetrix.com/">GTMetrix</a> y <a href="https://www.google.com/webmasters/tools/home?hl=es">Google Search Console</a>, herramienta gratuita de Google que puedes conectar fácilmente con tu dominio para que extraiga datos.</p>
+<p>En este post, hablaremos de:</p>
+<ul>
+<li>Contenido duplicado</li>
+<li>Velocidad de página</li>
+<li>Robots.txt bien seteado</li>
+<li>Errores de rastreo<b></b></li>
+</ul>
+<h2><b>1. Contenido duplicado</b></h2>
+<p>El contenido duplicado es uno de los principales problemas de una tienda online y Google lo sabe. El buscador está familiarizado con las incidencias de contenido de un ecommerce y ya asume que hay cosas que, inevitablemente, se van a duplicar:</p>
+<ul>
+<li>información del fabricante</li>
+<li>información sobre envíos y devoluciones dentro de las fichas de producto</li>
+<li>textos legales en fichas de producto</li>
+<li>capa con el texto legal de las cookies</li>
+<li>…</li>
+</ul>
+<p>Hay cosas que son impepinables y que deben estar en todos lados. Además, ya se da por asumido que las fichas de producto serán similares a las de la competencia o a las del fabricante. ¿Qué poesía original podemos añadir a una ficha técnica de un taladro percutor? Es un taladro percutor, tampoco estamos vendiéndole al cliente algo emocional “el taladro percutor con el que te sentirás más joven y atractivo”. Bromas a parte, la ficha técnica y descripción son simples y suelen ser redundantes si las comparamos contra otros contenidos similares que corren por Internet, así que no nos preocupemos.</p>
+<p><b>¿Qué hacer con el contenido duplicado?</b> Existen varias formas de enfrentarse a él para conseguir que nuestras URLs rankeen mejor:</p>
+<ul>
+<li>Reescribirlo (la mejor opción): aporta contenido original y nuevo, soluciona problemas a los clientes, despeja dudas</li>
+<li>Reescribirlo parcialmente: ídem al punto anterior, pero rescribiendo solo las páginas que te interese más posicionar, como las principales categorías o productos</li>
+<li>Cerrar las páginas a indexación: usar las etiquetas no index, follow en el header.tpl de la categoría o del producto que quieras cerrar a los buscadores. Puedes usar un módulo como el <a href="http://addons.prestashop.com/en/21485-seo-noindexfollow-handles-duplicate-content.html">SEO NOindex,follow (handles Duplicate content) Module</a></li>
+</ul>
+<h2><b>2. Velocidad de página</b></h2>
+<p>Crítico para la experiencia de usuario, ergo, crítico para rankear. Podemos usar como guías herramientas gratuitas como <a href="https://developers.google.com/speed/pagespeed/">Google Page Speed</a> o <a href="https://gtmetrix.com/">GTMetrix</a>. Los típicos cuellos de botella en Prestashop ya debéis saberlos, así que iré a por los atípicos puntos que nos pueden ayudar a mejorar la velocidad de página son:</p>
+<ul>
+<li>Exceso de <b>redirecciones</b>, por ejemplo de http://midominio.com a https://midominio.com a https://midominio.com/es/ Lo ideal es que entre puerta de entrada del usuario y el punto final (URL final) solo haya un paso</li>
+<li><b>Servidor</b>: un servidor gratuito o compartido (con otros tantos vecinos de IP) es un clásico ralentizador de velocidad de carga de página. Yo siempre recomiendo <a href="http://jordiob.com/2015/10/hosting-prestashop-loading-es-una-de-las-mejores-alternativas/" target="_blank">Loading (que además es partner de Prestashop)</a></li>
+<li><b>Exceso de módulos</b>: asegúrate de desactivar y desinstalar los que no uses</li>
+<li><b>Base de datos sin limpiar</b>: tablas que acumulan datos y datos, límpialas con el módulo de limpiador de Prestashop</li>
+<li><b>Exceso de productos sugeridos</b>: el módulo de cross selling que viene por defecto te saca 30 productos en cada ficha de producto, por lo que son 30 imágenes a cargar y 30 peticiones más</li>
+<li>No usar un <a href="http://addons.prestashop.com/en/search?id_category=0&amp;search_query=cache">módulo de cacheado que acelere</a>, todavía más, nuestro Presta</li>
+<li><b>No modificar la calidad de las imágenes</b> en Preferencias &gt; Imágenes (por defecto, vienen a 90/100, podemos bajarlas a 70/100)</li>
+</ul>
+<p>Os dejo algunos ejemplos Prestashops que cargan rápido y están bien optimizados por si queréis trastear:</p>
+<ul>
+<li><a href="https://store.mcdonalds.fr/">Mac Donalds Francia</a></li>
+<li><a href="http://www.copasmenstruales.com/">Copas Menstruales</a></li>
+<li><a href="http://www.btwin.com/es/home">Btwin</a></li>
+<li><a href="http://www.tiendaprado.com/">Tienda Prado</a></li>
+<li><a href="https://www.masmusculo.com/es/">Mas Musculo</a></li>
+<li><a href="http://www.shopiteca.com/">Shopiteca</a></li>
+</ul>
+<h2><b>3. Robots.txt bien seteado</b></h2>
+<p>Aquí lo ideal es tirar de los datos que nos da <b>Search Console</b>. Ya sabemos (porque se ha hablado por H y por B) de qué páginas son las que hay que indexar y cuáles no. ¿Cómo comprobar si las tenemos correctamente seteadas?</p>
+<p>Usaremos 3 secciones de Search Console:</p>
+<ul>
+<li><a href="https://www.google.com/webmasters/tools/roboted?hl=es">Recursos bloqueados</a>: nos dirá qué recursos importantes para el crawleado de nuestro site está bloqueando el robots.txt</li>
+<li><a href="https://www.google.com/webmasters/tools/googlebot-fetch">Explorar como Google</a>:  nos enseñará cómo está tratando y viendo Google nuestras URLs (si son accesibles, si son crawleables, cómo las renderiza el bot de Google…)</li>
+<li><a href="https://www.google.com/webmasters/tools/robots-testing-tool">Probador de robots.txt</a>: podremos testear si las URLs que nos interesa indexar o no, son accesibles o no. Además, podremos ver advertencias y errores directamente en las líneas de código del archivo robots.txt</li>
+<li>Adicionalmente, podemos usar el <a href="https://www.google.com/webmasters/tools/crawl-url-parameters">reporte de Parámetros de URL</a> para indicarle a Google si los parámetros añadidos (o no) en el robots.txt afectan o no al contenido de las páginas: paginaciones, idiomas, monedas, parámetros generados por módulos…</li>
+</ul>
+<h2><b>4. Errores de rastreo</b></h2>
+<p>Llegamos al punto final que es, también, una de las secciones más críticas (las demás también lo son, pero aquí se nos pueden ir los rankings rápido). En errores de rastreo (ubicada en Search Console en Rastreo &gt; Errores de rastreo) podremos ver cosas importantes como:</p>
+<ul>
+<li>Errores de DNS</li>
+<li>Errores de conectividad del servidor</li>
+<li>Errores de información en el robots.txt</li>
+<li>Errores que encuentra el bot de escritorio y el de Smartphone</li>
+<li>Errores 4xx (páginas)</li>
+<li>Errores 5xx (servidor)</li>
+</ul>
+<p>Nos interesan especialmente los <b>errores 404 y los 500/503</b>. Los 404 nos chivarán qué páginas son las que le devuelven error al bot y, por lo tanto, podremos redirigirlas (que sería lo correcto). Los 404 acumulados y la cantidad que se acumule pueden hacernos perder bastantes rankings (por un panzado de <a href="https://en.wikipedia.org/wiki/Google_Panda">Google Panda</a>). Tengamos en cuenta que, si un backlink va a parar a un 404, es como si no existiera, así que por ahí también perderíamos fuerza.</p>
+<p>Los errores 500 y 503 son bastante más preocupantes, pues son errores de servidor que se puede encontrar el bot de Google y que no permiten rastrearle el sitio. No es ya que encuentre errores, es que no puede entrar, cosa peor. <a href="http://jordiob.com/2016/02/servidores-firewalls-seo-y-trafico/">Os dejo un caso relacionado que hace poco comenté en mi blog</a>.</p>
+<p>&nbsp;</p>
+<p>Sobre el autor:<br />
+<a href="https://www.prestashop.com/blog/es/files/2015/07/jordi.jpg"><img class=" wp-image-13125 alignleft" alt="Jordi" src="https://www.prestashop.com/blog/es/files/2015/07/jordi.jpg" width="80" height="75" /></a></p>
+<p>Jordi Ordóñez, consultor en eCommerce con 15 años de experiencia en proyectos online (<a href="www.jordiob.com">www.jordiob.com</a>). Formador en eCommerce para empresas y particulares.</p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/4-puntos-importantes-para-una-auditoria-de-seo-page/">4 puntos importantes para una auditoría de SEO on page</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://www.prestashop.com/blog/es/4-puntos-importantes-para-una-auditoria-de-seo-page/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>4 sencillos pasos para optimizar los resultados de tu tienda online</title>
+		<link>https://www.prestashop.com/blog/es/4-sencillos-pasos-para-optimizar-los-resultados-de-tu-tienda-online/</link>
+		<comments>https://www.prestashop.com/blog/es/4-sencillos-pasos-para-optimizar-los-resultados-de-tu-tienda-online/#comments</comments>
+		<pubDate>Wed, 02 Mar 2016 08:54:17 +0000</pubDate>
+		<dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
+				<category><![CDATA[Actualidad PrestaShop]]></category>
+
+		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=14095</guid>
+		<description><![CDATA[<p>Muchos vendedores que acaban de empezar son conscientes de que los indicadores son importantes, pero muy pocos siguen de cerca sus resultados desde el principio. Desafortunadamente, si no lo hacen están perdiendo datos valiosos que podrían tener repercusión en las decisiones del negocio y, en última instancia, en su éxito. Los expertos de Business Tech [...]</p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/4-sencillos-pasos-para-optimizar-los-resultados-de-tu-tienda-online/">4 sencillos pasos para optimizar los resultados de tu tienda online</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Muchos vendedores que acaban de empezar son conscientes de que los indicadores son importantes, pero muy pocos siguen de cerca sus resultados desde el principio. Desafortunadamente, si no lo hacen están perdiendo datos valiosos que podrían tener repercusión en las decisiones del negocio y, en última instancia, en su éxito. Los expertos de <a href="http://www.businesstech.fr/en/content/10-business-tech-4l3p-ecommerce" target="_blank">Business Tech</a> te enseñan a optimizar tus resultados mediante indicadores en cuatro sencillos pasos:</p>
+<p><span id="more-14095"></span></p>
+<ul>
+<li>Marcarse objetivos</li>
+<li>Identificar KPI</li>
+<li>Usar herramientas de análisis específicas</li>
+<li>Optimizar la tienda online</li>
+</ul>
+<h2 style="color: #2c7f9f;">MARCARSE OBJETIVOS</h2>
+<p>¿Cuál es tu objetivo? Ésta es fácil, podrías decir que es “ganar dinero”. Aunque éste puede ser tu objetivo global, deberás alcanzar algunos objetivos intermedios para lograrlo. ¿Qué implica obtener beneficios? Puede conllevar incrementar las ventas, pero también disminuir costes. Puedes empezar marcándote algunos objetivos concretos y cuantificables como el volumen de ventas, el tráfico de la web o la tasa de conversión.</p>
+<h2 style="color: #2c7f9f;">IDENTIFICAR KPI</h2>
+<p>Para cuantificar de verdad los ingresos y entender cómo funcionan, deberás prestar atención, como mínimo, a estos <a href="https://www.prestashop.com/blog/en/the-10-best-kpis-every-online-store-owner-should-keep-an-eye-on/">5 indicadores clave</a>:</p>
+<ul>
+<li><strong>El tráfico de la web</strong>: <a href="https://www.prestashop.com/blog/en/the-5-ultimate-ways-drive-new-traffic-online-store/">el número de personas que visitan tu tienda online a diario, cada semana o cada mes</a>. Deberás analizar no solamente el tráfico global de la web, sino también desglosarlo por página y por producto. Cuanto más exhaustivo seas en este sentido, mejores decisiones podrás tomar.</li>
+<li><strong>Las fuentes de tráfico</strong>: Deberás saber exactamente qué canales te aportan los visitantes más o menos aptos, de forma que puedas invertir más en los que te convengan y abandonar los que te cuesten dinero y no generen resultados. Este indicador te facilitará valiosa información con la que optimizar tu tienda.</li>
+<li><strong>La tasa de conversión</strong>: la ratio de pedidos abonados con respecto a los visitantes de tu web. Si la proporción es demasiado baja, deberás analizar si existen problemas en el proceso de pedido.</li>
+<li><strong>El margen neto</strong>: es decir, Ingresos – Costes. Dado el contexto económico actual, también son comunes las guerras de precios y el margen neto puede desplomarse con gran rapidez. Por tanto, estate atento a esto en todo momento.</li>
+<li><strong>El importe medio de los carritos</strong>: la cantidad media en USD o EUR de los pedidos realizados por los clientes durante un periodo concreto.</li>
+</ul>
+<p>Superados estos aspectos básicos, podrás empezar a profundizar e incorporar nuevos KPI asociados a tus objetivos.</p>
+<h2 style="color: #2c7f9f;">UTILIZA SISTEMAS DE EVALUACIÓN ESPECÍFICOS</h2>
+<p>Muchos de estos KPI pueden encontrarse en el back-office de tu web. El back-office de PrestaShop cuenta con algunos KPI en la parte superior de cada página específicos a esa área.</p>
+<p>Google Analytics también es imprescindible. Es gratuito, muy completo y se integra perfectamente con soluciones de comercio electrónico como PrestaShop.</p>
+<p>Si trabajas con una agencia web, también podrán recomendarte herramientas específicas que te ayudarán a cuantificar otros KPI importantes que deberás identificar de antemano.</p>
+<h2 style="color: #2c7f9f;">OPTIMIZA TU TIENDA ONLINE</h2>
+<p>Una vez finalizado tu análisis, podrás utilizarlo para poner en marcha acciones destinadas a mejorar tu estrategia y optimizar tu tienda online. <a href="http://addons.prestashop.com/es/6_business-tech" target="_blank">Concretamente, PrestaShop ofrece módulos que pueden descargarse de la tienda virtual PrestaShop Addons</a>.</p>
+<p>Si sigues estos sencillos pasos y vuelves a ellos cada vez que te surja una dificultad, te ayudarán a optimizar tu tienda y sus resultados.</p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/4-sencillos-pasos-para-optimizar-los-resultados-de-tu-tienda-online/">4 sencillos pasos para optimizar los resultados de tu tienda online</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://www.prestashop.com/blog/es/4-sencillos-pasos-para-optimizar-los-resultados-de-tu-tienda-online/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>¡Apuntad la fecha de los PrestaShop Days!</title>
+		<link>https://www.prestashop.com/blog/es/apuntad-la-fecha-de-los-prestashop-days/</link>
+		<comments>https://www.prestashop.com/blog/es/apuntad-la-fecha-de-los-prestashop-days/#comments</comments>
+		<pubDate>Mon, 29 Feb 2016 16:50:01 +0000</pubDate>
+		<dc:creator><![CDATA[Sandra Fernandes]]></dc:creator>
+				<category><![CDATA[Eventos]]></category>
+
+		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=14081</guid>
+		<description><![CDATA[<p>Como sabéis, la edición 2015 del PrestaShop Day de París fue un éxito rotundo. Fuisteis muchos los que os acercasteis a participar en la experiencia del WeCommerce. Ante todo, esperamos que este acontecimiento sirva para promover algo tan bello como el encuentro entre personas y como inspiración para tu empresa o proyecto. ¡El comercio electrónico [...]</p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/apuntad-la-fecha-de-los-prestashop-days/">¡Apuntad la fecha de los PrestaShop Days!</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Como sabéis, <a href="https://www.prestashop.com/blog/es/prestashopday-resumen-de-una-jornada-excepcional/">la edición 2015 del PrestaShop Day</a> de París fue un éxito rotundo. Fuisteis muchos los que os acercasteis a participar en la experiencia del WeCommerce. Ante todo, esperamos que este acontecimiento sirva para promover algo tan bello como el encuentro entre personas y como inspiración para tu empresa o proyecto.</p>
+<p>¡El comercio electrónico ya no tiene fronteras y PrestaShop tampoco! Además de poder seguir los mejores momentos en la web, este año el PrestaShop Day visitará tres ciudades europeas.</p>
+<p><strong>¡Apuntad las fechas para asistir a los PrestaShop Days!</strong></p>
+<ul>
+<li>PrestaShop Day París: <a href="http://www.carreaudutemple.eu/" target="_blank">Carreau du Temple</a>, <strong>2 de junio de 9:00 a 19:00</strong>.</li>
+<li>PrestaShop Day Madrid: <a href="http://meeu.es/espacios-meeu/plano" target="_blank">Meeu</a>, <strong>12 de mayo de 9:00 a 17:00</strong>.</li>
+<li>PrestaShop Day Milán: <a href="http://milano-calabiana.talentgarden.org/#gallery" target="_blank">TAG &#8211; Talent Garden Milano Calabiana</a>, <strong>29 de septiembre de 2016 de 9:00 a 18:00</strong>.</li>
+</ul>
+<p><span id="more-14081"></span></p>
+<p>En el programa habrá aún más intercambios, la posibilidad de compartir experiencias y maravillosos encuentros de los que todos saldréis beneficiados; vendedores online, desarrolladores y agencias web, socios, emprendedores y empresas emergentes, ¡todos esperan subirse a la ola del comercio electrónico y seguro que todos encuentran lo que buscan!</p>
+<p>Los contenidos y los formatos de nuestras actividades responden de manera específica a vuestras expectativas: talleres para sacar partido a las buenas prácticas de la web y del comercio electrónico, conferencias en las que aprender de ilustres del sector y cuyas experiencias nos inspirarán a todos, la presencia de nuestros socios que nos transmitirán los conocimientos que han atesorado con los años y ¡el equipo de PrestaShop al completo! Os informaremos de nuestros actos y esperamos guiaros de la mejor forma posible durante estas jornadas que os dedicamos a vosotros.</p>
+<p>¡Estad atentos! Muy pronto os informaremos de la posibilidad de adquirir vuestros pases de entrada y cuándo estará disponible el sitio web del PrestaShop Day.</p>
+<p>¿Necesitáis más información urgentemente? <a href="mailto:prestashopday@prestashop.com">prestashopday@prestashop.com</a></p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/apuntad-la-fecha-de-los-prestashop-days/">¡Apuntad la fecha de los PrestaShop Days!</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://www.prestashop.com/blog/es/apuntad-la-fecha-de-los-prestashop-days/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>Cómo conseguir tráfico adicional para tu tienda online</title>
+		<link>https://www.prestashop.com/blog/es/como-conseguir-trafico-adicional-para-tu-tienda-online/</link>
+		<comments>https://www.prestashop.com/blog/es/como-conseguir-trafico-adicional-para-tu-tienda-online/#comments</comments>
+		<pubDate>Mon, 29 Feb 2016 14:57:32 +0000</pubDate>
+		<dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
+				<category><![CDATA[Consejos E-commerce]]></category>
+		<category><![CDATA[Tendencias E-commerce]]></category>
+
+		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=14070</guid>
+		<description><![CDATA[<p>En el artículo de hoy te voy a explicar una fórmula para conseguir una buena cantidad de tráfico web adicional para tu página, y de una forma muy sencilla. De hecho, es una fórmula que normalmente creamos incluso antes de montar una tienda online. ¿Por qué? Pues porque te permite lanzar la tienda con la [...]</p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/como-conseguir-trafico-adicional-para-tu-tienda-online/">Cómo conseguir tráfico adicional para tu tienda online</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>En el artículo de hoy te voy a explicar una fórmula para <b>conseguir una buena cantidad de tráfico web adicional</b> para tu página, y de una forma muy sencilla. De hecho, es una fórmula que normalmente creamos incluso <b>antes</b> de montar una tienda online. ¿Por qué? Pues porque te permite lanzar la tienda con la certeza de que <b>vas a tener visitas desde el minuto 1</b>.</p>
+<p>Vamos a verlo con más detalle a continuación&#8230;<span id="more-14070"></span></p>
+<h2>Youtube: el segundo mayor buscador del mundo</h2>
+<p>Youtube es uno de esos canales fantásticos que la mayoría de las personas solo usa para ver videos de música, o videos de youtubers famosos, y echarse unas risas durante 10 minutos.  Pero realmente va mucho más allá y actualmente se ha convertido en <b>un canal indispensable para conseguir tráfico</b> <b>web </b>gracias a algunos pequeños truquitos que vamos a explicar a continuación:</p>
+<h2>Crear un canal de vídeo optimizado</h2>
+<p>Lo primero que tienes que tener en cuenta a la hora de crear tu canal de Youtube es que, tanto a Youtube como a Google (empresa propietaria de Youtube, por cierto), <b>les encanta que tengas un canal de video muy cuidado</b>. Con esto me refiero a que deberías respetar estos 4 pasos imprescindibles:</p>
+<ul>
+<li>Subir una foto de portada a tu canal (1)</li>
+<li>Subir una foto de autor (2)</li>
+<li>Poner un buen texto descriptivo en la descripción de tu canal (usando la misma herramienta que ya expliqué <a href="https://www.prestashop.com/blog/es/como-mejorar-el-seo-onpage-de-tu-tienda-online/">en este post anterior</a>) (3)</li>
+<li>Sacar enlaces desde tu perfil hacia tu tienda online y a todas tus redes sociales adicionales (para pasarles autoridad).  (4)</li>
+</ul>
+<p>En esta imagen podrás ver los cuatro puntos en detalle:</p>
+<p><a style="line-height: 1.5" href="https://www.prestashop.com/blog/es/files/2016/02/traficotienda1.jpg"><img class="alignleft size-full wp-image-14057" alt="traficotienda1" src="https://www.prestashop.com/blog/es/files/2016/02/traficotienda1.jpg" width="1076" height="674" /></a></p>
+<p>&nbsp;</p>
+<p>Una vez realizados estos 4 pasos básicos ya le vamos empezando a gustar un poco más a Youtube (y a Google).</p>
+<h2>Elegir categorías para tu canal</h2>
+<p>El siguiente paso lógico es <b>estructurar nuestro canal de Youtube como si fuese una página web</b>. Y con esto me refiero a que hay que crear varias listas de reproducción a modo de “categorías”.</p>
+<p>Si categorizamos nuestro canal de Youtube insertando <b><i>listas de reproducción</i></b> que se titulan igual que categorías importantes dentro del nicho, entonces <b>será mucho más sencillo posicionar cualquier video</b>.</p>
+<p>Por si no ha quedado claro, adjunto un enlace a un canal que está bien categorizado en este sentido:  <a href="https://www.youtube.com/channel/UCv9ir1rrZgDyaKW3SzQobHQ/playlists">https://www.youtube.com/channel/UCv9ir1rrZgDyaKW3SzQobHQ/playlists</a></p>
+<h2>Creación de vídeos para posicionar en Youtube</h2>
+<p>Ahora viene el punto más importante para conseguir tráfico web y posicionar en Youtube: la creación del video en sí.</p>
+<p>Voy a usar dos ejemplos reales de videos que, además, pertenecen a dos tiendas online a las que tengo mucho aprecio. Ambas se van a cambiar a Prestashop dentro de muy poco (las dos están hechas con programación propia y han llegado a sus límites, de ahí la necesidad de cambio).</p>
+<p>De hecho, mi próximo artículo seguramente trate sobre todos los aspectos SEO que hay que tener en cuenta a la hora de <b>cambiar una tienda online a Prestashop</b>.  Y estos dos ejemplos reales nos vendrán de lujo para explicarlo en detalle:</p>
+<p><strong>Factoría de regalos</strong></p>
+<p>La primera tienda es la web de regalos originales <a href="http://www.factoriaderegalos.com/">www.factoriaderegalos.com</a>.</p>
+<p>Para esta web hemos creado <a href="https://www.youtube.com/watch?v=XqXELtVFMIs">un video enfocado a la palabra clave “regalos originales”</a>.  Este video ha conseguido 270.000 visitas, las cuales se han redirigido directamente hacia la tienda online para que los potenciales clientes realicen su compra.</p>
+<p>El vídeo está posicionado en Youtube y en Google, por lo que nos nutrimos del poder de ambas plataformas para llegar a mucha más gente.</p>
+<p>¿Quieres saber cómo lo hemos hecho? Pues atento porque vamos a analizar el video a fondo para que puedas ver los <b>trucos SEO</b> que hemos empleado tanto en Youtube como en Google</p>
+<h2>Cómo posicionar un video en el buscador de Youtube</h2>
+<p>Es importante que sepas que hay dos tipos de SEO que se le debe realizar a un video de Youtube:</p>
+<ul>
+<li>Uno es para posicionarte dentro de los mismos resultados de Youtube,</li>
+<li>El segundo es para posicionarte en los resultados de Google.</li>
+</ul>
+<p>Para <b>aparecer en los resultados de <span style="text-decoration: underline">Youtube</span></b>, necesitas lo siguiente:</p>
+<ul>
+<li>Tener visitas (ahora explicaré un truco).</li>
+<li>Que la gente comparta tu video en redes sociales.</li>
+<li>Conseguir que los visitantes hagan “embeds” o inserten el código de tu video, dentro de algún artículo de un blog.</li>
+<li>Tener una buena cantidad de etiquetas en tu video que incluyan palabras clave relacionadas.</li>
+<li>Que la gente le dé al botón “me gusta” de tu video.</li>
+<li>Comentarios en tu video.</li>
+<li>Suscripciones a tu canal.</li>
+</ul>
+<p>Existe un pequeño truco para que tu video salga rápidamente en la <b>primera página de Youtube</b>:</p>
+<ul>
+<li>Crear tu video.</li>
+<li>Pedirle a 6-10 amigos que hagan la búsqueda de tu video bajo tu palabra clave en Youtube.</li>
+<li>Pedirles que vayan a la segunda o tercera página de Youtube, que es donde estará tu video, y que lo miren entero.</li>
+<li>Una vez visto, tienen que darle al botón “me gusta” y poner un pequeño comentario en la misma página del video.</li>
+</ul>
+<p>Con este truco conseguirás que la diversidad de IP que tus amigos aportan a la búsqueda, te ayude a <b>subir muchas posiciones en Youtube</b>.</p>
+<h2>Cómo posicionar un video en los resultados de Google</h2>
+<p>La segunda opción tiene que ver con posicionar este mismo video en los resultados de Google. Así, cuando alguien busque tu palabra clave en Google, <b>tu vídeo ocupará una de las primeras posiciones</b> de la página 1 de Google. Algo parecido a esto:</p>
+<p><a href="https://www.prestashop.com/blog/es/files/2016/02/traficotienda2.jpg"><img class="alignleft size-full wp-image-14058" alt="traficotienda2" src="https://www.prestashop.com/blog/es/files/2016/02/traficotienda2.jpg" width="794" height="730" /></a></p>
+<p>La técnica en este caso es un poco distinta a la que hemos usado para posicionar en los resultados de Youtube.</p>
+<p>Dado que Google va a tratar a este video como una página web más será necesario incidir en los factores que Google tiene en cuenta para posicionar cualquier página web. ¿Y qué factor es el más importante? Correcto: <b>el contenido</b>.</p>
+<p>En la descripción del video tenemos que añadir un buen contenido con una extensión de 400-500 palabras. Ten en cuenta que este contenido <b>tiene que incluir todas las palabras clave relacionadas</b> a tu palabra clave principal para poder posicionarse bien.</p>
+<p><b>Trajes a medida</b></p>
+<p>Mira este ejemplo de descripción de un <a href="https://www.youtube.com/watch?v=RjGkIyRsdNo">video sobre “trajes a medida”</a>, la segunda tienda online de la que te hablaba. Si pinchas en “ver más” debajo de las primeras líneas descriptivas se te desplegará una gran cantidad de texto que tiene como peculiaridad lo siguiente:</p>
+<p>&nbsp;</p>
+<ul>
+<li>Incluye todo tipo de <b>palabras relacionadas</b> a “trajes a medida”. Por ejemplo: camisas, pantalones, corbata, etc.  Esto es lo que Google busca encontrar en tu texto.</li>
+<li>El segundo punto fuerte es que tiene <b>enlaces salientes a todas las redes sociales de la marca</b>. Si te fijas, estas redes sociales se enlazan no solo desde el video, sino también desde las páginas internas <a href="http://www.blackpier.com/es/coleccion/trajes-a-medida">de la tienda de trajes</a>.  De esta forma creamos una red que va pasando fuerza de una cuenta a otra y al final todas ganan en autoridad.</li>
+<li>Por último, si quieres posicionarte en Google tienes que <b>enlazar la URL del propio video desde artículos externos</b>.  Para ello hay que enlazar con palabras clave (o anchors) como “youtube”, “este video”, El título exacto que tiene el video, la URL completa, y alguna frase que contenga la palabra clave principal.</li>
+</ul>
+<p><b>Truco adicional: </b></p>
+<p>No pongas el enlace siempre a la misma URL del video. Youtube te da un montón de <b>variantes de URL que al final siempre redirigen hacia la URL principal</b>. Si enlazas estas URLs alternativas, tendrás un “plus” por la redirección interna que Youtube realiza  y podrás subir más posiciones con menos enlaces entrantes.</p>
+<p>Algunos ejemplos de las casi 30 variantes de URL Youtube que existen son estos:</p>
+<p><a href="https://www.prestashop.com/blog/es/files/2016/02/traficotienda3.jpg"><img class="alignleft size-full wp-image-14059" alt="traficotienda3" src="https://www.prestashop.com/blog/es/files/2016/02/traficotienda3.jpg" width="519" height="167" /></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>*Las XXXX se reemplazarían por el código te tu video:</p>
+<p><a href="https://www.prestashop.com/blog/es/files/2016/02/traficotienda4.jpg"><img class="alignleft size-full wp-image-14060" alt="traficotienda4" src="https://www.prestashop.com/blog/es/files/2016/02/traficotienda4.jpg" width="385" height="49" /></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Y por último, si miras el video de los trajes a medida, fíjate que hay un punto en el video donde te saldrán en pantalla varias opciones para que hagas clic y <b>envíes estas visitas a tu página web directamente</b>. Con esto, rediriges fácilmente el caudal de visitas y los conviertes en clientes potenciales de tu tienda.</p>
+<p>Espero que te ayude.</p>
+<p>Hasta el próximo post!</p>
+<p>Sobre el autor:</p>
+<p><img class=" wp-image-13624  alignleft" style="margin-top: -2px;margin-bottom: -2px" alt="Prestashop Partner" src="https://www.prestashop.com/blog/es/files/2015/12/alex-navarro1.jpg" width="80" height="80" /></p>
+<p><strong>Alex Navarro</strong> – Consultor de SEO y marketing online desde el 2003.  Creador del blog <a href="http://www.vivirdelared.com/" target="_blank">Vivirdelared</a>.  Co-fundador de <a href="https://www.quondos.com/" target="_blank">Quondos</a> y <a href="http://www.dropalia.com/" target="_blank">Dropalia</a>.  Fundador de varias tiendas online como <a href="https://www.jugueterosa.com/" target="_blank">Jugueterosa.com</a>. Twitter: <a href="https://twitter.com/vivirdelared" target="_blank">@vivirdelared</a></p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/como-conseguir-trafico-adicional-para-tu-tienda-online/">Cómo conseguir tráfico adicional para tu tienda online</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://www.prestashop.com/blog/es/como-conseguir-trafico-adicional-para-tu-tienda-online/feed/</wfw:commentRss>
+		<slash:comments>24</slash:comments>
+		</item>
+		<item>
+		<title>Destaca tu Prestashop en Marketplaces: Shopping, Amazón y eBay</title>
+		<link>https://www.prestashop.com/blog/es/destaca-tu-prestashop-en-marketplaces/</link>
+		<comments>https://www.prestashop.com/blog/es/destaca-tu-prestashop-en-marketplaces/#comments</comments>
+		<pubDate>Thu, 25 Feb 2016 14:50:26 +0000</pubDate>
+		<dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
+				<category><![CDATA[Actualidad PrestaShop]]></category>
+		<category><![CDATA[Consejos E-commerce]]></category>
+
+		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=14037</guid>
+		<description><![CDATA[<p>Imagino que ante la cantidad de visitas que tienen los grandes Marketplaces como eBay, Amazon o Google Shopping habrás pensado en más de una ocasión dar de alta tu tienda en algunos de ellos para empezar a vender desde allí ¿verdad? Pues para facilitarte esta labor hemos preparado primero una comparativa de los tres principales [...]</p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/destaca-tu-prestashop-en-marketplaces/">Destaca tu Prestashop en Marketplaces: Shopping, Amazón y eBay</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Imagino que ante la cantidad de visitas que tienen los grandes Marketplaces como eBay, Amazon o Google Shopping habrás pensado en más de una ocasión dar de alta tu tienda en algunos de ellos para empezar a vender desde allí ¿verdad?<span id="more-14037"></span></p>
+<p>Pues para facilitarte esta labor hemos preparado primero una comparativa de los tres principales en España y después un manual completo sobre como instalar y configurar el módulo oficial de eBay con PrestaShop.</p>
+<h2>Tabla Comparativa de Marketplaces</h2>
+<table width="626" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="text-align: center" valign="top" width="79">Sitio</td>
+<td style="text-align: center" valign="top" width="209">Precios</td>
+<td style="text-align: center" valign="top" width="176">Tipo de venta</td>
+<td style="text-align: center" valign="top" width="162">Módulo</td>
+</tr>
+<tr>
+<td style="text-align: center" valign="top" width="79">eBay</td>
+<td style="text-align: center" valign="top" width="209">Puedes verlos todos <a href="http://pages.ebay.es/help/sell/businessfees.html">aquí</a> como resumen te dejo esto para negocios:</p>
+<ol>
+<li style="text-align: left">17€ /mes</li>
+<li style="text-align: left">200 anuncios gratis, luego 0.13 por anuncio.</li>
+<li style="text-align: left">Comisión 4,3 al 7%</li>
+</ol>
+</td>
+<td style="text-align: center" valign="top" width="176">La venta se hace dentro de eBay y funciona en base a reputación como comerciante.</td>
+<td style="text-align: center" valign="top" width="162">Lo puedes descargar gratis con este <a href="http://addons.prestashop.com/es/marketplaces/2742-ebay.html">enlace</a>. También podrías añadir los anuncios a mano.</td>
+</tr>
+<tr>
+<td style="text-align: center" valign="top" width="79">Amazon</td>
+<td valign="top" width="209">
+<ol>
+<li style="text-align: center">39€ al mes sin comisiones.</li>
+<li style="text-align: center">O puede ser sin cuota, pero con comisión de 0,99 si no haces más de 40 ventas.</li>
+</ol>
+</td>
+<td style="text-align: center" valign="top" width="176">La venta se hace dentro de Amazon, pero no funciona por reputación es más bien por “posicionamiento” en las categorías como te encontrarán.</td>
+<td style="text-align: center" valign="top" width="162">El módulo lo puedes descargar <a href="http://addons.prestashop.com/es/marketplaces/2501-amazon-market-place.html">aquí</a> pero en esta ocasión no es gratuito y cuesta 200€. Siempre podrás montar la tienda a mano si lo prefieres.</td>
+</tr>
+<tr>
+<td style="text-align: center" valign="top" width="79">Shopping</td>
+<td style="text-align: center" valign="top" width="209">
+<ol>
+<li>Pagas por cada clic en tu anuncio independientemente de si vendes o no.</li>
+<li>Tiene la ventaja de que sólo te harán clics los verdaderamente interesados en tu producto</li>
+</ol>
+</td>
+<td style="text-align: center" valign="top" width="176">Es la principal ventaja, la venta acaba en tu tienda con lo que puedes sacar más partido de cada visita, exactamente igual que si fuera una visita PPC o SEO. Ya sabes suscripciones, venta cruzada, remarketing&#8230;</td>
+<td style="text-align: center" valign="top" width="162">Lo puedes hacer con módulo gratuitos o incluso con una hoja de cálculo en Gdrive. Pero te recomiendo usar este <a href="http://addons.prestashop.com/es/comparadores-precios/1615-google-shopping-merchant-center.html">módulo</a> por 157€</td>
+</tr>
+</tbody>
+</table>
+<h2>Instalar módulo eBay en tienda PrestaShop</h2>
+<p>Según la tabla anterior el único módulo gratuito que podemos usar de forma sencilla para Marketplace es el de eBay así qué os vamos a explicar cómo instalarlo.</p>
+<p>Simplemente busca o descarga y sube a tu PrestaShop el “<a href="http://addons.prestashop.com/es/marketplaces/2742-ebay.html">Módulo Oficial eBay Marketplace</a>” e instálalo.</p>
+<p>Una vez lo tengas instalado para empezar a vender en eBay tendrás que:</p>
+<ol>
+<li><a href="https://scgi.ebay.es/ws/eBayISAPI.dll?RegisterEnterInfo&amp;bizflow=2&amp;_trksid=p2064334.m2236">Crea una cuenta empresa de eBay</a>. Siguiendo el anterior link irás a la página de registro para vendedores y solo tienes qué introducir tus datos de empresa y verificar por teléfono o por con tarjeta bancaria.</li>
+<li>Una vez tienes hecho lo anterior solamente tendrás que logarte eBay y ya podrías ir subiendo anuncios manualmente, pero para usar el módulo tendrás que hacer el siguiente punto.</li>
+</ol>
+<h2>Vincula tu cuenta de eBay con el complemento de eBay</h2>
+<p>Es bastante sencillo, en la administración de módulo ve a configurar el módulo recién instalado de eBay y llegarás a esta pantalla:</p>
+<p><a href="https://www.prestashop.com/blog/es/files/2016/02/Marketplace1.jpg"><img class="alignleft size-full wp-image-14053" alt="Marketplace1" src="https://www.prestashop.com/blog/es/files/2016/02/Marketplace1.jpg" width="1086" height="396" /></a></p>
+<p>Lo dejas todo como ves en la captura (si lo quieres hacer para España) y tan solo debes añadir el Seudónimo con el que te diste de alta., ahora presionas sobre “vincular”. Iras a una pantalla para otorgar los permisos oportunos a tu tienda PrestaShop.</p>
+<p><a href="https://www.prestashop.com/blog/es/files/2016/02/Marketplace2.jpg"><img class="alignleft size-full wp-image-14054" alt="Marketplace2" src="https://www.prestashop.com/blog/es/files/2016/02/Marketplace2.jpg" width="1361" height="316" /></a></p>
+<h2>Configuración del módulo eBay</h2>
+<ol>
+<li>Configuración de la cuenta:
+<ol>
+<li>Detalles de la cuenta, no te quedará más remedio que usar una cuenta de Paypal y después debes indicar el código postal de la tienda el país y si deseas que el pago sea inmediato.</li>
+<li>Política de devoluciones, aquí debes especificar la política de devoluciones qué desees usar con las compras qué te hagan en eBay, no hace falta que te diga que de esto dependerá en gran medida las ventas que hagas, pero claro una política de devoluciones muy atractiva puede convertirse en una ruina si te devuelven muchos productos, así que sé prudente…</li>
+<li>Sincronización de pedidos, este punto viene bastante bien configurado por defecto e indica que los pedidos de eBay se sincronizan en el back de tu tienda de forma automática.</li>
+</ol>
+</li>
+<li>Configuración de las categorías.
+<ol>
+<li>Si has usado Google Shopping esta parte te resultará familiar, lo que tienes hacer es asociar las categorías de tu PrestaShop con las categorías disponibles en eBay.</li>
+<li>En este apartado también puedes modificar el precio de venta que tendrás en eBay si deseas tener un precio distinto al que muestras en tu tienda por ejemplo para hacer frente a comisiones u otros asuntos.</li>
+<li>También puedes eliminar productos de su publicación en la columna de la izquierda.</li>
+<li>Imágenes, por cada producto puedes asociar una imagen principal y después también aparecerán el resto de imágenes en miniatura.</li>
+</ol>
+</li>
+<li><span style="line-height: 1.5">Categorías de la tienda dentro de eBay</span>
+<ol>
+<li>En tu tienda dentro de eBay puedes crear categorías y subcategorías para asociar con las originales de PrestaShop.</li>
+<li>Te recomiendo que no optimices mucho para SEO estas categorías ya eBay podría acabar robando tráfico SEO a tu tienda.</li>
+</ol>
+</li>
+<li>Envío
+<ol>
+<li>Al igual que la política de devoluciones puedes usar distintos métodos de envío para las ventas de eBay.</li>
+<li>También podrás configurar un coste de envío internacional.</li>
+</ol>
+</li>
+<li>Plantilla
+<ol>
+<li>Puedes personalizar la plantilla de producto que verá el visitante de eBay usando un sistema de shortcodes basado en los atributos de la tienda.</li>
+<li>Te recomiendo usar siempre la descripción corta para no duplicar los artículos de tu tienda.</li>
+<li>Puedes añadir un enlace a la tienda dentro de esta plantilla.</li>
+</ol>
+</li>
+</ol>
+<h2>Sincronización de productos con eBay</h2>
+<p><a href="https://www.prestashop.com/blog/es/files/2016/02/Marketplace3.jpg"><img class="alignleft size-full wp-image-14055" alt="Marketplace3" src="https://www.prestashop.com/blog/es/files/2016/02/Marketplace3.jpg" width="1100" height="482" /></a></p>
+<p>También dispones de un completo manual de usuario en PDF <a href="http://202-ecommerce.com/d/eBay-doc_es.pdf">aquí</a></p>
+<p>¡Cuando tengas todos los puntos terminados solo tendrás que hacer la sincronización de productos, esperar que se aprueben y empezar a vender!</p>
+<p>&nbsp;</p>
+<p>Sobre el autor:</p>
+<p><img class=" wp-image-13624  alignleft" style="margin-top: -2px;margin-bottom: -2px" alt="Prestashop Partner" src="https://www.prestashop.com/blog/es/files/2016/02/Juan-Luis.jpg" width="80" height="80" /></p>
+<p><strong>Juan Luis Mora</strong> &#8211; Consultor Freelance especializado en <a href="http://juanluismora.es/ecommerce/seo-prestashop.html" target="_blank">SEO y SEM para Prestashop</a>. Gran parte de lo que voy aprendiendo lo publico en mi blog y me perfil de Twitter <a href="http://twitter.com/juanluismora_es" target="_blank">@juanluismora_es</a></p>
+<p>&nbsp;</p>
+<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/destaca-tu-prestashop-en-marketplaces/">Destaca tu Prestashop en Marketplaces: Shopping, Amazón y eBay</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://www.prestashop.com/blog/es/destaca-tu-prestashop-en-marketplaces/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
 		<title>CanariasMakeUp &#8211; Maquillaje en Canarias!</title>
 		<link>https://www.prestashop.com/blog/es/caso-de-exito-canariasmakeup-maquillaje-en-canarias/</link>
 		<comments>https://www.prestashop.com/blog/es/caso-de-exito-canariasmakeup-maquillaje-en-canarias/#comments</comments>
@@ -27,11 +415,11 @@
 				<category><![CDATA[Caso de éxito]]></category>
 
 		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13778</guid>
-		<description><![CDATA[<p>Hoy estamos con Janet Plasencia, Directora de Canariasmakeup, tienda online especializada en productos de maquillaje con atención exclusiva al archipiélago canario. Laura, cuéntanos un poco sobre Canariasmakeup. Nacida de la idea de una joven pareja tinerfeña con la intención de atender el mundo de la cosmética de forma accesible y competitiva, totalmente adaptada a las [...]</p>
+		<description><![CDATA[<p>Hoy estamos con Janet Plasencia, Directora de Canariasmakeup, tienda online especializada en productos de maquillaje con atención exclusiva al archipiélago canario. Janet, cuéntanos un poco sobre Canariasmakeup. Nacida de la idea de una joven pareja tinerfeña con la intención de atender el mundo de la cosmética de forma accesible y competitiva, totalmente adaptada a las [...]</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/caso-de-exito-canariasmakeup-maquillaje-en-canarias/">CanariasMakeUp &#8211; Maquillaje en Canarias!</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></description>
 				<content:encoded><![CDATA[<p>Hoy estamos con Janet Plasencia, Directora de Canariasmakeup, tienda online especializada en productos de maquillaje con atención exclusiva al archipiélago canario.<span id="more-13778"></span></p>
-<h2><span style="color: #59bbc4">Laura, cuéntanos un poco sobre Canariasmakeup.</span></h2>
+<h2><span style="color: #59bbc4">Janet, cuéntanos un poco sobre Canariasmakeup.</span></h2>
 <p>Nacida de la idea de una joven pareja tinerfeña con la intención de atender el mundo de la cosmética de forma accesible y competitiva, totalmente adaptada a las particularidades del comercio en las islas, con sede en la isla de Tenerife y enfocada a atender en exclusiva la demanda del archipiélago Canario, <strong><a href="http://www.Canariasmakeup.com" target="_blank"><span style="color: #800000">Canariasmakeup.com</span></a> </strong>se inauguraba el 14 de Diciembre de 2012 y tras experimentar un fuerte crecimiento en sus tres primeros años de vida, continua a fecha de hoy en esta dinámica, posicionándose así como la tienda 100% online con el mayor catálogo de marcas de cosmética y maquillaje destinado a cubrir en exclusiva la demanda del mercado canario.</p>
 <p>Nuestro catálogo cuenta con más de 6.000 referencias de más de 40 marcas diferentes y tenemos previsto incorporar dos nuevas marcas antes de que finalice el primer trimestre de 2016. Tenemos previsto aumentar el número total en al menos 5 marcas más a lo largo de 2016 lo que supone una marca nueva cada menos de tres meses de media.</p>
 <p>En nuestras instalaciones recibimos cada dos semanas aproximadamente reposiciones de una media de 1.600 productos que vienen a cubrir la demanda de las más de 69.000 visitas que recibimos de media cada mes.</p>
@@ -165,7 +553,7 @@
 <p>Recuerda que no estamos aquí para repetir lo que a otros les ha funcionado, estamos para aumentar nuestro campo de visión y encontrar nuestros propios “best growth hacks” …</p>
 <p>¡Mucha suerte!</p>
 <p>Sobre el autor:</p>
-<p><img class="wp-image-13837 alignleft" style="margin-top: -2px;margin-bottom: -14px" alt="Victor_campuzano" src="https://www.prestashop.com/blog/es/files/2016/01/Victor.jpg" width="80" height="80" /><b>Víctor Campuzano</b> – Director de Marketing Online en <a href="http://www.grupographic.com/servicios/servicios-de-marketing-online/">Grupo Graphic</a>, Blogger en <a href="http://www.vcgs.net/blog/">Vcgs.net</a>, formador y speaker.</p>
+<p><img class="wp-image-13837 alignleft" style="margin-top: -2px;margin-bottom: -14px" alt="Victor_campuzano" src="https://www.prestashop.com/blog/es/files/2016/01/Victor.jpg" width="80" height="80" /><b>Víctor Campuzano</b> – Director de Marketing Online en <a href="http://www.grupographic.com/servicios/servicios-de-marketing-online/">Grupo Graphic</a>, Blogger en <a href="http://www.vcgs.net/blog/">Vcgs.net</a>, formador y speaker. Ahora formándome como <a href="http://www.iebschool.com/programas/postgrado-growth-hacking/" target="_blank">Growth hacker en IEBS</a>”</p>
 <p>Twitter: <a href="http://www.twitter.com/vicampuzano">@vicampuzano</a>.</p>
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/8-ejemplos-de-growth-hacking-aplicado-ecommerce/">8 ejemplos de Growth Hacking aplicado a ecommerce</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
@@ -265,190 +653,7 @@
 <p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/caso-de-exito-ubricar-todo-para-tu-moto/">Ubricar &#8211; Todo para tu moto</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
 ]]></content:encoded>
 			<wfw:commentRss>https://www.prestashop.com/blog/es/caso-de-exito-ubricar-todo-para-tu-moto/feed/</wfw:commentRss>
-		<slash:comments>1</slash:comments>
-		</item>
-		<item>
-		<title>Estudio de caso sobre las redes sociales: Wobybi te lleva de paseo</title>
-		<link>https://www.prestashop.com/blog/es/estudio-de-caso-sobre-las-redes-sociales-wobybi-te-lleva-de-paseo/</link>
-		<comments>https://www.prestashop.com/blog/es/estudio-de-caso-sobre-las-redes-sociales-wobybi-te-lleva-de-paseo/#comments</comments>
-		<pubDate>Fri, 12 Feb 2016 08:30:41 +0000</pubDate>
-		<dc:creator><![CDATA[Julie Liu]]></dc:creator>
-				<category><![CDATA[Caso de éxito]]></category>
-
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13971</guid>
-		<description><![CDATA[<p>Descubre Wobybi, el vendedor PrestaShop destacado de esta semana. Estuvimos con Alvaro Basterra, el fundador de la marca, que nos explicó cómo utiliza las redes sociales para promocionar su tienda online. ¡Sigue leyendo para descubrir todo lo que nos dijo! ¿En qué consiste Wobybi? Wobybi es una tienda española de bicicletas personalizadas. Somos especialistas en [...]</p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/estudio-de-caso-sobre-las-redes-sociales-wobybi-te-lleva-de-paseo/">Estudio de caso sobre las redes sociales: Wobybi te lleva de paseo</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></description>
-				<content:encoded><![CDATA[<p>Descubre <a href="http://www.wobybi.es/" target="_blank">Wobybi</a>, el vendedor PrestaShop destacado de esta semana. Estuvimos con Alvaro Basterra, el fundador de la marca, que nos explicó cómo utiliza las redes sociales para promocionar su tienda online. ¡Sigue leyendo para descubrir todo lo que nos dijo!<br />
-<span id="more-13971"></span></p>
-<h2 style="color:#88ae01">¿En qué consiste Wobybi?</h2>
-<p><a href="http://www.wobybi.es/" target="_blank">Wobybi</a> es una tienda española de bicicletas personalizadas. Somos especialistas en crear bicicletas únicas, por eso nuestra tienda online, que funciona con PrestaShop 1.5.2, ha sido pensada para que cada cliente pueda diseñar su propia bicicleta. El primer paso es elegir un modelo de base, luego, personalizar cada componente eligiendo sus colores preferidos y, por último, comprobar que esté todo bien y confirmar el pedido. </p>
-<h2 style="color:#88ae01">¿Qué efecto han tenido las redes sociales en tu negocio?</h2>
-<p>Las redes sociales son una excelente manera de conocer a nuestra comunidad y conectar con ella. Intentamos entablar una relación personal con nuestros seguidores, nos gusta animarlos a que interactúen con nosotros, nos dejen sus comentarios y compartan fotos y vídeos. </p>
-<p>El contacto con nuestros clientes es particularmente importante para nosotros, puesto que vendemos artículos personalizados. Nos permite brindar un servicio único, exclusivo y personal a cada uno de nuestros clientes.</p>
-<h2 style="color:#88ae01">¿Qué herramientas y canales de redes sociales utilizáis?</h2>
-<p><a href="https://www.facebook.com/Wobybi" target="_blank">Facebook</a> e <a href="https://www.instagram.com/wobybi/" target="_blank">Instagram</a> resultan útiles porque son muy visuales y nos permiten mostrar las fotos de nuestros productos. También usamos <a href="https://twitter.com/wobybi" target="_blank">Twitter</a>, pero sobre todo como portal de servicio al cliente y como medio para compartir información. </p>
-<p>Nuestras herramientas preferidas son: </p>
-<ul style="padding-left: 30px">
-<li><a href="https://hootsuite.com/" target="_blank">Hootsuite</a> para programar las publicaciones</li>
-<li><a href="https://sumall.com/" target="_blank">SumAll</a> para recibir un resumen diario y semanal de las notificaciones</li>
-<li><a href="https://mention.com/en/" target="_blank">Mention</a> para saber más de la gente que nos menciona</li>
-<li><a href="https://feedly.com/i/welcome" target="_blank">Feedly</a> para leer noticias sobre nuestro sector</li>
-<li><a href="https://bitly.com/" target="_blank">Bitly</a> para acortar los URL y controlar el número de clics</li>
-</ul>
-<h2 style="color:#88ae01">¿De dónde viene la inspiración para el contenido de las redes sociales?</h2>
-<p>Contamos con una persona que se encarga de gestionar, a tiempo completo, todos nuestros canales de redes sociales. Nuestros posts se basan en una estrategia definida en el plan de marketing: el objetivo es crear un contenido original y de calidad para atraer nuevos clientes potenciales. Las ideas y la inspiración pueden surgir de cualquier parte &#8212; Instagram, Pinterest, reuniones, brainstorming&#8230; ¡Lo más importante que deben tener en mente los vendedores es concentrarse en las campañas y no olvidar el objetivo final!</p>
-<h2 style="color:#88ae01">¿Podrías compartir algunos consejos con otros vendedores que estén empezando a utilizar las redes sociales?</h2>
-<p>Lo principal es definir una estrategia para cada red social y, al principio, centrarse en un par de ellas; no sirve de nada &#8220;estar por estar&#8221;. Es esencial publicar un contenido personalizado de calidad, creado específicamente para su base de clientes. Nosotros, por ejemplo, utilizamos mucho contenido con GIF o vídeos, que se ajusta perfectamente a nuestro público. Por último, no podemos olvidarnos de responder a todas las preguntas y comentarios que recibamos en las redes sociales, ¡es lo más importante!</p>
-<hr width="20%" align="left">
-<p>¿Listo para lanzar tu campaña de redes sociales y promocionar tu negocio de comercio electrónico? Echa un vistazo a la primera parte de nuestra serie con la Social Media Coach para los países germanohablantes y Reino Unido en HootSuite, Hanna Oeljeschlaeger, <a href="https://www.prestashop.com/blog/es/desarrolla-tu-negocio-de-comercio-electronico-traves-de-las-redes-sociales-parte-1-de-2/">desarrolla tu negocio de comercio electrónico a través de las redes sociales</a>.</p>
-<p>¿Todavía no tienes una tienda online? ¿Qué esperas para comenzar hoy mismo con <a href="http://www.prestashop.com/" target="_blank">PrestaShop</a>. </p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/estudio-de-caso-sobre-las-redes-sociales-wobybi-te-lleva-de-paseo/">Estudio de caso sobre las redes sociales: Wobybi te lleva de paseo</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/estudio-de-caso-sobre-las-redes-sociales-wobybi-te-lleva-de-paseo/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-		<item>
-		<title>Decántalo &#8211; Vino Español para el mundo</title>
-		<link>https://www.prestashop.com/blog/es/caso-de-exito-decantalo-vino-espanol-para-el-mundo/</link>
-		<comments>https://www.prestashop.com/blog/es/caso-de-exito-decantalo-vino-espanol-para-el-mundo/#comments</comments>
-		<pubDate>Wed, 10 Feb 2016 15:00:23 +0000</pubDate>
-		<dc:creator><![CDATA[Jhon Suarez Pardo]]></dc:creator>
-				<category><![CDATA[Caso de éxito]]></category>
-
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13741</guid>
-		<description><![CDATA[<p>Hoy estamos con Héctor Pla, director de marketing de Decántalo, dedicado a la venta de vino con denominación de origen. Héctor, cuéntanos un poco sobre Decántalo. Decántalo es una tienda online de vino español, con más de 3.000 referencias a la venta de todas las denominaciones de origen, variedades y métodos de elaboración. Llevamos 5 [...]</p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/caso-de-exito-decantalo-vino-espanol-para-el-mundo/">Decántalo &#8211; Vino Español para el mundo</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></description>
-				<content:encoded><![CDATA[<p>Hoy estamos con Héctor Pla, director de marketing de Decántalo, dedicado a la venta de vino con denominación de origen.<span id="more-13741"></span></p>
-<h2><span style="color: #59bbc4">Héctor, cuéntanos un poco sobre Decántalo.</span></h2>
-<p>Decántalo es una <span style="color: #993300"><strong><a href="http://www.decantalo.com/es/" target="_blank"><span style="color: #993300">tienda online de vino español</span></a></strong></span>, con más de 3.000 referencias a la venta de todas las denominaciones de origen, variedades y métodos de elaboración. Llevamos 5 años en el mercado, y en este tiempo hemos servido cerca de <strong>50.000 pedidos en todo Europa.</strong></p>
-<p>Nos gusta decir que nos apasiona el vino, y eso es lo que intentamos transmitir en todas nuestras acciones. Tanto a la hora de seleccionar los productos que ponemos a la venta, como al <strong>crear los contenidos, y en cada uno de los pasos que conforman el proceso de compra de un cliente en nuestra web.</strong></p>
-<p>Estamos muy orgullosos de habernos situado en este tiempo como uno de los líderes en el mercado de vino español en todo Europa.</p>
-<h2><span style="color: #59bbc4">¿Cómo y por qué elegiste PrestaShop?</span></h2>
-<p>Empezamos utilizando software propio para nuestro proyecto, pero nos dimos cuenta que utilizando PrestaShop podíamos<strong> reducir costes de implementación de nuevas funcionalidades además de reducir el “time to market”</strong>, algo cada día más importante debido a la velocidad a la que se mueve todo en Internet.</p>
-<p>Hemos descubierto una gran plataforma, sólida, probada, que te permite vender desde el primer día “olvidándote” hasta cierto punto de la parte tecnológica y centrando tus esfuerzos en vender. Además, cuenta con una gran comunidad de desarrolladores detrás, lo que se acaba traduciendo en una constante innovación y desarrollo de nuevas funcionalidades.</p>
-<h2><span style="color: #59bbc4">¿Habría más internacionalización de los vinos del País si el precio del transporte fuera más competitivo? ¿En qué partes del mundo vendes?</span></h2>
-<p>Vendemos en todo el territorio de la Unión Europea. Evidentemente, el coste del transporte es un freno para el consumidor, ya que se percibe como un “gasto extra” al margen del producto. Y especialmente en nuestro caso, ya que el vino es un producto con mucho peso por lo que tiene un coste elevado, además de ser un producto muy delicado de transportar.</p>
-<p>Seguro que una bajada en el precio de los transportes sería un buen impulso a la internacionalización de los vinos del país.</p>
-<h2><span style="color: #59bbc4">¿Cómo consigues destacar en un mercado tan maduro, sabiendo que los costes de Logística y los márgenes de beneficio son tan ajustados?</span></h2>
-<p>Es difícil. Como dices, es un mercado muy maduro en el que cada día aparecen nuevos competidores.</p>
-<p>En Decántalo pensamos que l<strong>a clave para la diferenciación es cuidar al máximo todos los detalles. Desde los contenidos, el transporte, la atención al cliente…</strong> Intentar transmitir esa pasión por el vino de la que hablaba antes.</p>
-<p>Nuestro producto es un producto muy emocional, y creemos que es así como lo tenemos que tratar. O por lo menos, pensamos que así es como le gusta percibirlo al consumidor. <strong>Intentarte convertir en “algo” especial. Algo tan fácil de decir y tan difícil de conseguir.</strong></p>
-<h2><span style="color: #59bbc4">¿Algo más que quieras compartir? </span></h2>
-<p>Soy de la idea de que detrás de un gran proyecto siempre hay unas grandes personas, y no me gustaría acabar sin citar a dos grandes equipos que nos han ayudado a realizar este cambio de tecnología.</p>
-<p><a href="http://www.idnovate.com/" target="_blank"><strong><span style="color: #993300">Idnovate</span></strong></a>, el equipo que ha desarrollado la personalización de nuestra tienda. Unos grandes profesionales con un gran conocimiento de PrestaShop que han hecho posible que demos este paso de la manera más sencilla y con el menor impacto posible para nuestro negocio.</p>
-<p>Y por otro lado <a href="http://www.penedestic.com" target="_blank"><strong><span style="color: #993300">Penedès TIC</span></strong></a>, quienes se han encargado de la parte que no ve el cliente, pero que es igual de importante para que todo funcione a la perfección: el sistema de gestión de stocks. Debido a nuestra gran cantidad de referencias, necesitábamos un sistema de gestión flexible, robusto y acabamos apostando también por un sistema Open Source que se entendiera a la perfección con PrestaShop.</p>
-<p>Visita la web: <strong><span style="color: #993300"><a href="http://www.decantalo.com/es/" target="_blank"><span style="color: #993300">www.decantalo.com</span></a></span></strong></p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/caso-de-exito-decantalo-vino-espanol-para-el-mundo/">Decántalo &#8211; Vino Español para el mundo</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/caso-de-exito-decantalo-vino-espanol-para-el-mundo/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
-		</item>
-		<item>
-		<title>Fundamentos básicos de retargeting para vendedores online</title>
-		<link>https://www.prestashop.com/blog/es/fundamentos-basicos-de-retargeting-para-vendedores-online/</link>
-		<comments>https://www.prestashop.com/blog/es/fundamentos-basicos-de-retargeting-para-vendedores-online/#comments</comments>
-		<pubDate>Mon, 08 Feb 2016 08:30:15 +0000</pubDate>
-		<dc:creator><![CDATA[Los amigos de Preston]]></dc:creator>
-				<category><![CDATA[Consejos E-commerce]]></category>
-
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13966</guid>
-		<description><![CDATA[<p>Como compradores online, todos hemos vivido esta situación: navegas por el sitio web de alguna tienda, decides que por ahora no vas a comprar y continúas leyendo artículos de BuzzFeed. Cuando sigues navegando por Internet, te das cuenta de que los productos que acabas de consultar aparecen en el borde de la pantalla. ¿Cómo sabe [...]</p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/fundamentos-basicos-de-retargeting-para-vendedores-online/">Fundamentos básicos de retargeting para vendedores online</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></description>
-				<content:encoded><![CDATA[<p>Como compradores online, todos hemos vivido esta situación: navegas por el sitio web de alguna tienda, decides que por ahora no vas a comprar y continúas leyendo artículos de BuzzFeed. Cuando sigues navegando por Internet, te das cuenta de que los productos que acabas de consultar aparecen en el borde de la pantalla. ¿Cómo sabe ese sitio web que te interesan esos productos? Si eres un vendedor online, no puedes evitar preguntarte si esto funcionaría para tu <a href="http://prestashop.com/">tienda online</a>. La respuesta es sí, probablemente. Invitamos a Garrett Gan de <a href="http://www.thalamus.co/" target="_blank">Thalamus</a>, un sitio web de análisis de publicidad digital, para que compartiera sus conocimientos con nosotros.<br />
-<span id="more-13966"></span></p>
-<h2 style="color:#353466">1. ¿Qué es el retargeting?</h2>
-<p>El retargeting es un tipo de publicidad que solo se muestra a las personas que han visitado previamente tu tienda online. Funciona del siguiente modo: añades un píxel (o una línea de código) en tu sitio web, que dejará una cookie de seguimiento en el navegador del usuario. Con esta cookie de seguimiento, las <a href="http://www.thalamus.co/display/retargeting" target="_blank">empresas de retargeting</a> son capaces de ver los diferentes sitios web por los que navega el usuario en Internet y mostrarle anuncios relacionados.</p>
-<p>La técnica se parece a las etiquetas que los científicos colocan a los animales para observar su comportamiento, salvo que en este caso la etiqueta se coloca en el navegador del cliente para mostrarle más tarde anuncios acordes a su conducta. </p>
-<p>Uno de los mejores casos de utilización del retargeting es mostrar anuncios a los usuarios que han consultado un producto específico de tu sitio web –zapatos, pantalones, camisetas u otros artículos– y mostrarles anuncios de ese mismo producto después de que abandonen tu sitio web (sin haberlo comprado) con un pequeño descuento que los incite a volver y finalizar su compra. </p>
-<h2 style="color:#353466">2. ¿Qué tipos de empresas usan el retargeting? ¿Por qué?</h2>
-<p>Todos los tipos de empresas utilizan el retargeting, entre ellas empresas de comercio electrónico, aplicaciones móviles, sitios web B2B y ¡hasta empresas de publicidad!</p>
-<p>El retargeting es una herramienta poderosa que te permite comunicarte con los usuarios que ya han interactuado con tu sitio web y aportar más valor a su experiencia. </p>
-<p>Además, personaliza su experiencia de navegación, ya que los anuncios mostrados corresponderán a artículos específicos que han consultado previamente, pero esta vez con descuentos y/o regalos. Sin esta tecnología, los vendedores no tendrían otra opción que decidir qué productos podrían interesar a un usuario en concreto. </p>
-<p>Cuando apareció el retargeting, a los consumidores les parecía un tanto inquietante, pero muchas empresas han utilizado esta técnica durante años y ahora es una práctica ampliamente aceptada.</p>
-<h2 style="color:#353466">3. ¿Cuánto cuesta hacer una campaña de retargeting?</h2>
-<p>Los vendedores online pueden empezar con un importe inicial de 100 dólares por semana (o incluso menos) con empresas como <a href="http://www.thalamus.co/ad_partners/adroll" target="_blank">AdRoll</a> o <a href="http://www.thalamus.co/ad_partners/retargeter" target="_blank">Retargeter</a>. Asimismo, existen empresas más grandes, como <a href="http://www.thalamus.co/ad_partners/tellapart" target="_blank">TellApart</a>, <a href="http://www.thalamus.co/ad_partners/criteo" target="_blank">Criteo</a> o <a href="http://www.thalamus.co/ad_partners/simpli-fi" target="_blank">Simpli.fi</a>, que ofrecen funcionalidades más avanzadas como la optimización creativa dinámica (cambiar anuncios algorítmicamente para mostrar el que dé mejores resultados) o los anuncios a partir del catálogo de productos (el consumidor ve artículos similares a los que acaba de consultar en un sitio web de comercio electrónico).</p>
-<h2 style="color:#353466">4. ¿Cómo pueden iniciarse en el retargeting los vendedores online?</h2>
-<p>Los vendedores online, independientemente de su tamaño, deberían empezar con campañas anuales de retargeting. Muchas empresas de comercio electrónico han visto aumentar el número de conversiones reales de clientes con solo ofrecer un pequeño descuento en un anuncio de retargeting cuando un usuario abandona el carrito.</p>
-<p>Una vez que los vendedores sepan mejor cómo incrementar las conversiones a partir de anuncios de retargeting regulares, podrán pasar a utilizar mecanismos más sofisticados, como la optimización creativa dinámica o los anuncios a partir de catálogos de productos (mencionados anteriormente), así como trabajar con <a href="http://www.thalamus.co/display/ad-network" target="_blank">redes publicitarias</a> para atraer más clientes al sitio web.</p>
-<hr align="left" width="20%">
-<p>Empieza hoy mismo consultando análisis de empresas de retargeting como AdRoll y Retargeter en <a href="http://www.thalamus.co/" target="_blank">Thalamus</a>. Después, anímate y lanza tu primera campaña de retargeting. ¿Ya has puesto en marcha una campaña? ¡Cuéntanos tus trucos! El apartado de comentarios está a tu disposición. </p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/fundamentos-basicos-de-retargeting-para-vendedores-online/">Fundamentos básicos de retargeting para vendedores online</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/fundamentos-basicos-de-retargeting-para-vendedores-online/feed/</wfw:commentRss>
-		<slash:comments>2</slash:comments>
-		</item>
-		<item>
-		<title>Primeros pasos para utilizar vídeos en las redes sociales</title>
-		<link>https://www.prestashop.com/blog/es/primeros-pasos-para-utilizar-videos-en-las-redes-sociales/</link>
-		<comments>https://www.prestashop.com/blog/es/primeros-pasos-para-utilizar-videos-en-las-redes-sociales/#comments</comments>
-		<pubDate>Mon, 08 Feb 2016 07:02:17 +0000</pubDate>
-		<dc:creator><![CDATA[Julie Liu]]></dc:creator>
-				<category><![CDATA[Consejos E-commerce]]></category>
-
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13968</guid>
-		<description><![CDATA[<p>A todos nos ha pasado: entramos en nuestra cuenta de Facebook para echarle un vistazo rápido, y de repente nos damos cuenta de que llevamos 30 minutos envueltos en una espiral de vídeos. Eres la prueba viviente: los vídeos no sólo ayudan a atraer la atención de los clientes, sino que cuando se realizan correctamente, [...]</p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/primeros-pasos-para-utilizar-videos-en-las-redes-sociales/">Primeros pasos para utilizar vídeos en las redes sociales</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></description>
-				<content:encoded><![CDATA[<p>A todos nos ha pasado: entramos en nuestra cuenta de Facebook para echarle un vistazo rápido, y de repente nos damos cuenta de que llevamos 30 minutos envueltos en una espiral de vídeos. Eres la prueba viviente: los vídeos no sólo ayudan a atraer la atención de los clientes, sino que cuando se realizan correctamente, pueden ayudar a que las empresas afiancen su marca en las redes sociales. Hoy podrás descubrir cómo empezar a utilizar vídeos en las redes sociales para mejorar tu presencia.<br />
-<span id="more-13968"></span></p>
-<h2 style="color:#e07531">Elige una plataforma</h2>
-<p>Antes de que pulses «grabar», necesitarás decidir dónde quieres compartir tu contenido. La plataforma que elijas determinará la duración de tu vídeo y viceversa. Empecemos con la más popular: </p>
-<h4><a href="https://vine.co/" target="_blank">Vine</a></h4>
-<p>Esta red social fue adquirida por Twitter en 2012. Lo que hace que Vine sea una plataforma única es que soporta vídeos muy cortos; el público objetivo suele tener menos de 20 años. Tras la adquisición, 1 de cada 5 vídeos de Vine son también compartidos en Twitter, aumentando ligeramente el alcance de los vendedores. <strong>Duración máxima de los vídeos: 6 segundos</strong></p>
-<h4><a href="https://www.instagram.com/" target="_blank">Instagram</a></h4>
-<p>Con Instagram, se obtiene lo mejor tanto de las imágenes como de los vídeos. En 2010, la empresa confiaba en ser la plataforma de intercambio de imágenes de esta generación. Con <a href="http://venturebeat.com/2013/06/20/instagram-users/" target="_blank">130 millones de usuarios mensuales</a>, tenían como objetivo hacer lo mismo con los vídeos en <a href="http://techcrunch.com/2013/06/20/facebook-instagram-video/" target="_blank">2013</a> permitiendo a los usuarios subir vídeos a su canal. Si ya dispones de un sólido grupo de seguidores, no tendrás ningún problema para incluir vídeos. <strong>Duración máxima de los vídeos: 15 segundos</strong></p>
-<h4><a href="https://www.facebook.com/" target="_blank">Facebook</a></h4>
-<p>Los <a href="http://newsroom.fb.com/news/2015/09/introducing-360-video-on-facebook/" target="_blank">vídeos 360</a> de Facebook fueron sin duda la innovación de vídeos más espectacular de 2015. Los usuarios de Facebook ahora pueden ver vídeos y explorarlos desde todos los ángulos (360 grados) simplemente inclinando y girando su dispositivo móvil. Pasarás al siguiente nivel mientras consolidas tu marca en Facebook: ¿qué más se puede pedir? <strong>Duración máxima de los vídeos: 3 minutos o 180 segundos</strong></p>
-<h4><a href="http://twitter.com/" target="_blank">Twitter</a></h4>
-<p>Al igual que Vine, Twitter también permite a los usuarios publicar vídeos y alojarlos directamente desde la aplicación. Estos vídeos pueden ser más largos y se pueden subir directamente desde la aplicación. Van acompañados de un tuit para aumentar las posibilidades de que se comparta. <strong>Duración máxima de los vídeos: 30 segundos</strong></p>
-<h4><a href="https://www.youtube.com/" target="_blank">YouTube</a></h4>
-<p>Posiblemente la mayor ventaja de utilizar YouTube sea su conexión con Google. Si creas vídeos de bricolaje o estupendos tutoriales, el hecho de tener un SEO excelente vinculado a ellos te ayudará a obtener una buena posición en los resultados de búsqueda y adquirir nuevos clientes potenciales. La segunda ventaja es la capacidad de obtener ingresos adicionales (a través de los anuncios de YouTube) gracias al aumento de las reproducciones. <strong>Duración máxima de los vídeos: 15 minutos o 900 segundos</strong></p>
-<h4><a href="https://vimeo.com/" target="_blank">Vimeo</a></h4>
-<p>Bautizada como la versión más «profesional» de <a href="http://mashable.com/2013/05/30/vimeo-over-youtube/#9fEYcbGXjkqD" target="_blank">YouTube</a>, Vimeo permite a los usuarios pagar por características adicionales, una factor clave de su modelo de negocio. Debido a que Vimeo no depende de anuncios para obtener ingresos, tus clientes no tienen que ver ningún anuncio antes de acceder a tu contenido. Si publicas vídeos cortos de calidad cinematográfica, te aconsejamos que utilices Vimeo. <strong>Duración máxima de los vídeos: ninguna/Vídeo (hasta 25 GB al año)</strong></p>
-<h2 style="color:#e07531">Ideas para vídeos en redes sociales</h2>
-<p>Ahora que ya sabes cuánto quieres que duren tus vídeos, deberías decidir qué tipo de contenido quieres crear. Aquí te dejamos algunas ideas para empezar: </p>
-<ol>
-<li><strong>Cuenta una historia</strong> &#8211; Imagina que se trata de un cortometraje. <a href="https://www.youtube.com/watch?v=qOIdI_kZNBU" target="_blank">Extra Gum</a> hizo un trabajo estupendo contando una historia (relacionada con su producto) y haciendo que todo aquel que viera el cortometraje se estremeciera. </li>
-<li><strong>Casos de clientes</strong> (contenido generado por usuarios) &#8211; Comparte algunos de las experiencias de tus clientes con aquellos potenciales clientes a los que deseas llegar. Es fantástico poder entrevistar a tus propios clientes, pero también podrías seguir el ejemplo de <a href="https://www.facebook.com/gopro/videos" target="_blank">GoPro</a> y animar a tus clientes a que envíen sus mejores vídeos.</li>
-<li><strong>Entre bastidores</strong> (o documental) &#8211; Permite que tus clientes echen un vistazo a lo que hay detrás de tu gran negocio. Si creas tus productos de manera artesanal, muestra cómo se hacen. Prepara una sesión de fotos o un porfolio, o comparte algún avance con tus clientes como hizo <a href="https://vimeo.com/25439223" target="_blank">Crystal Cactus</a> cuya sede se encuentra en Nueva York.</li>
-<li><strong>Entrevistas a invitados o empleados</strong> &#8211; Haz preguntas a otros expertos, o cambia los papeles y deja que tus seguidores sean quienes te entrevisten a ti, respondiendo a las preguntas que te formulen (como hemos hecho nosotros en nuestra <a href="https://www.facebook.com/prestashop/videos/1227558680594405/?theater" target="_blank">campaña de preguntas de comercio electrónico #EQM en Facebook</a>).</li>
-<li><strong>Vídeos didácticos</strong> &#8211; ¿No crees que puedes enseñar algo en tan sólo unos segundos? Deja que Oreo te demuestre que estás equivocado con un <a href="https://v.cdn.vine.co/r/videos/48133739-9554-456A-9AF9-803F42B521B5-618-00000112A175BA3D_1.0.7.mp4?versionId=NQv5RUjDw9AoOKfUOz8lEONNRqJZ3CxV" target="_blank">Vine sobre cómo hacer virutas</a>. Eres un experto en tu producto, así que utiliza vídeos para enseñar a tus clientes nuevas técnicas.</li>
-<li><strong>Educación/Historia</strong> &#8211; Utiliza vídeos para ilustrar a tu comunidad social sobre algo en concreto. <a href="https://twitter.com/generalelectric/status/683089956277886977" target="_blank">GE</a> utiliza su pasión por la ciencia para compartir su sabiduría friki. En este vídeo, muestran las diferentes maneras en que las personas han utilizado la tecnología para cambiar el mundo.</li>
-<li><strong>3D/Stop motion /dibujos animados</strong> &#8211; Échale un vistazo a esta animación en stop motion creada por la tienda <a href="https://www.instagram.com/p/_o6pdjDv0S/" target="_blank">SelfPackaging</a> de PrestaShop. No cabe duda de que este tema refleja la alegría de la temporada navideña. Después de todo, ¿quién no quiere que Papá Noel pase por su casa?</li>
-</ol>
-<p>Ahora que tienes las herramientas necesarias para empezar a utilizar el vídeo marketing en las redes sociales&#8230; ¿A qué esperas? ¡Pulsa el botón de grabar y empieza hoy! ¿Ya utilizas vídeos en tus redes sociales? ¡Cuéntanos cómo lo has hecho! El apartado de comentarios está a tu disposición.</p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/primeros-pasos-para-utilizar-videos-en-las-redes-sociales/">Primeros pasos para utilizar vídeos en las redes sociales</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/primeros-pasos-para-utilizar-videos-en-las-redes-sociales/feed/</wfw:commentRss>
-		<slash:comments>1</slash:comments>
-<enclosure url="https://v.cdn.vine.co/r/videos/48133739-9554-456A-9AF9-803F42B521B5-618-00000112A175BA3D_1.0.7.mp4" length="916512" type="video/mp4" />
-		</item>
-		<item>
-		<title>Inspiración en Diseño Ecommerce: Lookbook PrestaShop 2016</title>
-		<link>https://www.prestashop.com/blog/es/inspiracion-en-diseno-ecommerce-lookbook-prestashop-2016/</link>
-		<comments>https://www.prestashop.com/blog/es/inspiracion-en-diseno-ecommerce-lookbook-prestashop-2016/#comments</comments>
-		<pubDate>Wed, 03 Feb 2016 16:25:19 +0000</pubDate>
-		<dc:creator><![CDATA[Juan Manuel Molina]]></dc:creator>
-				<category><![CDATA[Actualidad PrestaShop]]></category>
-
-		<guid isPermaLink="false">https://www.prestashop.com/blog/es/?p=13955</guid>
-		<description><![CDATA[<p>¿Qué tienen en común las tiendas PrestaShop con más éxito? Un diseño cuidado y una excelente selección de fotografía, tanto de ambiente como de producto, son elementos básicos para convertirse en una referencia en tu sector, país e incluso del universo ecommerce. El Lookbook PrestaShop de 2016 recoge una selección de 24 ejemplos de interfaces [...]</p>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/inspiracion-en-diseno-ecommerce-lookbook-prestashop-2016/">Inspiración en Diseño Ecommerce: Lookbook PrestaShop 2016</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></description>
-				<content:encoded><![CDATA[<p><strong>¿Qué tienen en común las tiendas PrestaShop con más éxito?</strong> Un diseño cuidado y una excelente selección de fotografía, tanto de ambiente como de producto, son elementos básicos para convertirse en una referencia en tu sector, país e incluso del universo ecommerce.</p>
-<p>El Lookbook PrestaShop de 2016 recoge una selección de 24 ejemplos de interfaces de usuario cuidadas, uso del color delicado e inteligente y ejemplo de buenas prácticas que, ¡además convierten!<br />
-<span id="more-13955"></span><br />
-Encuentra la inspiración en las tiendas PrestaShop más bonitas y regala a tus sentidos un viaje por el catálogo de nuestra particular galería de arte del ecommerce.</p>
-<div class="text-center">
-	<a href="https://www.prestashop.com/es/lookbook" target="_blank" class="btn btn-sucess" style="background-color: #2f2f2f;border: 1px solid #191717;border-bottom: 3px solid #292727;margin: 20px 0 0;color:#fff"><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;Descarga el Lookbook ahora</a>
-</div>
-<p>La entrada <a rel="nofollow" href="https://www.prestashop.com/blog/es/inspiracion-en-diseno-ecommerce-lookbook-prestashop-2016/">Inspiración en Diseño Ecommerce: Lookbook PrestaShop 2016</a> aparece primero en <a rel="nofollow" href="https://www.prestashop.com/blog/es">ES - Blog Ecommerce de PrestaShop</a>.</p>
-]]></content:encoded>
-			<wfw:commentRss>https://www.prestashop.com/blog/es/inspiracion-en-diseno-ecommerce-lookbook-prestashop-2016/feed/</wfw:commentRss>
-		<slash:comments>0</slash:comments>
+		<slash:comments>3</slash:comments>
 		</item>
 	</channel>
 </rss>
