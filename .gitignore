@@ -1,11 +1,3 @@
-/config/smarty.config.inc.php
-/config/defines_uri.inc.php
-/config/smartyadmin.config.inc.php
-/config/db_slave_server.inc.php
-/config/defines.inc.php
-/config/config.inc.php
-/config/settings.inc.php
-/config/smartyfront.config.inc.php
 /cache/smarty/
 /cache/index.php
 /cache/class_index.php
